@@ -1,15 +1,14 @@
-import { Text, View } from "react-native";
+import { Text } from "react-native";
+import styled from "styled-components/native";
 
 export default function Index() {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <StyledView>
       <Text>Edit app/index.tsx to edit this screen.</Text>
-    </View>
+    </StyledView>
   );
 }
+
+const StyledView = styled.View`
+  background-color: ${({ theme }) => theme.colors.deepGreen};
+`;
