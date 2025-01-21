@@ -3,12 +3,11 @@ import { Stack } from "expo-router";
 import { ThemeProvider } from "styled-components/native";
 import { theme } from "@/src/constants/theme";
 import { useEffect, useState } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import initializeApp from "@/src/utils/initializeApp";
+import queryClient from "@/src/libs/queryClient";
 
 SplashScreen.preventAutoHideAsync();
-
-const queryClient = new QueryClient();
 
 export default function RootLayout() {
   const [isReady, setIsReady] = useState<boolean>(false);
