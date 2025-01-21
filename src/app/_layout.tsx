@@ -4,8 +4,11 @@ import { Stack } from "expo-router";
 import { ThemeProvider } from "styled-components/native";
 import { theme } from "@/src/styles/theme";
 import { useEffect, useState } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 SplashScreen.preventAutoHideAsync();
+
+const queryClient = new QueryClient();
 
 export default function RootLayout() {
   const [isReady, setIsReady] = useState<boolean>(false);
@@ -35,7 +38,9 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Stack />
+      <QueryClientProvider client={queryClient}>
+        <Stack />
+      </QueryClientProvider>
     </ThemeProvider>
   );
 }
