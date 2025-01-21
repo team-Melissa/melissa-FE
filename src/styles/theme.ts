@@ -8,6 +8,14 @@ const fontSize = {
   title: "24px",
 };
 
+const fontFamily = {
+  nsLight: "nanumSquareNeoLight",
+  nsRegular: "nanumSquareNeoRegular",
+  nsBold: "nanumSquareNeoBold",
+  nsExtraBold: "nanumSquareNeoExtraBold",
+  nsHeavy: "nanumSquareNeoHeavy",
+};
+
 const borderRadius = {
   smallBox: "20px",
   largeBox: "30px",
@@ -31,10 +39,12 @@ const colors = {
 
 export const theme: DefaultTheme = {
   fontSize,
+  fontFamily,
   borderRadius,
   colors,
 };
 
 export type Fontsize = typeof fontSize;
+export type FontFamily = typeof fontFamily;
 export type BorderRadius = typeof borderRadius;
 export type Colors = typeof colors;
