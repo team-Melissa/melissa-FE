@@ -2,7 +2,7 @@ import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
 import { Stack } from "expo-router";
 import { ThemeProvider } from "styled-components/native";
-import { theme } from "@/src/styles/theme";
+import { theme } from "@/src/constants/theme";
 import { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
