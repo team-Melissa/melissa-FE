@@ -1,87 +1,42 @@
-# Node modules
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# dependencies
 node_modules/
 
-# React Native build artifacts
-/android/app/build/
-/ios/build/
-/ios/Pods/
-
-# iOS specific
-ios/*.xcodeproj/project.xcworkspace/
-ios/*.xcworkspace/xcuserdata/
-ios/DerivedData/
-ios/.DS_Store
-ios/*.mode1v3
-ios/*.mode2v3
-ios/*.perspectivev3
-ios/.idea/
-
-# TypeScript build artifacts
-*.js
-*.js.map
-*.d.ts
-
-# Environment variables
-.env
-.env.*
-
-# Logs and debugging
-*.log
-*.lock
-*.tmp
-*.temp
-/metro-cache/
-/haul-debug.log
-
-# Coverage files
-coverage/
-*.lcov
-
-# OS generated files
-.DS_Store
-Thumbs.db
-
-# IDE files
-.vscode/
-.idea/
-*.iml
-
-# Temporary files
-*.swp
-*.swo
-*.bak
-
-# Images built by the packager
-*.png.bundle
-
-# React Native packager files
+# Expo
 .expo/
-.expo-shared/
-*.expo
+dist/
+web-build/
+expo-env.d.ts
 
-# Fastlane (if used)
-fastlane/report.xml
-fastlane/Preview.html
-fastlane/screenshots/**/*.png
+# Native
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+android/
+ios/
 
-# Firebase cache
-firebase-debug.log
+# Metro
+.metro-health-check*
 
-# Additional platform artifacts
-android/.gradle/
-android/.idea/
-android/local.properties
-android/.cxx/
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
 
-# Yarn
-.yarn/*
-!.yarn/releases
-!.yarn/plugins
-!.yarn/sdks
-!.yarn/versions
+# macOS
+.DS_Store
+*.pem
 
-# npm
-package-lock.json
+# local env files
+.env.local
+.env
+.env.production
 
-# Temporary build caches
-.tmp/
+# typescript
+*.tsbuildinfo
+
+app-example
