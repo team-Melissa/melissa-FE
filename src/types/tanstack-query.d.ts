@@ -1,8 +1,8 @@
 import "@tanstack/react-query";
 import { AxiosError } from "axios";
 
-// Todo: Error타입 백엔드로부터 전달받으면 수정하기
 type ErrorResponse = {
+  isSuccess: boolean;
   code: string;
   message: string;
 };
