@@ -2,9 +2,9 @@ import { Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 /**
- * @description 로그인 페이지
+ * @description 로그인 페이지의 라우터
  */
-function LoginPage() {
+function LoginRouter() {
   return (
     <SafeAreaView>
       <Text>This Is Login Page</Text>
@@ -12,4 +12,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default LoginRouter;
