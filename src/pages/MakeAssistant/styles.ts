@@ -39,9 +39,18 @@ export const AnimatedHeaderBox = styled(Animated.View)`
   align-items: center;
 `;
 
-export const ProgressBarBox = styled.View`
+export const HeaderText = styled.Text`
+  font-family: ${({ theme }) => theme.fontFamily.nsRegular};
+  font-size: ${({ theme }) => theme.fontSize.mainBase};
+  letter-spacing: 11px;
+`;
+
+export const ProgressBarWrapper = styled.View`
+  width: 80%;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
 `;
 
 export const AnimatedBodyBox = styled(Animated.View)`
@@ -53,6 +62,7 @@ export const AnimatedBodyBox = styled(Animated.View)`
 
 export const QuestionBox = styled.View`
   width: 80%;
+  margin-top: 36px;
 `;
 
 export const ButtonBox = styled.View`
@@ -69,4 +79,20 @@ export const QuestionText = styled.Text`
   font-size: ${({ theme }) => theme.fontSize.title};
   line-height: 40px;
   padding-bottom: 16px;
+`;
+
+// ----------------------- ProgressBar ---------------------------------
+
+export const ProgressBarBox = styled.View`
+  width: 60%;
+  height: 8px;
+  background-color: ${({ theme }) => theme.colors.gray};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  overflow: hidden;
+`;
+
+export const AnimatedProgressBar = styled(Animated.View)`
+  height: 100%;
+  background-color: ${({ theme }) => theme.colors.black};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
 `;

@@ -3,9 +3,14 @@ import Button from "@/src/components/ui/Button";
 import question from "@/src/constants/question";
 import * as S from "./styles";
 
-import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
+import Animated, {
+  FadeIn,
+  FadeOut,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { Text } from "react-native";
 
 function MakeAssistantPage() {
   const [isStart, setIsStart] = useState<boolean>(true);
@@ -52,21 +57,21 @@ function Question() {
   return (
     <S.BetweenBox>
       <S.AnimatedHeaderBox entering={FadeIn.delay(900).duration(300)}>
-        {/* Todo: 진행상황 바 만들기, 버튼 클릭 시 색 변하게 하기*/}
-        <Text>
-          {cursor + 1} / {question.length}
-        </Text>
-        <S.ProgressBarBox>
+        {/* Todo: 진행 상황 기록하기, 체크하지 않으면 앞으로 못 가게 막기, 버튼 클릭 시 색 변하게 하기*/}
+        <S.HeaderText>
+          {cursor + 1}/{question.length}
+        </S.HeaderText>
+        <S.ProgressBarWrapper>
           <AntDesign name="left" size={24} color="black" onPress={handlePrevBtn} />
-
+          <ProgressBar progress={(cursor + 1) / question.length} />
           <AntDesign name="right" size={24} color="black" onPress={handleNextBtn} />
-        </S.ProgressBarBox>
+        </S.ProgressBarWrapper>
       </S.AnimatedHeaderBox>
 
       <S.AnimatedBodyBox
         entering={FadeIn.delay(900).duration(300)}
         exiting={FadeOut.duration(300)}
-        key={cursor} // cursor가 바뀔 때마다 새로운 뷰로 인식
+        key={cursor}
       >
         <S.QuestionBox>
           <S.QuestionText>{question[cursor].q}</S.QuestionText>
@@ -74,13 +79,31 @@ function Question() {
 
         <S.ButtonBox>
           {question[cursor].a.map((e) => (
-            <Button key={e} color="white" textColor="black">
+            <Button key={e} color="white" textColor="black" fontFamily="nsRegular">
               {e}
             </Button>
           ))}
         </S.ButtonBox>
       </S.AnimatedBodyBox>
     </S.BetweenBox>
+  );
+}
+
+function ProgressBar({ progress }: { progress: number }) {
+  const animatedProgress = useSharedValue(progress);
+
+  useEffect(() => {
+    animatedProgress.value = withTiming(progress, { duration: 300 });
+  }, [animatedProgress, progress]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    width: `${animatedProgress.value * 100}%`,
+  }));
+
+  return (
+    <S.ProgressBarBox>
+      <S.AnimatedProgressBar style={animatedStyle} />
+    </S.ProgressBarBox>
   );
 }
 
