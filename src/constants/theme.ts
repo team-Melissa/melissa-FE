@@ -17,8 +17,8 @@ const fontFamily = {
 };
 
 const borderRadius = {
-  smallBox: "20px",
-  largeBox: "30px",
+  sm: "20px",
+  lg: "30px",
 };
 
 const colors = {
