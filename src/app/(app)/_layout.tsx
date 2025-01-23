@@ -12,8 +12,8 @@ function RootLayout() {
   // 체크하는동안 로딩 상태로 놔둠, 스플래시스크린 보여주면 될듯
   // 토큰 검증 성공하면 스택 네비게이터 렌더링해서 index 그리기, 토큰 검증 실패하면 로그인으로 리다이렉트
   // 아래 두 목업 변수는 토큰 검증 응답 값이 될 것
-  const isLoading = true;
-  const isAuthorized = true;
+  const isLoading = false;
+  const isAuthorized = false;
 
   useEffect(() => {
     initializeApp(setIsReady);
