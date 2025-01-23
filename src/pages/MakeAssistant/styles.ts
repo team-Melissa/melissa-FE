@@ -31,7 +31,7 @@ export const BetweenBox = styled.View`
   align-items: center;
 `;
 
-export const HeaderBox = styled.View`
+export const AnimatedHeaderBox = styled(Animated.View)`
   width: 100%;
   height: 20%;
 

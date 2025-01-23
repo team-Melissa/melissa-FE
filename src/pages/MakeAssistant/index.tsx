@@ -51,7 +51,7 @@ function Question() {
 
   return (
     <S.BetweenBox>
-      <S.HeaderBox>
+      <S.AnimatedHeaderBox entering={FadeIn.delay(900).duration(300)}>
         {/* Todo: 진행상황 바 만들기, 버튼 클릭 시 색 변하게 하기*/}
         <Text>
           {cursor + 1} / {question.length}
@@ -61,7 +61,7 @@ function Question() {
 
           <AntDesign name="right" size={24} color="black" onPress={handleNextBtn} />
         </S.ProgressBarBox>
-      </S.HeaderBox>
+      </S.AnimatedHeaderBox>
 
       <S.AnimatedBodyBox
         entering={FadeIn.delay(900).duration(300)}
@@ -73,7 +73,7 @@ function Question() {
         </S.QuestionBox>
 
         <S.ButtonBox>
-          {question[cursor].a.map((e, i) => (
+          {question[cursor].a.map((e) => (
             <Button key={e} color="white" textColor="black">
               {e}
             </Button>
