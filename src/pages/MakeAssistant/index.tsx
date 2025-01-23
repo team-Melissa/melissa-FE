@@ -1,29 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "@/src/components/ui/Button";
 import question from "@/src/constants/question";
 import * as S from "./styles";
 
-import { FadeIn, FadeOut } from "react-native-reanimated";
+import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { Text } from "react-native";
 
 function MakeAssistantPage() {
-  return (
-    <S.SafeLayout>
-      <Question />
-    </S.SafeLayout>
-  );
+  const [isStart, setIsStart] = useState<boolean>(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsStart(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
+  return <S.SafeLayout>{isStart ? <Start /> : <Question />}</S.SafeLayout>;
 }
 
 function Start() {
   return (
     <S.CenteringBox>
-      <S.InfoText>
-        몇 가지 <S.Bold>질문</S.Bold>에 답변해주세요
-      </S.InfoText>
-      <S.InfoText>
-        당신에게 맞는 <S.Bold>서포터</S.Bold>를 만들어드릴게요
-      </S.InfoText>
+      <Animated.View entering={FadeIn.duration(1000)} exiting={FadeOut.duration(300)}>
+        <S.InfoText>
+          몇 가지 <S.Bold>질문</S.Bold>에 답변해주세요
+        </S.InfoText>
+      </Animated.View>
+
+      <Animated.View entering={FadeIn.delay(1500).duration(1000)} exiting={FadeOut.duration(300)}>
+        <S.InfoText>
+          당신에게 맞는 <S.Bold>서포터</S.Bold>를 만들어드릴게요
+        </S.InfoText>
+      </Animated.View>
     </S.CenteringBox>
   );
 }
