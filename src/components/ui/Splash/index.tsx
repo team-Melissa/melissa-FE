@@ -5,9 +5,9 @@ import * as S from "./styles";
  */
 function Splash(): JSX.Element {
   return (
-    <S.SafeLayout>
+    <S.SplashLayout>
       <S.LogoImage source={require("@/assets/images/splash-icon.png")} />
-    </S.SafeLayout>
+    </S.SplashLayout>
   );
 }
 

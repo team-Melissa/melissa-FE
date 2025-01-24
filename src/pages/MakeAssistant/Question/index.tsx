@@ -59,43 +59,41 @@ function Question({ answer, setAnswer }: Props) {
   };
 
   return (
-    <S.SafeLayout>
-      <S.BetweenBox>
-        <S.AnimatedHeaderBox entering={fadeIn(900, 300)} exiting={fadeOut()}>
-          {/* Todo: 버튼 클릭 시 색 변하게 하기*/}
-          <S.HeaderText>
-            {cursor + 1}/{question.length}
-          </S.HeaderText>
-          <S.ProgressBarWrapper>
-            <AntDesign name="left" size={24} color={leftBtnColor} onPress={handlePrevBtn} />
-            <ProgressBar progress={(cursor + 1) / question.length} />
-            <AntDesign name="right" size={24} color={rightBtnColor} onPress={handleNextBtn} />
-          </S.ProgressBarWrapper>
-        </S.AnimatedHeaderBox>
-        <S.AnimatedBodyBox
-          entering={fadeInWithCallback(900, 300, questionEnterCallback)}
-          exiting={fadeOut()}
-          key={cursor}
-        >
-          <S.QuestionBox>
-            <S.QuestionText>{question[cursor].q}</S.QuestionText>
-          </S.QuestionBox>
-          <S.ButtonBox>
-            {question[cursor].a.map((text) => (
-              <Button
-                key={text}
-                color="white"
-                textColor="black"
-                fontFamily="nsRegular"
-                onPress={() => handleAnswerBtn(text)}
-              >
-                {text}
-              </Button>
-            ))}
-          </S.ButtonBox>
-        </S.AnimatedBodyBox>
-      </S.BetweenBox>
-    </S.SafeLayout>
+    <S.BetweenBox>
+      <S.AnimatedHeaderBox entering={fadeIn(900, 300)} exiting={fadeOut()}>
+        {/* Todo: 버튼 클릭 시 색 변하게 하기*/}
+        <S.HeaderText>
+          {cursor + 1}/{question.length}
+        </S.HeaderText>
+        <S.ProgressBarWrapper>
+          <AntDesign name="left" size={24} color={leftBtnColor} onPress={handlePrevBtn} />
+          <ProgressBar progress={(cursor + 1) / question.length} />
+          <AntDesign name="right" size={24} color={rightBtnColor} onPress={handleNextBtn} />
+        </S.ProgressBarWrapper>
+      </S.AnimatedHeaderBox>
+      <S.AnimatedBodyBox
+        entering={fadeInWithCallback(900, 300, questionEnterCallback)}
+        exiting={fadeOut()}
+        key={cursor}
+      >
+        <S.QuestionBox>
+          <S.QuestionText>{question[cursor].q}</S.QuestionText>
+        </S.QuestionBox>
+        <S.ButtonBox>
+          {question[cursor].a.map((text) => (
+            <Button
+              key={text}
+              color="white"
+              textColor="black"
+              fontFamily="nsRegular"
+              onPress={() => handleAnswerBtn(text)}
+            >
+              {text}
+            </Button>
+          ))}
+        </S.ButtonBox>
+      </S.AnimatedBodyBox>
+    </S.BetweenBox>
   );
 }
 

@@ -1,8 +1,7 @@
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Image as Img } from "expo-image";
 import styled from "styled-components/native";
 
-export const SafeLayout = styled(SafeAreaView)`
+export const SplashLayout = styled.View`
   background-color: ${({ theme }) => theme.colors.white};
   flex: 1;
   justify-content: center;

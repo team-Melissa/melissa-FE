@@ -1,10 +1,5 @@
 import Animated from "react-native-reanimated";
-import { SafeAreaView } from "react-native-safe-area-context";
 import styled from "styled-components/native";
-
-export const SafeLayout = styled(SafeAreaView)`
-  flex: 1;
-`;
 
 export const BetweenBox = styled.View`
   flex: 1;
