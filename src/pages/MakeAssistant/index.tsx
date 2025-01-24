@@ -6,6 +6,7 @@ import * as S from "./styles";
 import Animated, {
   FadeIn,
   FadeOut,
+  runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
@@ -67,26 +68,38 @@ function Question({
   setAnswer: Dispatch<SetStateAction<string[]>>;
 }) {
   const [cursor, setCursor] = useState<number>(0);
+  const [isAnimating, setIsAnimating] = useState<boolean>(false);
 
   const handleNextBtn = () => {
     // 답변하지 않고 다음 페이지로 못 넘어가게 조건 추가
-    if (cursor < question.length - 1 && cursor < answer.length) setCursor(cursor + 1);
+    if (cursor < question.length - 1 && cursor < answer.length) {
+      setCursor(cursor + 1);
+      setIsAnimating(true);
+    }
   };
 
   const handlePrevBtn = () => {
-    if (cursor > 0) setCursor(cursor - 1);
+    if (cursor > 0) {
+      setCursor(cursor - 1);
+      setIsAnimating(true);
+    }
   };
 
-  const handleBtnPress = (text: string) => {
+  const handleAnswerBtn = (text: string) => {
+    // 애니메이션 도중에는 버튼 눌리지 않게 조건 추가
+    if (isAnimating) return;
+
     // 기존 answer 변경인지 새로 추가인지 조건 분기
     if (cursor === answer.length) {
       setAnswer((prev) => [...prev, text]);
     } else {
-      // setAnswer((prev) => [...prev].splice(cursor, 1, text));
       setAnswer((prev) => prev.map((e, i) => (i === cursor ? text : e)));
     }
 
-    if (cursor < question.length - 1) setCursor(cursor + 1);
+    if (cursor < question.length - 1) {
+      setCursor(cursor + 1);
+      setIsAnimating(true);
+    }
   };
 
   return (
@@ -119,7 +132,13 @@ function Question({
         </S.AnimatedHeaderBox>
 
         <S.AnimatedBodyBox
-          entering={FadeIn.delay(900).duration(300)}
+          entering={FadeIn.delay(900)
+            .duration(300)
+            .withCallback((finished) => {
+              "worklet";
+              // 애니메이션 끝나면 isAnimating을 false로 바꾸는 worklet함수
+              if (finished) runOnJS(setIsAnimating)(false);
+            })}
           exiting={FadeOut.duration(300)}
           key={cursor}
         >
@@ -134,7 +153,7 @@ function Question({
                 color="white"
                 textColor="black"
                 fontFamily="nsRegular"
-                onPress={() => handleBtnPress(text)}
+                onPress={() => handleAnswerBtn(text)}
               >
                 {text}
               </Button>
