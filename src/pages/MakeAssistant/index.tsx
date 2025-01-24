@@ -18,7 +18,7 @@ function MakeAssistantPage() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsStart(false);
-    }, 3000);
+    }, 4000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -58,6 +58,7 @@ function Question() {
     <S.BetweenBox>
       <S.AnimatedHeaderBox entering={FadeIn.delay(900).duration(300)}>
         {/* Todo: 진행 상황 기록하기, 체크하지 않으면 앞으로 못 가게 막기, 버튼 클릭 시 색 변하게 하기*/}
+        {/* Todo: 거대 컴포넌트들 쪼개기 */}
         <S.HeaderText>
           {cursor + 1}/{question.length}
         </S.HeaderText>
