@@ -6,24 +6,6 @@ export const SafeLayout = styled(SafeAreaView)`
   flex: 1;
 `;
 
-export const CenteringBox = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const InfoText = styled.Text`
-  font-family: ${({ theme }) => theme.fontFamily.nsRegular};
-  font-size: ${({ theme }) => theme.fontSize.mainBase};
-  padding-bottom: 30px;
-`;
-
-export const Bold = styled(InfoText)`
-  font-family: ${({ theme }) => theme.fontFamily.nsBold};
-`;
-
-// ----------------------- Question ---------------------------------
-
 export const BetweenBox = styled.View`
   flex: 1;
   padding: 0px 0px 120px 0px;
@@ -78,20 +60,4 @@ export const QuestionText = styled.Text`
   font-size: ${({ theme }) => theme.fontSize.title};
   line-height: 40px;
   padding-bottom: 16px;
-`;
-
-// ----------------------- ProgressBar ---------------------------------
-
-export const ProgressBarBox = styled.View`
-  width: 60%;
-  height: 8px;
-  background-color: ${({ theme }) => theme.colors.gray};
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  overflow: hidden;
-`;
-
-export const AnimatedProgressBar = styled(Animated.View)`
-  height: 100%;
-  background-color: ${({ theme }) => theme.colors.black};
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
 `;
