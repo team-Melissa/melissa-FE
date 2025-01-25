@@ -11,7 +11,7 @@ const { width } = Dimensions.get("window");
  */
 function responsiveToPx(pixel: string): string {
   const screenRatio = width / baseDesignScreenSize;
-  return `${parseInt(pixel) * screenRatio}px`;
+  return `${(parseInt(pixel) * screenRatio).toFixed(2)}px`;
 }
 
 export default responsiveToPx;
