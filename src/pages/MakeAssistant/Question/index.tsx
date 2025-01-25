@@ -1,10 +1,10 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { runOnJS } from "react-native-reanimated";
-import AntDesign from "@expo/vector-icons/AntDesign";
-import ProgressBar from "@/src/components/ProgressBar";
-import Button from "@/src/components/ui/Button";
 import { fadeIn, fadeInWithCallback, fadeOut } from "@/src/libs/animations";
 import question from "@/src/constants/question";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import ProgressBar from "@/src/components/ProgressBar";
+import QuestionButton from "./QuestionButton";
 import { theme } from "@/src/constants/theme";
 import * as S from "./styles";
 
@@ -82,15 +82,13 @@ function Question({ answer, setAnswer }: Props) {
         </S.QuestionBox>
         <S.ButtonBox>
           {question[cursor].a.map((text) => (
-            <Button
+            <QuestionButton
               key={text}
-              color="white"
-              textColor="black"
-              fontFamily="nsRegular"
+              selected={text === answer[cursor]}
               onPress={() => handleAnswerBtn(text)}
             >
               {text}
-            </Button>
+            </QuestionButton>
           ))}
         </S.ButtonBox>
       </S.AnimatedBodyBox>
