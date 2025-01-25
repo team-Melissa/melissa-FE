@@ -18,7 +18,7 @@ export const AnimatedHeaderBox = styled(Animated.View)`
 
 export const HeaderText = styled.Text`
   font-family: ${({ theme }) => theme.fontFamily.nsRegular};
-  font-size: ${({ theme }) => theme.fontSize.mainBase};
+  font-size: ${({ theme }) => theme.fontSize.md};
   letter-spacing: ${responsiveToPx("11px")};
 `;
 
@@ -53,7 +53,7 @@ export const ButtonBox = styled.View`
 export const QuestionText = styled.Text`
   align-self: baseline;
   font-family: ${({ theme }) => theme.fontFamily.nsBold};
-  font-size: ${({ theme }) => theme.fontSize.title};
+  font-size: ${({ theme }) => theme.fontSize.xl};
   line-height: ${responsiveToPx("40px")};
   padding-bottom: ${responsiveToPx("16px")};
 `;

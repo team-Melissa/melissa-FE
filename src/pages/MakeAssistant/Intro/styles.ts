@@ -9,7 +9,7 @@ export const CenteringBox = styled.View`
 
 export const InfoText = styled.Text`
   font-family: ${({ theme }) => theme.fontFamily.nsRegular};
-  font-size: ${({ theme }) => theme.fontSize.mainBase};
+  font-size: ${({ theme }) => theme.fontSize.md};
   padding-bottom: ${responsiveToPx("30px")};
 `;
 

@@ -16,8 +16,7 @@ export const Btn = styled.TouchableOpacity<Pick<BtnStyle, "color" | "borderRadiu
 export const BtnText = styled.Text<Omit<BtnStyle, "color">>`
   font-family: ${({ fontFamily, theme }) =>
     fontFamily ? theme.fontFamily[fontFamily] : theme.fontFamily.nsExtraBold};
-  font-size: ${({ fontSize, theme }) =>
-    fontSize ? theme.fontSize[fontSize] : theme.fontSize.mainBase};
+  font-size: ${({ fontSize, theme }) => (fontSize ? theme.fontSize[fontSize] : theme.fontSize.md)};
   color: ${({ textColor, theme }) => (textColor ? theme.colors[textColor] : theme.colors.white)};
 `;
 

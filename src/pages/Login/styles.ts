@@ -15,12 +15,12 @@ export const TextBox = styled.View`
 
 export const TitleText = styled.Text`
   font-family: ${({ theme }) => theme.fontFamily.nsRegular};
-  font-size: ${({ theme }) => theme.fontSize.title};
+  font-size: ${({ theme }) => theme.fontSize.xl};
   padding-bottom: ${responsiveToPx("16px")};
 `;
 
 export const ButtonBox = styled.View`
   justify-content: center;
   align-items: center;
-  gap: ${responsiveToPx("24px")};
+  gap: ${({ theme }) => theme.gap.lg};
 `;
