@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import question from "@/src/constants/question";
 import Intro from "./Intro";
 import Question from "./Question";
+import Submit from "./Submit";
 
 function MakeAssistantPage() {
   const [isIntro, setIsIntro] = useState<boolean>(true);
@@ -27,7 +28,7 @@ function MakeAssistantPage() {
     return <Question answer={answers} setAnswer={setAnswers} />;
   }
 
-  return null;
+  return <Submit answers={answers} />;
 }
 
 export default MakeAssistantPage;
