@@ -1,5 +1,6 @@
 import Button from "@/src/components/ui/Button";
 import * as S from "./styles";
+import KakaoBtn from "./KakaoBtn";
 
 function LoginPage() {
   return (
@@ -9,9 +10,7 @@ function LoginPage() {
         <S.TitleText>오신 것을 환영합니다.</S.TitleText>
       </S.TextBox>
       <S.ButtonBox>
-        <Button color="yellow" textColor="black" fontFamily="nsBold" borderRadius="lg">
-          Kakao
-        </Button>
+        <KakaoBtn />
         <Button color="white" textColor="black" fontFamily="nsBold" borderRadius="sm">
           Google
         </Button>
