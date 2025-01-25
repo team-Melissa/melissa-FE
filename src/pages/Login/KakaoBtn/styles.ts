@@ -10,7 +10,7 @@ export const Btn = styled.TouchableOpacity`
   align-items: center;
   padding: ${responsiveToPx("16px")};
   border-radius: ${responsiveToPx("12px")};
-  gap: ${({ theme }) => theme.gap.base};
+  gap: ${({ theme }) => theme.gap.lg};
 `;
 
 export const Text = styled.Text`
@@ -21,6 +21,6 @@ export const Text = styled.Text`
 `;
 
 export const Image = styled(Img)`
-  width: ${responsiveToPx("20px")};
-  height: ${responsiveToPx("20px")};
+  width: ${responsiveToPx("18px")};
+  height: ${responsiveToPx("18px")};
 `;
