@@ -1,6 +1,7 @@
 import Button from "@/src/components/ui/Button";
 import * as S from "./styles";
 import KakaoBtn from "./KakaoBtn";
+import GoogleBtn from "./GoogleBtn";
 
 function LoginPage() {
   return (
@@ -11,9 +12,7 @@ function LoginPage() {
       </S.TextBox>
       <S.ButtonBox>
         <KakaoBtn />
-        <Button color="white" textColor="black" fontFamily="nsBold" borderRadius="sm">
-          Google
-        </Button>
+        <GoogleBtn />
         <Button color="gray" textColor="white" fontFamily="nsBold">
           Apple
         </Button>

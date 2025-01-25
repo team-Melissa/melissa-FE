@@ -19,6 +19,7 @@ const fontFamily = {
   nsExtraBold: "nanumSquareNeoExtraBold",
   nsHeavy: "nanumSquareNeoHeavy",
   appleSdRegular: "appleSdNeoRegular",
+  robotoMedium: "robotoMedium",
 };
 
 const borderRadius = {
