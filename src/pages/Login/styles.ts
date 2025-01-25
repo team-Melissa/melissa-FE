@@ -1,5 +1,5 @@
-import responsiveToPx from "@/src/utils/responsiveToPx";
 import styled from "styled-components/native";
+import responsiveToPx from "@/src/utils/responsiveToPx";
 
 export const ContentBox = styled.View`
   flex: 1;
@@ -10,7 +10,7 @@ export const ContentBox = styled.View`
 export const TextBox = styled.View`
   align-self: center;
   flex: 1;
-  width: 80%;
+  width: ${responsiveToPx("340px")};
 `;
 
 export const TitleText = styled.Text`
