@@ -2,6 +2,7 @@ import Animated from "react-native-reanimated";
 import styled from "styled-components/native";
 import { Image as Img } from "expo-image";
 import { InfoText } from "@/src/pages/MakeAssistant/Intro/styles";
+import responsiveToPx from "@/src/utils/responsiveToPx";
 
 export const SubmitLayout = styled.View`
   flex: 1;
@@ -22,7 +23,7 @@ export const FinishAnimatedView = styled(AnimatedView)`
 export { InfoText };
 
 export const Image = styled(Img)`
-  width: 130px;
-  height: 130px;
-  margin-bottom: 30px;
+  width: ${responsiveToPx("130px")};
+  height: ${responsiveToPx("130px")};
+  margin-bottom: ${responsiveToPx("30px")};
 `;

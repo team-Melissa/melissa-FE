@@ -1,10 +1,11 @@
 import styled from "styled-components/native";
 import { BtnStyle } from "./types";
 import { Platform, StyleSheet } from "react-native";
+import responsiveToPx from "@/src/utils/responsiveToPx";
 
 export const Btn = styled.TouchableOpacity<Pick<BtnStyle, "color" | "borderRadius">>`
   width: 80%;
-  padding: 16px;
+  padding: ${responsiveToPx("16px")};
   border-radius: ${({ borderRadius, theme }) =>
     borderRadius ? theme.borderRadius[borderRadius] : theme.borderRadius.sm};
   background-color: ${({ color, theme }) => (color ? theme.colors[color] : theme.colors.green)};

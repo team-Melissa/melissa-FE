@@ -1,11 +1,12 @@
 import { DefaultTheme } from "styled-components/native";
+import responsiveToPx from "../utils/responsiveToPx";
 
 const fontSize = {
-  captionSm: "10px",
-  captionBase: "12px",
-  mainSm: "15px",
-  mainBase: "17px",
-  title: "24px",
+  captionSm: responsiveToPx("10px"),
+  captionBase: responsiveToPx("12px"),
+  mainSm: responsiveToPx("15px"),
+  mainBase: responsiveToPx("17px"),
+  title: responsiveToPx("24px"),
 };
 
 const fontFamily = {
@@ -17,8 +18,8 @@ const fontFamily = {
 };
 
 const borderRadius = {
-  sm: "20px",
-  lg: "30px",
+  sm: responsiveToPx("20px"),
+  lg: responsiveToPx("30px"),
 };
 
 const colors = {

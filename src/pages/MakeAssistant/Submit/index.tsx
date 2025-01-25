@@ -6,6 +6,7 @@ interface Props {
   answers: string[];
 }
 
+// Todo: answer를 백엔드로 전송하는 tanstack-query 코드 작성
 function Submit({ answers }: Props) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [loadingDot, setLoadingDot] = useState<"." | ".." | "...">(".");

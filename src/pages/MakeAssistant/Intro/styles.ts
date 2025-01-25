@@ -1,3 +1,4 @@
+import responsiveToPx from "@/src/utils/responsiveToPx";
 import styled from "styled-components/native";
 
 export const CenteringBox = styled.View`
@@ -9,7 +10,7 @@ export const CenteringBox = styled.View`
 export const InfoText = styled.Text`
   font-family: ${({ theme }) => theme.fontFamily.nsRegular};
   font-size: ${({ theme }) => theme.fontSize.mainBase};
-  padding-bottom: 30px;
+  padding-bottom: ${responsiveToPx("30px")};
 `;
 
 export const Bold = styled(InfoText)`

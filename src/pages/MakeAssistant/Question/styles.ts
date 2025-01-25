@@ -1,9 +1,10 @@
+import responsiveToPx from "@/src/utils/responsiveToPx";
 import Animated from "react-native-reanimated";
 import styled from "styled-components/native";
 
 export const BetweenBox = styled.View`
   flex: 1;
-  padding: 0px 0px 120px 0px;
+  padding: 0px 0px ${responsiveToPx("120px")} 0px;
   justify-content: space-between;
   align-items: center;
 `;
@@ -18,7 +19,7 @@ export const AnimatedHeaderBox = styled(Animated.View)`
 export const HeaderText = styled.Text`
   font-family: ${({ theme }) => theme.fontFamily.nsRegular};
   font-size: ${({ theme }) => theme.fontSize.mainBase};
-  letter-spacing: 11px;
+  letter-spacing: ${responsiveToPx("11px")};
 `;
 
 export const ProgressBarWrapper = styled.View`
@@ -26,7 +27,7 @@ export const ProgressBarWrapper = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-top: 10px;
+  margin-top: ${responsiveToPx("10px")};
 `;
 
 export const AnimatedBodyBox = styled(Animated.View)`
@@ -38,7 +39,7 @@ export const AnimatedBodyBox = styled(Animated.View)`
 
 export const QuestionBox = styled.View`
   width: 80%;
-  margin-top: 36px;
+  margin-top: ${responsiveToPx("36px")};
 `;
 
 export const ButtonBox = styled.View`
@@ -46,13 +47,13 @@ export const ButtonBox = styled.View`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 24px;
+  gap: ${responsiveToPx("24px")};
 `;
 
 export const QuestionText = styled.Text`
   align-self: baseline;
   font-family: ${({ theme }) => theme.fontFamily.nsBold};
   font-size: ${({ theme }) => theme.fontSize.title};
-  line-height: 40px;
-  padding-bottom: 16px;
+  line-height: ${responsiveToPx("40px")};
+  padding-bottom: ${responsiveToPx("16px")};
 `;
