@@ -19,6 +19,11 @@ export const TitleText = styled.Text`
   padding-bottom: ${responsiveToPx("16px")};
 `;
 
+export const MelissaText = styled(TitleText)`
+  font-family: ${({ theme }) => theme.fontFamily.playFairSc};
+  font-size: ${({ theme }) => theme.fontSize.xxl};
+`;
+
 export const ButtonBox = styled.View`
   justify-content: center;
   align-items: center;

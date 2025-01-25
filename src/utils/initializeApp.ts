@@ -12,8 +12,8 @@ const loadFonts = async () => {
     nanumSquareNeoBold: require("@/assets/fonts/NanumSquareNeo-bold.ttf"),
     nanumSquareNeoExtraBold: require("@/assets/fonts/NanumSquareNeo-extrabold.ttf"),
     nanumSquareNeoHeavy: require("@/assets/fonts/NanumSquareNeo-heavy.ttf"),
-    appleSdNeoRegular: require("@/assets/fonts/AppleSDNeo-regular.ttf"),
     robotoMedium: require("@/assets/fonts/Roboto-medium.ttf"),
+    playFairSc: require("@/assets/fonts/PlayfairDisplaySC-Regular.ttf"),
   });
   console.log("폰트 로딩 완료");
 };

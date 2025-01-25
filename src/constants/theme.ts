@@ -18,8 +18,8 @@ const fontFamily = {
   nsBold: "nanumSquareNeoBold",
   nsExtraBold: "nanumSquareNeoExtraBold",
   nsHeavy: "nanumSquareNeoHeavy",
-  appleSdRegular: "appleSdNeoRegular",
   robotoMedium: "robotoMedium",
+  playFairSc: "playFairSc",
 };
 
 const borderRadius = {

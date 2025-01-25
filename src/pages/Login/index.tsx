@@ -17,7 +17,9 @@ function LoginPage() {
   return (
     <S.ContentBox>
       <S.TextBox>
-        <S.TitleText>MELISSA 에</S.TitleText>
+        <S.TitleText>
+          <S.MelissaText>Melissa</S.MelissaText> 에
+        </S.TitleText>
         <S.TitleText>오신 것을 환영합니다.</S.TitleText>
       </S.TextBox>
       <S.ButtonBox>
