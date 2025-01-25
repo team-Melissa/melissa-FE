@@ -5,6 +5,7 @@ import ProgressBar from "@/src/components/ProgressBar";
 import Button from "@/src/components/ui/Button";
 import { fadeIn, fadeInWithCallback, fadeOut } from "@/src/libs/animations";
 import question from "@/src/constants/question";
+import { theme } from "@/src/constants/theme";
 import * as S from "./styles";
 
 interface Props {
@@ -16,9 +17,9 @@ function Question({ answer, setAnswer }: Props) {
   const [cursor, setCursor] = useState<number>(0);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
 
-  const leftBtnColor = cursor === 0 ? "gray" : "black";
-  const rightBtnColor =
-    cursor === question.length - 1 || cursor >= answer.length ? "gray" : "black";
+  const { gray, black } = theme.colors;
+  const leftBtnColor = cursor === 0 ? gray : black;
+  const rightBtnColor = cursor === question.length - 1 || cursor >= answer.length ? gray : black;
 
   const handleNextBtn = () => {
     // 답변하지 않고 다음 페이지로 못 넘어가게 조건 추가

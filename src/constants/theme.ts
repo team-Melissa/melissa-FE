@@ -41,7 +41,8 @@ const colors = {
   black: "#000000",
   assistantChat: "#575757",
   userChat: "#353535",
-  gray: "#AAAAAA",
+  gray: "#D9D9D9",
+  darkGray: "#858585",
 };
 
 const gap = {

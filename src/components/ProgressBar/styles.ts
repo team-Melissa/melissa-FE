@@ -12,6 +12,6 @@ export const ProgressBarBox = styled.View`
 
 export const AnimatedProgressBar = styled(Animated.View)`
   height: 100%;
-  background-color: ${({ theme }) => theme.colors.black};
+  background-color: ${({ theme }) => theme.colors.darkGray};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
 `;
