@@ -1,6 +1,5 @@
 import { Image as Img } from "expo-image";
 import styled from "styled-components/native";
-import { Platform } from "react-native";
 import responsiveToPx from "@/src/utils/responsiveToPx";
 
 export const Btn = styled.TouchableOpacity<{ backgroundColor: string }>`
@@ -26,21 +25,3 @@ export const Image = styled(Img)`
   width: ${responsiveToPx("24px")};
   height: ${responsiveToPx("24px")};
 `;
-
-export const shadowProps = {
-  ...Platform.select({
-    ios: {
-      shadowColor: "#171717",
-      shadowOffset: {
-        width: -2,
-        height: 4,
-      },
-      shadowOpacity: 0.2,
-      shadowRadius: 3,
-    },
-    android: {
-      elevation: 4,
-      shadowColor: "#171717",
-    },
-  }),
-};

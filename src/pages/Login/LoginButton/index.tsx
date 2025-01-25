@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import * as S from "./styles";
+import { shadowProps } from "@/src/constants/shadowProps";
 
 interface Props {
   provider: "kakao" | "google" | "apple";
@@ -33,7 +34,7 @@ function LoginButton({ provider, onPress, children }: Props) {
   };
 
   return (
-    <S.Btn style={S.shadowProps} backgroundColor={backgroundColors[provider]} onPress={onPress}>
+    <S.Btn style={shadowProps} backgroundColor={backgroundColors[provider]} onPress={onPress}>
       <S.Image source={logoPaths[provider]} contentFit="contain" />
       <S.Text textOpacity={textOpacities[provider]} textColor={textColors[provider]}>
         {children}
