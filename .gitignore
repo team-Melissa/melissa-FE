@@ -36,6 +36,10 @@ yarn-error.*
 .env
 .env.production
 
+# not push kakao, google, apple key
+app.json
+
+
 # typescript
 *.tsbuildinfo
 
