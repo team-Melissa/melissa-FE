@@ -16,6 +16,10 @@ export const AnimatedHeaderBox = styled(Animated.View)`
   align-items: center;
 `;
 
+export const HeaderBtn = styled.TouchableOpacity`
+  padding: ${responsiveToPx("14px")};
+`;
+
 export const HeaderText = styled.Text`
   font-family: ${({ theme }) => theme.fontFamily.nsRegular};
   font-size: ${({ theme }) => theme.fontSize.md};

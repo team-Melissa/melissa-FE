@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useState } from "react";
+import { TouchableOpacity } from "react-native";
 import { runOnJS } from "react-native-reanimated";
 import { fadeIn, fadeInWithCallback, fadeOut } from "@/src/libs/animations";
 import question from "@/src/constants/question";
@@ -18,8 +19,8 @@ function Question({ answer, setAnswer }: Props) {
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
 
   const { gray, black } = theme.colors;
-  const leftBtnColor = cursor === 0 ? gray : black;
-  const rightBtnColor = cursor === question.length - 1 || cursor >= answer.length ? gray : black;
+  const isLeftBtnDisable = cursor === 0;
+  const isRightBtnDisable = cursor === question.length - 1 || cursor >= answer.length;
 
   const handleNextBtn = () => {
     // 답변하지 않고 다음 페이지로 못 넘어가게 조건 추가
@@ -62,14 +63,17 @@ function Question({ answer, setAnswer }: Props) {
   return (
     <S.BetweenBox>
       <S.AnimatedHeaderBox entering={fadeIn(900, 300)} exiting={fadeOut()}>
-        {/* Todo: 버튼 클릭 시 색 변하게 하기*/}
         <S.HeaderText>
           {cursor + 1}/{question.length}
         </S.HeaderText>
         <S.ProgressBarWrapper>
-          <AntDesign name="left" size={24} color={leftBtnColor} onPress={handlePrevBtn} />
+          <S.HeaderBtn onPress={handlePrevBtn} disabled={isLeftBtnDisable}>
+            <AntDesign name="left" size={24} color={isLeftBtnDisable ? gray : black} />
+          </S.HeaderBtn>
           <ProgressBar progress={(cursor + 1) / question.length} />
-          <AntDesign name="right" size={24} color={rightBtnColor} onPress={handleNextBtn} />
+          <S.HeaderBtn onPress={handleNextBtn} disabled={isRightBtnDisable}>
+            <AntDesign name="right" size={24} color={isRightBtnDisable ? gray : black} />
+          </S.HeaderBtn>
         </S.ProgressBarWrapper>
       </S.AnimatedHeaderBox>
       <S.AnimatedBodyBox
