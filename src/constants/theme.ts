@@ -1,11 +1,15 @@
 import { DefaultTheme } from "styled-components/native";
+import responsiveToPx from "../utils/responsiveToPx";
 
 const fontSize = {
-  captionSm: "10px",
-  captionBase: "12px",
-  mainSm: "15px",
-  mainBase: "17px",
-  title: "24px",
+  xs: responsiveToPx("10px"),
+  sm: responsiveToPx("12px"),
+  base: responsiveToPx("15px"),
+  md: responsiveToPx("17px"),
+  lg: responsiveToPx("20px"),
+  xl: responsiveToPx("24px"),
+  xxl: responsiveToPx("30px"),
+  xxxl: responsiveToPx("36px"),
 };
 
 const fontFamily = {
@@ -14,11 +18,14 @@ const fontFamily = {
   nsBold: "nanumSquareNeoBold",
   nsExtraBold: "nanumSquareNeoExtraBold",
   nsHeavy: "nanumSquareNeoHeavy",
+  robotoMedium: "robotoMedium",
+  playFairSc: "playFairSc",
 };
 
 const borderRadius = {
-  smallBox: "20px",
-  largeBox: "30px",
+  sm: responsiveToPx("15px"),
+  base: responsiveToPx("20px"),
+  lg: responsiveToPx("30px"),
 };
 
 const colors = {
@@ -34,7 +41,14 @@ const colors = {
   black: "#000000",
   assistantChat: "#575757",
   userChat: "#353535",
-  gray: "#AAAAAA",
+  gray: "#D9D9D9",
+  darkGray: "#858585",
+};
+
+const gap = {
+  sm: responsiveToPx("4px"),
+  base: responsiveToPx("8px"),
+  lg: responsiveToPx("24px"),
 };
 
 export const theme: DefaultTheme = {
@@ -42,9 +56,11 @@ export const theme: DefaultTheme = {
   fontFamily,
   borderRadius,
   colors,
+  gap,
 };
 
 export type Fontsize = typeof fontSize;
 export type FontFamily = typeof fontFamily;
 export type BorderRadius = typeof borderRadius;
 export type Colors = typeof colors;
+export type Gap = typeof gap;

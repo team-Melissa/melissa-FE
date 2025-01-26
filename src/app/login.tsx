@@ -1,15 +1,10 @@
-import { Text } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import LoginPage from "@/src/pages/Login";
 
 /**
- * @description 로그인 페이지
+ * @description 로그인 페이지의 라우터
  */
-function LoginPage() {
-  return (
-    <SafeAreaView>
-      <Text>This Is Login Page</Text>
-    </SafeAreaView>
-  );
+function LoginRouter() {
+  return <LoginPage />;
 }
 
-export default LoginPage;
+export default LoginRouter;

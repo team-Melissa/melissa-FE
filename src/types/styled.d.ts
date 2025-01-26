@@ -1,5 +1,5 @@
 import "styled-components/native";
-import { BorderRadius, Colors, FontFamily, Fontsize } from "../constants/theme";
+import { BorderRadius, Colors, FontFamily, Fontsize, Gap } from "../constants/theme";
 
 declare module "styled-components/native" {
   export interface DefaultTheme {
@@ -7,5 +7,6 @@ declare module "styled-components/native" {
     fontFamily: FontFamily;
     borderRadius: BorderRadius;
     colors: Colors;
+    gap: Gap;
   }
 }

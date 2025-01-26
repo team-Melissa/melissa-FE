@@ -2,9 +2,9 @@ import { Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 /**
- * @description 달력 나오는 페이지
+ * @description 달력 나오는 페이지의 라우터
  */
-function MainPage() {
+function MainRouter() {
   return (
     <SafeAreaView>
       <Text>Hello</Text>
@@ -12,4 +12,4 @@ function MainPage() {
     </SafeAreaView>
   );
 }
-export default MainPage;
+export default MainRouter;
