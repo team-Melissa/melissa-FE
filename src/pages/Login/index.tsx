@@ -1,12 +1,14 @@
 import LoginButton from "./LoginButton";
 import useLogin from "@/src/hooks/useLogin";
 import * as S from "./styles";
+import { googleLoginFn } from "@/src/apis/loginApi";
 
 function LoginPage() {
   const { isPending, kakaoMutate } = useLogin();
 
-  const handleClickGoogle = () => {
+  const handleClickGoogle = async () => {
     console.log("구글 버튼 클릭");
+    await googleLoginFn();
   };
 
   const handleClickApple = () => {
