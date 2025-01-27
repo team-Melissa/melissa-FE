@@ -1,14 +1,9 @@
-import { useMutation } from "@tanstack/react-query";
 import LoginButton from "./LoginButton";
-import { kakaoLoginFn } from "@/src/apis/loginApi";
+import useLogin from "@/src/hooks/useLogin";
 import * as S from "./styles";
 
 function LoginPage() {
-  const { isPending: kakaoIsPending, mutate: kakaoMutate } = useMutation({
-    mutationFn: kakaoLoginFn,
-    onSuccess: (data) => console.log("카카오 로그인 성공", data),
-    onError: (error) => console.log("카카오 로그인 실패", error),
-  });
+  const { isPending, kakaoMutate } = useLogin();
 
   const handleClickGoogle = () => {
     console.log("구글 버튼 클릭");
@@ -18,7 +13,7 @@ function LoginPage() {
     console.log("애플 버튼 클릭");
   };
 
-  if (kakaoIsPending) {
+  if (isPending) {
     return (
       <S.ContentBox>
         <S.TitleText>로그인 중입니다...</S.TitleText>
