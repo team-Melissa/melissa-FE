@@ -1,9 +1,17 @@
+import { login } from "@react-native-seoul/kakao-login";
 import LoginButton from "./LoginButton";
 import * as S from "./styles";
 
 function LoginPage() {
-  const handleClickKakao = () => {
+  const handleClickKakao = async () => {
     console.log("카카오 버튼 클릭");
+    try {
+      const res = await login();
+      console.log(res);
+    } catch (e) {
+      console.error(e);
+      //Tood: 토스트 메시지 등으로 로그인 실패 안내
+    }
   };
 
   const handleClickGoogle = () => {
