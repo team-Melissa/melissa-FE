@@ -1,14 +1,18 @@
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { kakaoLoginFn } from "../apis/loginApi";
+import { setSecureValue } from "../libs/secureStorage";
+import { setStorageValue } from "../libs/mmkv";
 import { ErrorResponse } from "../types/commonTypes";
 import LoginType from "../types/loginTypes";
 
 const useLogin = () => {
-  const handleSuccess = (data: LoginType) => {
+  const handleSuccess = async (data: LoginType) => {
     console.log(`${data.result.oauthProvider} 로그인 성공!`);
-    // 이제 여기에 token type + access token 을 mmkv에 저장하고, refresh token을 secure storage에 저장하는 로직 추가
+    setStorageValue("accessToken", data.result.accessToken);
+    await setSecureValue("refreshToken", data.result.refreshToken);
   };
+
   const handleError = (error: AxiosError<ErrorResponse>) => {
     console.error("로그인 실패!", error.response?.data);
   };
