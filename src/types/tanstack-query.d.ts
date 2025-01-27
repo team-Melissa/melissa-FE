@@ -1,11 +1,6 @@
 import "@tanstack/react-query";
 import { AxiosError } from "axios";
-
-type ErrorResponse = {
-  isSuccess: boolean;
-  code: string;
-  message: string;
-};
+import { ErrorResponse } from "./commonTypes";
 
 declare module "@tanstack/react-query" {
   interface Register {
