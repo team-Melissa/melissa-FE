@@ -13,7 +13,7 @@ function RootLayout() {
   // 토큰 검증 성공하면 스택 네비게이터 렌더링해서 index 그리기, 토큰 검증 실패하면 로그인으로 리다이렉트
   // 아래 두 목업 변수는 토큰 검증 응답 값이 될 것
   const isLoading = false;
-  const isAuthorized = true;
+  const isAuthorized = false;
 
   useEffect(() => {
     initializeApp(setIsReady);
