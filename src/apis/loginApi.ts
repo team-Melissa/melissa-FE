@@ -9,19 +9,16 @@ GoogleSignin.configure({
   iosClientId: process.env.EXPO_PUBLIC_IOS_CLIENT_ID,
 });
 
+export const googleLoginFn = async () => {
+  const { data } = await GoogleSignin.signIn();
+  const result = await axiosInstance.post<LoginType>(endpoint.auth.google, {
+    idToken: data?.idToken,
+  });
+  return result.data;
+};
+
 export const kakaoLoginFn = async () => {
   const { accessToken } = await login();
   const { data } = await axiosInstance.post<LoginType>(endpoint.auth.kakao, { accessToken });
   return data;
-};
-
-export const googleLoginFn = async () => {
-  const { data } = await GoogleSignin.signIn();
-  if (data?.idToken) {
-    const { data: backendData } = await axiosInstance.post<LoginType>(endpoint.auth.google, {
-      idToken: data.idToken,
-    });
-    console.log(backendData);
-    return backendData;
-  }
 };
