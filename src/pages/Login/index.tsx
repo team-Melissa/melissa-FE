@@ -3,11 +3,7 @@ import useLogin from "@/src/hooks/useLogin";
 import * as S from "./styles";
 
 function LoginPage() {
-  const { isPending, kakaoMutate } = useLogin();
-
-  const handleClickGoogle = () => {
-    console.log("구글 버튼 클릭");
-  };
+  const { isPending, kakaoMutate, googleMutate } = useLogin();
 
   const handleClickApple = () => {
     console.log("애플 버튼 클릭");
@@ -16,7 +12,9 @@ function LoginPage() {
   if (isPending) {
     return (
       <S.ContentBox>
-        <S.TitleText>로그인 중입니다...</S.TitleText>
+        <S.TextBox>
+          <S.TitleText>로그인 중입니다...</S.TitleText>
+        </S.TextBox>
       </S.ContentBox>
     );
   }
@@ -32,7 +30,7 @@ function LoginPage() {
         <LoginButton provider="kakao" onPress={kakaoMutate}>
           카카오로 로그인
         </LoginButton>
-        <LoginButton provider="google" onPress={handleClickGoogle}>
+        <LoginButton provider="google" onPress={googleMutate}>
           Google로 로그인
         </LoginButton>
         <LoginButton provider="apple" onPress={handleClickApple}>
