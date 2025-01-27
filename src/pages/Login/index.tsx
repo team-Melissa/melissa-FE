@@ -1,18 +1,14 @@
-import { login } from "@react-native-seoul/kakao-login";
+import { useMutation } from "@tanstack/react-query";
 import LoginButton from "./LoginButton";
+import { kakaoLoginFn } from "@/src/apis/loginApi";
 import * as S from "./styles";
 
 function LoginPage() {
-  const handleClickKakao = async () => {
-    console.log("카카오 버튼 클릭");
-    try {
-      const res = await login();
-      console.log(res);
-    } catch (e) {
-      console.error(e);
-      //Tood: 토스트 메시지 등으로 로그인 실패 안내
-    }
-  };
+  const { isPending: kakaoIsPending, mutate: kakaoMutate } = useMutation({
+    mutationFn: kakaoLoginFn,
+    onSuccess: (data) => console.log("카카오 로그인 성공", data),
+    onError: (error) => console.log("카카오 로그인 실패", error),
+  });
 
   const handleClickGoogle = () => {
     console.log("구글 버튼 클릭");
@@ -22,6 +18,13 @@ function LoginPage() {
     console.log("애플 버튼 클릭");
   };
 
+  if (kakaoIsPending) {
+    return (
+      <S.ContentBox>
+        <S.TitleText>로그인 중입니다...</S.TitleText>
+      </S.ContentBox>
+    );
+  }
   return (
     <S.ContentBox>
       <S.TextBox>
@@ -31,7 +34,7 @@ function LoginPage() {
         <S.TitleText>오신 것을 환영합니다.</S.TitleText>
       </S.TextBox>
       <S.ButtonBox>
-        <LoginButton provider="kakao" onPress={handleClickKakao}>
+        <LoginButton provider="kakao" onPress={kakaoMutate}>
           카카오로 로그인
         </LoginButton>
         <LoginButton provider="google" onPress={handleClickGoogle}>
