@@ -1,4 +1,5 @@
-import { QueryClient } from "@tanstack/react-query";
+import { QueryCache, QueryClient } from "@tanstack/react-query";
+import { Alert } from "react-native";
 
 export default new QueryClient({
   defaultOptions: {
@@ -8,6 +9,10 @@ export default new QueryClient({
       retryDelay: 1000,
     },
   },
+  queryCache: new QueryCache({
+    onError: (error) =>
+      Alert.alert(error.response?.data.message || "알 수 없는 에러가 발생했습니다."),
+  }),
 });
 
 // Todo: 특정 query-key 별로 staleTime을 다르게 전역 설정시킬 수 있다.
