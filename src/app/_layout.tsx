@@ -5,6 +5,9 @@ import { theme } from "@/src/constants/theme";
 import { QueryClientProvider } from "@tanstack/react-query";
 import queryClient from "@/src/libs/queryClient";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { removeSecureValue } from "../libs/secureStorage";
+import { removeStorageValue } from "../libs/mmkv";
+import { Text } from "react-native";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -16,6 +19,7 @@ function ProviderLayout() {
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <SafeLayout>
+          <TestBtn />
           <Slot />
         </SafeLayout>
       </QueryClientProvider>
@@ -25,6 +29,29 @@ function ProviderLayout() {
 
 const SafeLayout = styled(SafeAreaView)`
   flex: 1;
+`;
+
+const TestBtn = () => {
+  const removeTokens = async () => {
+    removeStorageValue("accessToken");
+    await removeSecureValue("refreshToken");
+  };
+
+  return (
+    <FloatingButton onPress={removeTokens}>
+      <Text>토큰 삭제 버튼</Text>
+    </FloatingButton>
+  );
+};
+
+const FloatingButton = styled.TouchableOpacity`
+  width: 200px;
+  height: 100px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 20px;
+  left: 20px;
 `;
 
 export default ProviderLayout;
