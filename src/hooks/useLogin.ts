@@ -1,4 +1,5 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "expo-router";
 import { isAxiosError } from "axios";
 import { googleLoginFn, kakaoLoginFn } from "../apis/loginApi";
 import { setSecureValue } from "../libs/secureStorage";
@@ -7,10 +8,15 @@ import { ErrorResponse } from "../types/commonTypes";
 import LoginType from "../types/loginTypes";
 
 const useLogin = () => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
   const handleSuccess = async (data: LoginType) => {
     console.log(`${data.result.oauthProvider} 로그인 성공!`);
     setStorageValue("accessToken", `${data.result.tokenType} ${data.result.accessToken}`);
     await setSecureValue("refreshToken", data.result.refreshToken);
+    queryClient.invalidateQueries({ queryKey: ["check-new-user"] }); // 기존 쿼리 무효화 -> IndexRouter에서 refetch하기를 기대
+    router.replace("/(app)"); // IndexRouter로 리다이렉트
   };
 
   const handleError = (error: unknown) => {
