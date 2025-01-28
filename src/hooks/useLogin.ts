@@ -1,3 +1,4 @@
+import { Alert } from "react-native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
 import { isAxiosError } from "axios";
@@ -15,14 +16,15 @@ const useLogin = () => {
     console.log(`${data.result.oauthProvider} 로그인 성공!`);
     setStorageValue("accessToken", `${data.result.tokenType} ${data.result.accessToken}`);
     await setSecureValue("refreshToken", data.result.refreshToken);
-    queryClient.invalidateQueries({ queryKey: ["check-new-user"] }); // 기존 쿼리 무효화 -> IndexRouter에서 refetch하기를 기대
-    router.replace("/(app)"); // IndexRouter로 리다이렉트
+    queryClient.invalidateQueries({ queryKey: ["check-new-user"] });
+    router.replace("/(app)");
   };
 
   const handleError = (error: unknown) => {
     console.error("로그인 실패!", error);
     if (isAxiosError<ErrorResponse>(error)) {
       console.error("OAuth 프로바이더 정상 작동, 백엔드와 문제 발생", error.response?.data);
+      Alert.alert("로그인에 실패했습니다.");
     }
   };
 
