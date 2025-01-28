@@ -10,8 +10,12 @@ export default new QueryClient({
     },
   },
   queryCache: new QueryCache({
-    onError: (error) =>
-      Alert.alert(error.response?.data.message || "알 수 없는 에러가 발생했습니다."),
+    onError: (error) => {
+      console.log(error.response?.data);
+      if (error.response?.data.code !== "401") {
+        Alert.alert(error.response?.data.message || "알 수 없는 에러가 발생했습니다.");
+      }
+    },
   }),
 });
 
