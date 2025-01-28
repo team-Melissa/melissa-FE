@@ -6,6 +6,9 @@ const endpoint = {
     logout: "/api/v1/auth/logout",
     refresh: "/api/v1/auth/refresh",
   },
+  setting: {
+    checkNew: "api/v1/user-settings/check-new",
+  },
 };
 
 export default endpoint;
