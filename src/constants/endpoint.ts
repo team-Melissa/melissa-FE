@@ -7,7 +7,7 @@ const endpoint = {
     refresh: "/api/v1/auth/refresh",
   },
   setting: {
-    checkNew: "api/v1/user-settings/check-new",
+    checkNew: "/api/v1/user-settings/check-new",
   },
 };
 
