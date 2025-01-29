@@ -11,11 +11,3 @@ export type LoginType = SuccessResponse & {
     tokenType: string;
   };
 };
-
-export type RefreshTokenType = SuccessResponse & {
-  result: {
-    accessToken: string;
-    tokenType: string;
-    expiresIn: string;
-  };
-};
