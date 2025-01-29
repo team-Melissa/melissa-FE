@@ -1,5 +1,5 @@
 import { QueryClientProvider } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { Slot } from "expo-router";
 import styled, { ThemeProvider } from "styled-components/native";
@@ -16,6 +16,12 @@ SplashScreen.preventAutoHideAsync();
 function ProviderLayout() {
   const [isReady, setIsReady] = useState<boolean>(false);
 
+  const onLayoutRootView = useCallback(() => {
+    if (isReady) {
+      SplashScreen.hide();
+    }
+  }, [isReady]);
+
   useEffect(() => {
     initializeApp(setIsReady);
   }, []);
@@ -27,7 +33,7 @@ function ProviderLayout() {
   return (
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <SafeLayout>
+        <SafeLayout onLayout={onLayoutRootView}>
           <Slot />
         </SafeLayout>
       </QueryClientProvider>

@@ -1,5 +1,4 @@
 import * as Font from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
 import { Dispatch, SetStateAction } from "react";
 
 /**
@@ -30,7 +29,6 @@ const initializeApp = async (setIsReady: Dispatch<SetStateAction<boolean>>) => {
     console.error(e);
     // Todo: 추가 에러 처리(폰트 로딩 실패 등)
   } finally {
-    SplashScreen.hideAsync();
     setIsReady(true);
   }
 };
