@@ -12,8 +12,10 @@ GoogleSignin.configure({
 
 export const googleLoginFn = async () => {
   const { data } = await GoogleSignin.signIn();
+  if (!data) throw new Error("Google 로그인 실패: idToken이 없습니다.");
+
   const result = await axiosInstance.post<LoginType>(endpoint.auth.google, {
-    idToken: data?.idToken,
+    idToken: data.idToken,
   });
   return result.data;
 };
