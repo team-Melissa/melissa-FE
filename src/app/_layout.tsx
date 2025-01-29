@@ -1,6 +1,7 @@
 import { QueryClientProvider } from "@tanstack/react-query";
 import { useCallback, useEffect, useState } from "react";
 import * as SplashScreen from "expo-splash-screen";
+import { StatusBar } from "expo-status-bar";
 import { Slot } from "expo-router";
 import styled, { ThemeProvider } from "styled-components/native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -34,6 +35,7 @@ function ProviderLayout() {
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <SafeLayout onLayout={onLayoutRootView}>
+          <StatusBar />
           <Slot />
         </SafeLayout>
       </QueryClientProvider>
