@@ -1,6 +1,7 @@
 import LoginButton from "./LoginButton";
 import useLogin from "@/src/hooks/useLogin";
 import * as S from "./styles";
+import Loading from "@/src/components/ui/Loading";
 
 function LoginPage() {
   const { isPending, kakaoMutate, googleMutate } = useLogin();
@@ -10,14 +11,9 @@ function LoginPage() {
   };
 
   if (isPending) {
-    return (
-      <S.ContentBox>
-        <S.TextBox>
-          <S.TitleText>로그인 중입니다...</S.TitleText>
-        </S.TextBox>
-      </S.ContentBox>
-    );
+    return <Loading />;
   }
+
   return (
     <S.ContentBox>
       <S.TextBox>

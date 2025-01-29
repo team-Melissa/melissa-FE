@@ -17,3 +17,11 @@ export const getSecureValue = async (key: string): Promise<string | null> => {
     return null;
   }
 };
+
+export const removeSecureValue = async (key: string): Promise<void> => {
+  try {
+    await SecureStore.deleteItemAsync(key);
+  } catch (e) {
+    console.error("secureStore에서", key, "삭제 실패", e);
+  }
+};

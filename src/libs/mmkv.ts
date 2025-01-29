@@ -9,3 +9,7 @@ export const setStorageValue = (key: string, value: string): void => {
 export const getStorageValue = (key: string): string | null => {
   return storage.getString(key) || null;
 };
+
+export const removeStorageValue = (key: string): void => {
+  storage.delete(key);
+};
