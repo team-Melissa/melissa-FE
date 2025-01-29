@@ -1,6 +1,6 @@
 import { SuccessResponse } from "./commonTypes";
 
-type LoginType = SuccessResponse & {
+export type LoginType = SuccessResponse & {
   result: {
     userId: number;
     oauthProvider: "KAKAO" | "GOOGLE" | "APPLE";
@@ -12,4 +12,10 @@ type LoginType = SuccessResponse & {
   };
 };
 
-export default LoginType;
+export type RefreshTokenType = SuccessResponse & {
+  result: {
+    accessToken: string;
+    tokenType: string;
+    expiresIn: string;
+  };
+};

@@ -6,7 +6,7 @@ import { googleLoginFn, kakaoLoginFn } from "../apis/loginApi";
 import { setSecureValue } from "../libs/secureStorage";
 import { setStorageValue } from "../libs/mmkv";
 import { ErrorResponse } from "../types/commonTypes";
-import LoginType from "../types/loginTypes";
+import { LoginType } from "../types/loginTypes";
 
 const useLogin = () => {
   const queryClient = useQueryClient();

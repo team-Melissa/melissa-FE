@@ -2,7 +2,7 @@ import { login } from "@react-native-seoul/kakao-login";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import axiosInstance from "../libs/axiosInstance";
 import endpoint from "../constants/endpoint";
-import LoginType from "@/src/types/loginTypes";
+import { LoginType } from "@/src/types/loginTypes";
 import { CheckNewUser } from "@/src/types/settingTypes";
 
 GoogleSignin.configure({
