@@ -20,7 +20,7 @@ export const TitleText = styled.Text`
 `;
 
 export const MelissaText = styled(TitleText)`
-  font-family: ${({ theme }) => theme.fontFamily.playFairSc};
+  font-family: ${({ theme }) => theme.fontFamily.poetsenOne};
   font-size: ${({ theme }) => theme.fontSize.xxl};
 `;
 

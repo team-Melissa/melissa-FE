@@ -19,7 +19,7 @@ const fontFamily = {
   nsExtraBold: "nanumSquareNeoExtraBold",
   nsHeavy: "nanumSquareNeoHeavy",
   robotoMedium: "robotoMedium",
-  playFairSc: "playFairSc",
+  poetsenOne: "poetsenOneRegular",
 };
 
 const borderRadius = {
