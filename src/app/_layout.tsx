@@ -1,10 +1,11 @@
 import { QueryClientProvider } from "@tanstack/react-query";
 import { useCallback, useEffect, useState } from "react";
+import { View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import { Slot } from "expo-router";
+import { Slot, usePathname } from "expo-router";
 import styled, { ThemeProvider } from "styled-components/native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { theme } from "@/src/constants/theme";
 import queryClient from "@/src/libs/queryClient";
 import initializeApp from "../utils/initializeApp";
@@ -16,6 +17,8 @@ SplashScreen.preventAutoHideAsync();
  */
 function ProviderLayout() {
   const [isReady, setIsReady] = useState<boolean>(false);
+  const pathname = usePathname();
+  console.log(pathname);
 
   const onLayoutRootView = useCallback(() => {
     if (isReady) {
@@ -34,14 +37,21 @@ function ProviderLayout() {
   return (
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <SafeLayout onLayout={onLayoutRootView}>
-          <StatusBar />
-          <Slot />
-        </SafeLayout>
+        <ColorView pathname={pathname} onLayout={onLayoutRootView}>
+          <SafeLayout>
+            <StatusBar />
+            <Slot />
+          </SafeLayout>
+        </ColorView>
       </QueryClientProvider>
     </ThemeProvider>
   );
 }
+
+const ColorView = styled(View)<{ pathname: string }>`
+  flex: 1;
+  background-color: ${(p) => (p.pathname === "/login" ? "#f0f5f8" : "#ffffff")};
+`;
 
 const SafeLayout = styled(SafeAreaView)`
   flex: 1;
