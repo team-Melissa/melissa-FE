@@ -50,7 +50,7 @@ function ProviderLayout() {
 
 const ColorView = styled(View)<{ pathname: string }>`
   flex: 1;
-  background-color: ${(p) => (p.pathname === "/login" ? "#f0f5f8" : "#ffffff")};
+  background-color: ${({ pathname }) => (pathname === "/login" ? "#f0f5f8" : "#ffffff")};
 `;
 
 const SafeLayout = styled(SafeAreaView)`
