@@ -1,7 +1,7 @@
-import LoginButton from "./LoginButton";
 import useLogin from "@/src/hooks/useLogin";
-import * as S from "./styles";
 import Loading from "@/src/components/ui/Loading";
+import LoginButton from "./LoginButton";
+import * as S from "./styles";
 
 function LoginPage() {
   const { isPending, kakaoMutate, googleMutate } = useLogin();
@@ -17,10 +17,9 @@ function LoginPage() {
   return (
     <S.ContentBox>
       <S.TextBox>
-        <S.TitleText>
-          <S.MelissaText>Melissa</S.MelissaText> 에
-        </S.TitleText>
-        <S.TitleText>오신 것을 환영합니다.</S.TitleText>
+        <S.Image source={require("@/assets/images/logo.svg")} contentFit="contain" />
+        <S.MelissaText>Melissa</S.MelissaText>
+        <S.TitleText>하루의 끝, 멜리사</S.TitleText>
       </S.TextBox>
       <S.ButtonBox>
         <LoginButton provider="kakao" onPress={kakaoMutate}>

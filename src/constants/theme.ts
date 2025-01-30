@@ -10,6 +10,7 @@ const fontSize = {
   xl: responsiveToPx("24px"),
   xxl: responsiveToPx("30px"),
   xxxl: responsiveToPx("36px"),
+  xxxxl: responsiveToPx("55px"),
 };
 
 const fontFamily = {
@@ -19,7 +20,7 @@ const fontFamily = {
   nsExtraBold: "nanumSquareNeoExtraBold",
   nsHeavy: "nanumSquareNeoHeavy",
   robotoMedium: "robotoMedium",
-  playFairSc: "playFairSc",
+  poetsenOne: "poetsenOneRegular",
 };
 
 const borderRadius = {
@@ -30,7 +31,7 @@ const borderRadius = {
 
 const colors = {
   white: "#FFFFFF",
-  whiteBlue: "F0F5F8",
+  whiteBlue: "#F0F5F8",
   skyBlue: "#CFE5E7",
   blue: "#9FD6FF",
   deepGreen: "#7BBBBB",
