@@ -1,5 +1,6 @@
 import { BtnProps } from "./types";
 import * as S from "./styles";
+import { shadowProps } from "@/src/constants/shadowProps";
 
 /**
  * @description 범용 버튼 컴포넌트
@@ -14,7 +15,7 @@ function Button({
   ...rest
 }: BtnProps) {
   return (
-    <S.Btn color={color} borderRadius={borderRadius} {...rest} style={S.shadow}>
+    <S.Btn color={color} borderRadius={borderRadius} {...rest} style={shadowProps}>
       <S.BtnText textColor={textColor} fontFamily={fontFamily} fontSize={fontSize}>
         {children}
       </S.BtnText>
