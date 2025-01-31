@@ -1,15 +1,14 @@
-import { QueryClientProvider } from "@tanstack/react-query";
-import { useReactQueryDevTools } from "@dev-plugins/react-query";
-import { useCallback, useEffect, useState } from "react";
-import { View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { Slot, usePathname } from "expo-router";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { useReactQueryDevTools } from "@dev-plugins/react-query";
+import { useCallback, useEffect, useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
 import styled, { ThemeProvider } from "styled-components/native";
 import { theme } from "@/src/constants/theme";
 import queryClient from "@/src/libs/queryClient";
-import initializeApp from "../utils/initializeApp";
+import initializeApp from "@/src/utils/initializeApp";
 import IsNewUserProvider from "@/src/contexts/IsNewUserProvider";
 
 SplashScreen.preventAutoHideAsync();
@@ -54,7 +53,7 @@ function ProviderLayout() {
   );
 }
 
-const ColorView = styled(View)<{ pathname: string }>`
+const ColorView = styled.View<{ pathname: string }>`
   flex: 1;
   background-color: ${({ pathname }) => (pathname === "/login" ? "#f0f5f8" : "#ffffff")};
 `;
