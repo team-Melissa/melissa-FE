@@ -9,14 +9,13 @@ import styled, { ThemeProvider } from "styled-components/native";
 import { theme } from "@/src/constants/theme";
 import queryClient from "@/src/libs/queryClient";
 import initializeApp from "@/src/utils/initializeApp";
-import IsNewUserProvider from "@/src/contexts/IsNewUserProvider";
 
 SplashScreen.preventAutoHideAsync();
 
 /**
- * @description 필요한 Provider들을 제공하는 레이아웃
+ * @description 폰트 로딩, 라이브러리 provider, 공용 스타일 컴포넌트로 감싸는 레이아웃
  */
-function ProviderLayout() {
+function RootLayout() {
   useReactQueryDevTools(queryClient);
   const [isReady, setIsReady] = useState<boolean>(false);
   const pathname = usePathname();
@@ -40,14 +39,12 @@ function ProviderLayout() {
   return (
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <IsNewUserProvider>
-          <ColorView pathname={pathname} onLayout={onLayoutRootView}>
-            <SafeLayout>
-              <StatusBar />
-              <Slot />
-            </SafeLayout>
-          </ColorView>
-        </IsNewUserProvider>
+        <ColorView pathname={pathname} onLayout={onLayoutRootView}>
+          <SafeView>
+            <StatusBar />
+            <Slot />
+          </SafeView>
+        </ColorView>
       </QueryClientProvider>
     </ThemeProvider>
   );
@@ -58,8 +55,8 @@ const ColorView = styled.View<{ pathname: string }>`
   background-color: ${({ pathname }) => (pathname === "/login" ? "#f0f5f8" : "#ffffff")};
 `;
 
-const SafeLayout = styled(SafeAreaView)`
+const SafeView = styled(SafeAreaView)`
   flex: 1;
 `;
 
-export default ProviderLayout;
+export default RootLayout;
