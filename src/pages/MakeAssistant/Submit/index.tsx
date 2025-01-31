@@ -1,16 +1,25 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { fadeIn, fadeOut } from "@/src/libs/animations";
+import { AiProfileMakeAnswers } from "@/src/types/aiProfileTypes";
 import * as S from "./styles";
 
 interface Props {
   answers: string[];
 }
 
-// Todo: answer를 백엔드로 전송하는 tanstack-query 코드 작성
 function Submit({ answers }: Props) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [loadingDot, setLoadingDot] = useState<"." | ".." | "...">(".");
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const answersJson = useMemo(
+    () =>
+      answers.reduce((prev, cur, idx) => {
+        prev[`q${idx + 1}` as keyof AiProfileMakeAnswers] = cur;
+        return prev;
+      }, {} as AiProfileMakeAnswers),
+    [answers]
+  );
 
   // 백엔드 요청이 4초 걸린다고 가정
   useEffect(() => {
