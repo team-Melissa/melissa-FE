@@ -1,9 +1,10 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "expo-router";
 import { useMutation } from "@tanstack/react-query";
-import Button from "@/src/components/ui/Button";
 import { makeAssistantFn } from "@/src/apis/aiProfileApi";
+import Button from "@/src/components/ui/Button";
 import { fadeIn, fadeOut } from "@/src/libs/animations";
-import { AiProfileMakeAnswers } from "@/src/types/aiProfileTypes";
+import { AiProfileMakeAnswers, AiProfileMakeResult } from "@/src/types/aiProfileTypes";
 import * as S from "./styles";
 
 interface Props {
@@ -13,11 +14,12 @@ interface Props {
 function Submit({ answers }: Props) {
   const { isPending, isSuccess, isError, error, mutate } = useMutation({
     mutationFn: () => makeAssistantFn(answersJson),
-    onSuccess: (data) => console.log(data.message),
+    onSuccess: (data) => handleSuccess(data),
     onError: (error) => console.error(error.response?.data.message),
   });
+
+  const router = useRouter();
   const [loadingDot, setLoadingDot] = useState<"." | ".." | "...">(".");
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const answersJson = useMemo(
     () =>
       answers.reduce((prev, cur, idx) => {
@@ -27,13 +29,24 @@ function Submit({ answers }: Props) {
     [answers]
   );
 
+  // mutation 성공 핸들러
+  const handleSuccess = (data: AiProfileMakeResult) => {
+    console.log(data.message);
+    // Todo: 여기서 setting 기본값 채우는 API 호출하고, new-user invalidateQuery 수행
+    setTimeout(() => {
+      router.replace("/(app)/main");
+    }, 2500);
+  };
+
   // 초기 mutation 실행
   useEffect(() => {
     mutate();
   }, [mutate]);
 
+  // 로딩 애니메이션 등록
   useEffect(() => {
-    intervalRef.current = setInterval(() => {
+    let intervalId: NodeJS.Timeout | null = null;
+    intervalId = setInterval(() => {
       setLoadingDot((prev) => {
         if (prev === ".") {
           return "..";
@@ -46,9 +59,9 @@ function Submit({ answers }: Props) {
     }, 700);
 
     return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (intervalId) clearInterval(intervalId);
     };
-  }, [isPending]);
+  }, []);
 
   // mutation 성공
   if (isSuccess && !isPending) {
