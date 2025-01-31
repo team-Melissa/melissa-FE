@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { checkNewUserFn } from "@/src/apis/loginApi";
+import { checkNewUserFn } from "@/src/apis/settingApi";
 import Loading from "@/src/components/ui/Loading";
 import { Redirect } from "expo-router";
 
