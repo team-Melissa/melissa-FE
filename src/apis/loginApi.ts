@@ -3,7 +3,7 @@ import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import axiosInstance from "../libs/axiosInstance";
 import endpoint from "../constants/endpoint";
 import { LoginType } from "@/src/types/loginTypes";
-import { CheckNewUser } from "@/src/types/settingTypes";
+import { CheckNewUserType } from "@/src/types/settingTypes";
 
 GoogleSignin.configure({
   webClientId: process.env.EXPO_PUBLIC_WEB_CLIENT_ID,
@@ -27,7 +27,7 @@ export const kakaoLoginFn = async () => {
 };
 
 export const checkNewUserFn = async () => {
-  const { data } = await axiosInstance.get<CheckNewUser>(endpoint.setting.checkNew);
+  const { data } = await axiosInstance.get<CheckNewUserType>(endpoint.setting.checkNew);
   console.log(data);
   return data;
 };
