@@ -9,6 +9,7 @@ const endpoint = {
   aiProfile: "/api/v1/ai-profiles",
   setting: {
     checkNew: "/api/v1/user-settings/check-new",
+    register: "/api/v1/user-settings/register",
   },
 };
 
