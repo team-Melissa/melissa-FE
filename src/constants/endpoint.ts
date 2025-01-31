@@ -6,6 +6,7 @@ const endpoint = {
     logout: "/api/v1/auth/logout",
     refresh: "/api/v1/auth/refresh",
   },
+  aiProfile: "/api/v1/ai-profiles",
   setting: {
     checkNew: "/api/v1/user-settings/check-new",
   },
