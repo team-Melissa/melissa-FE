@@ -57,11 +57,10 @@ axiosInstance.interceptors.response.use(
     const { response, config } = error;
 
     // 401 에러는 refresh token으로 재발급 시도 후 성공하면 기존 요청 재시도
-    // 만약 이미 한 번 시도했는데 다시 여기로 왔다면, 시도 X (config.sent)
     if (response && config && response.status === 401 && !config.sent) {
-      // 이미 재발급 중이면 Queue에 대기시킴
+      // 해당 에러가 토큰 재발급 시도의 응답이 아니고, 이미 재발급 중이면 Queue에 대기시킴
       if (isRefreshing) {
-        console.log("토큰 재발급중... Queue에 추가합니다.");
+        console.log("토큰 재발급중... 해당 요청을 Queue에 추가");
         return new Promise((resolve) => {
           pendingApiQueue.push((newAccessToken) => {
             config.headers.Authorization = newAccessToken;
@@ -72,27 +71,36 @@ axiosInstance.interceptors.response.use(
 
       // 재발급 중이 아니면 재발급 시도
       try {
-        console.log("토큰 재발급 로직 시작", config.url);
+        console.log("토큰 재발급 시작", config.url);
         isRefreshing = true;
         const refreshToken = await getSecureValue("refreshToken");
         if (!refreshToken) {
-          console.error("refresh token이 존재하지 않아 재발급 종료");
+          console.error("refresh token이 존재하지 않아 재발급 종료 (아마 앱 최초 설치)");
+          removeSecureValue("refreshToken");
+          removeStorageValue("accessToken");
+          router.replace("/login");
           return Promise.reject(error);
         }
-        // refresh token으로 새 access token, refresh token 받아오기
-        const { data } = await axiosInstance.post<LoginType>(endpoint.auth.refresh, {
-          refreshToken,
-        });
+
         // 예기치 못한 런타임 이슈로 무한루프가 발생하는 여지를 제거하기 위한 config 내 커스텀 flag
         config.sent = true;
+
+        // refresh token으로 새 access token, refresh token 받아오기
+        const { data } = await axios.post<LoginType>(
+          `${process.env.EXPO_PUBLIC_API_URL}${endpoint.auth.refresh}`,
+          {
+            refreshToken,
+          }
+        );
+
         // 새 토큰들 저장
         const newAccessToken = `${data.result.tokenType} ${data.result.accessToken}`;
         setStorageValue("accessToken", newAccessToken);
         await setSecureValue("refreshToken", data.result.refreshToken);
         console.log("토큰 재발급 성공");
-        // 재요청 대기중이던 api 요청
+
+        // 재요청 대기중이던 api와 토큰 재발급을 일으킨 api 재요청 수행
         runPendingApiCalls(newAccessToken);
-        // 토큰 재발급 트리거가 되었던 api 재요청
         config.headers.Authorization = newAccessToken;
         return axiosInstance(config);
       } catch (e) {
@@ -112,5 +120,5 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-// axios 대신 axiosInstance를 사용하면 기본URL과 토큰 추가를 자동으로 수행
+// axios 대신 axiosInstance를 사용하면 기본URL과 토큰 추가, refresh를 자동으로 수행
 export default axiosInstance;
