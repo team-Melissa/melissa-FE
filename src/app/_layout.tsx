@@ -10,6 +10,7 @@ import styled, { ThemeProvider } from "styled-components/native";
 import { theme } from "@/src/constants/theme";
 import queryClient from "@/src/libs/queryClient";
 import initializeApp from "../utils/initializeApp";
+import IsNewUserProvider from "@/src/contexts/IsNewUserProvider";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -40,12 +41,14 @@ function ProviderLayout() {
   return (
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <ColorView pathname={pathname} onLayout={onLayoutRootView}>
-          <SafeLayout>
-            <StatusBar />
-            <Slot />
-          </SafeLayout>
-        </ColorView>
+        <IsNewUserProvider>
+          <ColorView pathname={pathname} onLayout={onLayoutRootView}>
+            <SafeLayout>
+              <StatusBar />
+              <Slot />
+            </SafeLayout>
+          </ColorView>
+        </IsNewUserProvider>
       </QueryClientProvider>
     </ThemeProvider>
   );
