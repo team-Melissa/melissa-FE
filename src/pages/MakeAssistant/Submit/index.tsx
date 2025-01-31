@@ -32,7 +32,6 @@ function Submit({ answers }: Props) {
   // mutation 성공 핸들러
   const handleSuccess = (data: AiProfileMakeResult) => {
     console.log(data.message);
-    // Todo: 여기서 setting 기본값 채우는 API 호출하고, new-user invalidateQuery 수행
     setTimeout(() => {
       router.replace("/(app)/main");
     }, 2500);
