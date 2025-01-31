@@ -4,6 +4,5 @@ import { AiProfileMakeAnswers, AiProfileMakeResult } from "@/src/types/aiProfile
 
 export const makeAssistantFn = async (answers: AiProfileMakeAnswers) => {
   const { data } = await axiosInstance.post<AiProfileMakeResult>(endpoint.aiProfile, answers);
-  console.log(data);
   return data;
 };
