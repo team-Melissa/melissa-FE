@@ -15,7 +15,7 @@ const IsNewUserContext = createContext<boolean | null>(null);
  */
 export const useIsNewUserContext = (): boolean => {
   const isNewUser = useContext(IsNewUserContext);
-  if (!isNewUser) throw new Error("isNewUser data not fetched");
+  if (isNewUser === null) throw new Error("isNewUser data not fetched");
   return isNewUser;
 };
 
