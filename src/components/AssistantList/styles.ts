@@ -15,7 +15,7 @@ export const ItemLayout = styled.View`
   align-items: center;
 `;
 
-export const ItemBox = styled.View`
+export const ItemBox = styled.TouchableOpacity`
   width: ${responsiveToPx("324px")};
   height: ${responsiveToPx("520px")};
   background-color: ${({ theme }) => theme.colors.deepGreen};

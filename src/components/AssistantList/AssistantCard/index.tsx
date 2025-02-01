@@ -1,4 +1,5 @@
 import { TouchableWithoutFeedback } from "react-native";
+import { useRouter } from "expo-router";
 import ProfileImage from "./ProfileImage";
 import NameTag from "./NameTag";
 import Personality from "./Personality";
@@ -11,9 +12,19 @@ interface Props {
 }
 
 function AssistantCard({ item }: Props) {
+  const router = useRouter();
+
+  const routeMakeAssistantPage = () => {
+    router.push("/(app)/make-assistant");
+  };
+
   if ("isGenerateButton" in item) {
-    // Todo: 어시스턴트 생성 컴포넌트 렌더링
-    return <S.ItemBox></S.ItemBox>;
+    return (
+      <S.ItemBox onPress={routeMakeAssistantPage}>
+        <S.PlusImage source={require("@/assets/images/plus.svg")} />
+        <S.GenAiText>새로운 서포터 추가하기</S.GenAiText>
+      </S.ItemBox>
+    );
   }
 
   const { profileName, imageUrl, hashTag1, hashTag2, feature1, feature2, feature3 } = item;
