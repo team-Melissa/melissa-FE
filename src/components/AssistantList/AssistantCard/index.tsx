@@ -1,3 +1,4 @@
+import { TouchableWithoutFeedback } from "react-native";
 import ProfileImage from "./ProfileImage";
 import NameTag from "./NameTag";
 import Personality from "./Personality";
@@ -20,15 +21,17 @@ function AssistantCard({ item }: Props) {
   // Todo: 복제/삭제/선택 로직 구현
 
   return (
-    <S.ItemBox>
-      <ProfileImage url={imageUrl} />
-      <NameTag name={profileName} tag1={hashTag1} tag2={hashTag2} />
-      <Personality feat1={feature1} feat2={feature2} feat3={feature3} />
-      <S.ButtonBox>
-        <CardButton onPress={() => {}}>복제하기</CardButton>
-        <CardButton onPress={() => {}}>삭제하기</CardButton>
-      </S.ButtonBox>
-    </S.ItemBox>
+    <TouchableWithoutFeedback>
+      <S.ItemBox>
+        <ProfileImage url={imageUrl} />
+        <NameTag name={profileName} tag1={hashTag1} tag2={hashTag2} />
+        <Personality feat1={feature1} feat2={feature2} feat3={feature3} />
+        <S.ButtonBox>
+          <CardButton onPress={() => {}}>복제하기</CardButton>
+          <CardButton onPress={() => {}}>삭제하기</CardButton>
+        </S.ButtonBox>
+      </S.ItemBox>
+    </TouchableWithoutFeedback>
   );
 }
 

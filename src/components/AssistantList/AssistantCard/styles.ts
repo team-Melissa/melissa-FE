@@ -1,14 +1,8 @@
 import styled from "styled-components/native";
 import responsiveToPx from "@/src/utils/responsiveToPx";
+import { ItemBox } from "../styles";
 
-export const ItemBox = styled.View`
-  width: ${responsiveToPx("324px")};
-  height: ${responsiveToPx("520px")};
-  background-color: ${({ theme }) => theme.colors.deepGreen};
-  border-radius: ${({ theme }) => theme.borderRadius.sm};
-  justify-content: space-evenly;
-  align-items: center;
-`;
+export { ItemBox };
 
 export const ButtonBox = styled.View`
   flex-direction: row;
