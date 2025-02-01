@@ -1,6 +1,12 @@
+import { SafeAreaView } from "react-native-safe-area-context";
 import styled from "styled-components/native";
-import responsiveToPx from "@/src/utils/responsiveToPx";
 import { Image as Img } from "expo-image";
+import responsiveToPx from "@/src/utils/responsiveToPx";
+
+export const SafeView = styled(SafeAreaView)`
+  flex: 1;
+  background-color: ${({ theme }) => theme.colors.whiteBlue};
+`;
 
 export const ContentBox = styled.View`
   flex: 1;

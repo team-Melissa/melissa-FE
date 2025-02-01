@@ -9,16 +9,30 @@ export type AiProfileMakeAnswers = {
   q6: string;
 };
 
+export type AiProfile = {
+  aiProfileId: number;
+  profileName: string;
+  imageUrl: string;
+  hashTag1: string;
+  hashTag2: string;
+  feature1: string;
+  feature2: string;
+  feature3: string;
+  createdAt: string;
+};
+
+export type AiProfileListWithGenerateAiTrigger = AiProfile | { isGenerateButton: boolean };
+
 export type AiProfileMakeResult = SuccessResponse & {
-  result: {
-    aiProfileId: number;
-    profileName: string;
-    imageUrl: string;
-    hashTag1: string;
-    hashTag2: string;
-    feature1: string;
-    feature2: string;
-    feature3: string;
+  result: AiProfile;
+};
+
+export type AiProfileListResult = SuccessResponse & {
+  result: AiProfile[];
+};
+
+export type GetMakeAssistantQuestionResult = SuccessResponse & {
+  result: AiProfileMakeAnswers & {
     createdAt: string;
   };
 };

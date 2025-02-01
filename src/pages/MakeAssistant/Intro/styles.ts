@@ -1,7 +1,8 @@
-import responsiveToPx from "@/src/utils/responsiveToPx";
+import { SafeAreaView } from "react-native-safe-area-context";
 import styled from "styled-components/native";
+import responsiveToPx from "@/src/utils/responsiveToPx";
 
-export const CenteringBox = styled.View`
+export const CenteringBox = styled(SafeAreaView)`
   flex: 1;
   justify-content: center;
   align-items: center;

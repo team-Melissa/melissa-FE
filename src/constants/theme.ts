@@ -44,11 +44,13 @@ const colors = {
   userChat: "#353535",
   gray: "#D9D9D9",
   darkGray: "#858585",
+  textGray: "#242424",
 };
 
 const gap = {
   sm: responsiveToPx("4px"),
   base: responsiveToPx("8px"),
+  md: responsiveToPx("12px"),
   lg: responsiveToPx("24px"),
 };
 

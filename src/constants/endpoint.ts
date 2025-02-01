@@ -11,6 +11,11 @@ const endpoint = {
     checkNew: "/api/v1/user-settings/check-new",
     register: "/api/v1/user-settings/register",
   },
+  thread: {
+    chat: "/api/v1/chats",
+    send: "/api/v1/chats/message",
+    changeAi: "/api/v1/chats/ai-profile",
+  },
 };
 
 export default endpoint;
