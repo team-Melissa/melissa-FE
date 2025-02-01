@@ -26,7 +26,7 @@ function AssistantCard({ item }: Props) {
   if ("isGenerateButton" in item) {
     return (
       <S.ItemBox onPress={() => routeMakeAssistantPage()}>
-        <S.PlusImage source={require("@/assets/images/plus.svg")} />
+        <S.PlusImage source={require("@/assets/images/plus.svg")} contentFit="contain" />
         <S.GenAiText>새로운 서포터 추가하기</S.GenAiText>
       </S.ItemBox>
     );
@@ -35,7 +35,7 @@ function AssistantCard({ item }: Props) {
   const { aiProfileId, profileName, imageUrl, hashTag1, hashTag2, feature1, feature2, feature3 } =
     item;
 
-  // Todo: 복제 로직 구현
+  // Todo: 채팅방 구현 후, 어시스턴트 캐러셀에서 클릭하면 대화 대상 변경되도록 구현
 
   return (
     <TouchableWithoutFeedback>
