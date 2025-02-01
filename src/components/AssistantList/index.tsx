@@ -1,9 +1,9 @@
-import * as S from "./styles";
-import { AiProfile } from "@/src/types/aiProfileTypes";
-import { Dimensions } from "react-native";
 import { useState } from "react";
+import { Dimensions } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
-import { shadowProps } from "@/src/constants/shadowProps";
+import AssistantCard from "./AssistantCard";
+import { AiProfile } from "@/src/types/aiProfileTypes";
+import * as S from "./styles";
 
 interface Props {
   isVisible: boolean;
@@ -68,39 +68,7 @@ function AssistantList({ isVisible }: Props): JSX.Element | null {
           snapEnabled={true}
           renderItem={({ item }) => (
             <S.ItemLayout>
-              <S.ItemBox>
-                <S.ImageBox>
-                  <S.Image source={item.imageUrl} contentFit="contain" />
-                </S.ImageBox>
-                <S.TitleTagBox>
-                  <S.Title>{item.profileName}</S.Title>
-                  <S.Tag>
-                    #{item.hashTag1} #{item.hashTag2}
-                  </S.Tag>
-                </S.TitleTagBox>
-                <S.PersonalityBox>
-                  <S.TextBox>
-                    <S.PersonalityTitle>성 격</S.PersonalityTitle>
-                    <S.PersonalityContent>{item.feature1}</S.PersonalityContent>
-                  </S.TextBox>
-                  <S.TextBox>
-                    <S.PersonalityTitle>성 격</S.PersonalityTitle>
-                    <S.PersonalityContent>{item.feature2}</S.PersonalityContent>
-                  </S.TextBox>
-                  <S.TextBox>
-                    <S.PersonalityTitle>성 격</S.PersonalityTitle>
-                    <S.PersonalityContent>{item.feature3}</S.PersonalityContent>
-                  </S.TextBox>
-                </S.PersonalityBox>
-                <S.TextBox>
-                  <S.CardButton style={shadowProps}>
-                    <S.ButtonText>복제하기</S.ButtonText>
-                  </S.CardButton>
-                  <S.CardButton style={shadowProps}>
-                    <S.ButtonText>삭제하기</S.ButtonText>
-                  </S.CardButton>
-                </S.TextBox>
-              </S.ItemBox>
+              <AssistantCard item={item} />
             </S.ItemLayout>
           )}
         />
