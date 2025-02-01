@@ -5,11 +5,20 @@ import {
   AiProfileListWithGenerateAiTrigger,
   AiProfileMakeAnswers,
   AiProfileMakeResult,
+  GetMakeAssistantQuestionResult,
 } from "@/src/types/aiProfileTypes";
 import { SuccessResponse } from "@/src/types/commonTypes";
 
 export const makeAssistantFn = async (answers: AiProfileMakeAnswers) => {
   const { data } = await axiosInstance.post<AiProfileMakeResult>(endpoint.aiProfile, answers);
+  return data;
+};
+
+export const getMakeAssistantQuestionFn = async (aiProfileId: string) => {
+  const { data } = await axiosInstance.get<GetMakeAssistantQuestionResult>(
+    `${endpoint.aiProfile}/${aiProfileId}/question`
+  );
+  console.log(data);
   return data;
 };
 

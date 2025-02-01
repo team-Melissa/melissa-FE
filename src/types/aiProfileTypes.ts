@@ -30,3 +30,9 @@ export type AiProfileMakeResult = SuccessResponse & {
 export type AiProfileListResult = SuccessResponse & {
   result: AiProfile[];
 };
+
+export type GetMakeAssistantQuestionResult = SuccessResponse & {
+  result: AiProfileMakeAnswers & {
+    createdAt: string;
+  };
+};
