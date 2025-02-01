@@ -11,10 +11,11 @@ import * as S from "./styles";
 interface Props {
   answer: string[];
   setAnswer: Dispatch<SetStateAction<string[]>>;
+  cursor: number;
+  setCursor: Dispatch<SetStateAction<number>>;
 }
 
-function Question({ answer, setAnswer }: Props) {
-  const [cursor, setCursor] = useState<number>(0);
+function Question({ answer, setAnswer, cursor, setCursor }: Props) {
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
 
   const { gray, black } = theme.colors;
@@ -47,7 +48,7 @@ function Question({ answer, setAnswer }: Props) {
       setAnswer((prev) => prev.map((e, i) => (i === cursor ? text : e)));
     }
 
-    if (cursor < question.length - 1) {
+    if (cursor < question.length) {
       setCursor(cursor + 1);
       setIsAnimating(true);
     }
