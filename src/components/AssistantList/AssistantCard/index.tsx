@@ -2,15 +2,15 @@ import ProfileImage from "./ProfileImage";
 import NameTag from "./NameTag";
 import Personality from "./Personality";
 import CardButton from "./CardButton";
-import { AiProfile } from "@/src/types/aiProfileTypes";
+import { AiProfileListWithGenerateAiTrigger } from "@/src/types/aiProfileTypes";
 import * as S from "./styles";
 
 interface Props {
-  item: AiProfile | { isNewButton: boolean };
+  item: AiProfileListWithGenerateAiTrigger;
 }
 
 function AssistantCard({ item }: Props) {
-  if ("isNewButton" in item) {
+  if ("isGenerateButton" in item) {
     // Todo: 어시스턴트 생성 컴포넌트 렌더링
     return <S.ItemBox></S.ItemBox>;
   }
