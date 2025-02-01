@@ -1,27 +1,14 @@
-import { registerSettingFn } from "@/src/apis/settingApi";
+import { useEffect } from "react";
 import Button from "@/src/components/ui/Button";
 import Loading from "@/src/components/ui/Loading";
 import { useIsNewUserContext } from "@/src/contexts/IsNewUserProvider";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useEffect } from "react";
-
+import useRegisterSetting from "@/src/hooks/useRegisterSetting";
 import { Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 function CalendarPage(): JSX.Element {
   const isNewUser = useIsNewUserContext();
-  const queryClient = useQueryClient();
-
-  const { isPending, isError, error, mutate } = useMutation({
-    mutationFn: registerSettingFn,
-    onSuccess: (data) => {
-      console.log(data);
-      queryClient.invalidateQueries({ queryKey: ["check-new-user"] });
-    },
-    onError: (error) => {
-      console.error(error.response?.data);
-    },
-  });
+  const { isPending, isError, error, mutate } = useRegisterSetting();
 
   useEffect(() => {
     if (isNewUser) {
