@@ -1,8 +1,13 @@
-import responsiveToPx from "@/src/utils/responsiveToPx";
 import Animated from "react-native-reanimated";
+import { SafeAreaView } from "react-native-safe-area-context";
 import styled from "styled-components/native";
+import responsiveToPx from "@/src/utils/responsiveToPx";
 
-export const BetweenBox = styled.View`
+export const SafeView = styled(SafeAreaView)`
+  flex: 1;
+`;
+
+export const BetweenBox = styled(SafeAreaView)`
   flex: 1;
   padding: 0px 0px ${responsiveToPx("120px")} 0px;
   justify-content: space-between;

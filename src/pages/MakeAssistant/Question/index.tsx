@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import { TouchableOpacity } from "react-native";
 import { runOnJS } from "react-native-reanimated";
 import { fadeIn, fadeInWithCallback, fadeOut } from "@/src/libs/animations";
 import question from "@/src/constants/question";

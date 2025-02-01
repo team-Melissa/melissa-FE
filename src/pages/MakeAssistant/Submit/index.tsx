@@ -65,24 +65,28 @@ function Submit({ answers }: Props) {
   // mutation 성공
   if (isSuccess && !isPending) {
     return (
-      <S.FinishAnimatedView entering={fadeIn(900)} exiting={fadeOut()}>
-        <S.Image source={require("@/assets/images/checked.svg")} contentFit="contain" />
-        <S.InfoText>서포터가 성공적으로 만들어졌어요!</S.InfoText>
-        <S.InfoText>하단의 버튼을 통해 대화를 나누어보세요.</S.InfoText>
-      </S.FinishAnimatedView>
+      <S.SubmitLayout>
+        <S.FinishAnimatedView entering={fadeIn(900)} exiting={fadeOut()}>
+          <S.Image source={require("@/assets/images/checked.svg")} contentFit="contain" />
+          <S.InfoText>서포터가 성공적으로 만들어졌어요!</S.InfoText>
+          <S.InfoText>하단의 버튼을 통해 대화를 나누어보세요.</S.InfoText>
+        </S.FinishAnimatedView>
+      </S.SubmitLayout>
     );
   }
 
   // mutation 에러 발생
   if (isError) {
     return (
-      <S.FinishAnimatedView entering={fadeIn(900)} exiting={fadeOut()}>
-        <S.InfoText>서포터 생성 도중 문제가 발생했어요.</S.InfoText>
-        <S.InfoText>{error.response?.data.message}</S.InfoText>
-        <Button color="white" textColor="black" fontFamily="nsRegular" onPress={() => mutate()}>
-          다시 생성하기
-        </Button>
-      </S.FinishAnimatedView>
+      <S.SubmitLayout>
+        <S.FinishAnimatedView entering={fadeIn(900)} exiting={fadeOut()}>
+          <S.InfoText>서포터 생성 도중 문제가 발생했어요.</S.InfoText>
+          <S.InfoText>{error.response?.data.message}</S.InfoText>
+          <Button color="white" textColor="black" fontFamily="nsRegular" onPress={() => mutate()}>
+            다시 생성하기
+          </Button>
+        </S.FinishAnimatedView>
+      </S.SubmitLayout>
     );
   }
 
