@@ -1,5 +1,6 @@
 import { TouchableWithoutFeedback } from "react-native";
 import { useRouter } from "expo-router";
+import useRemoveAssistant from "@/src/hooks/useRemoveAssistant";
 import ProfileImage from "./ProfileImage";
 import NameTag from "./NameTag";
 import Personality from "./Personality";
@@ -13,6 +14,7 @@ interface Props {
 
 function AssistantCard({ item }: Props) {
   const router = useRouter();
+  const { mutate: removeMutate } = useRemoveAssistant();
 
   const routeMakeAssistantPage = () => {
     router.push("/(app)/make-assistant");
@@ -27,7 +29,8 @@ function AssistantCard({ item }: Props) {
     );
   }
 
-  const { profileName, imageUrl, hashTag1, hashTag2, feature1, feature2, feature3 } = item;
+  const { aiProfileId, profileName, imageUrl, hashTag1, hashTag2, feature1, feature2, feature3 } =
+    item;
 
   // Todo: 복제/삭제/선택 로직 구현
 
@@ -39,7 +42,7 @@ function AssistantCard({ item }: Props) {
         <Personality feat1={feature1} feat2={feature2} feat3={feature3} />
         <S.ButtonBox>
           <CardButton onPress={() => {}}>복제하기</CardButton>
-          <CardButton onPress={() => {}}>삭제하기</CardButton>
+          <CardButton onPress={() => removeMutate(aiProfileId)}>삭제하기</CardButton>
         </S.ButtonBox>
       </S.ItemBox>
     </TouchableWithoutFeedback>

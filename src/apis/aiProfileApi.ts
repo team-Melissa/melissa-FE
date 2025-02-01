@@ -6,9 +6,17 @@ import {
   AiProfileMakeAnswers,
   AiProfileMakeResult,
 } from "@/src/types/aiProfileTypes";
+import { SuccessResponse } from "@/src/types/commonTypes";
 
 export const makeAssistantFn = async (answers: AiProfileMakeAnswers) => {
   const { data } = await axiosInstance.post<AiProfileMakeResult>(endpoint.aiProfile, answers);
+  return data;
+};
+
+export const removeAssistantFn = async (aiProfileId: number) => {
+  const { data } = await axiosInstance.delete<SuccessResponse>(
+    `${endpoint.aiProfile}/${aiProfileId}`
+  );
   return data;
 };
 
