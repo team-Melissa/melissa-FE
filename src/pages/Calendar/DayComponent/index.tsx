@@ -1,7 +1,6 @@
 import { DateData } from "react-native-calendars";
 import { Day } from "@/src/types/calendarTypes";
 import * as S from "./styles";
-import { Image } from "expo-image";
 
 interface Props {
   date: DateData;
@@ -27,7 +26,7 @@ function DayComponent({ date, diaries }: Props): JSX.Element {
   return (
     <S.DayBox>
       <S.ImageBox>
-        <Image source={dayDiary.imageS3} contentFit="contain" />
+        <S.Image src={dayDiary.imageS3} />
       </S.ImageBox>
       <S.TagBox>
         <S.TagText>{dayDiary.hashTag1}</S.TagText>

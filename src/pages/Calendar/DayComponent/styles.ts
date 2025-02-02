@@ -1,4 +1,5 @@
 import styled from "styled-components/native";
+import { Image as Img } from "react-native";
 import responsiveToPx from "@/src/utils/responsiveToPx";
 
 export const DayBox = styled.TouchableOpacity`
@@ -12,6 +13,12 @@ export const ImageBox = styled.View`
   border-radius: ${({ theme }) => theme.borderRadius.sm};
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+`;
+
+export const Image = styled(Img)`
+  width: ${responsiveToPx("54px")};
+  height: ${responsiveToPx("54px")};
 `;
 
 export const TagBox = styled.View`
