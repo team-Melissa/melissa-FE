@@ -5,6 +5,7 @@ import { useIsNewUserContext } from "@/src/contexts/IsNewUserProvider";
 import useRegisterSetting from "@/src/hooks/useRegisterSetting";
 import Loading from "@/src/components/ui/Loading";
 import CommonError from "@/src/components/ui/CommonError";
+import DayComponent from "./DayComponent";
 import { theme } from "@/src/constants/theme";
 import * as S from "./styles";
 
@@ -91,19 +92,7 @@ function CalendarPage(): JSX.Element {
           if (!date) {
             return undefined;
           }
-          return (
-            <S.DayBox onPress={() => handleDayPress(date)}>
-              <S.ImageBox>
-                <S.DayText>{date.day}</S.DayText>
-              </S.ImageBox>
-              <S.TagBox>
-                <S.TagText># 하하즐겁다</S.TagText>
-              </S.TagBox>
-              <S.TagBox>
-                <S.TagText># 즐겁다</S.TagText>
-              </S.TagBox>
-            </S.DayBox>
-          );
+          return <DayComponent date={date} onPress={() => handleDayPress(date)} />;
         }}
       />
     </S.SafeView>
