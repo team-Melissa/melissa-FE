@@ -1,9 +1,10 @@
 import { useEffect } from "react";
-import { CalendarList, LocaleConfig } from "react-native-calendars";
-import Loading from "@/src/components/ui/Loading";
-import CommonError from "@/src/components/ui/CommonError";
+import { CalendarList, DateData, LocaleConfig } from "react-native-calendars";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useIsNewUserContext } from "@/src/contexts/IsNewUserProvider";
 import useRegisterSetting from "@/src/hooks/useRegisterSetting";
+import Loading from "@/src/components/ui/Loading";
+import CommonError from "@/src/components/ui/CommonError";
 import * as S from "./styles";
 
 LocaleConfig.locales["ko"] = {
@@ -32,6 +33,18 @@ function CalendarPage(): JSX.Element {
   const isNewUser = useIsNewUserContext();
   const { isPending, isError, mutate } = useRegisterSetting();
 
+  const handleCopyPress = () => {
+    console.log("copy button");
+  };
+
+  const handleSettingPress = () => {
+    console.log("setting button");
+  };
+
+  const handleDayPress = (day: DateData) => {
+    console.log("selected day", day);
+  };
+
   useEffect(() => {
     if (isNewUser) {
       mutate();
@@ -58,16 +71,22 @@ function CalendarPage(): JSX.Element {
     <S.SafeView>
       <CalendarList
         theme={S.calendarThemeProps}
+        monthFormat={"yyyy. MM"}
         staticHeader={true}
         horizontal={true}
-        hideArrows={true}
-        hideDayNames={true}
         pagingEnabled={true}
         pastScrollRange={100}
         futureScrollRange={100}
-        onDayPress={(day) => {
-          console.log("selected day", day);
-        }}
+        onPressArrowLeft={handleCopyPress}
+        onPressArrowRight={handleSettingPress}
+        onDayPress={handleDayPress}
+        renderArrow={(direction) =>
+          direction === "left" ? (
+            <MaterialIcons name="content-copy" size={24} color="black" />
+          ) : (
+            <MaterialIcons name="settings" size={24} color="black" />
+          )
+        }
       />
     </S.SafeView>
   );

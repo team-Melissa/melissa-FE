@@ -46,6 +46,8 @@ const colors = {
   gray: "#D9D9D9",
   darkGray: "#858585",
   textGray: "#242424",
+  calendarRed: "#FF5656",
+  calendarBlue: "#4766FF",
 };
 
 const gap = {
