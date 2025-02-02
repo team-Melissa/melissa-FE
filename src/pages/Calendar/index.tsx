@@ -2,6 +2,7 @@ import { CalendarList, DateData, LocaleConfig } from "react-native-calendars";
 import useCurrentDate from "@/src/hooks/useCurrentDate";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import DayComponent from "./DayComponent";
+import ChatButton from "./ChatButton";
 import { theme } from "@/src/constants/theme";
 import * as S from "./styles";
 
@@ -64,15 +65,13 @@ function CalendarPage(): JSX.Element {
           )
         }
         dayComponent={({ date }) => {
-          if (!date) {
-            return undefined;
-          }
-
+          if (!date) return undefined;
           return (
             <DayComponent date={date} diaries={data?.result} onPress={() => handleDayPress(date)} />
           );
         }}
       />
+      <ChatButton onPress={() => {}} />
     </S.SafeView>
   );
 }
