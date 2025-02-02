@@ -21,6 +21,7 @@ const fontFamily = {
   nsHeavy: "nanumSquareNeoHeavy",
   robotoMedium: "robotoMedium",
   poetsenOne: "poetsenOneRegular",
+  podkovaRegular: "podkovaRegular",
 };
 
 const borderRadius = {
