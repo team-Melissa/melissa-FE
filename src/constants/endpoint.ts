@@ -16,6 +16,10 @@ const endpoint = {
     send: "/api/v1/chats/message",
     changeAi: "/api/v1/chats/ai-profile",
   },
+  calendar: {
+    month: "/api/v1/calender/month",
+    day: "/api/v1/calender/day",
+  },
 };
 
 export default endpoint;
