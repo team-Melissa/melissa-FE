@@ -1,0 +1,45 @@
+diff --git a/src/calendar/header/index.js b/src/calendar/header/index.js
+index bd75364e7ea4d03f8c38582ec8482452d9acf4a5..692afffa3ca024fce19e64933e06a9f1c4bde4fb 100644
+--- a/src/calendar/header/index.js
++++ b/src/calendar/header/index.js
+@@ -102,7 +102,7 @@ const CalendarHeader = forwardRef((props, ref) => {
+         const onPress = !shouldDisable ? isLeft ? onPressLeft : onPressRight : undefined;
+         const imageSource = isLeft ? require('../img/previous.png') : require('../img/next.png');
+         const renderArrowDirection = isLeft ? 'left' : 'right';
+-        return (<TouchableOpacity onPress={onPress} disabled={shouldDisable} style={style.current.arrow} hitSlop={hitSlop} testID={`${testID}.${arrowId}`}>
++        return (<TouchableOpacity onPress={onPress} disabled={shouldDisable} style={style.current.arrow} hitSlop={10} testID={`${testID}.${arrowId}`}>
+         {renderArrow ? (renderArrow(renderArrowDirection)) : (<Image source={imageSource} style={shouldDisable ? style.current.disabledArrowImage : style.current.arrowImage}/>)}
+       </TouchableOpacity>);
+     };
+@@ -126,12 +126,14 @@ const CalendarHeader = forwardRef((props, ref) => {
+      importantForAccessibility={importantForAccessibility} // Android
+     >
+       <View style={headerStyle}>
+-        {_renderArrow('left')}
+         <View style={style.current.headerContainer}>
+           {_renderHeader()}
+           {renderIndicator()}
+         </View>
+-        {_renderArrow('right')}
++         <View style={{flexDirection: "row", gap: 20}}>
++          {_renderArrow('left')}
++          {_renderArrow('right')}
++        </View>
+       </View>
+       {renderDayNames()}
+     </View>);
+diff --git a/src/calendar/header/style.js b/src/calendar/header/style.js
+index 2b6e01c533ac285d85250be4ea20adeb15cd8ce3..e69d73cb7956a4828608b4dbf8ebcdf49b527a25 100644
+--- a/src/calendar/header/style.js
++++ b/src/calendar/header/style.js
+@@ -24,10 +24,8 @@ export default function (theme = {}) {
+             fontFamily: appStyle.textMonthFontFamily,
+             fontWeight: appStyle.textMonthFontWeight,
+             color: appStyle.monthTextColor,
+-            margin: 10
+         },
+         arrow: {
+-            padding: 10,
+             ...appStyle.arrowStyle
+         },
+         arrowImage: {

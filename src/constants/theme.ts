@@ -2,6 +2,7 @@ import { DefaultTheme } from "styled-components/native";
 import responsiveToPx from "../utils/responsiveToPx";
 
 const fontSize = {
+  xxs: responsiveToPx("8px"),
   xs: responsiveToPx("10px"),
   sm: responsiveToPx("12px"),
   base: responsiveToPx("15px"),
@@ -21,9 +22,11 @@ const fontFamily = {
   nsHeavy: "nanumSquareNeoHeavy",
   robotoMedium: "robotoMedium",
   poetsenOne: "poetsenOneRegular",
+  podkovaRegular: "podkovaRegular",
 };
 
 const borderRadius = {
+  xs: responsiveToPx("5px"),
   sm: responsiveToPx("15px"),
   base: responsiveToPx("20px"),
   lg: responsiveToPx("30px"),
@@ -45,6 +48,10 @@ const colors = {
   gray: "#D9D9D9",
   darkGray: "#858585",
   textGray: "#242424",
+  calendarGray: "#777777",
+  calendarIcon: "#424242",
+  calendarRed: "#FF5656",
+  calendarBlue: "#4766FF",
 };
 
 const gap = {

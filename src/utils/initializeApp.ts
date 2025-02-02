@@ -13,6 +13,7 @@ const loadFonts = async () => {
     nanumSquareNeoHeavy: require("@/assets/fonts/NanumSquareNeo-heavy.ttf"),
     robotoMedium: require("@/assets/fonts/Roboto-medium.ttf"),
     poetsenOneRegular: require("@/assets/fonts/PoetsenOne-Regular.ttf"),
+    podkovaRegular: require("@/assets/fonts/Podkova-Regular.ttf"),
   });
   console.log("폰트 로딩 완료");
 };
