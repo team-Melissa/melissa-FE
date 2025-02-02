@@ -17,17 +17,14 @@ export const calendarThemeProps = {
   textSectionTitleColor: theme.colors.textGray, // 일 ~ 토 텍스트 색상
   "stylesheet.calendar.header": {
     headerContainer: {
-      position: "absolute",
       flexDirection: "row",
-      left: parseInt(responsiveToPx("15px")),
     },
     header: {
       flexDirection: "row",
-      justifyContent: "flex-end",
+      justifyContent: "space-between",
       alignItems: "center",
       paddingHorizontal: parseInt(responsiveToPx("15px")),
       marginVertical: parseInt(responsiveToPx("40px")),
-      gap: parseInt(responsiveToPx("15px")),
     },
     dayTextAtIndex0: {
       color: theme.colors.calendarRed,

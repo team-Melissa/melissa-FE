@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  react-native-calendars@1.1308.1:
+    hash: nnurlqmg6jwybeqtzhjefpcclu
+    path: patches/react-native-calendars@1.1308.1.patch
+
 importers:
 
   .:
@@ -94,7 +99,7 @@ importers:
         version: 0.76.6(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(react@18.3.1)
       react-native-calendars:
         specifier: ^1.1308.1
-        version: 1.1308.1(react-native@0.76.6(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1)
+        version: 1.1308.1(patch_hash=nnurlqmg6jwybeqtzhjefpcclu)(react-native@0.76.6(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1)
       react-native-gesture-handler:
         specifier: ~2.20.2
         version: 2.20.2(react-native@0.76.6(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1)
@@ -10828,7 +10833,7 @@ snapshots:
 
   react-is@18.3.1: {}
 
-  react-native-calendars@1.1308.1(react-native@0.76.6(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1):
+  react-native-calendars@1.1308.1(patch_hash=nnurlqmg6jwybeqtzhjefpcclu)(react-native@0.76.6(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1):
     dependencies:
       hoist-non-react-statics: 3.3.2
       lodash: 4.17.21
