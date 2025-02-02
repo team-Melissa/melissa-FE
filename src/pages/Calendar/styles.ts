@@ -11,7 +11,7 @@ export const SafeView = styled(SafeAreaView)`
 export const calendarThemeProps = {
   textDayFontFamily: theme.fontFamily.podkovaRegular, // 캘린더 내 날짜 폰트
   textDayFontSize: parseInt(theme.fontSize.lg), // 캘린더 내 날짜 크기
-  dayTextColor: theme.colors.textGray, // 캘린더 내 날짜 색상
+  dayTextColor: theme.colors.calendarGray, // 캘린더 내 날짜 색상
   textMonthFontFamily: theme.fontFamily.podkovaRegular, // 헤더 년월 폰트
   textMonthFontSize: parseInt(theme.fontSize.xl), // 헤더 년월 크기
   textSectionTitleColor: theme.colors.textGray, // 일 ~ 토 텍스트 색상

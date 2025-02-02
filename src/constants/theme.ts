@@ -46,6 +46,8 @@ const colors = {
   gray: "#D9D9D9",
   darkGray: "#858585",
   textGray: "#242424",
+  calendarGray: "#777777",
+  calendarIcon: "#424242",
   calendarRed: "#FF5656",
   calendarBlue: "#4766FF",
 };

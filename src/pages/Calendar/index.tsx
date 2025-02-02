@@ -5,6 +5,7 @@ import { useIsNewUserContext } from "@/src/contexts/IsNewUserProvider";
 import useRegisterSetting from "@/src/hooks/useRegisterSetting";
 import Loading from "@/src/components/ui/Loading";
 import CommonError from "@/src/components/ui/CommonError";
+import { theme } from "@/src/constants/theme";
 import * as S from "./styles";
 
 LocaleConfig.locales["ko"] = {
@@ -82,9 +83,9 @@ function CalendarPage(): JSX.Element {
         onDayPress={handleDayPress}
         renderArrow={(direction) =>
           direction === "left" ? (
-            <MaterialIcons name="content-copy" size={24} color="black" />
+            <MaterialIcons name="content-copy" size={24} color={theme.colors.calendarIcon} />
           ) : (
-            <MaterialIcons name="settings" size={24} color="black" />
+            <MaterialIcons name="settings" size={24} color={theme.colors.calendarIcon} />
           )
         }
       />
