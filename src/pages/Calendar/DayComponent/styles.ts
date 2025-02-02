@@ -9,7 +9,6 @@ export const DayBox = styled.TouchableOpacity`
 export const ImageBox = styled.View`
   width: ${responsiveToPx("54px")};
   height: ${responsiveToPx("54px")};
-  background-color: blueviolet;
   border-radius: ${({ theme }) => theme.borderRadius.sm};
   justify-content: center;
   align-items: center;

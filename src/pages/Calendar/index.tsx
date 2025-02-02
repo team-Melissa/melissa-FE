@@ -1,9 +1,9 @@
 import { CalendarList, DateData, LocaleConfig } from "react-native-calendars";
+import useCurrentDate from "@/src/hooks/useCurrentDate";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import DayComponent from "./DayComponent";
 import { theme } from "@/src/constants/theme";
 import * as S from "./styles";
-import { getCalendarFn } from "@/src/apis/calendarApi";
 
 LocaleConfig.locales["ko"] = {
   monthNames: [
@@ -28,6 +28,9 @@ LocaleConfig.locales["ko"] = {
 LocaleConfig.defaultLocale = "ko";
 
 function CalendarPage(): JSX.Element {
+  const { data, changeDate } = useCurrentDate();
+  console.log(data);
+
   const handleCopyPress = () => {
     console.log("copy button");
   };
@@ -52,6 +55,7 @@ function CalendarPage(): JSX.Element {
         futureScrollRange={100}
         onPressArrowLeft={handleCopyPress}
         onPressArrowRight={handleSettingPress}
+        onMonthChange={({ year, month }) => changeDate(year, month)}
         renderArrow={(direction) =>
           direction === "left" ? (
             <MaterialIcons name="content-copy" size={24} color={theme.colors.calendarIcon} />
@@ -63,7 +67,10 @@ function CalendarPage(): JSX.Element {
           if (!date) {
             return undefined;
           }
-          return <DayComponent date={date} onPress={() => handleDayPress(date)} />;
+
+          return (
+            <DayComponent date={date} diaries={data?.result} onPress={() => handleDayPress(date)} />
+          );
         }}
       />
     </S.SafeView>
