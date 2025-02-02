@@ -80,7 +80,6 @@ function CalendarPage(): JSX.Element {
         futureScrollRange={100}
         onPressArrowLeft={handleCopyPress}
         onPressArrowRight={handleSettingPress}
-        onDayPress={handleDayPress}
         renderArrow={(direction) =>
           direction === "left" ? (
             <MaterialIcons name="content-copy" size={24} color={theme.colors.calendarIcon} />
@@ -88,6 +87,24 @@ function CalendarPage(): JSX.Element {
             <MaterialIcons name="settings" size={24} color={theme.colors.calendarIcon} />
           )
         }
+        dayComponent={({ date }) => {
+          if (!date) {
+            return undefined;
+          }
+          return (
+            <S.DayBox onPress={() => handleDayPress(date)}>
+              <S.ImageBox>
+                <S.DayText>{date.day}</S.DayText>
+              </S.ImageBox>
+              <S.TagBox>
+                <S.TagText># 하하즐겁다</S.TagText>
+              </S.TagBox>
+              <S.TagBox>
+                <S.TagText># 즐겁다</S.TagText>
+              </S.TagBox>
+            </S.DayBox>
+          );
+        }}
       />
     </S.SafeView>
   );

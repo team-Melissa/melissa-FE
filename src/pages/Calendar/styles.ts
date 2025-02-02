@@ -8,6 +8,42 @@ export const SafeView = styled(SafeAreaView)`
   background-color: ${({ theme }) => theme.colors.white};
 `;
 
+export const DayBox = styled.TouchableOpacity`
+  width: ${responsiveToPx("54px")};
+  height: ${responsiveToPx("96px")};
+`;
+
+export const ImageBox = styled.View`
+  width: ${responsiveToPx("54px")};
+  height: ${responsiveToPx("54px")};
+  background-color: blueviolet;
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
+  justify-content: center;
+  align-items: center;
+`;
+
+export const TagBox = styled.View`
+  background-color: ${({ theme }) => theme.colors.skyBlue};
+  width: ${responsiveToPx("54px")};
+  height: ${responsiveToPx("15px")};
+  margin-top: ${responsiveToPx("6px")};
+  border-radius: ${({ theme }) => theme.borderRadius.xs};
+  justify-content: center;
+  padding-left: ${responsiveToPx("4px")};
+`;
+
+export const DayText = styled.Text`
+  font-family: ${({ theme }) => theme.fontFamily.podkovaRegular};
+  font-size: ${({ theme }) => theme.fontSize.lg};
+  color: ${({ theme }) => theme.colors.textGray};
+`;
+
+export const TagText = styled.Text`
+  font-family: ${({ theme }) => theme.fontFamily.nsRegular};
+  font-size: ${({ theme }) => theme.fontSize.xxs};
+  color: ${({ theme }) => theme.colors.black};
+`;
+
 export const calendarThemeProps = {
   textDayFontFamily: theme.fontFamily.podkovaRegular, // 캘린더 내 날짜 폰트
   textDayFontSize: parseInt(theme.fontSize.lg), // 캘린더 내 날짜 크기
@@ -24,7 +60,7 @@ export const calendarThemeProps = {
       justifyContent: "space-between",
       alignItems: "center",
       paddingHorizontal: parseInt(responsiveToPx("15px")),
-      marginVertical: parseInt(responsiveToPx("40px")),
+      marginVertical: parseInt(responsiveToPx("25px")), // 캘린더 헤더 상하단 간격
     },
     dayTextAtIndex0: {
       color: theme.colors.calendarRed,

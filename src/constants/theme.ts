@@ -2,6 +2,7 @@ import { DefaultTheme } from "styled-components/native";
 import responsiveToPx from "../utils/responsiveToPx";
 
 const fontSize = {
+  xxs: responsiveToPx("8px"),
   xs: responsiveToPx("10px"),
   sm: responsiveToPx("12px"),
   base: responsiveToPx("15px"),
@@ -25,6 +26,7 @@ const fontFamily = {
 };
 
 const borderRadius = {
+  xs: responsiveToPx("5px"),
   sm: responsiveToPx("15px"),
   base: responsiveToPx("20px"),
   lg: responsiveToPx("30px"),
