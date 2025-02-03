@@ -5,6 +5,7 @@ import DayComponent from "./DayComponent";
 import ChatButton from "./ChatButton";
 import { theme } from "@/src/constants/theme";
 import * as S from "./styles";
+import { useRouter } from "expo-router";
 
 LocaleConfig.locales["ko"] = {
   monthNames: [
@@ -29,6 +30,7 @@ LocaleConfig.locales["ko"] = {
 LocaleConfig.defaultLocale = "ko";
 
 function CalendarPage(): JSX.Element {
+  const router = useRouter();
   const { diariesData, changeDate } = useCurrentDate();
 
   const handleCopyPress = () => {
@@ -36,7 +38,7 @@ function CalendarPage(): JSX.Element {
   };
 
   const handleSettingPress = () => {
-    console.log("setting button");
+    router.push("/(app)/setting");
   };
 
   const handleDayPress = (day: DateData) => {
