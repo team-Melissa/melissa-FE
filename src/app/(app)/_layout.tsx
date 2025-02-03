@@ -1,4 +1,4 @@
-import { Slot } from "expo-router";
+import { Stack } from "expo-router";
 import IsNewUserProvider from "@/src/contexts/IsNewUserProvider";
 
 /**
@@ -7,7 +7,7 @@ import IsNewUserProvider from "@/src/contexts/IsNewUserProvider";
 function ContextLayout() {
   return (
     <IsNewUserProvider>
-      <Slot />
+      <Stack screenOptions={{ headerShown: false }} />
     </IsNewUserProvider>
   );
 }
