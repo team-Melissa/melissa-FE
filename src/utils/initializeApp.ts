@@ -1,5 +1,6 @@
 import * as Font from "expo-font";
 import { Dispatch, SetStateAction } from "react";
+import showToast from "@/src/libs/showToast";
 
 /**
  * @description 필요한 모든 폰트를 로딩하는 함수
@@ -28,7 +29,7 @@ const initializeApp = async (setIsReady: Dispatch<SetStateAction<boolean>>) => {
     await Promise.all([loadFonts()]);
   } catch (e) {
     console.error(e);
-    // Todo: 추가 에러 처리(폰트 로딩 실패 등)
+    showToast("앱 초기 로딩에 실패했어요. 잠시 후 다시 시도해주세요.", "error");
   } finally {
     setIsReady(true);
   }
