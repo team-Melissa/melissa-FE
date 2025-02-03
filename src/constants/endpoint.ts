@@ -10,6 +10,7 @@ const endpoint = {
   setting: {
     checkNew: "/api/v1/user-settings/check-new",
     register: "/api/v1/user-settings/register",
+    setting: "/api/v1/user-settings",
   },
   thread: {
     chat: "/api/v1/chats",
