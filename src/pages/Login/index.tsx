@@ -1,3 +1,4 @@
+import { Platform } from "react-native";
 import useLogin from "@/src/hooks/useLogin";
 import Loading from "@/src/components/ui/Loading";
 import LoginButton from "./LoginButton";
@@ -29,9 +30,11 @@ function LoginPage() {
           <LoginButton provider="google" onPress={googleMutate}>
             Google로 로그인
           </LoginButton>
-          <LoginButton provider="apple" onPress={handleClickApple}>
-            Apple로 로그인
-          </LoginButton>
+          {Platform.OS === "ios" && (
+            <LoginButton provider="apple" onPress={handleClickApple}>
+              Apple로 로그인
+            </LoginButton>
+          )}
         </S.ButtonBox>
       </S.ContentBox>
     </S.SafeView>
