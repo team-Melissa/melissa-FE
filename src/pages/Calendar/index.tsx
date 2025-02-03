@@ -4,6 +4,7 @@ import useCurrentDate from "@/src/hooks/useCurrentDate";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import DayComponent from "./DayComponent";
 import ChatButton from "./ChatButton";
+import DiaryBottomSheet from "./DiaryBottomSheet";
 import { theme } from "@/src/constants/theme";
 import * as S from "./styles";
 
@@ -73,6 +74,7 @@ function CalendarPage(): JSX.Element {
         }}
       />
       <ChatButton onPress={() => {}} />
+      <DiaryBottomSheet />
     </S.SafeView>
   );
 }
