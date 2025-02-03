@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
 import { isAxiosError } from "axios";
-import { googleLoginFn, kakaoLoginFn } from "../apis/loginApi";
+import { appleLoginFn, googleLoginFn, kakaoLoginFn } from "../apis/loginApi";
 import { setSecureValue } from "../libs/secureStorage";
 import { setStorageValue } from "../libs/mmkv";
 import { ErrorResponse } from "../types/commonTypes";
@@ -42,9 +42,15 @@ const useLogin = () => {
     onError: handleError,
   });
 
-  const isPending = kakaoIsPending || googleIsPending;
+  const { isPending: appleIsPending, mutate: appleMutate } = useMutation({
+    mutationFn: appleLoginFn,
+    onSuccess: handleSuccess,
+    onError: handleError,
+  });
 
-  return { isPending, kakaoMutate, googleMutate };
+  const isPending = kakaoIsPending || googleIsPending || appleIsPending;
+
+  return { isPending, kakaoMutate, googleMutate, appleMutate };
 };
 
 export default useLogin;
