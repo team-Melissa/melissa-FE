@@ -1,5 +1,7 @@
-import { registerSettingFn } from "@/src/apis/settingApi";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { registerSettingFn } from "@/src/apis/settingApi";
+import toastMessage from "@/src/constants/toastMessage";
+import showToast from "@/src/libs/showToast";
 
 const useRegisterSetting = () => {
   const queryClient = useQueryClient();
@@ -12,6 +14,7 @@ const useRegisterSetting = () => {
     },
     onError: (error) => {
       console.error(error.response?.data);
+      showToast(toastMessage.registerSetting.failed, "error");
     },
   });
 };

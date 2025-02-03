@@ -1,11 +1,12 @@
 import axios, { AxiosResponse } from "axios";
-import { Alert } from "react-native";
 import { router } from "expo-router";
 import { getStorageValue, setStorageValue, removeStorageValue } from "./mmkv";
 import { getSecureValue, removeSecureValue, setSecureValue } from "./secureStorage";
 import endpoint from "../constants/endpoint";
 import { LoginType } from "../types/loginTypes";
 import { AxiosErrorToInterceptors, ErrorResponse } from "../types/commonTypes";
+import toastMessage from "@/src/constants/toastMessage";
+import showToast from "@/src/libs/showToast";
 
 /**
  * 토큰 refresh 도중 새로 발생한 401 error 콜백 함수 Type
@@ -107,7 +108,7 @@ axiosInstance.interceptors.response.use(
         console.error("토큰 재발급 로직 도중 에러", e);
         removeSecureValue("refreshToken");
         removeStorageValue("accessToken");
-        Alert.alert("세션이 만료되었습니다. 다시 로그인 해주세요.");
+        showToast(toastMessage.tokenExpired, "error");
         router.replace("/login");
         return Promise.reject(error);
       } finally {

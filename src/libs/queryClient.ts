@@ -1,5 +1,5 @@
 import { QueryCache, QueryClient } from "@tanstack/react-query";
-import { Alert } from "react-native";
+import showToast from "@/src/libs/showToast";
 
 export default new QueryClient({
   defaultOptions: {
@@ -12,7 +12,7 @@ export default new QueryClient({
     onError: (error) => {
       console.log(error.response?.data);
       if (error.response?.data.code !== "401") {
-        Alert.alert(error.response?.data.message || "알 수 없는 에러가 발생했습니다.");
+        showToast(error.response?.data.message, "error");
       }
     },
   }),

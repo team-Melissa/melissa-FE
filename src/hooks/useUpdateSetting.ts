@@ -1,6 +1,8 @@
-import { putUserSettingFn } from "@/src/apis/settingApi";
-import { UserSettingResult } from "@/src/types/settingTypes";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { putUserSettingFn } from "@/src/apis/settingApi";
+import toastMessage from "@/src/constants/toastMessage";
+import showToast from "@/src/libs/showToast";
+import { UserSettingResult } from "@/src/types/settingTypes";
 
 const useUpdateSetting = (data: UserSettingResult) => {
   const queryClient = useQueryClient();
@@ -14,12 +16,13 @@ const useUpdateSetting = (data: UserSettingResult) => {
     },
     onSuccess: (data) => {
       console.log("성공", data);
+      showToast(toastMessage.updateSetting.success, "success");
     },
     onError: (error) => {
       console.error(error.response?.data);
       // 요청에 실패했으므로 서버에서 값 가져와 롤백
       queryClient.invalidateQueries({ queryKey: ["user-setting"] });
-      // Todo: 토스트 메시지로 에러 원인 알려주기
+      showToast(toastMessage.updateSetting.failed, "error");
     },
   });
 };
