@@ -1,3 +1,4 @@
+import { useRouter } from "expo-router";
 import { CalendarList, DateData, LocaleConfig } from "react-native-calendars";
 import useCurrentDate from "@/src/hooks/useCurrentDate";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -5,7 +6,6 @@ import DayComponent from "./DayComponent";
 import ChatButton from "./ChatButton";
 import { theme } from "@/src/constants/theme";
 import * as S from "./styles";
-import { useRouter } from "expo-router";
 
 LocaleConfig.locales["ko"] = {
   monthNames: [
