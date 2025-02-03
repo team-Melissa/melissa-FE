@@ -1,4 +1,3 @@
-import { Alert } from "react-native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
 import { isAxiosError } from "axios";
@@ -7,6 +6,7 @@ import { setSecureValue } from "../libs/secureStorage";
 import { setStorageValue } from "../libs/mmkv";
 import { ErrorResponse } from "../types/commonTypes";
 import { LoginType } from "../types/loginTypes";
+import showToast from "@/src/libs/showToast";
 
 const useLogin = () => {
   const queryClient = useQueryClient();
@@ -18,13 +18,14 @@ const useLogin = () => {
     await setSecureValue("refreshToken", data.result.refreshToken);
     queryClient.invalidateQueries({ queryKey: ["check-new-user"] });
     router.replace("/(app)");
+    showToast("로그인에 성공했습니다.", "success");
   };
 
   const handleError = (error: unknown) => {
     console.error("로그인 실패!", error);
     if (isAxiosError<ErrorResponse>(error)) {
       console.error("OAuth 프로바이더 정상 작동, 백엔드와 문제 발생", error.response?.data);
-      Alert.alert("로그인에 실패했습니다.");
+      showToast("로그인에 실패했습니다.", "error");
     }
   };
 
