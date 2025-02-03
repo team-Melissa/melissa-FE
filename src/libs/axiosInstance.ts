@@ -5,6 +5,7 @@ import { getSecureValue, removeSecureValue, setSecureValue } from "./secureStora
 import endpoint from "../constants/endpoint";
 import { LoginType } from "../types/loginTypes";
 import { AxiosErrorToInterceptors, ErrorResponse } from "../types/commonTypes";
+import toastMessage from "@/src/constants/toastMessage";
 import showToast from "@/src/libs/showToast";
 
 /**
@@ -107,7 +108,7 @@ axiosInstance.interceptors.response.use(
         console.error("토큰 재발급 로직 도중 에러", e);
         removeSecureValue("refreshToken");
         removeStorageValue("accessToken");
-        showToast("세션이 만료되었습니다. 다시 로그인 해주세요.", "error");
+        showToast(toastMessage.tokenExpired, "error");
         router.replace("/login");
         return Promise.reject(error);
       } finally {

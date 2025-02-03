@@ -1,7 +1,8 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { putUserSettingFn } from "@/src/apis/settingApi";
+import toastMessage from "@/src/constants/toastMessage";
 import showToast from "@/src/libs/showToast";
 import { UserSettingResult } from "@/src/types/settingTypes";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useUpdateSetting = (data: UserSettingResult) => {
   const queryClient = useQueryClient();
@@ -15,13 +16,13 @@ const useUpdateSetting = (data: UserSettingResult) => {
     },
     onSuccess: (data) => {
       console.log("성공", data);
-      showToast("설정 업데이트 완료.", "success");
+      showToast(toastMessage.updateSetting.success, "success");
     },
     onError: (error) => {
       console.error(error.response?.data);
       // 요청에 실패했으므로 서버에서 값 가져와 롤백
       queryClient.invalidateQueries({ queryKey: ["user-setting"] });
-      showToast("설정 업데이트 도중 문제 발생.", "error");
+      showToast(toastMessage.updateSetting.failed, "error");
     },
   });
 };

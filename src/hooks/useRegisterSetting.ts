@@ -1,6 +1,7 @@
-import { registerSettingFn } from "@/src/apis/settingApi";
-import showToast from "@/src/libs/showToast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { registerSettingFn } from "@/src/apis/settingApi";
+import toastMessage from "@/src/constants/toastMessage";
+import showToast from "@/src/libs/showToast";
 
 const useRegisterSetting = () => {
   const queryClient = useQueryClient();
@@ -13,7 +14,7 @@ const useRegisterSetting = () => {
     },
     onError: (error) => {
       console.error(error.response?.data);
-      showToast("앱 초기 로딩 중 에러가 발생했어요.", "error");
+      showToast(toastMessage.registerSetting.failed, "error");
     },
   });
 };
