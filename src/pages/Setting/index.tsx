@@ -3,6 +3,7 @@ import { useRouter } from "expo-router";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { UserSettingResult } from "@/src/types/settingTypes";
+import useUpdateSetting from "@/src/hooks/useUpdateSetting";
 import { theme } from "@/src/constants/theme";
 import * as S from "./styles";
 
@@ -11,10 +12,19 @@ interface Props {
 }
 
 function SettingPage({ data }: Props): JSX.Element {
+  const { sleepTime, notificationSummary, notificationTime } = data.result;
   const router = useRouter();
+  const { mutate } = useUpdateSetting(data);
 
   const handlePrevButton = () => {
     router.back();
+  };
+
+  const handleNotificationSummary = () => {
+    mutate({
+      ...data.result,
+      notificationSummary: !notificationSummary,
+    });
   };
 
   return (
@@ -35,14 +45,14 @@ function SettingPage({ data }: Props): JSX.Element {
               <S.ItemTitleText>자는 시간 설정</S.ItemTitleText>
               <S.ItemDescriptionText>해당 시간에 대화를 초기화 해드려요</S.ItemDescriptionText>
             </S.ItemTitleBox>
-            <S.ItemValueText>{data.result.sleepTime}</S.ItemValueText>
+            <S.ItemValueText>{sleepTime}</S.ItemValueText>
           </S.ItemButton>
           <S.ItemButton disabled={true}>
             <S.ItemTitleBox>
               <S.ItemTitleText>푸시 알림</S.ItemTitleText>
               <S.ItemDescriptionText>푸시 알림을 허용/차단할 수 있어요</S.ItemDescriptionText>
             </S.ItemTitleBox>
-            <Switch value={data.result.notificationSummary} />
+            <Switch value={notificationSummary} onChange={handleNotificationSummary} />
           </S.ItemButton>
           <S.ItemButton hitSlop={10}>
             <S.ItemTitleBox>
@@ -50,7 +60,7 @@ function SettingPage({ data }: Props): JSX.Element {
               <S.ItemDescriptionText>원하는 시간에 대화할 수 있도록</S.ItemDescriptionText>
               <S.ItemDescriptionText>앱 푸시 알림을 보내드려요</S.ItemDescriptionText>
             </S.ItemTitleBox>
-            <S.ItemValueText>{data.result.notificationTime}</S.ItemValueText>
+            <S.ItemValueText>{notificationTime}</S.ItemValueText>
           </S.ItemButton>
           <S.ItemButton hitSlop={10}>
             <S.ItemTitleBox>

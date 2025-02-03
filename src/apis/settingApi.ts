@@ -14,7 +14,16 @@ export const checkNewUserFn = async () => {
 };
 
 export const getUserSettingFn = async () => {
-  const { data } = await axiosInstance.get<UserSettingResult>(endpoint.setting.getSetting);
+  const { data } = await axiosInstance.get<UserSettingResult>(endpoint.setting.setting);
   console.log(data);
+  return data;
+};
+
+export const putUserSettingFn = async (variable: {
+  sleepTime: string;
+  notificationTime: string;
+  notificationSummary: boolean;
+}) => {
+  const { data } = await axiosInstance.put<UserSettingResult>(endpoint.setting.setting, variable);
   return data;
 };
