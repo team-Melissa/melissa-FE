@@ -34,7 +34,7 @@ function RootLayout() {
   return (
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <StatusBar />
+        <StatusBar style="dark" />
         <Slot />
         <Toast />
       </QueryClientProvider>

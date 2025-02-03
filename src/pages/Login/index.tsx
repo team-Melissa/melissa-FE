@@ -1,14 +1,11 @@
+import { Platform } from "react-native";
 import useLogin from "@/src/hooks/useLogin";
 import Loading from "@/src/components/ui/Loading";
 import LoginButton from "./LoginButton";
 import * as S from "./styles";
 
 function LoginPage() {
-  const { isPending, kakaoMutate, googleMutate } = useLogin();
-
-  const handleClickApple = () => {
-    console.log("애플 버튼 클릭");
-  };
+  const { isPending, kakaoMutate, googleMutate, appleMutate } = useLogin();
 
   if (isPending) {
     return <Loading />;
@@ -29,9 +26,11 @@ function LoginPage() {
           <LoginButton provider="google" onPress={googleMutate}>
             Google로 로그인
           </LoginButton>
-          <LoginButton provider="apple" onPress={handleClickApple}>
-            Apple로 로그인
-          </LoginButton>
+          {Platform.OS === "ios" && (
+            <LoginButton provider="apple" onPress={appleMutate}>
+              Apple로 로그인
+            </LoginButton>
+          )}
         </S.ButtonBox>
       </S.ContentBox>
     </S.SafeView>
