@@ -1,6 +1,6 @@
 import endpoint from "@/src/constants/endpoint";
 import axiosInstance from "@/src/libs/axiosInstance";
-import { MonthCalendar } from "@/src/types/calendarTypes";
+import { DiaryResult, MonthCalendar } from "@/src/types/calendarTypes";
 import { ErrorResponse } from "@/src/types/commonTypes";
 import { isAxiosError } from "axios";
 
@@ -26,4 +26,12 @@ export const getCalendarFn = async (year: number, month: number) => {
     // 나머지 경우 에러는 던짐
     throw e;
   }
+};
+
+export const getDiaryFn = async (year: number, month: number, day: number) => {
+  const { data } = await axiosInstance.get<DiaryResult>(
+    `${endpoint.calendar.day}?year=${year}&month=${month}&day=${day}`
+  );
+  console.log(data);
+  return data;
 };
