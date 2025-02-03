@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ScrollView, Switch } from "react-native";
 import { useRouter } from "expo-router";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -18,6 +18,7 @@ interface Props {
 function SettingPage({ data }: Props): JSX.Element {
   const { sleepTime, notificationSummary, notificationTime } = data.result;
 
+  const [optimisticToggle, setOptimisticToggle] = useState<boolean>(notificationSummary);
   const [isDatePickerVisible, setIsDatePickerVisible] = useState<boolean>(false);
   const [datePickerType, setDatePickerType] = useState<"sleepTime" | "notificationTime" | null>(
     null
@@ -61,11 +62,16 @@ function SettingPage({ data }: Props): JSX.Element {
   };
 
   const handleNotificationSummary = () => {
+    setOptimisticToggle(!notificationSummary);
     settingMutate({
       ...data.result,
       notificationSummary: !notificationSummary,
     });
   };
+
+  useEffect(() => {
+    setOptimisticToggle(notificationSummary);
+  }, [notificationSummary]);
 
   if (isPending) {
     return <Loading />;
@@ -97,7 +103,7 @@ function SettingPage({ data }: Props): JSX.Element {
               <S.ItemTitleText>푸시 알림</S.ItemTitleText>
               <S.ItemDescriptionText>푸시 알림을 허용/차단할 수 있어요</S.ItemDescriptionText>
             </S.ItemTitleBox>
-            <Switch value={notificationSummary} onChange={handleNotificationSummary} />
+            <Switch value={optimisticToggle} onChange={handleNotificationSummary} />
           </S.ItemButton>
 
           <S.ItemButton hitSlop={10} onPress={() => showDatePicker("notificationTime")}>
