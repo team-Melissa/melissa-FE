@@ -2,6 +2,7 @@ import { login } from "@react-native-seoul/kakao-login";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import axiosInstance from "../libs/axiosInstance";
 import endpoint from "../constants/endpoint";
+import { SuccessResponse } from "@/src/types/commonTypes";
 import { LoginType } from "@/src/types/loginTypes";
 
 GoogleSignin.configure({
@@ -22,5 +23,10 @@ export const googleLoginFn = async () => {
 export const kakaoLoginFn = async () => {
   const { accessToken } = await login();
   const { data } = await axiosInstance.post<LoginType>(endpoint.auth.kakao, { accessToken });
+  return data;
+};
+
+export const logoutFn = async () => {
+  const { data } = await axiosInstance.post<SuccessResponse>(endpoint.auth.logout);
   return data;
 };

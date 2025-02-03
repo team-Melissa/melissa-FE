@@ -2,8 +2,10 @@ import { ScrollView, Switch } from "react-native";
 import { useRouter } from "expo-router";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { UserSettingResult } from "@/src/types/settingTypes";
+import Loading from "@/src/components/ui/Loading";
 import useUpdateSetting from "@/src/hooks/useUpdateSetting";
+import useLogout from "@/src/hooks/useLogout";
+import { UserSettingResult } from "@/src/types/settingTypes";
 import { theme } from "@/src/constants/theme";
 import * as S from "./styles";
 
@@ -14,18 +16,27 @@ interface Props {
 function SettingPage({ data }: Props): JSX.Element {
   const { sleepTime, notificationSummary, notificationTime } = data.result;
   const router = useRouter();
-  const { mutate } = useUpdateSetting(data);
+  const { mutate: settingMutate } = useUpdateSetting(data);
+  const { isPending, mutate: logoutMutate } = useLogout();
 
   const handlePrevButton = () => {
     router.back();
   };
 
+  const handleLogout = () => {
+    logoutMutate();
+  };
+
   const handleNotificationSummary = () => {
-    mutate({
+    settingMutate({
       ...data.result,
       notificationSummary: !notificationSummary,
     });
   };
+
+  if (isPending) {
+    return <Loading />;
+  }
 
   return (
     <S.SafeView>
@@ -76,7 +87,7 @@ function SettingPage({ data }: Props): JSX.Element {
               <S.ItemDescriptionText>큰 도움이 됩니다</S.ItemDescriptionText>
             </S.ItemTitleBox>
           </S.ItemButton>
-          <S.ItemButton hitSlop={10}>
+          <S.ItemButton hitSlop={10} onPress={handleLogout}>
             <S.ItemTitleBox>
               <S.ItemTitleText>로그아웃</S.ItemTitleText>
             </S.ItemTitleBox>
