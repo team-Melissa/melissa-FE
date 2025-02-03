@@ -52,6 +52,9 @@ const colors = {
   calendarIcon: "#424242",
   calendarRed: "#FF5656",
   calendarBlue: "#4766FF",
+  settingText: "#121212",
+  settingSubText: "#AAAAAA",
+  settingValueText: "#505050",
 };
 
 const gap = {
@@ -59,6 +62,7 @@ const gap = {
   base: responsiveToPx("8px"),
   md: responsiveToPx("12px"),
   lg: responsiveToPx("24px"),
+  xxl: responsiveToPx("50px"),
 };
 
 export const theme: DefaultTheme = {
