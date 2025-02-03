@@ -58,7 +58,14 @@ axiosInstance.interceptors.response.use(
     const { response, config } = error;
 
     // 401 에러는 refresh token으로 재발급 시도 후 성공하면 기존 요청 재시도
-    if (response && config && response.status === 401 && !config.sent) {
+    // 소셜 로그인 인증 실패 (OAuth 토큰 관련 문제)는 제외
+    if (
+      response &&
+      config &&
+      response.status === 401 &&
+      response.data.code !== "AUTH4001" &&
+      !config.sent
+    ) {
       // 해당 에러가 토큰 재발급 시도의 응답이 아니고, 이미 재발급 중이면 Queue에 대기시킴
       if (isRefreshing) {
         console.log("토큰 재발급중... 해당 요청을 Queue에 추가");
