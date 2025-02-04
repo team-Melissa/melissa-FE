@@ -39,9 +39,11 @@ function DiaryBottomSheet({ pressedDate }: Props, ref: ForwardedRef<BottomSheet>
       backdropComponent={Backdrop}
     >
       <BottomSheetScrollView>
-        <View style={{ flex: 1 }}>
-          <Text style={{ color: "black", fontSize: 64 }}>{data?.message}</Text>
-        </View>
+        {data && (
+          <View style={{ flex: 1 }}>
+            <Text style={{ color: "black", fontSize: 64 }}>{data.message}</Text>
+          </View>
+        )}
       </BottomSheetScrollView>
     </BottomSheet>
   );
