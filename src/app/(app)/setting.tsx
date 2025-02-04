@@ -1,18 +1,13 @@
-import { getUserSettingFn } from "@/src/apis/settingApi";
+import useUserSetting from "@/src/hooks/useUserSetting";
 import CommonError from "@/src/components/ui/CommonError";
 import Loading from "@/src/components/ui/Loading";
 import SettingPage from "@/src/pages/Setting";
-import { useQuery } from "@tanstack/react-query";
 
 /**
  * @description 유저 설정 페이지 라우터
  */
 function SettingRouter(): JSX.Element {
-  const { isPending, isError, data, refetch } = useQuery({
-    queryFn: getUserSettingFn,
-    queryKey: ["user-setting"],
-    staleTime: 5 * 60 * 1000,
-  });
+  const { isPending, isError, data, refetch } = useUserSetting();
 
   if (isPending) {
     return <Loading />;
