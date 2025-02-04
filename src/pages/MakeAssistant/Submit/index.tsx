@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "expo-router";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useIsNewUserContext } from "@/src/contexts/IsNewUserProvider";
 import { makeAssistantFn } from "@/src/apis/aiProfileApi";
 import Button from "@/src/components/ui/Button";
@@ -14,6 +14,7 @@ interface Props {
 }
 
 function Submit({ answers }: Props) {
+  const queryClient = useQueryClient();
   const isNewUser = useIsNewUserContext();
   const { isPending, isSuccess, isError, error, mutate } = useMutation({
     mutationFn: () => makeAssistantFn(answersJson),
@@ -44,6 +45,7 @@ function Submit({ answers }: Props) {
       }, 2500);
     } else {
       console.log("기존 유저입니다. mmkv를 그대로 둡니다...");
+      queryClient.invalidateQueries({ queryKey: ["assistant-list"] });
       setTimeout(() => {
         console.log("이전 페이지로 back 합니다.");
         router.back();
