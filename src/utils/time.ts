@@ -1,10 +1,4 @@
-type ThreadDate = {
-  year: number;
-  month: number;
-  day: number;
-};
-
-type ExpiredDate = Date;
+import { ExpiredDate, ThreadDate } from "@/src/types/threadTypes";
 
 export const getThreadDateExpired = (sleepHour: number): [ThreadDate, ExpiredDate] => {
   const date = new Date();
