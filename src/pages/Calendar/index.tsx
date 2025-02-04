@@ -1,9 +1,12 @@
+import { useRef, useState } from "react";
 import { useRouter } from "expo-router";
-import { CalendarList, DateData, LocaleConfig } from "react-native-calendars";
-import useCurrentDate from "@/src/hooks/useCurrentDate";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { CalendarList, DateData, LocaleConfig } from "react-native-calendars";
+import BottomSheet from "@gorhom/bottom-sheet";
+import useCurrentDate from "@/src/hooks/useCurrentDate";
 import DayComponent from "./DayComponent";
 import ChatButton from "./ChatButton";
+import DiaryBottomSheet from "./DiaryBottomSheet";
 import { theme } from "@/src/constants/theme";
 import * as S from "./styles";
 
@@ -30,8 +33,16 @@ LocaleConfig.locales["ko"] = {
 LocaleConfig.defaultLocale = "ko";
 
 function CalendarPage(): JSX.Element {
+  // 초기값은 오늘로
+  const [pressedDate, setPressedDate] = useState<Pick<DateData, "year" | "month" | "day">>(() => ({
+    year: new Date().getFullYear(),
+    month: new Date().getMonth() + 1,
+    day: new Date().getDate(),
+  }));
+
   const router = useRouter();
-  const { diariesData, changeDate } = useCurrentDate();
+  const { calendarsData, changeDate } = useCurrentDate();
+  const bottomSheetRef = useRef<BottomSheet>(null); // BottomSheet(자식 컴포넌트)를 조작하기 위한 부모 ref
 
   const handleCopyPress = () => {
     console.log("copy button");
@@ -41,8 +52,12 @@ function CalendarPage(): JSX.Element {
     router.push("/(app)/setting");
   };
 
-  const handleDayPress = (day: DateData) => {
-    console.log("selected day", day);
+  const handleDayPress = (date: DateData) => {
+    const { year, month, day } = date;
+    setPressedDate({ year, month, day });
+    if (bottomSheetRef.current) {
+      bottomSheetRef.current.expand();
+    }
   };
 
   return (
@@ -68,11 +83,16 @@ function CalendarPage(): JSX.Element {
         dayComponent={({ date }) => {
           if (!date) return undefined;
           return (
-            <DayComponent date={date} diaries={diariesData} onPress={() => handleDayPress(date)} />
+            <DayComponent
+              date={date}
+              calendars={calendarsData}
+              onPress={() => handleDayPress(date)}
+            />
           );
         }}
       />
       <ChatButton onPress={() => {}} />
+      <DiaryBottomSheet ref={bottomSheetRef} pressedDate={pressedDate} />
     </S.SafeView>
   );
 }
