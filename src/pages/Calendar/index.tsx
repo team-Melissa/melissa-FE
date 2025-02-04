@@ -52,6 +52,10 @@ function CalendarPage(): JSX.Element {
     router.push("/(app)/setting");
   };
 
+  const handleChattingPress = () => {
+    router.push("/(app)/chatting");
+  };
+
   const handleDayPress = (date: DateData) => {
     const { year, month, day } = date;
     setPressedDate({ year, month, day });
@@ -91,7 +95,7 @@ function CalendarPage(): JSX.Element {
           );
         }}
       />
-      <ChatButton onPress={() => {}} />
+      <ChatButton onPress={handleChattingPress} />
       <DiaryBottomSheet ref={bottomSheetRef} pressedDate={pressedDate} />
     </S.SafeView>
   );
