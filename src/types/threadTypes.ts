@@ -15,4 +15,20 @@ export type ThreadDate = {
   day: number;
 };
 
+export type Chat = {
+  role: "AI" | "USER";
+  content: string;
+  createAt: string;
+  aiProfileName: string;
+  aiProfileImageS3: string;
+};
+
+export type MessageResult = SuccessResponse & {
+  result: {
+    aiProfileName: string;
+    aiProfileImageS3: string;
+    chats: Chat[];
+  };
+};
+
 export type ExpiredDate = Date;

@@ -1,6 +1,6 @@
 import axiosInstance from "@/src/libs/axiosInstance";
 import endpoint from "@/src/constants/endpoint";
-import { NewThreadResult, ThreadDate } from "@/src/types/threadTypes";
+import { MessageResult, NewThreadResult, ThreadDate } from "@/src/types/threadTypes";
 
 export const newThreadFn = async ({
   aiProfileId,
@@ -15,7 +15,7 @@ export const newThreadFn = async ({
 };
 
 export const getMessagesFn = async ({ year, month, day }: ThreadDate) => {
-  const { data } = await axiosInstance.get(
+  const { data } = await axiosInstance.get<MessageResult>(
     `${endpoint.thread.chat}?year=${year}&month=${month}&day=${day}`
   );
   console.log(data);
