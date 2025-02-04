@@ -21,3 +21,15 @@ export const getMessagesFn = async ({ year, month, day }: ThreadDate) => {
   console.log(data);
   return data;
 };
+
+export const changeAiFn = async ({
+  aiProfileId,
+  year,
+  month,
+  day,
+}: ThreadDate & { aiProfileId: number }) => {
+  const { data } = await axiosInstance.patch(
+    `${endpoint.thread.changeAi}?aiProfileId=${aiProfileId}&year=${year}&month=${month}&day=${day}`
+  );
+  return data;
+};

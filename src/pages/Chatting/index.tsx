@@ -1,13 +1,16 @@
+import { Fragment, useState } from "react";
 import { useRouter } from "expo-router";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { useQuery } from "@tanstack/react-query";
-import { getMessagesFn } from "@/src/apis/threadApi";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { changeAiFn, getMessagesFn } from "@/src/apis/threadApi";
+import AssistantList from "@/src/components/AssistantList";
 import Loading from "@/src/components/ui/Loading";
 import CommonError from "@/src/components/ui/CommonError";
 import UserChatBox from "./UserChatBox";
 import AiChatBox from "./AiChatBox";
-import { ThreadDate } from "@/src/types/threadTypes";
 import { theme } from "@/src/constants/theme";
+import { setAiProfileId } from "@/src/libs/mmkv";
+import { ThreadDate } from "@/src/types/threadTypes";
 import * as S from "./styles";
 
 interface Props {
@@ -16,6 +19,8 @@ interface Props {
 }
 
 function ChattingPage({ threadDate, expiredDate }: Props): JSX.Element {
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const queryClient = useQueryClient();
   const router = useRouter();
 
   const { isPending, isError, data, refetch } = useQuery({
@@ -23,8 +28,27 @@ function ChattingPage({ threadDate, expiredDate }: Props): JSX.Element {
     queryKey: ["message", threadDate],
   });
 
+  const { mutate } = useMutation({
+    mutationFn: changeAiFn,
+    onSuccess: (data) => {
+      console.log(data);
+      queryClient.invalidateQueries({ queryKey: ["message", threadDate] });
+      setIsVisible(false);
+    },
+    onError: (error) => console.error(error.response?.data),
+  });
+
+  const handleHeaderPress = () => {
+    setIsVisible(true);
+  };
+
   const handleBackPress = () => {
     router.back();
+  };
+
+  const handlePressAiCard = (aiProfileId: number) => {
+    setAiProfileId(aiProfileId);
+    mutate({ ...threadDate, aiProfileId });
   };
 
   if (isPending) {
@@ -42,31 +66,38 @@ function ChattingPage({ threadDate, expiredDate }: Props): JSX.Element {
   }
 
   return (
-    <S.SafeView edges={["left", "right", "top"]}>
-      <S.HeaderBox>
-        <S.BackButton onPress={handleBackPress} hitSlop={7}>
-          <MaterialIcons name="arrow-back-ios" size={28} color={theme.colors.black} />
-        </S.BackButton>
-        <S.HeaderButton hitSlop={7}>
-          <S.Image source={{ uri: data.result.aiProfileImageS3 }} />
-          <S.AiNameText>{data.result.aiProfileName}</S.AiNameText>
-        </S.HeaderButton>
-      </S.HeaderBox>
-      <S.ScrollBox>
-        {data.result.chats.map((chat) =>
-          chat.role === "AI" ? (
-            <AiChatBox
-              content={chat.content}
-              imageUrl={chat.aiProfileImageS3}
-              key={chat.createAt}
-            />
-          ) : (
-            <UserChatBox input={chat.content} key={chat.createAt} />
-          )
-        )}
-      </S.ScrollBox>
-      <S.TextInputBox></S.TextInputBox>
-    </S.SafeView>
+    <Fragment>
+      <AssistantList
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+        onPressAiCard={handlePressAiCard}
+      />
+      <S.SafeView edges={["left", "right", "top"]}>
+        <S.HeaderBox>
+          <S.BackButton onPress={handleBackPress} hitSlop={7}>
+            <MaterialIcons name="arrow-back-ios" size={28} color={theme.colors.black} />
+          </S.BackButton>
+          <S.HeaderButton onPress={handleHeaderPress} hitSlop={7}>
+            <S.Image source={{ uri: data.result.aiProfileImageS3 }} />
+            <S.AiNameText>{data.result.aiProfileName}</S.AiNameText>
+          </S.HeaderButton>
+        </S.HeaderBox>
+        <S.ScrollBox>
+          {data.result.chats.map((chat) =>
+            chat.role === "AI" ? (
+              <AiChatBox
+                content={chat.content}
+                imageUrl={chat.aiProfileImageS3}
+                key={chat.createAt}
+              />
+            ) : (
+              <UserChatBox input={chat.content} key={chat.createAt} />
+            )
+          )}
+        </S.ScrollBox>
+        <S.TextInputBox></S.TextInputBox>
+      </S.SafeView>
+    </Fragment>
   );
 }
 
