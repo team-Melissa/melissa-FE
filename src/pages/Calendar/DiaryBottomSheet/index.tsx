@@ -1,22 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import { ForwardedRef, forwardRef, useMemo } from "react";
-import BottomSheet, {
-  BottomSheetBackdrop,
-  BottomSheetBackdropProps,
-  BottomSheetScrollView,
-} from "@gorhom/bottom-sheet";
+import BottomSheet, { BottomSheetBackdrop, BottomSheetBackdropProps } from "@gorhom/bottom-sheet";
 import { DateData } from "react-native-calendars";
 import { DiaryResult } from "@/src/types/calendarTypes";
+import { shadowProps } from "@/src/constants/shadowProps";
 import * as S from "./styles";
-
-import { Text, View } from "react-native";
 
 interface Props {
   pressedDate: Pick<DateData, "year" | "month" | "day">;
 }
 
 function DiaryBottomSheet({ pressedDate }: Props, ref: ForwardedRef<BottomSheet>): JSX.Element {
-  const snapPoints = useMemo(() => ["20%", "50%", "80%"], []);
+  const snapPoints = useMemo(() => ["60%", "90%"], []);
 
   // queryFn을 넣지 않으면, 캐시되지 않은 데이터는 불러오지 않는다
   // 즉 오늘 날짜로 pressedDate가 잡혀있어 의미없는 api 요청이 하나 더 발생하지 않는다
@@ -25,7 +20,7 @@ function DiaryBottomSheet({ pressedDate }: Props, ref: ForwardedRef<BottomSheet>
     staleTime: 5 * 60 * 1000,
   });
 
-  console.log(data);
+  console.log(data?.result);
 
   return (
     <BottomSheet
@@ -38,13 +33,33 @@ function DiaryBottomSheet({ pressedDate }: Props, ref: ForwardedRef<BottomSheet>
       enablePanDownToClose={true}
       backdropComponent={Backdrop}
     >
-      <BottomSheetScrollView>
-        {data && (
-          <View style={{ flex: 1 }}>
-            <Text style={{ color: "black", fontSize: 64 }}>{data.message}</Text>
-          </View>
-        )}
-      </BottomSheetScrollView>
+      {data && (
+        <S.BottomSheetLayout>
+          <S.ScrollBox showsVerticalScrollIndicator={false}>
+            <S.ImageBox>
+              <S.Image source={{ uri: data.result.imageS3 }} />
+            </S.ImageBox>
+            <S.DateText>
+              {data.result.year}. {data.result.month}. {data.result.day}
+            </S.DateText>
+            <S.TitleText>{data.result.summaryTitle}</S.TitleText>
+            <S.ContentText>{data.result.summaryContent}</S.ContentText>
+
+            <S.TagText>#놀이공원 #롤러코스터</S.TagText>
+            <S.ChatButtonBox>
+              <S.ViewChatButton
+                hitSlop={10}
+                style={shadowProps}
+                onPress={() => {
+                  /* Todo: 버튼 클릭 시 채팅방 레이아웃에서 나눴던 채팅 읽기 */
+                }}
+              >
+                <S.ButtonText>전체 대화 보기</S.ButtonText>
+              </S.ViewChatButton>
+            </S.ChatButtonBox>
+          </S.ScrollBox>
+        </S.BottomSheetLayout>
+      )}
     </BottomSheet>
   );
 }
