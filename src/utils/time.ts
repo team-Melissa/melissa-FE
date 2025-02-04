@@ -21,7 +21,7 @@ export const threadDateExpired = (sleepHour: number): [ThreadDate, ExpiredDate] 
     createdDate.setDate(createdDate.getDate() - 1);
   }
 
-  expiredDate.setHours(sleepHour, 0, 0, 0); // 분 초는 0으로
+  expiredDate.setHours(sleepHour, 0, 0, 0); // 분 초 ms는 0으로
 
   return [
     {
@@ -33,4 +33,8 @@ export const threadDateExpired = (sleepHour: number): [ThreadDate, ExpiredDate] 
   ];
 };
 
-// 만료일 이후면 당일 스레드 재생성
+// 만료일 이후인지 확인
+export const checkThreadExpire = (expiredDate: ExpiredDate) => {
+  const now = new Date();
+  return now > expiredDate;
+};
