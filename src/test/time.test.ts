@@ -1,4 +1,4 @@
-import { threadDateExpired } from "@/src/utils/time";
+import { checkThreadExpire, threadDateExpired } from "@/src/utils/time";
 
 describe("threadDateExpired", () => {
   beforeEach(() => {
@@ -42,5 +42,29 @@ describe("threadDateExpired", () => {
 
     const result = threadDateExpired(3);
     expect(result).toEqual([{ year: 2025, month: 12, day: 31 }, new Date(2026, 0, 1, 3)]);
+  });
+});
+
+describe("checkThreadExpire", () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
+  });
+
+  test("현재 만료일 이전이라면 false 반환", () => {
+    jest.setSystemTime(new Date(2025, 1, 5, 10, 0));
+    const expiredDate = new Date(2025, 1, 5, 15, 0);
+
+    expect(checkThreadExpire(expiredDate)).toBe(false);
+  });
+
+  test("현재 만료일을 지났다면 true 반환", () => {
+    jest.setSystemTime(new Date(2025, 1, 5, 16, 0));
+    const expiredDate = new Date(2025, 1, 5, 15, 0);
+
+    expect(checkThreadExpire(expiredDate)).toBe(true);
   });
 });
