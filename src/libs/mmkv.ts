@@ -15,8 +15,12 @@ export const removeStorageValue = (key: string): void => {
 };
 
 export const getAiProfileId = (): number | null => {
-  const aiProfileId = storage.getString("aiProfileId");
-  return aiProfileId ? parseInt(aiProfileId) : null;
+  const aiProfileId = storage.getNumber("aiProfileId");
+  return aiProfileId ? aiProfileId : null;
+};
+
+export const setAiProfileId = (aiProfileId: number): void => {
+  storage.set("aiProfileId", aiProfileId);
 };
 
 export const getAccessToken = (): string | null => {

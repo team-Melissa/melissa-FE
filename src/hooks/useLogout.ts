@@ -16,6 +16,7 @@ const useLogout = () => {
       console.log(data);
       await removeSecureValue("refreshToken");
       removeStorageValue("accessToken");
+      removeStorageValue("aiProfileId");
       queryClient.clear(); // 로그아웃 후 다른 계정에 접속해도 캐시가 남아있는 문제 존재했음. 깜빡했다...
       router.replace("/login");
     },
