@@ -1,11 +1,13 @@
 import { useRouter } from "expo-router";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { Text, TouchableOpacity } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 import { getMessagesFn } from "@/src/apis/threadApi";
 import Loading from "@/src/components/ui/Loading";
 import CommonError from "@/src/components/ui/CommonError";
+import UserChatBox from "./UserChatBox";
+import AiChatBox from "./AiChatBox";
 import { ThreadDate } from "@/src/types/threadTypes";
+import { theme } from "@/src/constants/theme";
 import * as S from "./styles";
 
 interface Props {
@@ -43,16 +45,23 @@ function ChattingPage({ threadDate, expiredDate }: Props): JSX.Element {
     <S.SafeView>
       <S.HeaderBox>
         <S.BackButton onPress={handleBackPress} hitSlop={10}>
-          <MaterialIcons name="arrow-back-ios" size={28} color="black" />
+          <MaterialIcons name="arrow-back-ios" size={28} color={theme.colors.black} />
         </S.BackButton>
       </S.HeaderBox>
-      <Text>
-        {threadDate.day}
-        {expiredDate.toString()}
-      </Text>
-      <TouchableOpacity onPress={handleBackPress}>
-        <Text>뒤로가기</Text>
-      </TouchableOpacity>
+      <S.ScrollBox>
+        {data.result.chats.map((chat) =>
+          chat.role === "AI" ? (
+            <AiChatBox
+              content={chat.content}
+              imageUrl={chat.aiProfileImageS3}
+              key={chat.createAt}
+            />
+          ) : (
+            <UserChatBox input={chat.content} key={chat.createAt} />
+          )
+        )}
+      </S.ScrollBox>
+      <S.TextInputBox></S.TextInputBox>
     </S.SafeView>
   );
 }

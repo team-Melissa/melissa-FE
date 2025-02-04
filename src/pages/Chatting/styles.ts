@@ -11,9 +11,18 @@ export const FlexView = styled.View`
 `;
 
 export const HeaderBox = styled.View`
-  width: 100%;
-  height: ${responsiveToPx("80px")};
+  flex: 0.12;
   justify-content: center;
+  background-color: rebeccapurple;
+`;
+export const ScrollBox = styled.ScrollView`
+  flex: 0.73;
+  background-color: beige;
+`;
+
+export const TextInputBox = styled.View`
+  flex: 0.15;
+  background-color: crimson;
 `;
 
 export const BackButton = styled.TouchableOpacity`
