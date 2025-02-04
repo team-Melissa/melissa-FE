@@ -38,12 +38,17 @@ function Submit({ answers }: Props) {
     if (isNewUser) {
       console.log("새로운 유저입니다. mmkv에 생성된 어시스턴트 id를 저장합니다...");
       setStorageValue("aiProfileId", data.result.aiProfileId.toString());
+      setTimeout(() => {
+        console.log("/main으로 리다이렉트합니다.");
+        router.replace("/(app)/main");
+      }, 2500);
     } else {
       console.log("기존 유저입니다. mmkv를 그대로 둡니다...");
+      setTimeout(() => {
+        console.log("이전 페이지로 back 합니다.");
+        router.back();
+      }, 2500);
     }
-    setTimeout(() => {
-      router.replace("/(app)/main");
-    }, 2500);
   };
 
   // 초기 mutation 실행
