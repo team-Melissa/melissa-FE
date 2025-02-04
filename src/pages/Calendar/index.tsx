@@ -1,7 +1,8 @@
+import { useEffect, useState } from "react";
 import { useRouter } from "expo-router";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { CalendarList, DateData, LocaleConfig } from "react-native-calendars";
 import useCurrentDate from "@/src/hooks/useCurrentDate";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import DayComponent from "./DayComponent";
 import ChatButton from "./ChatButton";
 import DiaryBottomSheet from "./DiaryBottomSheet";
@@ -31,6 +32,15 @@ LocaleConfig.locales["ko"] = {
 LocaleConfig.defaultLocale = "ko";
 
 function CalendarPage(): JSX.Element {
+  // BottomSheet를 열고 닫기 위해 전달할 state
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
+  // 초기값은 오늘로
+  const [pressedDate, setPressedDate] = useState<Pick<DateData, "year" | "month" | "day">>(() => ({
+    year: new Date().getFullYear(),
+    month: new Date().getMonth() + 1,
+    day: new Date().getDate(),
+  }));
+
   const router = useRouter();
   const { calendarsData, changeDate } = useCurrentDate();
 
@@ -42,9 +52,15 @@ function CalendarPage(): JSX.Element {
     router.push("/(app)/setting");
   };
 
-  const handleDayPress = (day: DateData) => {
-    console.log("selected day", day);
+  const handleDayPress = (date: DateData) => {
+    const { year, month, day } = date;
+    setIsBottomSheetOpen(true);
+    setPressedDate({ year, month, day });
   };
+
+  useEffect(() => {
+    console.log(isBottomSheetOpen);
+  }, [isBottomSheetOpen]);
 
   return (
     <S.SafeView>
@@ -78,7 +94,11 @@ function CalendarPage(): JSX.Element {
         }}
       />
       <ChatButton onPress={() => {}} />
-      <DiaryBottomSheet />
+      <DiaryBottomSheet
+        pressedDate={pressedDate}
+        isBottomSheetOpen={isBottomSheetOpen}
+        setIsBottomSheetOpen={setIsBottomSheetOpen}
+      />
     </S.SafeView>
   );
 }
