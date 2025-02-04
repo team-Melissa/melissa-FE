@@ -6,7 +6,7 @@ type ThreadDate = {
 
 type ExpiredDate = Date;
 
-export const threadDateExpired = (sleepHour: number): [ThreadDate, ExpiredDate] => {
+export const getThreadDateExpired = (sleepHour: number): [ThreadDate, ExpiredDate] => {
   const date = new Date();
   const curHour = date.getHours();
 
