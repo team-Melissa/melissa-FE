@@ -26,3 +26,12 @@ export const removeSecureValue = async (key: string): Promise<void> => {
     console.error("secureStore에서", key, "삭제 실패", e);
   }
 };
+
+export const getRefreshToken = async (): Promise<string | null> => {
+  try {
+    return await SecureStore.getItemAsync("refreshToken");
+  } catch (e) {
+    console.error("secureStore에서 refresh token 가져오지 못 함", e);
+    return null;
+  }
+};

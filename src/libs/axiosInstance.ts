@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { router } from "expo-router";
-import { getStorageValue, setStorageValue, removeStorageValue } from "./mmkv";
-import { getSecureValue, removeSecureValue, setSecureValue } from "./secureStorage";
+import { setStorageValue, removeStorageValue, getAccessToken } from "./mmkv";
+import { getRefreshToken, removeSecureValue, setSecureValue } from "./secureStorage";
 import endpoint from "../constants/endpoint";
 import { LoginType } from "../types/loginTypes";
 import { AxiosErrorToInterceptors, ErrorResponse } from "../types/commonTypes";
@@ -44,7 +44,7 @@ const axiosInstance = axios.create({
  * access token이 mmkv에 있으면 헤더에 추가하는 request interceptors
  */
 axiosInstance.interceptors.request.use((config) => {
-  const accessToken = getStorageValue("accessToken");
+  const accessToken = getAccessToken();
   if (accessToken) config.headers.Authorization = accessToken;
   return config;
 });
@@ -81,7 +81,7 @@ axiosInstance.interceptors.response.use(
       try {
         console.log("토큰 재발급 시작", config.url);
         isRefreshing = true;
-        const refreshToken = await getSecureValue("refreshToken");
+        const refreshToken = await getRefreshToken();
         if (!refreshToken) {
           console.error("refresh token이 존재하지 않아 재발급 종료 (아마 앱 최초 설치)");
           removeSecureValue("refreshToken");
