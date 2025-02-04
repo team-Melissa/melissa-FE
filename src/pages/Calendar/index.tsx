@@ -32,7 +32,7 @@ LocaleConfig.defaultLocale = "ko";
 
 function CalendarPage(): JSX.Element {
   const router = useRouter();
-  const { diariesData, changeDate } = useCurrentDate();
+  const { calendarsData, changeDate } = useCurrentDate();
 
   const handleCopyPress = () => {
     console.log("copy button");
@@ -69,7 +69,11 @@ function CalendarPage(): JSX.Element {
         dayComponent={({ date }) => {
           if (!date) return undefined;
           return (
-            <DayComponent date={date} diaries={diariesData} onPress={() => handleDayPress(date)} />
+            <DayComponent
+              date={date}
+              calendars={calendarsData}
+              onPress={() => handleDayPress(date)}
+            />
           );
         }}
       />

@@ -14,7 +14,7 @@ const useCurrentDate = () => {
 
   // 캘린더는 현재 월 && 일기 쓰고 나온 뒤, 요약 생성이 끝났을 때를 제외하면 데이터가 변할 일이 없으므로 staleTime을 길게 잡아보자
   // 일기 데이터 역시 변할 일이 거의 없으므로 staleTime 길게!
-  const diariesData = useQueries({
+  const calendarsData = useQueries({
     queries: [
       {
         queryFn: () => getCalendarFn(curYear, curMonth),
@@ -63,7 +63,7 @@ const useCurrentDate = () => {
     setCurMonth(month);
   };
 
-  return { diariesData, changeDate };
+  return { calendarsData, changeDate };
 };
 
 export default useCurrentDate;
