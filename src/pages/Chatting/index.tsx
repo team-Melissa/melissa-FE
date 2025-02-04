@@ -2,8 +2,14 @@ import { useRouter } from "expo-router";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { Text, TouchableOpacity } from "react-native";
 import * as S from "./styles";
+import { ThreadDate } from "@/src/types/threadTypes";
 
-function ChattingPage(): JSX.Element {
+interface Props {
+  threadDate: ThreadDate;
+  expiredDate: Date;
+}
+
+function ChattingPage({ threadDate, expiredDate }: Props): JSX.Element {
   const router = useRouter();
 
   const handleBackPress = () => {
@@ -17,7 +23,10 @@ function ChattingPage(): JSX.Element {
           <MaterialIcons name="arrow-back-ios" size={28} color="black" />
         </S.BackButton>
       </S.HeaderBox>
-      <Text>채팅 페이지 입니다</Text>
+      <Text>
+        {threadDate.day}
+        {expiredDate.toString()}
+      </Text>
       <TouchableOpacity onPress={handleBackPress}>
         <Text>뒤로가기</Text>
       </TouchableOpacity>
