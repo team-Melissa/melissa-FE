@@ -6,6 +6,10 @@ export const SafeView = styled(SafeAreaView)`
   flex: 1;
 `;
 
+export const FlexView = styled.View`
+  flex: 1;
+`;
+
 export const HeaderBox = styled.View`
   width: 100%;
   height: ${responsiveToPx("80px")};

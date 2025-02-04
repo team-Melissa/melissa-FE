@@ -1,30 +1,21 @@
 import { useCallback, useEffect, useState } from "react";
-import { useMutation } from "@tanstack/react-query";
 import CommonError from "@/src/components/ui/CommonError";
 import Loading from "@/src/components/ui/Loading";
+import AssistantList from "@/src/components/AssistantList";
 import ChattingPage from "@/src/pages/Chatting";
+import { FlexView } from "@/src/pages/Chatting/styles";
 import useUserSetting from "@/src/hooks/useUserSetting";
-import { newThreadFn } from "@/src/apis/threadApi";
-import { getAiProfileId } from "@/src/libs/mmkv";
+import useMakeThread from "@/src/hooks/useMakeThread";
+import { getAiProfileId, setAiProfileId } from "@/src/libs/mmkv";
 import { getThreadDateExpired } from "@/src/utils/time";
 import { ThreadDate } from "@/src/types/threadTypes";
 
 function ChattingRouter(): JSX.Element | null {
+  const [isVisible, setIsVisible] = useState<boolean>(false);
   const [threadDate, setThreadDate] = useState<ThreadDate | null>(null); // 스레드 생성 년월일 state
   const [expiredDate, setExpiredDate] = useState<Date | null>(null); // 스레드 제거 시점 Date 객체
   const { isPending, isError, data, refetch } = useUserSetting(); // 사용자 설정 로드
-  const {
-    isPending: isMutatePending,
-    isError: isMutateError,
-    mutate,
-  } = useMutation({
-    mutationFn: newThreadFn,
-    onSuccess: ({ result }) => {
-      console.log(result);
-      setThreadDate({ year: result.year, month: result.month, day: result.day });
-    },
-    onError: (error) => console.error(error.response?.data),
-  });
+  const { isPending: isMutatePending, isError: isMutateError, mutate } = useMakeThread();
 
   const handleMutate = useCallback(
     (sleepTime: string) => {
@@ -33,6 +24,7 @@ function ChattingRouter(): JSX.Element | null {
         const sleepHour = parseInt(sleepTime.slice(0, 2));
         const [{ year, month, day }, threadExpiredDate] = getThreadDateExpired(sleepHour);
         setExpiredDate(threadExpiredDate);
+        setThreadDate({ year, month, day });
         mutate({
           aiProfileId,
           year,
@@ -64,7 +56,27 @@ function ChattingRouter(): JSX.Element | null {
     );
   }
 
-  if (isMutateError || !threadDate || !expiredDate) {
+  if (!threadDate || !expiredDate) {
+    return (
+      <FlexView>
+        <AssistantList
+          isVisible={isVisible}
+          setIsVisible={setIsVisible}
+          onPressAiCard={(aiProfileId) => {
+            setAiProfileId(aiProfileId);
+            handleMutate(data.result.sleepTime);
+          }}
+        />
+        <CommonError
+          titleText="서포터를 선택해주세요"
+          buttonText="선택하기"
+          onPress={() => setIsVisible(true)}
+        />
+      </FlexView>
+    );
+  }
+
+  if (isMutateError) {
     return (
       <CommonError
         titleText="대화방 생성에 실패했어요"
