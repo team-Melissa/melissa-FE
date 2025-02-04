@@ -42,11 +42,15 @@ function ChattingPage({ threadDate, expiredDate }: Props): JSX.Element {
   }
 
   return (
-    <S.SafeView>
+    <S.SafeView edges={["left", "right", "top"]}>
       <S.HeaderBox>
-        <S.BackButton onPress={handleBackPress} hitSlop={10}>
+        <S.BackButton onPress={handleBackPress} hitSlop={7}>
           <MaterialIcons name="arrow-back-ios" size={28} color={theme.colors.black} />
         </S.BackButton>
+        <S.HeaderButton hitSlop={7}>
+          <S.Image source={{ uri: data.result.aiProfileImageS3 }} />
+          <S.AiNameText>{data.result.aiProfileName}</S.AiNameText>
+        </S.HeaderButton>
       </S.HeaderBox>
       <S.ScrollBox>
         {data.result.chats.map((chat) =>

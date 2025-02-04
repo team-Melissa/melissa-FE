@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 
 export const SafeView = styled(SafeAreaView)`
   flex: 1;
+  background-color: ${({ theme }) => theme.colors.white};
 `;
 
 export const FlexView = styled.View`
@@ -12,17 +13,39 @@ export const FlexView = styled.View`
 
 export const HeaderBox = styled.View`
   flex: 0.12;
-  justify-content: center;
-  background-color: rebeccapurple;
+  background-color: ${({ theme }) => theme.colors.white};
+  flex-direction: row;
+  padding: 0px ${responsiveToPx("24px")};
+  align-items: center;
+  gap: ${({ theme }) => theme.gap.lg};
 `;
+
+export const HeaderButton = styled.TouchableOpacity`
+  flex-direction: row;
+  gap: ${({ theme }) => theme.gap.lg};
+  align-items: center;
+`;
+
+export const Image = styled.Image`
+  width: ${responsiveToPx("48px")};
+  height: ${responsiveToPx("48px")};
+  border-radius: 9999px;
+`;
+
+export const AiNameText = styled.Text`
+  color: ${({ theme }) => theme.colors.black};
+  font-family: ${({ theme }) => theme.fontFamily.nsBold};
+  font-size: ${({ theme }) => theme.fontSize.lg};
+`;
+
 export const ScrollBox = styled.ScrollView`
-  flex: 0.73;
-  background-color: beige;
+  flex: 0.75;
+  background-color: ${({ theme }) => theme.colors.whiteBlue};
 `;
 
 export const TextInputBox = styled.View`
-  flex: 0.15;
-  background-color: crimson;
+  flex: 0.13;
+  background-color: ${({ theme }) => theme.colors.whiteBlue};
 `;
 
 export const BackButton = styled.TouchableOpacity`
