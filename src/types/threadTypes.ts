@@ -17,6 +17,7 @@ export type ThreadDate = {
 
 export type Chat = {
   role: "AI" | "USER";
+  chatId: number;
   content: string;
   createAt: string;
   aiProfileName: string;
@@ -32,3 +33,5 @@ export type MessageResult = SuccessResponse & {
 };
 
 export type ExpiredDate = Date;
+
+export type FluxEvent = "aiMessage" | "finish";

@@ -3,19 +3,22 @@ import { Platform, ScrollView } from "react-native";
 import { useRouter } from "expo-router";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import EventSource from "react-native-sse";
 import { changeAiFn, getMessagesFn } from "@/src/apis/threadApi";
 import AssistantList from "@/src/components/AssistantList";
 import Loading from "@/src/components/ui/Loading";
 import CommonError from "@/src/components/ui/CommonError";
 import UserChatBox from "./UserChatBox";
 import AiChatBox from "./AiChatBox";
-import { theme } from "@/src/constants/theme";
-import { setAiProfileId } from "@/src/libs/mmkv";
-import { ThreadDate } from "@/src/types/threadTypes";
-import * as S from "./styles";
 import toastMessage from "@/src/constants/toastMessage";
-import showToast from "@/src/libs/showToast";
 import { shadowProps } from "@/src/constants/shadowProps";
+import endpoint from "@/src/constants/endpoint";
+import { checkThreadExpire } from "@/src/utils/time";
+import showToast from "@/src/libs/showToast";
+import { getAccessToken, setAiProfileId } from "@/src/libs/mmkv";
+import { FluxEvent, MessageResult, ThreadDate } from "@/src/types/threadTypes";
+import { theme } from "@/src/constants/theme";
+import * as S from "./styles";
 
 interface Props {
   threadDate: ThreadDate;
@@ -25,6 +28,7 @@ interface Props {
 function ChattingPage({ threadDate, expiredDate }: Props): JSX.Element {
   const scrollViewRef = useRef<ScrollView>(null);
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [input, setInput] = useState<string>("");
   const queryClient = useQueryClient();
   const router = useRouter();
 
@@ -58,6 +62,100 @@ function ChattingPage({ threadDate, expiredDate }: Props): JSX.Element {
   const handlePressAiCard = (aiProfileId: number) => {
     setAiProfileId(aiProfileId);
     mutate({ ...threadDate, aiProfileId });
+  };
+
+  const handleChangeText = (e: string) => {
+    setInput(e);
+  };
+
+  const handleSubmitPress = () => {
+    if (!input) return;
+    const token = getAccessToken();
+    if (!token) return;
+    if (checkThreadExpire(expiredDate)) {
+      showToast(toastMessage.threadExpired, "success");
+      router.replace("/(app)/chatting");
+      return;
+    }
+    queryClient.setQueryData<MessageResult>(
+      ["message", threadDate],
+      (prev) =>
+        prev && {
+          ...prev,
+          result: {
+            ...prev.result,
+            chats: [
+              ...prev.result.chats,
+              {
+                role: "USER",
+                chatId: -100,
+                content: input,
+                createAt: "",
+                aiProfileName: "",
+                aiProfileImageS3: "",
+              },
+            ],
+          },
+        }
+    );
+    setInput("");
+    console.log(token);
+    const es = new EventSource<FluxEvent>(
+      `${process.env.EXPO_PUBLIC_API_URL}${endpoint.thread.send}?content=${input}&year=${threadDate.year}&month=${threadDate.month}&day=${threadDate.day}`,
+      {
+        headers: {
+          Authorization: token,
+          "Content-Type": "text/event-stream",
+        },
+        method: "POST",
+      }
+    );
+    es.addEventListener("error", (error) => console.error(error));
+    es.addEventListener("aiMessage", (event) => {
+      queryClient.setQueryData<MessageResult>(["message", threadDate], (prev) => {
+        if (prev) {
+          const chats = prev.result.chats;
+          if (chats[chats.length - 1].role === "USER") {
+            return {
+              ...prev,
+              result: {
+                ...prev.result,
+                chats: [
+                  ...chats,
+                  {
+                    role: "AI",
+                    chatId: -101,
+                    content: "",
+                    createAt: "",
+                    aiProfileName: prev.result.aiProfileName,
+                    aiProfileImageS3: prev.result.aiProfileImageS3,
+                  },
+                ],
+              },
+            };
+          } else {
+            const last = chats[chats.length - 1];
+            const newLast = {
+              ...last,
+              content: last.content + event.data,
+            };
+            chats.pop();
+            return {
+              ...prev,
+              result: {
+                ...prev.result,
+                chats: [...chats, newLast],
+              },
+            };
+          }
+        }
+      });
+    });
+    es.addEventListener("finish", () => {
+      queryClient.invalidateQueries({ queryKey: ["message", threadDate] });
+      es.removeAllEventListeners();
+      es.close();
+    });
   };
 
   if (isPending) {
@@ -102,20 +200,22 @@ function ChattingPage({ threadDate, expiredDate }: Props): JSX.Element {
               <AiChatBox
                 content={chat.content}
                 imageUrl={chat.aiProfileImageS3}
-                key={chat.createAt}
+                key={chat.chatId}
               />
             ) : (
-              <UserChatBox input={chat.content} key={chat.createAt} />
+              <UserChatBox input={chat.content} key={chat.chatId} />
             )
           )}
         </S.ScrollBox>
         <S.ChatInputBox behavior={Platform.OS === "ios" ? "padding" : "height"}>
           <S.ChatInput
             placeholder="오늘 하루에 대해 말해주세요"
+            value={input}
+            onChangeText={handleChangeText}
             hitSlop={15}
             placeholderTextColor={theme.colors.placeholderText}
           />
-          <S.ChatButton hitSlop={15} style={shadowProps}>
+          <S.ChatButton hitSlop={15} style={shadowProps} onPress={handleSubmitPress}>
             <S.ButtonImage source={require("@/assets/images/chatButton.png")} />
           </S.ChatButton>
         </S.ChatInputBox>
