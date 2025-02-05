@@ -1,5 +1,5 @@
 import { Fragment, useRef, useState } from "react";
-import { ScrollView } from "react-native";
+import { Platform, ScrollView } from "react-native";
 import { useRouter } from "expo-router";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -15,6 +15,7 @@ import { ThreadDate } from "@/src/types/threadTypes";
 import * as S from "./styles";
 import toastMessage from "@/src/constants/toastMessage";
 import showToast from "@/src/libs/showToast";
+import { shadowProps } from "@/src/constants/shadowProps";
 
 interface Props {
   threadDate: ThreadDate;
@@ -108,7 +109,16 @@ function ChattingPage({ threadDate, expiredDate }: Props): JSX.Element {
             )
           )}
         </S.ScrollBox>
-        <S.TextInputBox></S.TextInputBox>
+        <S.ChatInputBox behavior={Platform.OS === "ios" ? "padding" : "height"}>
+          <S.ChatInput
+            placeholder="오늘 하루에 대해 말해주세요"
+            hitSlop={15}
+            placeholderTextColor={theme.colors.placeholderText}
+          />
+          <S.ChatButton hitSlop={15} style={shadowProps}>
+            <S.ButtonImage source={require("@/assets/images/chatButton.png")} />
+          </S.ChatButton>
+        </S.ChatInputBox>
       </S.SafeView>
     </Fragment>
   );

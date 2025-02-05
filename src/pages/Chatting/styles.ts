@@ -1,5 +1,6 @@
 import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Image as Img } from "expo-image";
 import styled from "styled-components/native";
 import responsiveToPx from "@/src/utils/responsiveToPx";
 
@@ -19,6 +20,13 @@ export const HeaderBox = styled.View`
   padding: 0px ${responsiveToPx("24px")};
   align-items: center;
   gap: ${({ theme }) => theme.gap.lg};
+`;
+
+export const BackButton = styled.TouchableOpacity`
+  width: ${responsiveToPx("28px")};
+  height: ${responsiveToPx("28px")};
+  justify-content: center;
+  align-items: center;
 `;
 
 export const HeaderButton = styled.TouchableOpacity`
@@ -44,14 +52,36 @@ export const ScrollBox = styled(ScrollView)`
   background-color: ${({ theme }) => theme.colors.whiteBlue};
 `;
 
-export const TextInputBox = styled.View`
+export const ChatInputBox = styled.KeyboardAvoidingView`
   flex: 0.13;
+  flex-direction: row;
   background-color: ${({ theme }) => theme.colors.whiteBlue};
-`;
-
-export const BackButton = styled.TouchableOpacity`
-  width: ${responsiveToPx("28px")};
-  height: ${responsiveToPx("28px")};
   justify-content: center;
   align-items: center;
+  padding-bottom: ${responsiveToPx("20px")};
+  gap: ${({ theme }) => theme.gap.md};
+`;
+
+export const ChatInput = styled.TextInput`
+  min-width: ${responsiveToPx("333px")};
+  padding: ${responsiveToPx("11px")} ${responsiveToPx("16px")};
+  background-color: ${({ theme }) => theme.colors.white};
+  border: 1px solid ${({ theme }) => theme.colors.gray};
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
+  font-family: ${({ theme }) => theme.fontFamily.nsRegular};
+  font-size: ${({ theme }) => theme.fontSize.base};
+`;
+
+export const ChatButton = styled.TouchableOpacity`
+  width: ${responsiveToPx("44px")};
+  height: ${responsiveToPx("44px")};
+  border-radius: 9999px;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+`;
+
+export const ButtonImage = styled(Img)`
+  width: 120%;
+  height: 120%;
 `;

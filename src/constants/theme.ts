@@ -56,6 +56,7 @@ const colors = {
   settingSubText: "#AAAAAA",
   settingValueText: "#505050",
   diaryText: "#242424",
+  placeholderText: "#979797",
 };
 
 const gap = {
