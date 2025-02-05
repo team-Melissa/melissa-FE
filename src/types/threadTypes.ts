@@ -15,6 +15,12 @@ export type ThreadDate = {
   day: number;
 };
 
+export type ThreadDateSearchParams = {
+  year: number | undefined;
+  month: number | undefined;
+  day: number | undefined;
+};
+
 export type Chat = {
   role: "AI" | "USER";
   chatId: number;

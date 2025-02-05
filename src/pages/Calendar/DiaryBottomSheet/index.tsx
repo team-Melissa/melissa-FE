@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { ForwardedRef, forwardRef, useMemo } from "react";
+import { useRouter } from "expo-router";
 import BottomSheet, { BottomSheetBackdrop, BottomSheetBackdropProps } from "@gorhom/bottom-sheet";
 import { DateData } from "react-native-calendars";
 import { DiariesResult } from "@/src/types/calendarTypes";
@@ -12,6 +13,7 @@ interface Props {
 
 function DiaryBottomSheet({ pressedDate }: Props, ref: ForwardedRef<BottomSheet>): JSX.Element {
   const { year, month, day } = pressedDate;
+  const router = useRouter();
   const snapPoints = useMemo(() => ["60%", "90%"], []);
 
   // queryFn을 넣지 않으면, 캐시되지 않은 데이터는 불러오지 않는다
@@ -20,6 +22,11 @@ function DiaryBottomSheet({ pressedDate }: Props, ref: ForwardedRef<BottomSheet>
     queryKey: ["diaries", year, month],
     staleTime: 5 * 60 * 1000,
   });
+
+  // 읽기만 가능한 채팅방 렌더링을 위해 year, month, day를 쿼리스트링으로 전달
+  const handlePressReadonlyChatting = () => {
+    router.push(`/(app)/chatting?year=${year}&month=${month}&day=${day}`);
+  };
 
   return (
     <BottomSheet
@@ -54,9 +61,7 @@ function DiaryBottomSheet({ pressedDate }: Props, ref: ForwardedRef<BottomSheet>
               <S.ViewChatButton
                 hitSlop={10}
                 style={shadowProps}
-                onPress={() => {
-                  /* Todo: 버튼 클릭 시 채팅방 레이아웃에서 나눴던 채팅 읽기 */
-                }}
+                onPress={handlePressReadonlyChatting}
               >
                 <S.ButtonText>전체 대화 보기</S.ButtonText>
               </S.ViewChatButton>

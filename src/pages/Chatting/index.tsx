@@ -23,9 +23,10 @@ import * as S from "./styles";
 interface Props {
   threadDate: ThreadDate;
   expiredDate: Date;
+  readonly?: boolean;
 }
 
-function ChattingPage({ threadDate, expiredDate }: Props): JSX.Element {
+function ChattingPage({ threadDate, expiredDate, readonly }: Props): JSX.Element {
   const scrollViewRef = useRef<ScrollView>(null);
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [input, setInput] = useState<string>("");
@@ -69,7 +70,7 @@ function ChattingPage({ threadDate, expiredDate }: Props): JSX.Element {
   };
 
   const handleSubmitPress = () => {
-    if (!input) return;
+    if (!input || readonly) return; // readonly면 제출 기능 막기
     const token = getAccessToken();
     if (!token) return;
     if (checkThreadExpire(expiredDate)) {
@@ -208,16 +209,20 @@ function ChattingPage({ threadDate, expiredDate }: Props): JSX.Element {
           )}
         </S.ScrollBox>
         <S.ChatInputBox behavior={Platform.OS === "ios" ? "padding" : "height"}>
-          <S.ChatInput
-            placeholder="오늘 하루에 대해 말해주세요"
-            value={input}
-            onChangeText={handleChangeText}
-            hitSlop={15}
-            placeholderTextColor={theme.colors.placeholderText}
-          />
-          <S.ChatButton hitSlop={15} style={shadowProps} onPress={handleSubmitPress}>
-            <S.ButtonImage source={require("@/assets/images/chatButton.png")} />
-          </S.ChatButton>
+          {!readonly && (
+            <Fragment>
+              <S.ChatInput
+                placeholder="오늘 하루에 대해 말해주세요"
+                value={input}
+                onChangeText={handleChangeText}
+                hitSlop={15}
+                placeholderTextColor={theme.colors.placeholderText}
+              />
+              <S.ChatButton hitSlop={15} style={shadowProps} onPress={handleSubmitPress}>
+                <S.ButtonImage source={require("@/assets/images/chatButton.png")} />
+              </S.ChatButton>
+            </Fragment>
+          )}
         </S.ChatInputBox>
       </S.SafeView>
     </Fragment>

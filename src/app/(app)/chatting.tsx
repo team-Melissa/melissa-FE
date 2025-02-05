@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { useLocalSearchParams } from "expo-router";
 import CommonError from "@/src/components/ui/CommonError";
 import Loading from "@/src/components/ui/Loading";
 import AssistantList from "@/src/components/AssistantList";
@@ -8,9 +9,12 @@ import useUserSetting from "@/src/hooks/useUserSetting";
 import useMakeThread from "@/src/hooks/useMakeThread";
 import { getAiProfileId, setAiProfileId } from "@/src/libs/mmkv";
 import { getThreadDateExpired } from "@/src/utils/time";
-import { ThreadDate } from "@/src/types/threadTypes";
+import { ThreadDate, ThreadDateSearchParams } from "@/src/types/threadTypes";
 
 function ChattingRouter(): JSX.Element | null {
+  // 특정 날짜의 채팅 데이터를 readonly 시키기만 할건지 결정하는 querystring
+  const { year, month, day } = useLocalSearchParams() as unknown as ThreadDateSearchParams;
+
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [threadDate, setThreadDate] = useState<ThreadDate | null>(null); // 스레드 생성 년월일 state
   const [expiredDate, setExpiredDate] = useState<Date | null>(null); // 스레드 제거 시점 Date 객체
@@ -19,6 +23,7 @@ function ChattingRouter(): JSX.Element | null {
 
   const handleMutate = useCallback(
     (sleepTime: string) => {
+      if (year || month || day) return; // readonly의 경우 스레드 생성 mutation 실행 X
       const aiProfileId = getAiProfileId();
       if (aiProfileId) {
         const sleepHour = parseInt(sleepTime.slice(0, 2));
@@ -33,7 +38,7 @@ function ChattingRouter(): JSX.Element | null {
         });
       }
     },
-    [mutate]
+    [day, month, year, mutate]
   );
 
   useEffect(() => {
@@ -53,6 +58,13 @@ function ChattingRouter(): JSX.Element | null {
         buttonText="다시 불러오기"
         onPress={refetch}
       />
+    );
+  }
+
+  // readonly 채팅방이 필요한 경우, 렌더링
+  if (year && month && day) {
+    return (
+      <ChattingPage threadDate={{ year, month, day }} expiredDate={new Date()} readonly={true} />
     );
   }
 
