@@ -46,7 +46,10 @@ function DiaryBottomSheet({ pressedDate }: Props, ref: ForwardedRef<BottomSheet>
             <S.TitleText>{data.result.find((d) => d.day === day)?.summaryTitle}</S.TitleText>
             <S.ContentText>{data.result.find((d) => d.day === day)?.summaryContent}</S.ContentText>
 
-            <S.TagText>#놀이공원 #롤러코스터</S.TagText>
+            <S.TagText>
+              {data.result.find((d) => d.day === day)?.hashTag1}{" "}
+              {data.result.find((d) => d.day === day)?.hashTag2}
+            </S.TagText>
             <S.ChatButtonBox>
               <S.ViewChatButton
                 hitSlop={10}

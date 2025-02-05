@@ -16,6 +16,8 @@ export type Diary = {
   imageS3: string;
   summaryTitle: string;
   summaryContent: string;
+  hashTag1: string;
+  hashTag2: string;
   summaryMood:
     | "HAPPY"
     | "SAD"
