@@ -4,6 +4,7 @@ import responsiveToPx from "@/src/utils/responsiveToPx";
 
 export const CenteringBox = styled(SafeAreaView)`
   flex: 1;
+  background-color: ${({ theme }) => theme.colors.white};
   justify-content: center;
   align-items: center;
 `;
