@@ -5,7 +5,7 @@ import { useIsNewUserContext } from "@/src/contexts/IsNewUserProvider";
 import { makeAssistantFn } from "@/src/apis/aiProfileApi";
 import Button from "@/src/components/ui/Button";
 import { fadeIn, fadeOut } from "@/src/libs/animations";
-import { setStorageValue } from "@/src/libs/mmkv";
+import { setAiProfileId } from "@/src/libs/mmkv";
 import { AiProfileMakeAnswers, AiProfileMakeResult } from "@/src/types/aiProfileTypes";
 import * as S from "./styles";
 
@@ -38,7 +38,7 @@ function Submit({ answers }: Props) {
     console.log(data.message);
     if (isNewUser) {
       console.log("새로운 유저입니다. mmkv에 생성된 어시스턴트 id를 저장합니다...");
-      setStorageValue("aiProfileId", data.result.aiProfileId.toString());
+      setAiProfileId(data.result.aiProfileId);
       setTimeout(() => {
         console.log("/main으로 리다이렉트합니다.");
         router.replace("/(app)/main");

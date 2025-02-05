@@ -1,8 +1,8 @@
 import { router } from "expo-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteAccountFn } from "@/src/apis/loginApi";
-import { removeStorageValue } from "@/src/libs/mmkv";
-import { removeSecureValue } from "@/src/libs/secureStorage";
+import { removeAccessToken, removeAiProfileId } from "@/src/libs/mmkv";
+import { removeRefreshToken } from "@/src/libs/secureStorage";
 import showToast from "@/src/libs/showToast";
 import toastMessage from "@/src/constants/toastMessage";
 
@@ -14,9 +14,9 @@ const useDeleteAccount = () => {
     onSuccess: async (data) => {
       showToast(toastMessage.deleteAccount.success, "success");
       console.log(data);
-      await removeSecureValue("refreshToken");
-      removeStorageValue("accessToken");
-      removeStorageValue("aiProfileId");
+      await removeRefreshToken();
+      removeAccessToken();
+      removeAiProfileId();
       queryClient.clear();
       router.replace("/login");
     },

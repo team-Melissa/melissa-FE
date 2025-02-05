@@ -2,8 +2,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
 import { isAxiosError } from "axios";
 import { appleLoginFn, googleLoginFn, kakaoLoginFn } from "../apis/loginApi";
-import { setSecureValue } from "../libs/secureStorage";
-import { setStorageValue } from "../libs/mmkv";
+import { setRefreshToken } from "../libs/secureStorage";
+import { setAccessToken } from "../libs/mmkv";
 import { ErrorResponse } from "../types/commonTypes";
 import { LoginType } from "../types/loginTypes";
 import toastMessage from "@/src/constants/toastMessage";
@@ -15,8 +15,8 @@ const useLogin = () => {
 
   const handleSuccess = async (data: LoginType) => {
     console.log(`${data.result.oauthProvider} 로그인 성공!`);
-    setStorageValue("accessToken", `${data.result.tokenType} ${data.result.accessToken}`);
-    await setSecureValue("refreshToken", data.result.refreshToken);
+    setAccessToken(`${data.result.tokenType} ${data.result.accessToken}`);
+    await setRefreshToken(data.result.refreshToken);
     queryClient.invalidateQueries({ queryKey: ["check-new-user"] });
     router.replace("/(app)");
     showToast(toastMessage.login.success, "success");

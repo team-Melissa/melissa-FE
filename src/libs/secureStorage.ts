@@ -1,6 +1,6 @@
 import * as SecureStore from "expo-secure-store";
 
-export const setSecureValue = async (key: string, value: string): Promise<void> => {
+const setSecureValue = async (key: string, value: string): Promise<void> => {
   try {
     await SecureStore.setItemAsync(key, value);
     console.log("secureStore에 저장 성공");
@@ -9,7 +9,7 @@ export const setSecureValue = async (key: string, value: string): Promise<void> 
   }
 };
 
-export const getSecureValue = async (key: string): Promise<string | null> => {
+const getSecureValue = async (key: string): Promise<string | null> => {
   try {
     return await SecureStore.getItemAsync(key);
   } catch (e) {
@@ -18,7 +18,7 @@ export const getSecureValue = async (key: string): Promise<string | null> => {
   }
 };
 
-export const removeSecureValue = async (key: string): Promise<void> => {
+const removeSecureValue = async (key: string): Promise<void> => {
   try {
     await SecureStore.deleteItemAsync(key);
     console.log("secureStore에서 ", key, "삭제 성공");
@@ -27,11 +27,14 @@ export const removeSecureValue = async (key: string): Promise<void> => {
   }
 };
 
+export const setRefreshToken = async (refreshToken: string): Promise<void> => {
+  return setSecureValue("refreshToken", refreshToken);
+};
+
 export const getRefreshToken = async (): Promise<string | null> => {
-  try {
-    return await SecureStore.getItemAsync("refreshToken");
-  } catch (e) {
-    console.error("secureStore에서 refresh token 가져오지 못 함", e);
-    return null;
-  }
+  return getSecureValue("refreshToken");
+};
+
+export const removeRefreshToken = async (): Promise<void> => {
+  return removeSecureValue("refreshToken");
 };
