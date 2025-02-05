@@ -4,10 +4,9 @@ import styled from "styled-components/native";
 export const UserChatLayout = styled.View`
   max-width: ${responsiveToPx("290px")};
   border-radius: ${({ theme }) => theme.borderRadius.base};
-  margin-top: ${responsiveToPx("20px")};
-  margin-right: ${responsiveToPx("15px")};
+  margin: ${responsiveToPx("12px")} ${responsiveToPx("10px")};
   background-color: ${({ theme }) => theme.colors.deepGreen};
-  padding: ${responsiveToPx("20px")} ${responsiveToPx("15px")};
+  padding: ${responsiveToPx("12px")} ${responsiveToPx("15px")};
   align-self: flex-end;
 `;
 

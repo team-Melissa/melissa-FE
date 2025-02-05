@@ -19,7 +19,7 @@ export const AiChatBox = styled.View`
   max-width: ${responsiveToPx("290px")};
   border-radius: ${({ theme }) => theme.borderRadius.base};
   background-color: ${({ theme }) => theme.colors.white};
-  padding: ${responsiveToPx("20px")} ${responsiveToPx("15px")};
+  padding: ${responsiveToPx("12px")} ${responsiveToPx("15px")};
   align-self: flex-start;
 `;
 
