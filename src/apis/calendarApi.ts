@@ -18,7 +18,7 @@ export const getCalendarFn = async (year: number, month: number) => {
         return {
           isSuccess: true,
           code: "CALENDAR4001",
-          message: "해당 날짜 또는 월의 데이터가 존재하지 않습니다.",
+          message: "해당 날짜 또는 월의 요약 데이터가 존재하지 않습니다.",
           result: [],
         } as MonthCalendar;
       }
@@ -37,9 +37,24 @@ export const getDiaryFn = async (year: number, month: number, day: number) => {
 };
 
 export const getDiariesFn = async (year: number, month: number) => {
-  const { data } = await axiosInstance.get<DiariesResult>(
-    `${endpoint.calendar.diaries}?year=${year}&month=${month}`
-  );
-  console.log(data);
-  return data;
+  try {
+    const { data } = await axiosInstance.get<DiariesResult>(
+      `${endpoint.calendar.diaries}?year=${year}&month=${month}`
+    );
+    console.log(data);
+    return data;
+  } catch (e) {
+    if (isAxiosError<ErrorResponse>(e)) {
+      // 해당 월에 요약 데이터가 하나도 없는 거라면, 에러로 인한 no cache를 막기 위해 빈 배열 return
+      if (e.response?.data.code === "CALENDAR4001") {
+        return {
+          isSuccess: true,
+          code: "CALENDAR4001",
+          message: "해당 날짜 또는 월의 일기 데이터가 존재하지 않습니다.",
+          result: [],
+        } as DiariesResult;
+      }
+      throw e;
+    }
+  }
 };
