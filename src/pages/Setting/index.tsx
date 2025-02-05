@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ScrollView, Switch } from "react-native";
 import { useRouter } from "expo-router";
+import * as Linking from "expo-linking";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -55,6 +56,10 @@ function SettingPage({ data }: Props): JSX.Element {
 
   const handlePrevButton = () => {
     router.back();
+  };
+
+  const handleDonation = () => {
+    Linking.openURL("https://buymeacoffee.com/teammelissa");
   };
 
   const handleLogout = () => {
@@ -123,7 +128,7 @@ function SettingPage({ data }: Props): JSX.Element {
             </S.ItemTitleBox>
           </S.ItemButton>
 
-          <S.ItemButton hitSlop={10}>
+          <S.ItemButton hitSlop={10} onPress={handleDonation}>
             <S.ItemTitleBox>
               <S.ItemTitleText>후원하기</S.ItemTitleText>
               <S.ItemDescriptionText>후원은 Melissa 서비스 운영에</S.ItemDescriptionText>
