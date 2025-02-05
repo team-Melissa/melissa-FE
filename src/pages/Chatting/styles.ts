@@ -1,6 +1,7 @@
-import responsiveToPx from "@/src/utils/responsiveToPx";
+import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styled from "styled-components/native";
+import responsiveToPx from "@/src/utils/responsiveToPx";
 
 export const SafeView = styled(SafeAreaView)`
   flex: 1;
@@ -38,7 +39,7 @@ export const AiNameText = styled.Text`
   font-size: ${({ theme }) => theme.fontSize.lg};
 `;
 
-export const ScrollBox = styled.ScrollView`
+export const ScrollBox = styled(ScrollView)`
   flex: 0.75;
   background-color: ${({ theme }) => theme.colors.whiteBlue};
 `;

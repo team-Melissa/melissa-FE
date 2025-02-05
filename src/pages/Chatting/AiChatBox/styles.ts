@@ -1,15 +1,15 @@
-import responsiveToPx from "@/src/utils/responsiveToPx";
+import { Image as Img } from "react-native";
 import styled from "styled-components/native";
+import responsiveToPx from "@/src/utils/responsiveToPx";
 
 export const AiChatLayout = styled.View`
   flex-direction: row;
   align-items: center;
-  margin-top: ${responsiveToPx("20px")};
-  margin-left: ${responsiveToPx("15px")};
+  margin: ${responsiveToPx("12px")} ${responsiveToPx("10px")};
   gap: ${({ theme }) => theme.gap.md};
 `;
 
-export const Image = styled.Image`
+export const Image = styled(Img)`
   width: ${responsiveToPx("36px")};
   height: ${responsiveToPx("36px")};
   border-radius: 9999px;

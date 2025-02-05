@@ -1,4 +1,5 @@
-import { Fragment, useState } from "react";
+import { Fragment, useRef, useState } from "react";
+import { ScrollView } from "react-native";
 import { useRouter } from "expo-router";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -19,6 +20,7 @@ interface Props {
 }
 
 function ChattingPage({ threadDate, expiredDate }: Props): JSX.Element {
+  const scrollViewRef = useRef<ScrollView>(null);
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const queryClient = useQueryClient();
   const router = useRouter();
@@ -82,7 +84,12 @@ function ChattingPage({ threadDate, expiredDate }: Props): JSX.Element {
             <S.AiNameText>{data.result.aiProfileName}</S.AiNameText>
           </S.HeaderButton>
         </S.HeaderBox>
-        <S.ScrollBox>
+        <S.ScrollBox
+          ref={scrollViewRef}
+          onContentSizeChange={() => {
+            scrollViewRef.current?.scrollToEnd();
+          }}
+        >
           {data.result.chats.map((chat) =>
             chat.role === "AI" ? (
               <AiChatBox
