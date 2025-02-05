@@ -44,10 +44,6 @@ function CalendarPage(): JSX.Element {
   const { calendarsData, changeDate } = useCurrentDate();
   const bottomSheetRef = useRef<BottomSheet>(null); // BottomSheet(자식 컴포넌트)를 조작하기 위한 부모 ref
 
-  const handleCopyPress = () => {
-    console.log("copy button");
-  };
-
   const handleSettingPress = () => {
     router.push("/(app)/setting");
   };
@@ -74,13 +70,11 @@ function CalendarPage(): JSX.Element {
         pagingEnabled={true}
         pastScrollRange={100}
         futureScrollRange={100}
-        onPressArrowLeft={handleCopyPress}
+        disableArrowLeft={true}
         onPressArrowRight={handleSettingPress}
         onMonthChange={({ year, month }) => changeDate(year, month)}
         renderArrow={(direction) =>
-          direction === "left" ? (
-            <MaterialIcons name="content-copy" size={24} color={theme.colors.calendarIcon} />
-          ) : (
+          direction === "right" && (
             <MaterialIcons name="settings" size={24} color={theme.colors.calendarIcon} />
           )
         }
