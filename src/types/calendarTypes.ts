@@ -9,28 +9,34 @@ export type Day = {
   imageS3: string;
 };
 
+export type Diary = {
+  year: number;
+  month: number;
+  day: number;
+  imageS3: string;
+  summaryTitle: string;
+  summaryContent: string;
+  summaryMood:
+    | "HAPPY"
+    | "SAD"
+    | "TIRED"
+    | "ANGRY"
+    | "RELAX"
+    | "HAPPY"
+    | "SAD"
+    | "TIRED"
+    | "ANGRY"
+    | "RELAX";
+};
+
 export type MonthCalendar = SuccessResponse & {
   result: Day[];
 };
 
 export type DiaryResult = SuccessResponse & {
-  result: {
-    year: number;
-    month: number;
-    day: number;
-    imageS3: string;
-    summaryTitle: string;
-    summaryContent: string;
-    summaryMood:
-      | "HAPPY"
-      | "SAD"
-      | "TIRED"
-      | "ANGRY"
-      | "RELAX"
-      | "HAPPY"
-      | "SAD"
-      | "TIRED"
-      | "ANGRY"
-      | "RELAX";
-  };
+  result: Diary;
+};
+
+export type DiariesResult = SuccessResponse & {
+  result: Diary[];
 };
