@@ -1,9 +1,8 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import { Dimensions, TouchableWithoutFeedback } from "react-native";
+import { ActivityIndicator, Dimensions, TouchableWithoutFeedback } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 import Carousel from "react-native-reanimated-carousel";
 import { assistantListFn } from "@/src/apis/aiProfileApi";
-import Loading from "@/src/components/ui/Loading";
 import Button from "@/src/components/ui/Button";
 import AssistantCard from "./AssistantCard";
 import * as S from "./styles";
@@ -11,9 +10,10 @@ import * as S from "./styles";
 interface Props {
   isVisible: boolean;
   setIsVisible: Dispatch<SetStateAction<boolean>>;
+  onPressAiCard: (aiProfileId: number) => void;
 }
 
-function AssistantList({ isVisible, setIsVisible }: Props): JSX.Element | null {
+function AssistantList({ isVisible, setIsVisible, onPressAiCard }: Props): JSX.Element | null {
   const [width] = useState<number>(() => Dimensions.get("window").width);
 
   const { isPending, isError, error, data, refetch } = useQuery({
@@ -31,7 +31,7 @@ function AssistantList({ isVisible, setIsVisible }: Props): JSX.Element | null {
       return (
         <S.AssistantListLayout onPress={handleOuterClick}>
           <S.ItemLayout>
-            <Loading />
+            <ActivityIndicator size="large" />
           </S.ItemLayout>
         </S.AssistantListLayout>
       );
@@ -71,7 +71,7 @@ function AssistantList({ isVisible, setIsVisible }: Props): JSX.Element | null {
           snapEnabled={true}
           renderItem={({ item }) => (
             <S.ItemLayout>
-              <AssistantCard item={item} />
+              <AssistantCard item={item} onPressAiCard={onPressAiCard} />
             </S.ItemLayout>
           )}
         />

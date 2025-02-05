@@ -10,9 +10,10 @@ import * as S from "./styles";
 
 interface Props {
   item: AiProfileListWithGenerateAiTrigger;
+  onPressAiCard: (aiProfileId: number) => void;
 }
 
-function AssistantCard({ item }: Props) {
+function AssistantCard({ item, onPressAiCard }: Props) {
   const router = useRouter();
   const { mutate: removeMutate } = useRemoveAssistant();
 
@@ -35,11 +36,9 @@ function AssistantCard({ item }: Props) {
   const { aiProfileId, profileName, imageUrl, hashTag1, hashTag2, feature1, feature2, feature3 } =
     item;
 
-  // Todo: 채팅방 구현 후, 어시스턴트 캐러셀에서 클릭하면 대화 대상 변경되도록 구현
-
   return (
     <TouchableWithoutFeedback>
-      <S.ItemBox>
+      <S.ItemBox onPress={() => onPressAiCard(aiProfileId)}>
         <ProfileImage url={imageUrl} />
         <NameTag name={profileName} tag1={hashTag1} tag2={hashTag2} />
         <Personality feat1={feature1} feat2={feature2} feat3={feature3} />

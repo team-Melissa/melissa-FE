@@ -13,3 +13,17 @@ export const getStorageValue = (key: string): string | null => {
 export const removeStorageValue = (key: string): void => {
   storage.delete(key);
 };
+
+export const getAiProfileId = (): number | null => {
+  const aiProfileId = storage.getNumber("aiProfileId");
+  return aiProfileId ? aiProfileId : null;
+};
+
+export const setAiProfileId = (aiProfileId: number): void => {
+  storage.set("aiProfileId", aiProfileId);
+};
+
+export const getAccessToken = (): string | null => {
+  const accessToken = storage.getString("accessToken");
+  return accessToken ? accessToken : null;
+};

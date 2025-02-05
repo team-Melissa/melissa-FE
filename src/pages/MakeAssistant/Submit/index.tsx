@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "expo-router";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useIsNewUserContext } from "@/src/contexts/IsNewUserProvider";
 import { makeAssistantFn } from "@/src/apis/aiProfileApi";
 import Button from "@/src/components/ui/Button";
 import { fadeIn, fadeOut } from "@/src/libs/animations";
+import { setStorageValue } from "@/src/libs/mmkv";
 import { AiProfileMakeAnswers, AiProfileMakeResult } from "@/src/types/aiProfileTypes";
 import * as S from "./styles";
 
@@ -12,6 +14,8 @@ interface Props {
 }
 
 function Submit({ answers }: Props) {
+  const queryClient = useQueryClient();
+  const isNewUser = useIsNewUserContext();
   const { isPending, isSuccess, isError, error, mutate } = useMutation({
     mutationFn: () => makeAssistantFn(answersJson),
     onSuccess: (data) => handleSuccess(data),
@@ -32,9 +36,21 @@ function Submit({ answers }: Props) {
   // mutation 성공 핸들러
   const handleSuccess = (data: AiProfileMakeResult) => {
     console.log(data.message);
-    setTimeout(() => {
-      router.replace("/(app)/main");
-    }, 2500);
+    if (isNewUser) {
+      console.log("새로운 유저입니다. mmkv에 생성된 어시스턴트 id를 저장합니다...");
+      setStorageValue("aiProfileId", data.result.aiProfileId.toString());
+      setTimeout(() => {
+        console.log("/main으로 리다이렉트합니다.");
+        router.replace("/(app)/main");
+      }, 2500);
+    } else {
+      console.log("기존 유저입니다. mmkv를 그대로 둡니다...");
+      queryClient.invalidateQueries({ queryKey: ["assistant-list"] });
+      setTimeout(() => {
+        console.log("이전 페이지로 back 합니다.");
+        router.back();
+      }, 2500);
+    }
   };
 
   // 초기 mutation 실행
