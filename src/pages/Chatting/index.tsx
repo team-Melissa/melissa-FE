@@ -13,6 +13,8 @@ import { theme } from "@/src/constants/theme";
 import { setAiProfileId } from "@/src/libs/mmkv";
 import { ThreadDate } from "@/src/types/threadTypes";
 import * as S from "./styles";
+import toastMessage from "@/src/constants/toastMessage";
+import showToast from "@/src/libs/showToast";
 
 interface Props {
   threadDate: ThreadDate;
@@ -35,9 +37,13 @@ function ChattingPage({ threadDate, expiredDate }: Props): JSX.Element {
     onSuccess: (data) => {
       console.log(data);
       queryClient.invalidateQueries({ queryKey: ["message", threadDate] });
+      showToast(toastMessage.changeAssistant.success, "success");
       setIsVisible(false);
     },
-    onError: (error) => console.error(error.response?.data),
+    onError: (error) => {
+      console.error(error.response?.data);
+      showToast(toastMessage.changeAssistant.failed, "error");
+    },
   });
 
   const handleHeaderPress = () => {
