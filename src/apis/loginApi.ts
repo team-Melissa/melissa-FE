@@ -4,7 +4,7 @@ import * as AppleAuthentication from "expo-apple-authentication";
 import axiosInstance from "../libs/axiosInstance";
 import endpoint from "../constants/endpoint";
 import { SuccessResponse } from "@/src/types/commonTypes";
-import { LoginType } from "@/src/types/loginTypes";
+import { DeleteAccount, LoginType } from "@/src/types/loginTypes";
 
 GoogleSignin.configure({
   webClientId: process.env.EXPO_PUBLIC_WEB_CLIENT_ID,
@@ -42,5 +42,10 @@ export const appleLoginFn = async () => {
 
 export const logoutFn = async () => {
   const { data } = await axiosInstance.post<SuccessResponse>(endpoint.auth.logout);
+  return data;
+};
+
+export const deleteAccountFn = async () => {
+  const { data } = await axiosInstance.delete<DeleteAccount>(endpoint.auth.delete);
   return data;
 };

@@ -57,6 +57,7 @@ const colors = {
   settingValueText: "#505050",
   diaryText: "#242424",
   placeholderText: "#979797",
+  deleteAccount: "#CD3636",
 };
 
 const gap = {

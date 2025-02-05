@@ -11,3 +11,13 @@ export type LoginType = SuccessResponse & {
     tokenType: string;
   };
 };
+
+export type DeleteAccount = SuccessResponse & {
+  result: {
+    userId: number;
+    oauthProvider: "KAKAO" | "GOOGLE" | "APPLE";
+    providerId: "string";
+    email: "string";
+    nickname: "string";
+  };
+};

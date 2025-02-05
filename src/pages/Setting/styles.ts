@@ -62,6 +62,10 @@ export const ItemTitleText = styled.Text`
   color: ${({ theme }) => theme.colors.settingText};
 `;
 
+export const DeleteAccountText = styled(ItemTitleText)`
+  color: ${({ theme }) => theme.colors.deleteAccount};
+`;
+
 export const ItemDescriptionText = styled.Text`
   font-family: ${({ theme }) => theme.fontFamily.nsRegular};
   font-size: ${({ theme }) => theme.fontSize.xs};
