@@ -185,7 +185,7 @@ function ChattingPage({ threadDate, expiredDate, readonly }: Props): JSX.Element
           <S.BackButton onPress={handleBackPress} hitSlop={7}>
             <MaterialIcons name="arrow-back-ios" size={28} color={theme.colors.black} />
           </S.BackButton>
-          <S.HeaderButton onPress={handleHeaderPress} hitSlop={7}>
+          <S.HeaderButton onPress={handleHeaderPress} hitSlop={7} disabled={readonly}>
             <S.Image source={{ uri: data.result.aiProfileImageS3 }} />
             <S.AiNameText>{data.result.aiProfileName}</S.AiNameText>
           </S.HeaderButton>
