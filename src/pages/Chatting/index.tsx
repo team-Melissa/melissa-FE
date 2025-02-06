@@ -181,10 +181,12 @@ function ChattingPage({ threadDate, expiredDate, readonly }: Props): JSX.Element
   });
 
   useEffect(() => {
+    console.log(isCanDiarySummary);
     // 컴포넌트가 언마운트 될 때 일기 요약 실행
     return () => {
       if (isCanDiarySummary) {
         console.log("일기 요약을 진행합니다.");
+        showToast(toastMessage.updateDiary.pending, "success");
         updateDiaryMutate(threadDate);
       }
     };

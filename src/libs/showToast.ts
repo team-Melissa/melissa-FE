@@ -7,12 +7,13 @@ const showToast = (message: string | undefined, type: MessageType) => {
   if (message) {
     Toast.show({
       type: type,
-      position: "top",
+      position: "bottom",
       text1: message,
       text1Style: {
         fontSize: parseInt(theme.fontSize.base),
         fontFamily: theme.fontFamily.nsRegular,
       },
+      visibilityTime: 1000,
     });
   }
 };
