@@ -16,8 +16,8 @@ export const ItemLayout = styled.View`
 `;
 
 export const ItemBox = styled.TouchableOpacity`
-  width: ${responsiveToPx("324px")};
-  height: ${responsiveToPx("520px")};
+  width: ${responsiveToPx("320px")};
+  height: ${responsiveToPx("540px")};
   background-color: ${({ theme }) => theme.colors.deepGreen};
   border-radius: ${({ theme }) => theme.borderRadius.sm};
   justify-content: space-evenly;

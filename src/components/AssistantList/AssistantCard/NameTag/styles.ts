@@ -1,8 +1,8 @@
 import styled from "styled-components/native";
 
 export const NameTagBox = styled.View`
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   gap: ${({ theme }) => theme.gap.base};
 `;
 
