@@ -14,7 +14,7 @@ function DayComponent({ date, calendars, onPress }: Props): JSX.Element {
       calendar.year === date.year && calendar.month === date.month && calendar.day === date.day
   );
 
-  if (!dayDiary) {
+  if (!dayDiary || dayDiary.imageS3 === null) {
     return (
       <S.DayBox disabled={true}>
         <S.ImageBox>
