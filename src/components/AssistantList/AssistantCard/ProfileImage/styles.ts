@@ -1,4 +1,3 @@
-import { Image as Img } from "expo-image";
 import styled from "styled-components/native";
 import responsiveToPx from "@/src/utils/responsiveToPx";
 
@@ -11,7 +10,7 @@ export const ImageBox = styled.View`
   align-items: center;
 `;
 
-export const Image = styled(Img)`
+export const Image = styled.Image`
   width: ${responsiveToPx("187px")};
   height: ${responsiveToPx("187px")};
   border-radius: 9999px;

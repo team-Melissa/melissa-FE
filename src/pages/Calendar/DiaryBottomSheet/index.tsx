@@ -1,26 +1,33 @@
 import { useQuery } from "@tanstack/react-query";
 import { ForwardedRef, forwardRef, useMemo } from "react";
+import { useRouter } from "expo-router";
 import BottomSheet, { BottomSheetBackdrop, BottomSheetBackdropProps } from "@gorhom/bottom-sheet";
 import { DateData } from "react-native-calendars";
-import { DiaryResult } from "@/src/types/calendarTypes";
+import { DiariesResult } from "@/src/types/calendarTypes";
 import { shadowProps } from "@/src/constants/shadowProps";
 import * as S from "./styles";
+import { preventDoublePress } from "@/src/libs/esToolkit";
 
 interface Props {
   pressedDate: Pick<DateData, "year" | "month" | "day">;
 }
 
 function DiaryBottomSheet({ pressedDate }: Props, ref: ForwardedRef<BottomSheet>): JSX.Element {
+  const { year, month, day } = pressedDate;
+  const router = useRouter();
   const snapPoints = useMemo(() => ["60%", "90%"], []);
 
   // queryFn을 넣지 않으면, 캐시되지 않은 데이터는 불러오지 않는다
   // 즉 오늘 날짜로 pressedDate가 잡혀있어 의미없는 api 요청이 하나 더 발생하지 않는다
-  const { data } = useQuery<DiaryResult>({
-    queryKey: ["diary", pressedDate.year, pressedDate.month, pressedDate.day],
+  const { data } = useQuery<DiariesResult>({
+    queryKey: ["diaries", year, month],
     staleTime: 5 * 60 * 1000,
   });
 
-  console.log(data?.result);
+  // 읽기만 가능한 채팅방 렌더링을 위해 year, month, day를 쿼리스트링으로 전달
+  const handlePressReadonlyChatting = preventDoublePress(() =>
+    router.push(`/(app)/chatting?year=${year}&month=${month}&day=${day}`)
+  );
 
   return (
     <BottomSheet
@@ -37,22 +44,25 @@ function DiaryBottomSheet({ pressedDate }: Props, ref: ForwardedRef<BottomSheet>
         <S.BottomSheetLayout>
           <S.ScrollBox showsVerticalScrollIndicator={false}>
             <S.ImageBox>
-              <S.Image source={{ uri: data.result.imageS3 }} />
+              <S.Image source={{ uri: data.result.find((d) => d.day === day)?.imageS3 }} />
             </S.ImageBox>
             <S.DateText>
-              {data.result.year}. {data.result.month}. {data.result.day}
+              {data.result.find((d) => d.day === day)?.year}.{" "}
+              {data.result.find((d) => d.day === day)?.month}.{" "}
+              {data.result.find((d) => d.day === day)?.day}
             </S.DateText>
-            <S.TitleText>{data.result.summaryTitle}</S.TitleText>
-            <S.ContentText>{data.result.summaryContent}</S.ContentText>
+            <S.TitleText>{data.result.find((d) => d.day === day)?.summaryTitle}</S.TitleText>
+            <S.ContentText>{data.result.find((d) => d.day === day)?.summaryContent}</S.ContentText>
 
-            <S.TagText>#놀이공원 #롤러코스터</S.TagText>
+            <S.TagText>
+              {data.result.find((d) => d.day === day)?.hashTag1}{" "}
+              {data.result.find((d) => d.day === day)?.hashTag2}
+            </S.TagText>
             <S.ChatButtonBox>
               <S.ViewChatButton
                 hitSlop={10}
                 style={shadowProps}
-                onPress={() => {
-                  /* Todo: 버튼 클릭 시 채팅방 레이아웃에서 나눴던 채팅 읽기 */
-                }}
+                onPress={handlePressReadonlyChatting}
               >
                 <S.ButtonText>전체 대화 보기</S.ButtonText>
               </S.ViewChatButton>

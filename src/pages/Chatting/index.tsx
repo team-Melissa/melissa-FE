@@ -23,9 +23,10 @@ import * as S from "./styles";
 interface Props {
   threadDate: ThreadDate;
   expiredDate: Date;
+  readonly?: boolean;
 }
 
-function ChattingPage({ threadDate, expiredDate }: Props): JSX.Element {
+function ChattingPage({ threadDate, expiredDate, readonly }: Props): JSX.Element {
   const scrollViewRef = useRef<ScrollView>(null);
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [input, setInput] = useState<string>("");
@@ -69,7 +70,7 @@ function ChattingPage({ threadDate, expiredDate }: Props): JSX.Element {
   };
 
   const handleSubmitPress = () => {
-    if (!input) return;
+    if (!input || readonly) return; // readonly면 제출 기능 막기
     const token = getAccessToken();
     if (!token) return;
     if (checkThreadExpire(expiredDate)) {
@@ -99,18 +100,30 @@ function ChattingPage({ threadDate, expiredDate }: Props): JSX.Element {
         }
     );
     setInput("");
-    console.log(token);
     const es = new EventSource<FluxEvent>(
-      `${process.env.EXPO_PUBLIC_API_URL}${endpoint.thread.send}?content=${input}&year=${threadDate.year}&month=${threadDate.month}&day=${threadDate.day}`,
+      `${process.env.EXPO_PUBLIC_API_URL}${endpoint.thread.send}`,
       {
         headers: {
           Authorization: token,
-          "Content-Type": "text/event-stream",
+          Accept: "text/event-stream",
+          "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+          year: threadDate.year,
+          month: threadDate.month,
+          day: threadDate.day,
+          content: input,
+        }),
         method: "POST",
       }
     );
-    es.addEventListener("error", (error) => console.error(error));
+    es.addEventListener("error", (error) => {
+      console.error(error);
+      // 어떠한 이유로 SSE에 에러가 발생하면, EventSource를 해제
+      queryClient.invalidateQueries({ queryKey: ["message", threadDate] });
+      es.removeAllEventListeners();
+      es.close();
+    });
     es.addEventListener("aiMessage", (event) => {
       queryClient.setQueryData<MessageResult>(["message", threadDate], (prev) => {
         if (prev) {
@@ -184,7 +197,7 @@ function ChattingPage({ threadDate, expiredDate }: Props): JSX.Element {
           <S.BackButton onPress={handleBackPress} hitSlop={7}>
             <MaterialIcons name="arrow-back-ios" size={28} color={theme.colors.black} />
           </S.BackButton>
-          <S.HeaderButton onPress={handleHeaderPress} hitSlop={7}>
+          <S.HeaderButton onPress={handleHeaderPress} hitSlop={7} disabled={readonly}>
             <S.Image source={{ uri: data.result.aiProfileImageS3 }} />
             <S.AiNameText>{data.result.aiProfileName}</S.AiNameText>
           </S.HeaderButton>
@@ -207,18 +220,23 @@ function ChattingPage({ threadDate, expiredDate }: Props): JSX.Element {
             )
           )}
         </S.ScrollBox>
-        <S.ChatInputBox behavior={Platform.OS === "ios" ? "padding" : "height"}>
-          <S.ChatInput
-            placeholder="오늘 하루에 대해 말해주세요"
-            value={input}
-            onChangeText={handleChangeText}
-            hitSlop={15}
-            placeholderTextColor={theme.colors.placeholderText}
-          />
-          <S.ChatButton hitSlop={15} style={shadowProps} onPress={handleSubmitPress}>
-            <S.ButtonImage source={require("@/assets/images/chatButton.png")} />
-          </S.ChatButton>
-        </S.ChatInputBox>
+        <S.KeyboardAvoidingBox behavior={Platform.OS === "ios" ? "padding" : "height"}>
+          {!readonly && (
+            <S.ChatInputBox>
+              <S.ChatInput
+                placeholder="오늘 하루에 대해 말해주세요"
+                multiline={true}
+                value={input}
+                onChangeText={handleChangeText}
+                hitSlop={15}
+                placeholderTextColor={theme.colors.placeholderText}
+              />
+              <S.ChatButton hitSlop={15} style={shadowProps} onPress={handleSubmitPress}>
+                <S.ButtonImage source={require("@/assets/images/chatButton.png")} />
+              </S.ChatButton>
+            </S.ChatInputBox>
+          )}
+        </S.KeyboardAvoidingBox>
       </S.SafeView>
     </Fragment>
   );

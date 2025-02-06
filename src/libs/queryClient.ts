@@ -1,5 +1,9 @@
-import { QueryCache, QueryClient } from "@tanstack/react-query";
+import { MutationCache, QueryCache, QueryClient } from "@tanstack/react-query";
+import { router } from "expo-router";
 import showToast from "@/src/libs/showToast";
+import { removeRefreshToken } from "@/src/libs/secureStorage";
+import { removeAccessToken, removeAiProfileId } from "@/src/libs/mmkv";
+import toastMessage from "@/src/constants/toastMessage";
 
 export default new QueryClient({
   defaultOptions: {
@@ -9,16 +13,38 @@ export default new QueryClient({
     },
   },
   queryCache: new QueryCache({
-    onError: (error) => {
-      console.log(error.response?.data);
-      if (error.response?.data.code !== "401") {
-        showToast(error.response?.data.message, "error");
+    onError: async (error) => {
+      console.log("글로벌 query 에러");
+      if (error.response?.data) {
+        console.log(error.response.data);
+        const code = error.response.data.code;
+        if (code === "AUTH4006") {
+          // 다른 기기에서 이미 삭제된 계정인 경우
+          await removeRefreshToken();
+          removeAccessToken();
+          removeAiProfileId();
+          showToast(toastMessage.accountNotFound, "error");
+          router.navigate("/login");
+        } else if (code !== "401") {
+          showToast(error.response?.data.message, "error");
+        }
+      }
+    },
+  }),
+  mutationCache: new MutationCache({
+    onError: async (error) => {
+      console.log("글로벌 mutation 에러");
+      if (error.response?.data) {
+        const code = error.response.data.code;
+        if (code === "AUTH4006") {
+          // 다른 기기에서 이미 삭제된 계정인 경우
+          await removeRefreshToken();
+          removeAccessToken();
+          removeAiProfileId();
+          showToast(toastMessage.accountNotFound, "error");
+          router.navigate("/login");
+        }
       }
     },
   }),
 });
-
-// Todo: 특정 query-key 별로 staleTime을 다르게 전역 설정시킬 수 있다.
-// 이를 활용해 이전 달 캘린더라던가 일기 이런건 좀 길게 staleTime 가지고, 현재 달 캘린더와 일기 대화내역들은 짧게 (20초) staleTime 가지게 하는 것이 가능.
-
-// queryClient.setQueryDefaults(todoKeys.all, { staleTime: 1000 * 60 }); // 60초동안 todoKeys 애들은 stale하도록 설정

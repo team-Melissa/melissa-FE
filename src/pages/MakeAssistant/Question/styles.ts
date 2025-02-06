@@ -9,7 +9,8 @@ export const SafeView = styled(SafeAreaView)`
 
 export const BetweenBox = styled(SafeAreaView)`
   flex: 1;
-  padding: 0px 0px ${responsiveToPx("120px")} 0px;
+  background-color: ${({ theme }) => theme.colors.white};
+  padding: 0px 0px ${responsiveToPx("200px")} 0px;
   justify-content: space-between;
   align-items: center;
 `;
@@ -19,6 +20,7 @@ export const AnimatedHeaderBox = styled(Animated.View)`
   height: 17%;
   justify-content: center;
   align-items: center;
+  margin-bottom: ${responsiveToPx("60px")};
 `;
 
 export const HeaderBtn = styled.TouchableOpacity`
@@ -56,7 +58,7 @@ export const ButtonBox = styled.View`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: ${responsiveToPx("24px")};
+  gap: ${responsiveToPx("40px")};
 `;
 
 export const QuestionText = styled.Text`

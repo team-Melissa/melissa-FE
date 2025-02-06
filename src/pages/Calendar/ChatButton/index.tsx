@@ -1,13 +1,15 @@
 import { shadowProps } from "@/src/constants/shadowProps";
 import * as S from "./styles";
+import { useRouter } from "expo-router";
+import { preventDoublePress } from "@/src/libs/esToolkit";
 
-interface Props {
-  onPress: () => void;
-}
+function ChatButton(): JSX.Element {
+  const router = useRouter();
 
-function ChatButton({ onPress }: Props): JSX.Element {
+  const handleChattingPress = preventDoublePress(() => router.push("/(app)/chatting"));
+
   return (
-    <S.Btn style={shadowProps} onPress={onPress}>
+    <S.Btn style={shadowProps} onPress={handleChattingPress}>
       <S.ButtonImage source={require("@/assets/images/chatButton.png")} contentFit="cover" />
     </S.Btn>
   );

@@ -1,4 +1,4 @@
-import { getCalendarFn, getDiaryFn } from "@/src/apis/calendarApi";
+import { getCalendarFn, getDiariesFn } from "@/src/apis/calendarApi";
 import { getNextDate, getPrevDate } from "@/src/utils/calculateDate";
 import { useQueries, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
@@ -33,23 +33,15 @@ const useCurrentDate = () => {
       },
     ],
     combine: (result) => {
+      // 현재 달 일기 데이터들을 미리 prefetch
+      queryClient.prefetchQuery({
+        queryFn: () => getDiariesFn(curYear, curMonth),
+        queryKey: ["diaries", curYear, curMonth],
+      });
       // 3개월 캘린더 데이터를 flat
       const flattedData = result
         .filter((query) => query.isSuccess)
         .flatMap((query) => query.data.result);
-
-      // 현재 월 일기 데이터를 미리 prefetch <- 만약 한 달에 30번이나 일기 꼬박꼬박 썼으면 30개의 병렬 API 호출: 백엔드/DB 부하 커지려나?
-      // 차라리 일기 데이터를 1달 단위로 받는게 나으려나...
-      const curMonthData = flattedData.filter((data) => data.month === curMonth);
-      curMonthData.map(({ year, month, day }) =>
-        queryClient.prefetchQuery({
-          queryFn: () => getDiaryFn(year, month, day),
-          queryKey: ["diary", year, month, day],
-          staleTime: 5 * 60 * 1000,
-        })
-      );
-
-      // 3개월 캘린더 데이터를 flat시켜 반환
       return flattedData;
     },
   });

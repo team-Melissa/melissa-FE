@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { router } from "expo-router";
-import { setStorageValue, removeStorageValue, getAccessToken } from "./mmkv";
-import { getRefreshToken, removeSecureValue, setSecureValue } from "./secureStorage";
+import { getAccessToken, removeAccessToken, removeAiProfileId, setAccessToken } from "./mmkv";
+import { getRefreshToken, removeRefreshToken, setRefreshToken } from "./secureStorage";
 import endpoint from "../constants/endpoint";
 import { LoginType } from "../types/loginTypes";
 import { AxiosErrorToInterceptors, ErrorResponse } from "../types/commonTypes";
@@ -84,8 +84,9 @@ axiosInstance.interceptors.response.use(
         const refreshToken = await getRefreshToken();
         if (!refreshToken) {
           console.error("refresh token이 존재하지 않아 재발급 종료 (아마 앱 최초 설치)");
-          removeSecureValue("refreshToken");
-          removeStorageValue("accessToken");
+          await removeRefreshToken();
+          removeAccessToken();
+          removeAiProfileId();
           router.replace("/login");
           return Promise.reject(error);
         }
@@ -103,8 +104,8 @@ axiosInstance.interceptors.response.use(
 
         // 새 토큰들 저장
         const newAccessToken = `${data.result.tokenType} ${data.result.accessToken}`;
-        setStorageValue("accessToken", newAccessToken);
-        await setSecureValue("refreshToken", data.result.refreshToken);
+        setAccessToken(newAccessToken);
+        await setRefreshToken(data.result.refreshToken);
         console.log("토큰 재발급 성공");
 
         // 재요청 대기중이던 api와 토큰 재발급을 일으킨 api 재요청 수행
@@ -113,8 +114,9 @@ axiosInstance.interceptors.response.use(
         return axiosInstance(config);
       } catch (e) {
         console.error("토큰 재발급 로직 도중 에러", e);
-        removeSecureValue("refreshToken");
-        removeStorageValue("accessToken");
+        await removeRefreshToken();
+        removeAccessToken();
+        removeAiProfileId();
         showToast(toastMessage.tokenExpired, "error");
         router.replace("/login");
         return Promise.reject(error);

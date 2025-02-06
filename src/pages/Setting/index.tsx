@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { ScrollView, Switch } from "react-native";
 import { useRouter } from "expo-router";
+import * as Linking from "expo-linking";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import Loading from "@/src/components/ui/Loading";
 import useUpdateSetting from "@/src/hooks/useUpdateSetting";
 import useLogout from "@/src/hooks/useLogout";
+import useDeleteAccount from "@/src/hooks/useDeleteAccount";
 import { UserSettingResult } from "@/src/types/settingTypes";
 import { theme } from "@/src/constants/theme";
 import * as S from "./styles";
@@ -27,6 +29,7 @@ function SettingPage({ data }: Props): JSX.Element {
   const router = useRouter();
   const { mutate: settingMutate } = useUpdateSetting(data);
   const { isPending, mutate: logoutMutate } = useLogout();
+  const { isPending: deleteAccountPending, mutate: deleteAccountMutate } = useDeleteAccount();
 
   const showDatePicker = (datePickerType: "sleepTime" | "notificationTime") => {
     setIsDatePickerVisible(true);
@@ -57,8 +60,16 @@ function SettingPage({ data }: Props): JSX.Element {
     router.back();
   };
 
+  const handleDonation = () => {
+    Linking.openURL("https://buymeacoffee.com/teammelissa");
+  };
+
   const handleLogout = () => {
     logoutMutate();
+  };
+
+  const handleDeleteAccount = () => {
+    deleteAccountMutate();
   };
 
   const handleNotificationSummary = () => {
@@ -73,7 +84,7 @@ function SettingPage({ data }: Props): JSX.Element {
     setOptimisticToggle(notificationSummary);
   }, [notificationSummary]);
 
-  if (isPending) {
+  if (isPending || deleteAccountPending) {
     return <Loading />;
   }
 
@@ -123,7 +134,7 @@ function SettingPage({ data }: Props): JSX.Element {
             </S.ItemTitleBox>
           </S.ItemButton>
 
-          <S.ItemButton hitSlop={10}>
+          <S.ItemButton hitSlop={10} onPress={handleDonation}>
             <S.ItemTitleBox>
               <S.ItemTitleText>후원하기</S.ItemTitleText>
               <S.ItemDescriptionText>후원은 Melissa 서비스 운영에</S.ItemDescriptionText>
@@ -134,6 +145,12 @@ function SettingPage({ data }: Props): JSX.Element {
           <S.ItemButton hitSlop={10} onPress={handleLogout}>
             <S.ItemTitleBox>
               <S.ItemTitleText>로그아웃</S.ItemTitleText>
+            </S.ItemTitleBox>
+          </S.ItemButton>
+
+          <S.ItemButton hitSlop={10} onPress={handleDeleteAccount}>
+            <S.ItemTitleBox>
+              <S.DeleteAccountText>회원 탈퇴</S.DeleteAccountText>
             </S.ItemTitleBox>
           </S.ItemButton>
         </S.SettingBox>

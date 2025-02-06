@@ -11,15 +11,15 @@ function Personality({ feat1, feat2, feat3 }: Props) {
     <S.PersonalityBox>
       <S.LineBox>
         <S.Title>성 격</S.Title>
-        <S.Description>{feat1}</S.Description>
+        <S.Description numberOfLines={1}>{feat1}</S.Description>
       </S.LineBox>
       <S.LineBox>
         <S.Title>성 격</S.Title>
-        <S.Description>{feat2}</S.Description>
+        <S.Description numberOfLines={1}>{feat2}</S.Description>
       </S.LineBox>
       <S.LineBox>
         <S.Title>성 격</S.Title>
-        <S.Description>{feat3}</S.Description>
+        <S.Description numberOfLines={1}>{feat3}</S.Description>
       </S.LineBox>
     </S.PersonalityBox>
   );

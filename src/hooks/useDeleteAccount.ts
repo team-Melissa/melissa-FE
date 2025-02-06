@@ -1,30 +1,30 @@
 import { router } from "expo-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { logoutFn } from "@/src/apis/loginApi";
-import { removeRefreshToken } from "@/src/libs/secureStorage";
+import { deleteAccountFn } from "@/src/apis/loginApi";
 import { removeAccessToken, removeAiProfileId } from "@/src/libs/mmkv";
-import toastMessage from "@/src/constants/toastMessage";
+import { removeRefreshToken } from "@/src/libs/secureStorage";
 import showToast from "@/src/libs/showToast";
+import toastMessage from "@/src/constants/toastMessage";
 
-const useLogout = () => {
+const useDeleteAccount = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: logoutFn,
+    mutationFn: deleteAccountFn,
     onSuccess: async (data) => {
-      showToast(toastMessage.logout.success, "success");
+      showToast(toastMessage.deleteAccount.success, "success");
       console.log(data);
       await removeRefreshToken();
       removeAccessToken();
       removeAiProfileId();
-      queryClient.clear(); // 로그아웃 후 다른 계정에 접속해도 캐시가 남아있는 문제 존재했음. 깜빡했다...
+      queryClient.clear();
       router.replace("/login");
     },
     onError: (error) => {
       console.error(error.response?.data);
-      showToast(toastMessage.logout.failed, "error");
+      showToast(toastMessage.deleteAccount.failed, "error");
     },
   });
 };
 
-export default useLogout;
+export default useDeleteAccount;

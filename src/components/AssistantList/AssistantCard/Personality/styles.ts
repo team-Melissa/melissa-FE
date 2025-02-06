@@ -11,6 +11,7 @@ export const PersonalityBox = styled.View`
 `;
 
 export const LineBox = styled.View`
+  width: ${responsiveToPx("180px")};
   flex-direction: row;
   gap: ${({ theme }) => theme.gap.lg};
 `;

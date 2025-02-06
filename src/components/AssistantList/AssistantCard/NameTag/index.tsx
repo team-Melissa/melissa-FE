@@ -11,7 +11,7 @@ function NameTag({ name, tag1, tag2 }: Props) {
     <S.NameTagBox>
       <S.NameText>{name}</S.NameText>
       <S.TagText>
-        #{tag1} #{tag2}
+        {tag1} {tag2}
       </S.TagText>
     </S.NameTagBox>
   );
