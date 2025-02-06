@@ -1,10 +1,10 @@
-import { TouchableWithoutFeedback } from "react-native";
+import { TouchableWithoutFeedback, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
 import useRemoveAssistant from "@/src/hooks/useRemoveAssistant";
 import ProfileImage from "./ProfileImage";
 import NameTag from "./NameTag";
 import Personality from "./Personality";
-import CardButton from "./CardButton";
 import { AiProfileListWithGenerateAiTrigger } from "@/src/types/aiProfileTypes";
 import { preventDoublePress } from "@/src/libs/esToolkit";
 import * as S from "./styles";
@@ -31,7 +31,7 @@ function AssistantCard({ item, onPressAiCard }: Props) {
     return (
       <S.ItemBox onPress={routeMakeAssistantPage()}>
         <S.PlusImage source={require("@/assets/images/plus.svg")} contentFit="contain" />
-        <S.GenAiText>새로운 서포터 추가하기</S.GenAiText>
+        <S.GenAiText>새로운 서포터 만들기</S.GenAiText>
       </S.ItemBox>
     );
   }
@@ -43,12 +43,21 @@ function AssistantCard({ item, onPressAiCard }: Props) {
     <TouchableWithoutFeedback>
       <S.ItemBox onPress={() => onPressAiCard(aiProfileId)}>
         <ProfileImage url={imageUrl} />
-        <NameTag name={profileName} tag1={hashTag1} tag2={hashTag2} />
+
+        {/* 이름과 아이콘 버튼을 한 줄로 정렬 */}
+        <S.NameTagContainer>
+          <NameTag name={profileName} tag1={hashTag1} tag2={hashTag2} />
+          <S.IconButtonBox>
+            <TouchableOpacity onPress={routeMakeAssistantPage(aiProfileId)} style={{ marginRight: 10 }}>
+              <Ionicons name="copy-outline" size={20} color="white" />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => removeMutate(aiProfileId)}>
+              <Ionicons name="trash-outline" size={20} color="white" />
+            </TouchableOpacity>
+          </S.IconButtonBox>
+        </S.NameTagContainer>
+
         <Personality feat1={feature1} feat2={feature2} feat3={feature3} />
-        <S.ButtonBox>
-          <CardButton onPress={routeMakeAssistantPage(aiProfileId)}>복제하기</CardButton>
-          <CardButton onPress={() => removeMutate(aiProfileId)}>삭제하기</CardButton>
-        </S.ButtonBox>
       </S.ItemBox>
     </TouchableWithoutFeedback>
   );
