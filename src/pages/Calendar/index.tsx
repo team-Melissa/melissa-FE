@@ -7,6 +7,7 @@ import useCurrentDate from "@/src/hooks/useCurrentDate";
 import DayComponent from "./DayComponent";
 import ChatButton from "./ChatButton";
 import DiaryBottomSheet from "./DiaryBottomSheet";
+import { preventDoublePress } from "@/src/libs/esToolkit";
 import { theme } from "@/src/constants/theme";
 import * as S from "./styles";
 
@@ -44,9 +45,7 @@ function CalendarPage(): JSX.Element {
   const { calendarsData, changeDate } = useCurrentDate();
   const bottomSheetRef = useRef<BottomSheet>(null); // BottomSheet(자식 컴포넌트)를 조작하기 위한 부모 ref
 
-  const handleSettingPress = () => {
-    router.push("/(app)/setting");
-  };
+  const handleSettingPress = preventDoublePress(() => router.push("/(app)/setting"));
 
   const handleDayPress = (date: DateData) => {
     const { year, month, day } = date;

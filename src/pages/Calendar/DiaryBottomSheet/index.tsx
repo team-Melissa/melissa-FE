@@ -6,6 +6,7 @@ import { DateData } from "react-native-calendars";
 import { DiariesResult } from "@/src/types/calendarTypes";
 import { shadowProps } from "@/src/constants/shadowProps";
 import * as S from "./styles";
+import { preventDoublePress } from "@/src/libs/esToolkit";
 
 interface Props {
   pressedDate: Pick<DateData, "year" | "month" | "day">;
@@ -24,9 +25,9 @@ function DiaryBottomSheet({ pressedDate }: Props, ref: ForwardedRef<BottomSheet>
   });
 
   // 읽기만 가능한 채팅방 렌더링을 위해 year, month, day를 쿼리스트링으로 전달
-  const handlePressReadonlyChatting = () => {
-    router.push(`/(app)/chatting?year=${year}&month=${month}&day=${day}`);
-  };
+  const handlePressReadonlyChatting = preventDoublePress(() =>
+    router.push(`/(app)/chatting?year=${year}&month=${month}&day=${day}`)
+  );
 
   return (
     <BottomSheet

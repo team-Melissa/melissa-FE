@@ -6,6 +6,7 @@ import NameTag from "./NameTag";
 import Personality from "./Personality";
 import CardButton from "./CardButton";
 import { AiProfileListWithGenerateAiTrigger } from "@/src/types/aiProfileTypes";
+import { preventDoublePress } from "@/src/libs/esToolkit";
 import * as S from "./styles";
 
 interface Props {
@@ -19,14 +20,16 @@ function AssistantCard({ item, onPressAiCard }: Props) {
 
   const routeMakeAssistantPage = (aiProfileId: number | null = null) => {
     if (!aiProfileId) {
-      return router.push("/(app)/make-assistant");
+      return preventDoublePress(() => router.push("/(app)/make-assistant"));
     }
-    return router.push(`/(app)/make-assistant?aiProfileId=${aiProfileId}`);
+    return preventDoublePress(() =>
+      router.push(`/(app)/make-assistant?aiProfileId=${aiProfileId}`)
+    );
   };
 
   if ("isGenerateButton" in item) {
     return (
-      <S.ItemBox onPress={() => routeMakeAssistantPage()}>
+      <S.ItemBox onPress={routeMakeAssistantPage()}>
         <S.PlusImage source={require("@/assets/images/plus.svg")} contentFit="contain" />
         <S.GenAiText>새로운 서포터 추가하기</S.GenAiText>
       </S.ItemBox>
@@ -43,7 +46,7 @@ function AssistantCard({ item, onPressAiCard }: Props) {
         <NameTag name={profileName} tag1={hashTag1} tag2={hashTag2} />
         <Personality feat1={feature1} feat2={feature2} feat3={feature3} />
         <S.ButtonBox>
-          <CardButton onPress={() => routeMakeAssistantPage(aiProfileId)}>복제하기</CardButton>
+          <CardButton onPress={routeMakeAssistantPage(aiProfileId)}>복제하기</CardButton>
           <CardButton onPress={() => removeMutate(aiProfileId)}>삭제하기</CardButton>
         </S.ButtonBox>
       </S.ItemBox>
