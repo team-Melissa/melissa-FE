@@ -7,7 +7,7 @@ const showToast = (message: string | undefined, type: MessageType) => {
   if (message) {
     Toast.show({
       type: type,
-      position: "bottom",
+      position: "top",
       text1: message,
       text1Style: {
         fontSize: parseInt(theme.fontSize.base),
