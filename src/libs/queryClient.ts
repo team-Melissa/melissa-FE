@@ -18,21 +18,12 @@ export default new QueryClient({
       if (error.response?.data) {
         console.log(error.response.data);
         const code = error.response.data.code;
-        if (
-          code === "COMMON4002" ||
-          code === "COMMON4003" ||
-          code === "USER4001" ||
-          code === "USER4002" ||
-          code === "USER4004" ||
-          code === "USER4006" ||
-          code === "SETTING4001" ||
-          code === "PROFILE4001" ||
-          code === "AUTH4006"
-        ) {
+        if (code === "AUTH4006") {
+          // 다른 기기에서 이미 삭제된 계정인 경우
           await removeRefreshToken();
           removeAccessToken();
           removeAiProfileId();
-          showToast(toastMessage.accountError, "error");
+          showToast(toastMessage.accountNotFound, "error");
           router.navigate("/login");
         } else if (code !== "401") {
           showToast(error.response?.data.message, "error");
@@ -45,21 +36,12 @@ export default new QueryClient({
       console.log("글로벌 mutation 에러");
       if (error.response?.data) {
         const code = error.response.data.code;
-        if (
-          code === "COMMON4002" ||
-          code === "COMMON4003" ||
-          code === "USER4001" ||
-          code === "USER4002" ||
-          code === "USER4004" ||
-          code === "USER4006" ||
-          code === "SETTING4001" ||
-          code === "PROFILE4001" ||
-          code === "AUTH4006"
-        ) {
+        if (code === "AUTH4006") {
+          // 다른 기기에서 이미 삭제된 계정인 경우
           await removeRefreshToken();
           removeAccessToken();
           removeAiProfileId();
-          showToast(toastMessage.accountError, "error");
+          showToast(toastMessage.accountNotFound, "error");
           router.navigate("/login");
         }
       }
