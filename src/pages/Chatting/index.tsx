@@ -1,10 +1,11 @@
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { Platform, ScrollView } from "react-native";
 import { useRouter } from "expo-router";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import EventSource from "react-native-sse";
 import { changeAiFn, getMessagesFn } from "@/src/apis/threadApi";
+import useUpdateDiary from "@/src/hooks/useUpdateDiary";
 import AssistantList from "@/src/components/AssistantList";
 import Loading from "@/src/components/ui/Loading";
 import CommonError from "@/src/components/ui/CommonError";
@@ -29,6 +30,7 @@ interface Props {
 
 function ChattingPage({ threadDate, expiredDate, readonly }: Props): JSX.Element {
   const scrollViewRef = useRef<ScrollView>(null);
+  const [isCanDiarySummary, setIsCanDiarySummary] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [input, setInput] = useState<string>("");
   const queryClient = useQueryClient();
@@ -39,6 +41,10 @@ function ChattingPage({ threadDate, expiredDate, readonly }: Props): JSX.Element
     queryKey: ["message", threadDate],
   });
 
+  // 채팅 페이지에서 언마운트 될 때, 현재 채팅 페이지 날짜 요약 요청
+  const { mutate: updateDiaryMutate } = useUpdateDiary();
+
+  // AI 변경 시 사용되는 useMutation
   const { mutate } = useMutation({
     mutationFn: changeAiFn,
     onSuccess: (data) => {
@@ -79,6 +85,8 @@ function ChattingPage({ threadDate, expiredDate, readonly }: Props): JSX.Element
       router.replace("/(app)/chatting");
       return;
     }
+    // 실제 채팅 전송이 수행되는 지점, 사용자가 채팅을 한번이라도 입력해야만 언마운트 시 요약 프로세스가 동작하도록 flag 도입
+    setIsCanDiarySummary(true);
     queryClient.setQueryData<MessageResult>(
       ["message", threadDate],
       (prev) =>
@@ -171,6 +179,16 @@ function ChattingPage({ threadDate, expiredDate, readonly }: Props): JSX.Element
       es.close();
     });
   });
+
+  useEffect(() => {
+    // 컴포넌트가 언마운트 될 때 일기 요약 실행
+    return () => {
+      if (isCanDiarySummary) {
+        console.log("일기 요약을 진행합니다.");
+        updateDiaryMutate(threadDate);
+      }
+    };
+  }, [isCanDiarySummary, threadDate, updateDiaryMutate]);
 
   if (isPending) {
     return <Loading />;
