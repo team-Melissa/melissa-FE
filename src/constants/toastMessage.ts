@@ -15,6 +15,7 @@ const toastMessage = {
     failed: "회원 탈퇴에 실패했습니다.",
   },
   tokenExpired: "세션이 만료되었습니다. 다시 로그인 해주세요.",
+  accountError: "계정에 문제가 발생했습니다. 다시 로그인 해주세요.",
   registerSetting: {
     failed: "앱 초기 로딩 중 에러가 발생했어요.",
   },

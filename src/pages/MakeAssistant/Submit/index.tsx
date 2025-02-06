@@ -19,7 +19,7 @@ function Submit({ answers }: Props) {
   const { isPending, isSuccess, isError, error, mutate } = useMutation({
     mutationFn: () => makeAssistantFn(answersJson),
     onSuccess: (data) => handleSuccess(data),
-    onError: (error) => console.error(error.response?.data.message),
+    onError: (error) => console.error(error.response?.data),
   });
 
   const router = useRouter();
