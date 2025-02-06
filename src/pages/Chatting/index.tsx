@@ -19,6 +19,7 @@ import { getAccessToken, setAiProfileId } from "@/src/libs/mmkv";
 import { FluxEvent, MessageResult, ThreadDate } from "@/src/types/threadTypes";
 import { theme } from "@/src/constants/theme";
 import * as S from "./styles";
+import { preventDoublePress } from "@/src/libs/esToolkit";
 
 interface Props {
   threadDate: ThreadDate;
@@ -69,7 +70,7 @@ function ChattingPage({ threadDate, expiredDate, readonly }: Props): JSX.Element
     setInput(e);
   };
 
-  const handleSubmitPress = () => {
+  const handleSubmitPress = preventDoublePress(() => {
     if (!input || readonly) return; // readonly면 제출 기능 막기
     const token = getAccessToken();
     if (!token) return;
@@ -169,7 +170,7 @@ function ChattingPage({ threadDate, expiredDate, readonly }: Props): JSX.Element
       es.removeAllEventListeners();
       es.close();
     });
-  };
+  });
 
   if (isPending) {
     return <Loading />;
