@@ -100,18 +100,30 @@ function ChattingPage({ threadDate, expiredDate, readonly }: Props): JSX.Element
         }
     );
     setInput("");
-    console.log(token);
     const es = new EventSource<FluxEvent>(
-      `${process.env.EXPO_PUBLIC_API_URL}${endpoint.thread.send}?content=${input}&year=${threadDate.year}&month=${threadDate.month}&day=${threadDate.day}`,
+      `${process.env.EXPO_PUBLIC_API_URL}${endpoint.thread.send}`,
       {
         headers: {
           Authorization: token,
-          "Content-Type": "text/event-stream",
+          Accept: "text/event-stream",
+          "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+          year: threadDate.year,
+          month: threadDate.month,
+          day: threadDate.day,
+          content: input,
+        }),
         method: "POST",
       }
     );
-    es.addEventListener("error", (error) => console.error(error));
+    es.addEventListener("error", (error) => {
+      console.error(error);
+      // 어떠한 이유로 SSE에 에러가 발생하면, EventSource를 해제
+      queryClient.invalidateQueries({ queryKey: ["message", threadDate] });
+      es.removeAllEventListeners();
+      es.close();
+    });
     es.addEventListener("aiMessage", (event) => {
       queryClient.setQueryData<MessageResult>(["message", threadDate], (prev) => {
         if (prev) {
