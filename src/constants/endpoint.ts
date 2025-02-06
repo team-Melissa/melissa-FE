@@ -17,6 +17,7 @@ const endpoint = {
     chat: "/api/v1/chats",
     send: "/api/v1/chats/message",
     changeAi: "/api/v1/chats/ai-profile",
+    summary: "/api/v1/summary",
   },
   calendar: {
     month: "/api/v1/calender/month",

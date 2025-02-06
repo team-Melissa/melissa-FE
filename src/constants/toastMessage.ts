@@ -32,6 +32,11 @@ const toastMessage = {
     failed: "서포터 변경에 실패했습니다.",
   },
   threadExpired: "이전 대화를 요약하고, 새로운 채팅방을 생성합니다.",
+  updateDiary: {
+    pending: "일기를 요약 중입니다...",
+    success: "일기가 업데이트 되었습니다.",
+    failed: "일기 생성에 실패했습니다.",
+  },
 };
 
 export default toastMessage;
