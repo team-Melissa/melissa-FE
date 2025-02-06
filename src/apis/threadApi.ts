@@ -1,6 +1,7 @@
 import axiosInstance from "@/src/libs/axiosInstance";
 import endpoint from "@/src/constants/endpoint";
 import { MessageResult, NewThreadResult, ThreadDate } from "@/src/types/threadTypes";
+import { DiaryResult } from "@/src/types/calendarTypes";
 
 export const newThreadFn = async ({
   aiProfileId,
@@ -30,6 +31,13 @@ export const changeAiFn = async ({
 }: ThreadDate & { aiProfileId: number }) => {
   const { data } = await axiosInstance.patch(
     `${endpoint.thread.changeAi}?aiProfileId=${aiProfileId}&year=${year}&month=${month}&day=${day}`
+  );
+  return data;
+};
+
+export const threadSummary = async ({ year, month, day }: ThreadDate) => {
+  const { data } = await axiosInstance.post<DiaryResult>(
+    `${endpoint.thread.summary}?year=${year}&month=${month}&day=${day}`
   );
   return data;
 };
