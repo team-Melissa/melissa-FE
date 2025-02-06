@@ -220,11 +220,12 @@ function ChattingPage({ threadDate, expiredDate, readonly }: Props): JSX.Element
             )
           )}
         </S.ScrollBox>
-        <S.ChatInputBox behavior={Platform.OS === "ios" ? "padding" : "height"}>
+        <S.KeyboardAvoidingBox behavior={Platform.OS === "ios" ? "padding" : "height"}>
           {!readonly && (
-            <Fragment>
+            <S.ChatInputBox>
               <S.ChatInput
                 placeholder="오늘 하루에 대해 말해주세요"
+                multiline={true}
                 value={input}
                 onChangeText={handleChangeText}
                 hitSlop={15}
@@ -233,9 +234,9 @@ function ChattingPage({ threadDate, expiredDate, readonly }: Props): JSX.Element
               <S.ChatButton hitSlop={15} style={shadowProps} onPress={handleSubmitPress}>
                 <S.ButtonImage source={require("@/assets/images/chatButton.png")} />
               </S.ChatButton>
-            </Fragment>
+            </S.ChatInputBox>
           )}
-        </S.ChatInputBox>
+        </S.KeyboardAvoidingBox>
       </S.SafeView>
     </Fragment>
   );
