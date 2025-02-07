@@ -3,7 +3,8 @@ import { ExpoConfig, ConfigContext } from "expo/config";
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: "Melissa",
-  slug: "melissa-FE",
+  slug: "melissa",
+  owner: "teammelissa7",
   version: "1.0.0",
   orientation: "portrait",
   icon: "./assets/images/icon.png",
@@ -14,6 +15,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     usesAppleSignIn: true,
     supportsTablet: true,
     bundleIdentifier: "com.melissa.melissaFE",
+    infoPlist: {
+      ITSAppUsesNonExemptEncryption: false,
+    },
   },
   android: {
     adaptiveIcon: {
@@ -76,7 +80,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       origin: false,
     },
     eas: {
-      projectId: "66d135c5-0ce6-4d4c-b773-53238a652ce4",
+      projectId: "4faef966-3986-491e-b718-3bf6c7143451",
     },
   },
 });
