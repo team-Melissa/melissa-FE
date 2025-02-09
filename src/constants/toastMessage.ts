@@ -23,6 +23,7 @@ const toastMessage = {
     success: "설정 업데이트 완료.",
     failed: "설정 업데이트 도중 문제 발생.",
   },
+  sendMailFailed: "기본 메일 앱이 설치되어 있는지 확인해주세요.",
   removeAssistant: {
     success: "서포터가 삭제되었습니다.",
     failed: "서포터 삭제에 실패했습니다.",
