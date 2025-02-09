@@ -9,6 +9,8 @@ import Loading from "@/src/components/ui/Loading";
 import useUpdateSetting from "@/src/hooks/useUpdateSetting";
 import useLogout from "@/src/hooks/useLogout";
 import useDeleteAccount from "@/src/hooks/useDeleteAccount";
+import showToast from "@/src/libs/showToast";
+import toastMessage from "@/src/constants/toastMessage";
 import { UserSettingResult } from "@/src/types/settingTypes";
 import { theme } from "@/src/constants/theme";
 import * as S from "./styles";
@@ -58,6 +60,18 @@ function SettingPage({ data }: Props): JSX.Element {
 
   const handlePrevButton = () => {
     router.back();
+  };
+
+  const handleSendMail = async () => {
+    try {
+      const data = await Linking.openURL(
+        "mailto: teammelissa7@gmail.com?subject=[Melissa] 제목을 작성해주세요.&body=내용을 작성해주세요."
+      );
+      console.log(data);
+    } catch (e) {
+      console.error(e);
+      showToast(toastMessage.sendMailFailed, "error");
+    }
   };
 
   const handleDonation = () => {
@@ -126,7 +140,7 @@ function SettingPage({ data }: Props): JSX.Element {
             <S.ItemValueText>{notificationTime.slice(0, -3)}</S.ItemValueText>
           </S.ItemButton>
 
-          <S.ItemButton hitSlop={10}>
+          <S.ItemButton hitSlop={10} onPress={handleSendMail}>
             <S.ItemTitleBox>
               <S.ItemTitleText>의견 보내기</S.ItemTitleText>
               <S.ItemDescriptionText>운영진에게 앱에 대한 의견을</S.ItemDescriptionText>

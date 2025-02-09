@@ -13,7 +13,7 @@ const showToast = (message: string | undefined, type: MessageType) => {
         fontSize: parseInt(theme.fontSize.base),
         fontFamily: theme.fontFamily.nsRegular,
       },
-      visibilityTime: 1000,
+      visibilityTime: 1500,
     });
   }
 };
