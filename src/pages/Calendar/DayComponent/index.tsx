@@ -30,10 +30,14 @@ function DayComponent({ date, calendars, onPress }: Props): JSX.Element {
         <S.Image src={dayDiary.imageS3} />
       </S.ImageBox>
       <S.TagBox>
-        <S.TagText>{dayDiary.hashTag1}</S.TagText>
+        <S.TagText numberOfLines={1} ellipsizeMode="clip">
+          {dayDiary.hashTag1}
+        </S.TagText>
       </S.TagBox>
       <S.TagBox>
-        <S.TagText>{dayDiary.hashTag2}</S.TagText>
+        <S.TagText numberOfLines={1} ellipsizeMode="clip">
+          {dayDiary.hashTag2}
+        </S.TagText>
       </S.TagBox>
     </S.DayBox>
   );
