@@ -29,12 +29,13 @@ interface Props {
 }
 
 function ChattingPage({ threadDate, expiredDate, readonly }: Props): JSX.Element {
-  const scrollViewRef = useRef<ScrollView>(null);
+  const queryClient = useQueryClient();
+  const router = useRouter();
   const [isCanDiarySummary, setIsCanDiarySummary] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [input, setInput] = useState<string>("");
-  const queryClient = useQueryClient();
-  const router = useRouter();
+  const [isGenAiChat, setIsGenAiChat] = useState<boolean>(false);
+  const scrollViewRef = useRef<ScrollView>(null);
 
   const { isPending, isError, data, refetch } = useQuery({
     queryFn: () => getMessagesFn(threadDate),
@@ -77,7 +78,7 @@ function ChattingPage({ threadDate, expiredDate, readonly }: Props): JSX.Element
   };
 
   const handleSubmitPress = preventDoublePress(() => {
-    if (!input || readonly) return; // readonly면 제출 기능 막기
+    if (!input || readonly || isGenAiChat) return;
     const token = getAccessToken();
     if (!token) return;
     if (checkThreadExpire(expiredDate)) {
@@ -87,6 +88,7 @@ function ChattingPage({ threadDate, expiredDate, readonly }: Props): JSX.Element
     }
     // 실제 채팅 전송이 수행되는 지점, 사용자가 채팅을 한번이라도 입력해야만 언마운트 시 요약 프로세스가 동작하도록 flag 도입
     setIsCanDiarySummary(true);
+    setIsGenAiChat(true); // 채팅 제출 후 답변 오기 전에 다시 제출하지 못하도록
     queryClient.setQueryData<MessageResult>(
       ["message", threadDate],
       (prev) =>
@@ -132,6 +134,7 @@ function ChattingPage({ threadDate, expiredDate, readonly }: Props): JSX.Element
       queryClient.invalidateQueries({ queryKey: ["message", threadDate] });
       es.removeAllEventListeners();
       es.close();
+      setIsGenAiChat(false);
     });
     es.addEventListener("aiMessage", (event) => {
       queryClient.setQueryData<MessageResult>(["message", threadDate], (prev) => {
@@ -177,6 +180,7 @@ function ChattingPage({ threadDate, expiredDate, readonly }: Props): JSX.Element
       queryClient.invalidateQueries({ queryKey: ["message", threadDate] });
       es.removeAllEventListeners();
       es.close();
+      setIsGenAiChat(false);
     });
   });
 
