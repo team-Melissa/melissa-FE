@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ScrollView, Switch } from "react-native";
+import { Alert, ScrollView, Switch } from "react-native";
 import { useRouter } from "expo-router";
 import * as Linking from "expo-linking";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -83,7 +83,15 @@ function SettingPage({ data }: Props): JSX.Element {
   };
 
   const handleDeleteAccount = () => {
-    deleteAccountMutate();
+    Alert.alert(
+      "회원탈퇴",
+      "정말 탈퇴하시겠습니까?",
+      [
+        { text: "취소", style: "cancel" },
+        { text: "탈퇴", style: "destructive", onPress: () => deleteAccountMutate() },
+      ],
+      { cancelable: true }
+    );
   };
 
   const handleNotificationSummary = () => {
