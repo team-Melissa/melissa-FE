@@ -1,15 +1,21 @@
+import { useQuery } from "@tanstack/react-query";
+import { BasicDayProps } from "react-native-calendars/src/calendar/day/basic";
 import { DateData } from "react-native-calendars";
-import { Day } from "@/src/types/calendarTypes";
+import { MonthCalendar } from "@/src/types/calendarTypes";
 import * as S from "./styles";
 
-interface Props {
-  date: DateData;
-  calendars?: Day[];
-  onPress: () => void;
+interface Props extends Omit<BasicDayProps, "date"> {
+  date?: DateData;
 }
 
-function DayComponent({ date, calendars, onPress }: Props): JSX.Element {
-  const dayDiary = calendars?.find(
+function DayComponent({ date, onPress }: Props): JSX.Element | null {
+  const { data } = useQuery<MonthCalendar>({
+    queryKey: ["calendar", date?.year, date?.month],
+  });
+
+  if (!date || !data) return null;
+
+  const dayDiary = data.result.find(
     (calendar) =>
       calendar.year === date.year && calendar.month === date.month && calendar.day === date.day
   );
@@ -25,7 +31,7 @@ function DayComponent({ date, calendars, onPress }: Props): JSX.Element {
   }
 
   return (
-    <S.DayBox onPress={onPress}>
+    <S.DayBox onPress={() => onPress && onPress(date)}>
       <S.ImageBox>
         <S.Image src={dayDiary.imageS3} />
       </S.ImageBox>

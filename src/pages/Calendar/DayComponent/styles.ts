@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { Image as Img } from "react-native";
+import CachedImage from "@/src/components/ui/CachedImage";
 import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
 
 export const DayBox = styled.TouchableOpacity`
@@ -16,7 +16,7 @@ export const ImageBox = styled.View`
   overflow: hidden;
 `;
 
-export const Image = styled(Img)`
+export const Image = styled(CachedImage)`
   width: ${responsiveToPxByHeight("54px")};
   height: ${responsiveToPxByHeight("54px")};
 `;

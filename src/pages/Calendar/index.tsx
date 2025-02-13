@@ -42,7 +42,7 @@ function CalendarPage(): JSX.Element {
   }));
 
   const router = useRouter();
-  const { calendarsData, changeDate } = useCurrentDate();
+  const { changeDate } = useCurrentDate();
   const bottomSheetRef = useRef<BottomSheet>(null); // BottomSheet(자식 컴포넌트)를 조작하기 위한 부모 ref
 
   const handleSettingPress = preventDoublePress(() => router.push("/(app)/setting"));
@@ -73,16 +73,8 @@ function CalendarPage(): JSX.Element {
             <MaterialIcons name="settings" size={24} color={theme.colors.calendarIcon} />
           )
         }
-        dayComponent={({ date }) => {
-          if (!date) return undefined;
-          return (
-            <DayComponent
-              date={date}
-              calendars={calendarsData}
-              onPress={() => handleDayPress(date)}
-            />
-          );
-        }}
+        onDayPress={handleDayPress}
+        dayComponent={DayComponent}
       />
       <ChatButton />
       <DiaryBottomSheet ref={bottomSheetRef} pressedDate={pressedDate} />
