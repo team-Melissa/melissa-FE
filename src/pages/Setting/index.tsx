@@ -74,9 +74,9 @@ function SettingPage({ data }: Props): JSX.Element {
     }
   };
 
-  const handleDonation = () => {
-    Linking.openURL("https://buymeacoffee.com/teammelissa");
-  };
+  // const handleDonation = () => {
+  //   Linking.openURL("https://buymeacoffee.com/teammelissa");
+  // };
 
   const handleLogout = () => {
     logoutMutate();
@@ -148,13 +148,13 @@ function SettingPage({ data }: Props): JSX.Element {
             </S.ItemTitleBox>
           </S.ItemButton>
 
-          <S.ItemButton hitSlop={10} onPress={handleDonation}>
+          {/* <S.ItemButton hitSlop={10} onPress={handleDonation}>
             <S.ItemTitleBox>
               <S.ItemTitleText>후원하기</S.ItemTitleText>
               <S.ItemDescriptionText>후원은 Melissa 서비스 운영에</S.ItemDescriptionText>
               <S.ItemDescriptionText>큰 도움이 됩니다</S.ItemDescriptionText>
             </S.ItemTitleBox>
-          </S.ItemButton>
+          </S.ItemButton> */}
 
           <S.ItemButton hitSlop={10} onPress={handleLogout}>
             <S.ItemTitleBox>
