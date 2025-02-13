@@ -50,9 +50,11 @@ function CalendarPage(): JSX.Element {
   const handleDayPress = (date: DateData) => {
     const { year, month, day } = date;
     setPressedDate({ year, month, day });
-    if (bottomSheetRef.current) {
-      bottomSheetRef.current.expand();
-    }
+    setTimeout(() => {
+      if (bottomSheetRef.current) {
+        bottomSheetRef.current.expand();
+      }
+    }, 0);
   };
 
   return (
