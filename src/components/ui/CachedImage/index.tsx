@@ -1,5 +1,5 @@
 import * as FileSystem from "expo-file-system";
-import { Image } from "react-native";
+import { Image } from "expo-image";
 import { useEffect, useState } from "react";
 import { CachedImageProps } from "./types";
 
