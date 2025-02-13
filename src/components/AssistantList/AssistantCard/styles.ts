@@ -11,7 +11,7 @@ export const NameTagContainer = styled.View`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding-horizontal: ${responsiveToPx("20px")};
+  padding: 0px ${responsiveToPx("20px")};
 `;
 
 /* 복제 및 삭제 버튼 아이콘 정렬 */
@@ -23,11 +23,11 @@ export const IconButtonBox = styled.View`
 
 /* "+" 버튼을 포함한 컨테이너 */
 export const ButtonBox = styled.View`
-  flex-direction: row;
-  gap: ${({ theme }) => theme.gap.lg};
-  align-items: center;
-  justify-content: center;
   width: 100%;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: ${({ theme }) => theme.gap.lg};
 `;
 
 /* 터치 가능한 버튼 */
