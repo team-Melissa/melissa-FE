@@ -3,10 +3,10 @@ import { ForwardedRef, forwardRef, useMemo } from "react";
 import { useRouter } from "expo-router";
 import BottomSheet, { BottomSheetBackdrop, BottomSheetBackdropProps } from "@gorhom/bottom-sheet";
 import { DateData } from "react-native-calendars";
+import { preventDoublePress } from "@/src/libs/esToolkit";
 import { DiariesResult } from "@/src/types/calendarTypes";
 import { shadowProps } from "@/src/constants/shadowProps";
 import * as S from "./styles";
-import { preventDoublePress } from "@/src/libs/esToolkit";
 
 interface Props {
   pressedDate: Pick<DateData, "year" | "month" | "day">;
@@ -29,6 +29,8 @@ function DiaryBottomSheet({ pressedDate }: Props, ref: ForwardedRef<BottomSheet>
     router.push(`/(app)/chatting?year=${year}&month=${month}&day=${day}`)
   );
 
+  const diary = data?.result.find((d) => d.day === day);
+
   return (
     <BottomSheet
       ref={ref}
@@ -40,23 +42,19 @@ function DiaryBottomSheet({ pressedDate }: Props, ref: ForwardedRef<BottomSheet>
       enablePanDownToClose={true}
       backdropComponent={Backdrop}
     >
-      {data && (
+      {diary && (
         <S.BottomSheetLayout>
           <S.ScrollBox showsVerticalScrollIndicator={false}>
             <S.ImageBox>
-              <S.Image source={{ uri: data.result.find((d) => d.day === day)?.imageS3 }} />
+              <S.Image src={diary.imageS3} />
             </S.ImageBox>
             <S.DateText>
-              {data.result.find((d) => d.day === day)?.year}.{" "}
-              {data.result.find((d) => d.day === day)?.month}.{" "}
-              {data.result.find((d) => d.day === day)?.day}
+              {diary.year}. {diary.month}. {diary.day}
             </S.DateText>
-            <S.TitleText>{data.result.find((d) => d.day === day)?.summaryTitle}</S.TitleText>
-            <S.ContentText>{data.result.find((d) => d.day === day)?.summaryContent}</S.ContentText>
-
+            <S.TitleText>{diary.summaryTitle}</S.TitleText>
+            <S.ContentText>{diary.summaryContent}</S.ContentText>
             <S.TagText>
-              {data.result.find((d) => d.day === day)?.hashTag1}{" "}
-              {data.result.find((d) => d.day === day)?.hashTag2}
+              {diary.hashTag1} {diary.hashTag2}
             </S.TagText>
             <S.ChatButtonBox>
               <S.ViewChatButton

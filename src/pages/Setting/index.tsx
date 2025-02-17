@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ScrollView, Switch } from "react-native";
+import { Alert, ScrollView, Switch } from "react-native";
 import { useRouter } from "expo-router";
 import * as Linking from "expo-linking";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -74,16 +74,24 @@ function SettingPage({ data }: Props): JSX.Element {
     }
   };
 
-  const handleDonation = () => {
-    Linking.openURL("https://buymeacoffee.com/teammelissa");
-  };
+  // const handleDonation = () => {
+  //   Linking.openURL("https://buymeacoffee.com/teammelissa");
+  // };
 
   const handleLogout = () => {
     logoutMutate();
   };
 
   const handleDeleteAccount = () => {
-    deleteAccountMutate();
+    Alert.alert(
+      "회원탈퇴",
+      "정말 탈퇴하시겠습니까?",
+      [
+        { text: "취소", style: "cancel" },
+        { text: "탈퇴", style: "destructive", onPress: () => deleteAccountMutate() },
+      ],
+      { cancelable: true }
+    );
   };
 
   const handleNotificationSummary = () => {
@@ -148,13 +156,13 @@ function SettingPage({ data }: Props): JSX.Element {
             </S.ItemTitleBox>
           </S.ItemButton>
 
-          <S.ItemButton hitSlop={10} onPress={handleDonation}>
+          {/* <S.ItemButton hitSlop={10} onPress={handleDonation}>
             <S.ItemTitleBox>
               <S.ItemTitleText>후원하기</S.ItemTitleText>
               <S.ItemDescriptionText>후원은 Melissa 서비스 운영에</S.ItemDescriptionText>
               <S.ItemDescriptionText>큰 도움이 됩니다</S.ItemDescriptionText>
             </S.ItemTitleBox>
-          </S.ItemButton>
+          </S.ItemButton> */}
 
           <S.ItemButton hitSlop={10} onPress={handleLogout}>
             <S.ItemTitleBox>

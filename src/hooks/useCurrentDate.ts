@@ -37,6 +37,7 @@ const useCurrentDate = () => {
       queryClient.prefetchQuery({
         queryFn: () => getDiariesFn(curYear, curMonth),
         queryKey: ["diaries", curYear, curMonth],
+        staleTime: 5 * 60 * 1000,
       });
       // 3개월 캘린더 데이터를 flat
       const flattedData = result

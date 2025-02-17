@@ -7,7 +7,7 @@ interface Props {
 function ProfileImage({ url }: Props) {
   return (
     <S.ImageBox>
-      <S.Image source={{ uri: url }} />
+      <S.Image src={url} />
     </S.ImageBox>
   );
 }
