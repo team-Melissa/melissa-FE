@@ -13,7 +13,7 @@ function DayComponent({ date, onPress }: Props): JSX.Element | null {
     queryKey: ["calendar", date?.year, date?.month],
   });
 
-  if (!date || !data) return null;
+  if (!date || !data || !onPress) return null;
 
   const dayDiary = data.result.find(
     (calendar) =>
@@ -31,7 +31,7 @@ function DayComponent({ date, onPress }: Props): JSX.Element | null {
   }
 
   return (
-    <S.DayBox onPress={() => onPress && onPress(date)}>
+    <S.DayBox onPress={() => onPress(date)}>
       <S.ImageBox>
         <S.Image src={dayDiary.imageS3} />
       </S.ImageBox>
