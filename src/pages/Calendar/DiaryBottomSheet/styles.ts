@@ -1,5 +1,6 @@
 import styled from "styled-components/native";
 import { BottomSheetScrollView } from "@gorhom/bottom-sheet";
+import CachedImage from "@/src/components/ui/CachedImage";
 import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
 import { theme } from "@/src/constants/theme";
 
@@ -24,7 +25,7 @@ export const ImageBox = styled.View`
   overflow: hidden;
 `;
 
-export const Image = styled.Image`
+export const Image = styled(CachedImage)`
   width: 100%;
   height: 100%;
 `;

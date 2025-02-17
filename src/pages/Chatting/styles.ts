@@ -1,6 +1,7 @@
 import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Image as Img } from "expo-image";
+import CachedImage from "@/src/components/ui/CachedImage";
 import styled from "styled-components/native";
 import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
 
@@ -36,7 +37,7 @@ export const HeaderButton = styled.TouchableOpacity`
   align-items: center;
 `;
 
-export const Image = styled.Image`
+export const Image = styled(CachedImage)`
   width: ${responsiveToPx("48px")};
   height: ${responsiveToPx("48px")};
   border-radius: 9999px;

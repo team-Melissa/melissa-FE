@@ -1,4 +1,5 @@
 import styled from "styled-components/native";
+import CachedImage from "@/src/components/ui/CachedImage";
 import responsiveToPx from "@/src/utils/responsiveToPx";
 
 export const ImageBox = styled.View`
@@ -10,7 +11,7 @@ export const ImageBox = styled.View`
   align-items: center;
 `;
 
-export const Image = styled.Image`
+export const Image = styled(CachedImage)`
   width: ${responsiveToPx("295px")};
   height: ${responsiveToPx("295px")};
   border-radius: 5px;

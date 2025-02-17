@@ -1,6 +1,6 @@
-import { Image as Img } from "react-native";
 import styled from "styled-components/native";
 import responsiveToPx from "@/src/utils/responsiveToPx";
+import CachedImage from "@/src/components/ui/CachedImage";
 
 export const AiChatLayout = styled.View`
   flex-direction: row;
@@ -9,7 +9,7 @@ export const AiChatLayout = styled.View`
   gap: ${({ theme }) => theme.gap.md};
 `;
 
-export const Image = styled(Img)`
+export const Image = styled(CachedImage)`
   width: ${responsiveToPx("36px")};
   height: ${responsiveToPx("36px")};
   border-radius: 9999px;

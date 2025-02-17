@@ -9,7 +9,7 @@ interface Props {
 function AiChatBox({ content, imageUrl }: Props): JSX.Element {
   return (
     <S.AiChatLayout>
-      <S.Image source={{ uri: imageUrl }} />
+      <S.Image src={imageUrl} />
       <S.AiChatBox style={shadowProps}>
         <S.AiChatText>{content}</S.AiChatText>
       </S.AiChatBox>
