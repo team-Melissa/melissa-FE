@@ -1,4 +1,4 @@
-import { Platform } from "react-native";
+import { Platform, Text, TouchableOpacity } from "react-native";
 import useLogin from "@/src/hooks/useLogin";
 import Loading from "@/src/components/ui/Loading";
 import LoginButton from "./LoginButton";
@@ -31,6 +31,14 @@ function LoginPage() {
               Apple로 로그인
             </LoginButton>
           )}
+          <TouchableOpacity
+            style={{ backgroundColor: "red", padding: 12 }}
+            onPress={() => {
+              throw new Error("Hello, again, Sentry!");
+            }}
+          >
+            <Text>Sentry Test btn</Text>
+          </TouchableOpacity>
         </S.ButtonBox>
       </S.ContentBox>
     </S.SafeView>
