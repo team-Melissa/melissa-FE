@@ -20,13 +20,21 @@ const navigationIntegration = Sentry.reactNavigationIntegration({
 
 Sentry.init({
   dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
-  debug: __DEV__ ? true : false,
+  debug: __DEV__,
   tracesSampleRate: __DEV__ ? 1.0 : 0.3,
+  _experiments: {
+    replaysOnErrorSampleRate: 1.0,
+    replaysSessionSampleRate: 1.0,
+  },
   integrations: [
-    // Pass integration
+    Sentry.mobileReplayIntegration({
+      maskAllImages: true,
+      maskAllText: true,
+      maskAllVectors: true,
+    }),
     navigationIntegration,
   ],
-  enableNativeFramesTracking: !isRunningInExpoGo(), // Tracks slow and frozen frames in the application
+  enableNativeFramesTracking: !isRunningInExpoGo(),
 });
 
 /**
