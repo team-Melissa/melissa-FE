@@ -5,13 +5,13 @@ import styled from "styled-components/native";
 export const ProgressBarBox = styled.View`
   width: 60%;
   height: ${responsiveToPx("8px")};
-  background-color: ${({ theme }) => theme.colors.gray};
+  background-color: #CFE5E7;
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   overflow: hidden;
 `;
 
 export const AnimatedProgressBar = styled(Animated.View)`
   height: 100%;
-  background-color: ${({ theme }) => theme.colors.darkGray};
+  background-color: #7BBBBB;
   border-radius: ${({ theme }) => theme.borderRadius.lg};
 `;

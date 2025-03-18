@@ -31,6 +31,7 @@ export const HeaderText = styled.Text`
   font-family: ${({ theme }) => theme.fontFamily.nsRegular};
   font-size: ${({ theme }) => theme.fontSize.md};
   letter-spacing: ${responsiveToPx("11px")};
+  margin-top: ${responsiveToPx("50px")};
 `;
 
 export const ProgressBarWrapper = styled.View`
@@ -38,7 +39,6 @@ export const ProgressBarWrapper = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-top: ${responsiveToPx("10px")};
 `;
 
 export const AnimatedBodyBox = styled(Animated.View)`

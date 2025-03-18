@@ -68,11 +68,11 @@ function Question({ answer, setAnswer, cursor, setCursor }: Props) {
         </S.HeaderText>
         <S.ProgressBarWrapper>
           <S.HeaderBtn onPress={handlePrevBtn} disabled={isLeftBtnDisable}>
-            <AntDesign name="left" size={24} color={isLeftBtnDisable ? gray : black} />
+            <AntDesign name="left" size={24} color={isLeftBtnDisable ? "#CFE5E7" : "#7BBBBB" } />
           </S.HeaderBtn>
           <ProgressBar progress={(cursor + 1) / question.length} />
           <S.HeaderBtn onPress={handleNextBtn} disabled={isRightBtnDisable}>
-            <AntDesign name="right" size={24} color={isRightBtnDisable ? gray : black} />
+            <AntDesign name="right" size={24} color={isRightBtnDisable ? "#CFE5E7" : "#7BBBBB" } />
           </S.HeaderBtn>
         </S.ProgressBarWrapper>
       </S.AnimatedHeaderBox>

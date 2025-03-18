@@ -8,6 +8,7 @@ import Personality from "./Personality";
 import { AiProfileListWithGenerateAiTrigger } from "@/src/types/aiProfileTypes";
 import { preventDoublePress } from "@/src/libs/esToolkit";
 import * as S from "./styles";
+import { shadowProps } from "@/src/constants/shadowProps";
 
 interface Props {
   item: AiProfileListWithGenerateAiTrigger;
@@ -41,7 +42,7 @@ function AssistantCard({ item, onPressAiCard }: Props) {
 
   return (
     <TouchableWithoutFeedback>
-      <S.ItemBox onPress={() => onPressAiCard(aiProfileId)}>
+      <S.ItemBox onPress={() => onPressAiCard(aiProfileId)} style={shadowProps}>
         <ProfileImage url={imageUrl} />
 
         {/* 이름과 아이콘 버튼을 한 줄로 정렬 */}
