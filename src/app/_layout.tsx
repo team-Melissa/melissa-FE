@@ -18,24 +18,25 @@ const navigationIntegration = Sentry.reactNavigationIntegration({
   enableTimeToInitialDisplay: !isRunningInExpoGo(),
 });
 
-Sentry.init({
-  dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
-  debug: __DEV__,
-  tracesSampleRate: __DEV__ ? 1.0 : 0.3,
-  _experiments: {
-    replaysOnErrorSampleRate: 1.0,
-    replaysSessionSampleRate: 1.0,
-  },
-  integrations: [
-    Sentry.mobileReplayIntegration({
-      maskAllImages: true,
-      maskAllText: true,
-      maskAllVectors: true,
-    }),
-    navigationIntegration,
-  ],
-  enableNativeFramesTracking: !isRunningInExpoGo(),
-});
+!__DEV__ &&
+  Sentry.init({
+    dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
+    debug: false,
+    tracesSampleRate: 0.3,
+    _experiments: {
+      replaysOnErrorSampleRate: 1.0,
+      replaysSessionSampleRate: 0.3,
+    },
+    integrations: [
+      Sentry.mobileReplayIntegration({
+        maskAllImages: true,
+        maskAllText: true,
+        maskAllVectors: true,
+      }),
+      navigationIntegration,
+    ],
+    enableNativeFramesTracking: !isRunningInExpoGo(),
+  });
 
 /**
  * @description 폰트 로딩, 라이브러리 provider, 공용 스타일 컴포넌트로 감싸는 레이아웃
