@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { ForwardedRef, forwardRef, useMemo } from "react";
+import { type Dispatch, type ForwardedRef, type SetStateAction, forwardRef, useMemo } from "react";
 import { useRouter } from "expo-router";
 import BottomSheet, { BottomSheetBackdrop, BottomSheetBackdropProps } from "@gorhom/bottom-sheet";
 import { DateData } from "react-native-calendars";
@@ -10,9 +10,13 @@ import * as S from "./styles";
 
 interface Props {
   pressedDate: Pick<DateData, "year" | "month" | "day">;
+  setIsBottomSheetOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-function DiaryBottomSheet({ pressedDate }: Props, ref: ForwardedRef<BottomSheet>): JSX.Element {
+function DiaryBottomSheet(
+  { pressedDate, setIsBottomSheetOpen }: Props,
+  ref: ForwardedRef<BottomSheet>
+): JSX.Element {
   const { year, month, day } = pressedDate;
   const router = useRouter();
   const snapPoints = useMemo(() => ["60%", "90%"], []);
@@ -41,6 +45,7 @@ function DiaryBottomSheet({ pressedDate }: Props, ref: ForwardedRef<BottomSheet>
       enableDynamicSizing={false}
       enablePanDownToClose={true}
       backdropComponent={Backdrop}
+      onChange={(idx) => setIsBottomSheetOpen(idx > -1)}
     >
       {diary && (
         <S.BottomSheetLayout>
