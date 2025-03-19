@@ -13,7 +13,6 @@ import { shadowProps } from "@/src/constants/shadowProps";
 interface Props {
   item: AiProfileListWithGenerateAiTrigger;
   onPressAiCard: (aiProfileId: number) => void;
-  onImageLoad: () => void;
 }
 
 function AssistantCard({ item, onPressAiCard }: Props) {
@@ -56,7 +55,7 @@ function AssistantCard({ item, onPressAiCard }: Props) {
   return (
     <TouchableWithoutFeedback>
       <S.ItemBox onPress={() => onPressAiCard(aiProfileId)} style={shadowProps}>
-        <ProfileImage url={imageUrl} />
+        <ProfileImage url={imageUrl}/>
 
         {/* 이름과 아이콘 버튼을 한 줄로 정렬 */}
         <S.NameTagContainer>

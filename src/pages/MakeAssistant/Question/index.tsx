@@ -18,7 +18,7 @@ interface Props {
 function Question({ answer, setAnswer, cursor, setCursor }: Props) {
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
 
-  const { gray, black } = theme.colors;
+  const { skyBlue, deepGreen } = theme.colors;
   const isLeftBtnDisable = cursor === 0;
   const isRightBtnDisable = cursor === question.length - 1 || cursor >= answer.length;
 
@@ -68,11 +68,11 @@ function Question({ answer, setAnswer, cursor, setCursor }: Props) {
         </S.HeaderText>
         <S.ProgressBarWrapper>
           <S.HeaderBtn onPress={handlePrevBtn} disabled={isLeftBtnDisable}>
-            <AntDesign name="left" size={24} color={isLeftBtnDisable ? "#CFE5E7" : "#7BBBBB" } />
+            <AntDesign name="left" size={24} color={isLeftBtnDisable ? skyBlue : deepGreen } />
           </S.HeaderBtn>
           <ProgressBar progress={(cursor + 1) / question.length} />
           <S.HeaderBtn onPress={handleNextBtn} disabled={isRightBtnDisable}>
-            <AntDesign name="right" size={24} color={isRightBtnDisable ? "#CFE5E7" : "#7BBBBB" } />
+            <AntDesign name="right" size={24} color={isRightBtnDisable ? skyBlue : deepGreen } />
           </S.HeaderBtn>
         </S.ProgressBarWrapper>
       </S.AnimatedHeaderBox>
