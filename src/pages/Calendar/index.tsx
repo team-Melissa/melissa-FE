@@ -9,6 +9,7 @@ import ChatButton from "./ChatButton";
 import DiaryBottomSheet from "./DiaryBottomSheet";
 import { preventDoublePress } from "@/src/libs/esToolkit";
 import { theme } from "@/src/constants/theme";
+import { useBottomSheetBackHandler } from "./DiaryBottomSheet/useBottomSheetBackHandler";
 import * as S from "./styles";
 
 LocaleConfig.locales["ko"] = {
@@ -34,13 +35,13 @@ LocaleConfig.locales["ko"] = {
 LocaleConfig.defaultLocale = "ko";
 
 function CalendarPage(): JSX.Element {
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
   // 초기값은 오늘로
   const [pressedDate, setPressedDate] = useState<Pick<DateData, "year" | "month" | "day">>(() => ({
     year: new Date().getFullYear(),
     month: new Date().getMonth() + 1,
     day: new Date().getDate(),
   }));
-
   const router = useRouter();
   const { changeDate } = useCurrentDate();
   const bottomSheetRef = useRef<BottomSheet>(null); // BottomSheet(자식 컴포넌트)를 조작하기 위한 부모 ref
@@ -56,6 +57,9 @@ function CalendarPage(): JSX.Element {
       }
     }, 0);
   };
+
+  // fix: 안드로이드에서 뒤로가기 물리 버튼 누르면 앱 꺼지던 문제 수정
+  useBottomSheetBackHandler({ isBottomSheetOpen, bottomSheetRef });
 
   return (
     <S.SafeView>
@@ -79,7 +83,11 @@ function CalendarPage(): JSX.Element {
         dayComponent={DayComponent}
       />
       <ChatButton />
-      <DiaryBottomSheet ref={bottomSheetRef} pressedDate={pressedDate} />
+      <DiaryBottomSheet
+        ref={bottomSheetRef}
+        pressedDate={pressedDate}
+        setIsBottomSheetOpen={setIsBottomSheetOpen}
+      />
     </S.SafeView>
   );
 }
