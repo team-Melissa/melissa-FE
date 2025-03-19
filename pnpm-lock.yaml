@@ -6,7 +6,7 @@ settings:
 
 patchedDependencies:
   react-native-calendars@1.1308.1:
-    hash: nnurlqmg6jwybeqtzhjefpcclu
+    hash: 3c6e80817e30805196c139edbcddae275a9c003358d035e28f537c8746800d68
     path: patches/react-native-calendars@1.1308.1.patch
 
 importers:
@@ -84,7 +84,7 @@ importers:
         version: 7.0.5(expo@52.0.19(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@expo/metro-runtime@4.0.1(react-native@0.76.7(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(react@18.3.1)))(react-native-webview@13.12.5(react-native@0.76.7(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1))(react-native@0.76.7(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1))(react-native@0.76.7(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1)
       expo-router:
         specifier: ~4.0.17
-        version: 4.0.17(mb5e5wjzlj6jli4fz5gdl6vm44)
+        version: 4.0.17(1fe22e44526f7825442edd89117c0b00)
       expo-secure-store:
         specifier: ~14.0.1
         version: 14.0.1(expo@52.0.19(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@expo/metro-runtime@4.0.1(react-native@0.76.7(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(react@18.3.1)))(react-native-webview@13.12.5(react-native@0.76.7(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1))(react-native@0.76.7(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1))
@@ -114,7 +114,7 @@ importers:
         version: 0.76.7(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(react@18.3.1)
       react-native-calendars:
         specifier: ^1.1308.1
-        version: 1.1308.1(patch_hash=nnurlqmg6jwybeqtzhjefpcclu)(react-native@0.76.7(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1)
+        version: 1.1308.1(patch_hash=3c6e80817e30805196c139edbcddae275a9c003358d035e28f537c8746800d68)(react-native@0.76.7(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1)
       react-native-gesture-handler:
         specifier: ~2.20.2
         version: 2.20.2(react-native@0.76.7(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1)
@@ -9234,7 +9234,7 @@ snapshots:
     dependencies:
       invariant: 2.2.4
 
-  expo-router@4.0.17(mb5e5wjzlj6jli4fz5gdl6vm44):
+  expo-router@4.0.17(1fe22e44526f7825442edd89117c0b00):
     dependencies:
       '@expo/metro-runtime': 4.0.1(react-native@0.76.7(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(react@18.3.1))
       '@expo/server': 0.5.1(typescript@5.7.3)
@@ -11255,7 +11255,7 @@ snapshots:
 
   react-is@18.3.1: {}
 
-  react-native-calendars@1.1308.1(patch_hash=nnurlqmg6jwybeqtzhjefpcclu)(react-native@0.76.7(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1):
+  react-native-calendars@1.1308.1(patch_hash=3c6e80817e30805196c139edbcddae275a9c003358d035e28f537c8746800d68)(react-native@0.76.7(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@types/react@18.3.18)(react@18.3.1))(react@18.3.1):
     dependencies:
       hoist-non-react-statics: 3.3.2
       lodash: 4.17.21

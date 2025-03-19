@@ -5,7 +5,7 @@ export const AssistantListLayout = styled.Pressable`
   width: 100%;
   height: 100%;
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.7);
   z-index: 1;
 `;
 

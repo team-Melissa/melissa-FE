@@ -1,4 +1,4 @@
-import { TouchableWithoutFeedback, TouchableOpacity } from "react-native";
+import { TouchableWithoutFeedback, TouchableOpacity, Alert } from "react-native";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import useRemoveAssistant from "@/src/hooks/useRemoveAssistant";
@@ -8,6 +8,7 @@ import Personality from "./Personality";
 import { AiProfileListWithGenerateAiTrigger } from "@/src/types/aiProfileTypes";
 import { preventDoublePress } from "@/src/libs/esToolkit";
 import * as S from "./styles";
+import { shadowProps } from "@/src/constants/shadowProps";
 
 interface Props {
   item: AiProfileListWithGenerateAiTrigger;
@@ -15,6 +16,18 @@ interface Props {
 }
 
 function AssistantCard({ item, onPressAiCard }: Props) {
+  // 삭제 확인 팝업 함수
+  const confirmDelete = (aiProfileId: number) => {
+    Alert.alert(
+      "삭제 확인",
+      "정말 삭제하시겠습니까?",
+      [
+        { text: "취소", style: "cancel" },
+        { text: "삭제", onPress: () => removeMutate(aiProfileId), style: "destructive" },
+      ]
+    );
+  };
+
   const router = useRouter();
   const { mutate: removeMutate } = useRemoveAssistant();
 
@@ -41,8 +54,8 @@ function AssistantCard({ item, onPressAiCard }: Props) {
 
   return (
     <TouchableWithoutFeedback>
-      <S.ItemBox onPress={() => onPressAiCard(aiProfileId)}>
-        <ProfileImage url={imageUrl} />
+      <S.ItemBox onPress={() => onPressAiCard(aiProfileId)} style={shadowProps}>
+        <ProfileImage url={imageUrl}/>
 
         {/* 이름과 아이콘 버튼을 한 줄로 정렬 */}
         <S.NameTagContainer>
@@ -51,7 +64,7 @@ function AssistantCard({ item, onPressAiCard }: Props) {
             <TouchableOpacity onPress={routeMakeAssistantPage(aiProfileId)} style={{ marginRight: 10 }}>
               <Ionicons name="copy-outline" size={20} color="white" />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => removeMutate(aiProfileId)}>
+            <TouchableOpacity onPress={() => confirmDelete(aiProfileId)}>
               <Ionicons name="trash-outline" size={20} color="white" />
             </TouchableOpacity>
           </S.IconButtonBox>
