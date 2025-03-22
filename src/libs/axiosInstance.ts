@@ -4,7 +4,7 @@ import { getAccessToken, removeAccessToken, removeAiProfileId, setAccessToken } 
 import { getRefreshToken, removeRefreshToken, setRefreshToken } from "./secureStorage";
 import endpoint from "../constants/endpoint";
 import { LoginType } from "../types/loginTypes";
-import { AxiosErrorToInterceptors, ErrorResponse } from "../types/commonTypes";
+import type { AxiosErrorToInterceptors, ErrorDTO } from "../types/commonTypes";
 import toastMessage from "@/src/constants/toastMessage";
 import showToast from "@/src/libs/showToast";
 
@@ -54,7 +54,7 @@ axiosInstance.interceptors.request.use((config) => {
  */
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => response,
-  async (error: AxiosErrorToInterceptors<ErrorResponse>) => {
+  async (error: AxiosErrorToInterceptors<ErrorDTO>) => {
     const { response, config } = error;
 
     // 401 에러는 refresh token으로 재발급 시도 후 성공하면 기존 요청 재시도

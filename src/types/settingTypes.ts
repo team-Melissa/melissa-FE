@@ -1,10 +1,10 @@
-import { SuccessResponse } from "./commonTypes";
+import { SuccessDTO } from "./commonTypes";
 
-export type CheckNewUserType = SuccessResponse & { result: boolean };
+export type CheckNewUserType = SuccessDTO & { result: boolean };
 
-export type RegisterSettingType = SuccessResponse & { result: null };
+export type RegisterSettingType = SuccessDTO & { result: null };
 
-export type UserSettingResult = SuccessResponse & {
+export type UserSettingResult = SuccessDTO & {
   result: {
     sleepTime: string;
     notificationTime: string;

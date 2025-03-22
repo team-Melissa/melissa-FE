@@ -1,12 +1,12 @@
 import { AxiosError, InternalAxiosRequestConfig } from "axios";
 
-export type SuccessResponse = {
+export type SuccessDTO = {
   isSuccess: true;
   code: string;
   message: string;
 };
 
-export type ErrorResponse = {
+export type ErrorDTO = {
   isSuccess: false;
   code: string;
   message: string;

@@ -1,4 +1,4 @@
-import { SuccessResponse } from "@/src/types/commonTypes";
+import { SuccessDTO } from "@/src/types/commonTypes";
 
 export type Day = {
   year: number;
@@ -31,14 +31,14 @@ export type Diary = {
     | "RELAX";
 };
 
-export type MonthCalendar = SuccessResponse & {
+export type MonthCalendar = SuccessDTO & {
   result: Day[];
 };
 
-export type DiaryResult = SuccessResponse & {
+export type DiaryResult = SuccessDTO & {
   result: Diary;
 };
 
-export type DiariesResult = SuccessResponse & {
+export type DiariesResult = SuccessDTO & {
   result: Diary[];
 };

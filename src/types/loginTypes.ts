@@ -1,6 +1,6 @@
-import { SuccessResponse } from "./commonTypes";
+import { SuccessDTO } from "./commonTypes";
 
-export type LoginType = SuccessResponse & {
+export type LoginType = SuccessDTO & {
   result: {
     userId: number;
     oauthProvider: "KAKAO" | "GOOGLE" | "APPLE";
@@ -12,7 +12,7 @@ export type LoginType = SuccessResponse & {
   };
 };
 
-export type DeleteAccount = SuccessResponse & {
+export type DeleteAccount = SuccessDTO & {
   result: {
     userId: number;
     oauthProvider: "KAKAO" | "GOOGLE" | "APPLE";

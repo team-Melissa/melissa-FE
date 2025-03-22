@@ -1,6 +1,6 @@
-import { SuccessResponse } from "@/src/types/commonTypes";
+import { SuccessDTO } from "@/src/types/commonTypes";
 
-export type NewThreadResult = SuccessResponse & {
+export type NewThreadResult = SuccessDTO & {
   result: {
     threadId: number;
     year: number;
@@ -30,7 +30,7 @@ export type Chat = {
   aiProfileImageS3: string;
 };
 
-export type MessageResult = SuccessResponse & {
+export type MessageResult = SuccessDTO & {
   result: {
     aiProfileName: string;
     aiProfileImageS3: string;

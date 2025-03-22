@@ -7,7 +7,7 @@ import {
   AiProfileMakeResult,
   GetMakeAssistantQuestionResult,
 } from "@/src/types/aiProfileTypes";
-import { SuccessResponse } from "@/src/types/commonTypes";
+import { SuccessDTO } from "@/src/types/commonTypes";
 
 export const makeAssistantFn = async (answers: AiProfileMakeAnswers) => {
   const { data } = await axiosInstance.post<AiProfileMakeResult>(endpoint.aiProfile, answers);
@@ -23,9 +23,7 @@ export const getMakeAssistantQuestionFn = async (aiProfileId: string) => {
 };
 
 export const removeAssistantFn = async (aiProfileId: number) => {
-  const { data } = await axiosInstance.delete<SuccessResponse>(
-    `${endpoint.aiProfile}/${aiProfileId}`
-  );
+  const { data } = await axiosInstance.delete<SuccessDTO>(`${endpoint.aiProfile}/${aiProfileId}`);
   return data;
 };
 
