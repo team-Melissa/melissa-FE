@@ -1,4 +1,4 @@
-const question = [
+export const questions = [
   {
     q: "말투 스타일을 선택해주세요.",
     a: ["친근하고 캐주얼한 반말", "정중하고 격식 있는 존댓말"],
@@ -24,5 +24,3 @@ const question = [
     a: ["적극적으로 유머를 활용함", "유머 없이 담백한 스타일"],
   },
 ];
-
-export default question;

@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import { useIsNewUserContext } from "@/src/contexts/IsNewUserProvider";
-import question from "@/src/constants/question";
-import Intro from "./Intro";
-import Question from "./Question";
-import Submit from "./Submit";
-import { AiProfileMakeAnswers } from "@/src/types/aiProfileTypes";
+import { questions } from "../constants/questions";
+import Intro from "../components/Intro";
+import Question from "../components/Question";
+import Submit from "../components/Submit";
+import type { TMakeAssistantAnswers } from "../types/makeAssistantTypes";
 
-interface Props {
-  prevAnswer?: AiProfileMakeAnswers & { createdAt: string };
-}
+type MakeAssistantContainerProps = {
+  prevAnswer?: TMakeAssistantAnswers & { createdAt: string };
+};
 
-function MakeAssistantPage({ prevAnswer }: Props) {
+export default function MakeAssistantContainer({ prevAnswer }: MakeAssistantContainerProps) {
   const isNewUser = useIsNewUserContext();
   const [isIntro, setIsIntro] = useState<boolean>(true);
   const [cursor, setCursor] = useState<number>(0);
@@ -43,13 +43,9 @@ function MakeAssistantPage({ prevAnswer }: Props) {
     return <Intro />;
   }
 
-  if (cursor + 1 <= question.length) {
-    return (
-      <Question answer={answers} setAnswer={setAnswers} cursor={cursor} setCursor={setCursor} />
-    );
+  if (cursor + 1 <= questions.length) {
+    return <Question answer={answers} setAnswer={setAnswers} cursor={cursor} setCursor={setCursor} />;
   }
 
   return <Submit answers={answers} />;
 }
-
-export default MakeAssistantPage;

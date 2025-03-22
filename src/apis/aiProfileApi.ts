@@ -3,16 +3,9 @@ import endpoint from "@/src/constants/endpoint";
 import {
   AiProfileListResult,
   AiProfileListWithGenerateAiTrigger,
-  AiProfileMakeAnswers,
-  AiProfileMakeResult,
   GetMakeAssistantQuestionResult,
 } from "@/src/types/aiProfileTypes";
 import { SuccessDTO } from "@/src/types/commonTypes";
-
-export const makeAssistantFn = async (answers: AiProfileMakeAnswers) => {
-  const { data } = await axiosInstance.post<AiProfileMakeResult>(endpoint.aiProfile, answers);
-  return data;
-};
 
 export const getMakeAssistantQuestionFn = async (aiProfileId: string) => {
   const { data } = await axiosInstance.get<GetMakeAssistantQuestionResult>(
@@ -29,10 +22,7 @@ export const removeAssistantFn = async (aiProfileId: number) => {
 
 export const assistantListFn = async () => {
   const { data } = await axiosInstance.get<AiProfileListResult>(endpoint.aiProfile);
-  const dataWithGenerateAiTrigger: AiProfileListWithGenerateAiTrigger[] = [
-    ...data.result,
-    { isGenerateButton: true },
-  ];
+  const dataWithGenerateAiTrigger: AiProfileListWithGenerateAiTrigger[] = [...data.result, { isGenerateButton: true }];
   console.log(dataWithGenerateAiTrigger);
   return dataWithGenerateAiTrigger;
 };

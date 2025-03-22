@@ -1,6 +1,6 @@
 import { SuccessDTO } from "@/src/types/commonTypes";
 
-export type AiProfileMakeAnswers = {
+export type TMakeAssistantAnswers = {
   q1: string;
   q2: string;
   q3: string;
@@ -23,12 +23,16 @@ export type AiProfile = {
 
 export type AiProfileListWithGenerateAiTrigger = AiProfile | { isGenerateButton: boolean };
 
+export type MakeAssistantDTO = SuccessDTO & {
+  result: AiProfile;
+};
+
 export type AiProfileListResult = SuccessDTO & {
   result: AiProfile[];
 };
 
 export type GetMakeAssistantQuestionResult = SuccessDTO & {
-  result: AiProfileMakeAnswers & {
+  result: TMakeAssistantAnswers & {
     createdAt: string;
   };
 };
