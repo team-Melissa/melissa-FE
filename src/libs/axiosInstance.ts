@@ -3,7 +3,7 @@ import { router } from "expo-router";
 import { getAccessToken, removeAccessToken, removeAiProfileId, setAccessToken } from "./mmkv";
 import { getRefreshToken, removeRefreshToken, setRefreshToken } from "./secureStorage";
 import endpoint from "../constants/endpoint";
-import { LoginType } from "../types/loginTypes";
+import type { LoginDTO } from "../features/login/types/loginTypes";
 import type { AxiosErrorToInterceptors, ErrorDTO } from "../types/commonTypes";
 import toastMessage from "@/src/constants/toastMessage";
 import showToast from "@/src/libs/showToast";
@@ -95,7 +95,7 @@ axiosInstance.interceptors.response.use(
         config.sent = true;
 
         // refresh token으로 새 access token, refresh token 받아오기
-        const { data } = await axios.post<LoginType>(
+        const { data } = await axios.post<LoginDTO>(
           `${process.env.EXPO_PUBLIC_API_URL}${endpoint.auth.refresh}`,
           {
             refreshToken,

@@ -1,20 +1,19 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
 import { isAxiosError } from "axios";
-import { appleLoginFn, googleLoginFn, kakaoLoginFn } from "../apis/loginApi";
-import { setRefreshToken } from "../libs/secureStorage";
-import { setAccessToken } from "../libs/mmkv";
-import { ErrorResponse } from "../types/commonTypes";
-import { LoginType } from "../types/loginTypes";
-import toastMessage from "@/src/constants/toastMessage";
+import { setAccessToken } from "@/src/libs/mmkv";
+import { setRefreshToken } from "@/src/libs/secureStorage";
 import showToast from "@/src/libs/showToast";
+import toastMessage from "@/src/constants/toastMessage";
+import type { ErrorDTO } from "@/src/types/commonTypes";
+import type { LoginDTO } from "../types/loginTypes";
+import { _appleLogin, _googleLogin, _kakaoLogin } from "../apis/loginApi";
 
 const useLogin = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
 
-  const handleSuccess = async (data: LoginType) => {
-    console.log(`${data.result.oauthProvider} 로그인 성공!`);
+  const handleSuccess = async (data: LoginDTO) => {
     setAccessToken(`${data.result.tokenType} ${data.result.accessToken}`);
     await setRefreshToken(data.result.refreshToken);
     queryClient.invalidateQueries({ queryKey: ["check-new-user"] });
@@ -24,26 +23,26 @@ const useLogin = () => {
 
   const handleError = (error: unknown) => {
     console.error("로그인 실패!", error);
-    if (isAxiosError<ErrorResponse>(error)) {
+    if (isAxiosError<ErrorDTO>(error)) {
       console.error("OAuth 프로바이더 정상 작동, 백엔드와 문제 발생", error.response?.data);
       showToast(toastMessage.login.failed, "error");
     }
   };
 
   const { isPending: kakaoIsPending, mutate: kakaoMutate } = useMutation({
-    mutationFn: kakaoLoginFn,
+    mutationFn: _kakaoLogin,
     onSuccess: handleSuccess,
     onError: handleError,
   });
 
   const { isPending: googleIsPending, mutate: googleMutate } = useMutation({
-    mutationFn: googleLoginFn,
+    mutationFn: _googleLogin,
     onSuccess: handleSuccess,
     onError: handleError,
   });
 
   const { isPending: appleIsPending, mutate: appleMutate } = useMutation({
-    mutationFn: appleLoginFn,
+    mutationFn: _appleLogin,
     onSuccess: handleSuccess,
     onError: handleError,
   });

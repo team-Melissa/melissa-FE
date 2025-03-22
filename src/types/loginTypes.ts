@@ -1,16 +1,4 @@
-import { SuccessDTO } from "./commonTypes";
-
-export type LoginType = SuccessDTO & {
-  result: {
-    userId: number;
-    oauthProvider: "KAKAO" | "GOOGLE" | "APPLE";
-    email: string;
-    nickname: string;
-    accessToken: string;
-    refreshToken: string;
-    tokenType: string;
-  };
-};
+import type { SuccessDTO } from "./commonTypes";
 
 export type DeleteAccount = SuccessDTO & {
   result: {
