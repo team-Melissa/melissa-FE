@@ -1,6 +1,6 @@
 import type BottomSheet from "@gorhom/bottom-sheet";
-import { useFocusEffect } from "expo-router";
 import { type RefObject, useCallback } from "react";
+import { useFocusEffect } from "expo-router";
 import { BackHandler } from "react-native";
 
 type TProps = {
@@ -8,7 +8,6 @@ type TProps = {
   bottomSheetRef: RefObject<BottomSheet>;
 };
 
-// TODO: 디렉토리 구조 개편 작업 때 이전될 예정
 export const useBottomSheetBackHandler = ({ isBottomSheetOpen, bottomSheetRef }: TProps) => {
   useFocusEffect(
     useCallback(() => {

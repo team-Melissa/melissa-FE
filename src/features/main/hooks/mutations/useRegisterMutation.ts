@@ -1,13 +1,16 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { registerSettingFn } from "@/src/apis/settingApi";
+import { useIsNewUserContext } from "@/src/contexts/IsNewUserProvider";
 import toastMessage from "@/src/constants/toastMessage";
 import showToast from "@/src/libs/showToast";
+import { _register } from "../../apis/registerApi";
+import { useEffect } from "react";
 
-const useRegisterSetting = () => {
+export const useRegisterMutation = () => {
   const queryClient = useQueryClient();
+  const isNewUser = useIsNewUserContext();
 
-  return useMutation({
-    mutationFn: registerSettingFn,
+  const { mutate } = useMutation({
+    mutationFn: _register,
     onSuccess: (data) => {
       console.log(data);
       queryClient.invalidateQueries({ queryKey: ["check-new-user"] });
@@ -17,6 +20,11 @@ const useRegisterSetting = () => {
       showToast(toastMessage.registerSetting.failed, "error");
     },
   });
-};
 
-export default useRegisterSetting;
+  useEffect(() => {
+    if (isNewUser) {
+      console.log("새 유저 뮤테이션");
+      mutate();
+    }
+  }, [isNewUser, mutate]);
+};
