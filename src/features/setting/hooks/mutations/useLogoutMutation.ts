@@ -1,23 +1,30 @@
 import { router } from "expo-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { logoutFn } from "@/src/apis/loginApi";
 import { removeRefreshToken } from "@/src/libs/secureStorage";
 import { removeAccessToken, removeAiProfileId } from "@/src/libs/mmkv";
-import toastMessage from "@/src/constants/toastMessage";
 import showToast from "@/src/libs/showToast";
+import axiosInstance from "@/src/libs/axiosInstance";
+import toastMessage from "@/src/constants/toastMessage";
+import endpoint from "@/src/constants/endpoint";
+import type { SuccessDTO } from "@/src/types/commonTypes";
 
-const useLogout = () => {
+export const _logout = async () => {
+  const { data } = await axiosInstance.post<SuccessDTO>(endpoint.auth.logout);
+  return data;
+};
+
+export const useLogoutMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: logoutFn,
+    mutationFn: _logout,
     onSuccess: async (data) => {
       showToast(toastMessage.logout.success, "success");
       console.log(data);
       await removeRefreshToken();
       removeAccessToken();
       removeAiProfileId();
-      queryClient.clear(); // 로그아웃 후 다른 계정에 접속해도 캐시가 남아있는 문제 존재했음. 깜빡했다...
+      queryClient.clear();
       router.replace("/login");
     },
     onError: (error) => {
@@ -26,5 +33,3 @@ const useLogout = () => {
     },
   });
 };
-
-export default useLogout;

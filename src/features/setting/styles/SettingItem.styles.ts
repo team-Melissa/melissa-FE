@@ -1,12 +1,5 @@
-import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
-import { SafeAreaView } from "react-native-safe-area-context";
 import styled from "styled-components/native";
-
-export const SafeView = styled(SafeAreaView)`
-  flex: 1;
-  padding: ${responsiveToPx("26px")};
-  background-color: ${({ theme }) => theme.colors.whiteBlue};
-`;
+import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
 
 export const HeaderBox = styled.View`
   height: ${responsiveToPxByHeight("68px")};
@@ -17,8 +10,6 @@ export const PrevButton = styled.TouchableOpacity`
   width: ${responsiveToPx("24px")};
   height: ${responsiveToPx("24px")};
 `;
-
-// --------------------------------------------------------------------
 
 export const TitleBox = styled.View`
   width: 100%;
@@ -31,18 +22,6 @@ export const TitleBox = styled.View`
 export const TitleText = styled.Text`
   font-family: ${({ theme }) => theme.fontFamily.nsBold};
   font-size: ${({ theme }) => theme.fontSize.xl};
-`;
-
-// --------------------------------------------------------------------
-
-export const SettingBox = styled.View`
-  width: 100%;
-  padding: ${responsiveToPx("22px")} ${responsiveToPx("33px")};
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  background-color: ${({ theme }) => theme.colors.white};
-  justify-content: center;
-  align-items: center;
-  gap: ${({ theme }) => theme.gap.xxl};
 `;
 
 export const ItemButton = styled.TouchableOpacity`
