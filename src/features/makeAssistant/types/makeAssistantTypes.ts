@@ -9,7 +9,7 @@ export type TMakeAssistantAnswers = {
   q6: string;
 };
 
-export type AiProfile = {
+export type TAiProfile = {
   aiProfileId: number;
   profileName: string;
   imageUrl: string;
@@ -21,18 +21,6 @@ export type AiProfile = {
   createdAt: string;
 };
 
-export type AiProfileListWithGenerateAiTrigger = AiProfile | { isGenerateButton: boolean };
-
 export type MakeAssistantDTO = SuccessDTO & {
-  result: AiProfile;
-};
-
-export type AiProfileListResult = SuccessDTO & {
-  result: AiProfile[];
-};
-
-export type GetMakeAssistantQuestionResult = SuccessDTO & {
-  result: TMakeAssistantAnswers & {
-    createdAt: string;
-  };
+  result: TAiProfile;
 };
