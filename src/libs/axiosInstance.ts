@@ -3,8 +3,8 @@ import { router } from "expo-router";
 import { getAccessToken, removeAccessToken, removeAiProfileId, setAccessToken } from "./mmkv";
 import { getRefreshToken, removeRefreshToken, setRefreshToken } from "./secureStorage";
 import endpoint from "../constants/endpoint";
-import { LoginType } from "../types/loginTypes";
-import { AxiosErrorToInterceptors, ErrorResponse } from "../types/commonTypes";
+import type { LoginDTO } from "../features/login/types/loginTypes";
+import type { AxiosErrorToInterceptors, ErrorDTO } from "../types/commonTypes";
 import toastMessage from "@/src/constants/toastMessage";
 import showToast from "@/src/libs/showToast";
 
@@ -54,7 +54,7 @@ axiosInstance.interceptors.request.use((config) => {
  */
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => response,
-  async (error: AxiosErrorToInterceptors<ErrorResponse>) => {
+  async (error: AxiosErrorToInterceptors<ErrorDTO>) => {
     const { response, config } = error;
 
     // 401 에러는 refresh token으로 재발급 시도 후 성공하면 기존 요청 재시도
@@ -95,7 +95,7 @@ axiosInstance.interceptors.response.use(
         config.sent = true;
 
         // refresh token으로 새 access token, refresh token 받아오기
-        const { data } = await axios.post<LoginType>(
+        const { data } = await axios.post<LoginDTO>(
           `${process.env.EXPO_PUBLIC_API_URL}${endpoint.auth.refresh}`,
           {
             refreshToken,
