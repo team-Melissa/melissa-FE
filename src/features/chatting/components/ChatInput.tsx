@@ -21,7 +21,7 @@ export default function ChatInput({ input, setInput, onSubmitPress, readonly }: 
 
   return (
     <KeyboardAvoidingBox behavior={Platform.OS === "ios" ? "padding" : undefined}>
-      <ChatInputBox>
+      <ChatInputBox $isKeyboardOpen={isKeyboardOpen}>
         <StyledChatInput
           placeholder="오늘 하루에 대해 말해주세요"
           multiline={true}
@@ -46,14 +46,13 @@ const KeyboardAvoidingBox = styled.KeyboardAvoidingView`
   align-items: center;
 `;
 
-const ChatInputBox = styled.View`
+const ChatInputBox = styled.View<{ $isKeyboardOpen: boolean }>`
   width: 100%;
-  min-height: ${responsiveToPx("100px")};
   flex-direction: row;
   justify-content: center;
   align-items: flex-end;
   gap: ${({ theme }) => theme.gap.md};
-  padding-bottom: ${responsiveToPx("40px")};
+  padding-bottom: ${({ $isKeyboardOpen }) => ($isKeyboardOpen ? "0px" : responsiveToPx("40px"))};
 `;
 
 const StyledChatInput = styled.TextInput`
