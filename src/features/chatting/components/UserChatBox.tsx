@@ -1,5 +1,18 @@
-import responsiveToPx from "@/src/utils/responsiveToPx";
 import styled from "styled-components/native";
+import responsiveToPx from "@/src/utils/responsiveToPx";
+import { shadowProps } from "@/src/constants/shadowProps";
+
+type UserChatBoxProps = {
+  input: string;
+};
+
+export default function UserChatBox({ input }: UserChatBoxProps) {
+  return (
+    <UserChatLayout style={shadowProps}>
+      <UserChatText>{input}</UserChatText>
+    </UserChatLayout>
+  );
+}
 
 export const UserChatLayout = styled.View`
   max-width: ${responsiveToPx("290px")};

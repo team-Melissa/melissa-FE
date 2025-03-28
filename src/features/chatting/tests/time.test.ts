@@ -1,4 +1,4 @@
-import { checkThreadExpire, getThreadDateExpired } from "@/src/utils/time";
+import { checkThreadExpire, getThreadDateExpired } from "../utils/time";
 
 describe("getThreadDateExpired", () => {
   beforeEach(() => {

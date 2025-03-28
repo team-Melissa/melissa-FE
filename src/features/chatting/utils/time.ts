@@ -1,6 +1,6 @@
-import { ExpiredDate, ThreadDate } from "@/src/types/threadTypes";
+import { TThreadDate } from "../types/chattingTypes";
 
-export const getThreadDateExpired = (sleepHour: number): [ThreadDate, ExpiredDate] => {
+export const getThreadDateExpired = (sleepHour: number): [TThreadDate, Date] => {
   const date = new Date();
   const curHour = date.getHours();
 
@@ -28,7 +28,7 @@ export const getThreadDateExpired = (sleepHour: number): [ThreadDate, ExpiredDat
 };
 
 // 만료일 이후인지 확인
-export const checkThreadExpire = (expiredDate: ExpiredDate) => {
+export const checkThreadExpire = (expiredDate: Date) => {
   const now = new Date();
   return now > expiredDate;
 };

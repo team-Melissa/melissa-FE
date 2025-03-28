@@ -1,6 +1,6 @@
-import { SuccessDTO } from "@/src/types/commonTypes";
+import type { SuccessDTO } from "@/src/types/commonTypes";
 
-export type Diary = {
+export type TDiary = {
   year: number;
   month: number;
   day: number;
@@ -12,6 +12,6 @@ export type Diary = {
   summaryMood: "HAPPY" | "SAD" | "TIRED" | "ANGRY" | "RELAX" | "HAPPY" | "SAD" | "TIRED" | "ANGRY" | "RELAX";
 };
 
-export type DiaryResult = SuccessDTO & {
-  result: Diary;
+export type DiaryDTO = SuccessDTO & {
+  result: TDiary;
 };
