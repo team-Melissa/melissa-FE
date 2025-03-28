@@ -34,7 +34,7 @@ export default function ChatInput({ input, setInput, onSubmitPress, readonly }: 
           <ButtonImage source={require("@/assets/images/chatButton.png")} />
         </ChatButton>
       </ChatInputBox>
-      <InfoText> {!isKeyboardOpen && "뒤로 가기 버튼을 누르면 대화가 자동으로 요약됩니다"}</InfoText>
+      <InfoText>{!isKeyboardOpen && "뒤로 가기 버튼을 누르면 대화가 자동으로 요약됩니다"}</InfoText>
     </KeyboardAvoidingBox>
   );
 }
