@@ -51,6 +51,7 @@ const ChatInputBox = styled.View<{ $isKeyboardOpen: boolean }>`
   flex-direction: row;
   justify-content: center;
   align-items: flex-end;
+  padding-top: ${responsiveToPx("10px")};
   gap: ${({ theme }) => theme.gap.md};
   padding-bottom: ${({ $isKeyboardOpen }) => ($isKeyboardOpen ? "0px" : responsiveToPx("40px"))};
 `;
