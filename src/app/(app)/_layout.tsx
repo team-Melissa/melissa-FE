@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-import IsNewUserProvider from "@/src/contexts/IsNewUserProvider";
+import IsNewUserProvider from "@/src/contexts/isNewUserProvider";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 /**
