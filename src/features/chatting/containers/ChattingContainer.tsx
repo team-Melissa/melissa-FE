@@ -1,32 +1,33 @@
-import { Fragment, useRef } from "react";
-import { Platform, ScrollView } from "react-native";
-import { useRouter } from "expo-router";
-import { Image as Img } from "expo-image";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { type ReactNode, type Dispatch, type SetStateAction, Fragment, useRef } from "react";
+import { ScrollView } from "react-native";
 import styled from "styled-components/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
 import Loading from "@/src/components/ui/Loading";
 import CommonError from "@/src/components/ui/CommonError";
-import CachedImage from "@/src/components/ui/CachedImage";
-import { shadowProps } from "@/src/constants/shadowProps";
-import { theme } from "@/src/constants/theme";
-import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
-
+import ChatHeader from "../components/ChatHeader";
 import AiChatBox from "../components/AiChatBox";
 import UserChatBox from "../components/UserChatBox";
+import ChatInput from "../components/ChatInput";
 import { useChatting } from "../hooks/useChatting";
 import type { TThreadDate } from "../types/chattingTypes";
-import AssistantListContainer from "../../assistantList/containers/AssistantListContainer";
 
 type ChattingContainerProps = {
   threadDate: TThreadDate;
   threadExpiredDate: Date;
   readonly?: boolean;
+  renderAssistantList: (props: {
+    isVisible: boolean;
+    setIsVisible: Dispatch<SetStateAction<boolean>>;
+    onPressAiCard: (id: number) => void;
+  }) => ReactNode;
 };
 
-export default function ChattingContainer({ threadDate, threadExpiredDate, readonly }: ChattingContainerProps) {
-  const router = useRouter();
+export default function ChattingContainer({
+  threadDate,
+  threadExpiredDate,
+  renderAssistantList,
+  readonly,
+}: ChattingContainerProps) {
   const scrollViewRef = useRef<ScrollView>(null);
 
   const {
@@ -53,17 +54,14 @@ export default function ChattingContainer({ threadDate, threadExpiredDate, reado
 
   return (
     <Fragment>
-      <AssistantListContainer isVisible={isVisible} setIsVisible={setIsVisible} onPressAiCard={handlePressAiCard} />
+      {renderAssistantList({ isVisible, setIsVisible, onPressAiCard: handlePressAiCard })}
       <SafeView edges={["left", "right", "top"]}>
-        <HeaderBox>
-          <BackButton onPress={() => router.back()} hitSlop={7}>
-            <MaterialIcons name="arrow-back-ios" size={28} color={theme.colors.black} />
-          </BackButton>
-          <HeaderButton onPress={handleHeaderPress} hitSlop={7} disabled={readonly}>
-            <Image src={data.result.aiProfileImageS3} />
-            <AiNameText>{data.result.aiProfileName}</AiNameText>
-          </HeaderButton>
-        </HeaderBox>
+        <ChatHeader
+          imageSrc={data.result.aiProfileImageS3}
+          assistantName={data.result.aiProfileName}
+          onPress={handleHeaderPress}
+          readonly={readonly}
+        />
         <ScrollBox
           ref={scrollViewRef}
           onContentSizeChange={() => {
@@ -78,23 +76,7 @@ export default function ChattingContainer({ threadDate, threadExpiredDate, reado
             )
           )}
         </ScrollBox>
-        <KeyboardAvoidingBox behavior={Platform.OS === "ios" ? "padding" : "height"}>
-          {!readonly && (
-            <ChatInputBox>
-              <ChatInput
-                placeholder="오늘 하루에 대해 말해주세요"
-                multiline={true}
-                value={input}
-                onChangeText={(e) => setInput(e)}
-                hitSlop={15}
-                placeholderTextColor={theme.colors.placeholderText}
-              />
-              <ChatButton hitSlop={15} style={shadowProps} onPress={handleSubmitPress}>
-                <ButtonImage source={require("@/assets/images/chatButton.png")} />
-              </ChatButton>
-            </ChatInputBox>
-          )}
-        </KeyboardAvoidingBox>
+        <ChatInput input={input} setInput={setInput} onSubmitPress={handleSubmitPress} readonly={readonly} />
       </SafeView>
     </Fragment>
   );
@@ -105,84 +87,7 @@ const SafeView = styled(SafeAreaView)`
   background-color: ${({ theme }) => theme.colors.white};
 `;
 
-const HeaderBox = styled.View`
-  width: 100%;
-  height: ${responsiveToPxByHeight("110px")};
-  background-color: ${({ theme }) => theme.colors.white};
-  flex-direction: row;
-  padding: 0px ${responsiveToPx("24px")};
-  align-items: center;
-  gap: ${({ theme }) => theme.gap.lg};
-`;
-
-const BackButton = styled.TouchableOpacity`
-  width: ${responsiveToPx("28px")};
-  height: ${responsiveToPx("28px")};
-  justify-content: center;
-  align-items: center;
-`;
-
-const HeaderButton = styled.TouchableOpacity`
-  flex-direction: row;
-  gap: ${({ theme }) => theme.gap.lg};
-  align-items: center;
-`;
-
-const Image = styled(CachedImage)`
-  width: ${responsiveToPx("48px")};
-  height: ${responsiveToPx("48px")};
-  border-radius: 9999px;
-`;
-
-const AiNameText = styled.Text`
-  color: ${({ theme }) => theme.colors.black};
-  font-family: ${({ theme }) => theme.fontFamily.nsBold};
-  font-size: ${({ theme }) => theme.fontSize.lg};
-`;
-
 const ScrollBox = styled(ScrollView)`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.whiteBlue};
-`;
-
-const KeyboardAvoidingBox = styled.KeyboardAvoidingView`
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ChatInputBox = styled.View`
-  width: 100%;
-  min-height: ${responsiveToPx("100px")};
-  background-color: ${({ theme }) => theme.colors.whiteBlue};
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-end;
-  gap: ${({ theme }) => theme.gap.md};
-  padding-bottom: ${responsiveToPx("40px")};
-`;
-
-const ChatInput = styled.TextInput`
-  width: ${responsiveToPx("333px")};
-  max-height: ${responsiveToPx("100px")};
-  padding: ${responsiveToPx("11px")} ${responsiveToPx("16px")};
-  background-color: ${({ theme }) => theme.colors.white};
-  border: 1px solid ${({ theme }) => theme.colors.gray};
-  border-radius: ${({ theme }) => theme.borderRadius.sm};
-  font-family: ${({ theme }) => theme.fontFamily.nsRegular};
-  font-size: ${({ theme }) => theme.fontSize.base};
-`;
-
-const ChatButton = styled.TouchableOpacity`
-  width: ${responsiveToPx("44px")};
-  height: ${responsiveToPx("44px")};
-  border-radius: 9999px;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-`;
-
-const ButtonImage = styled(Img)`
-  width: 120%;
-  height: 120%;
 `;
