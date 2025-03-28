@@ -6,7 +6,6 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import styled from "styled-components/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import AssistantList from "@/src/components/AssistantList";
 import Loading from "@/src/components/ui/Loading";
 import CommonError from "@/src/components/ui/CommonError";
 import CachedImage from "@/src/components/ui/CachedImage";
@@ -18,6 +17,7 @@ import AiChatBox from "../components/AiChatBox";
 import UserChatBox from "../components/UserChatBox";
 import { useChatting } from "../hooks/useChatting";
 import type { TThreadDate } from "../types/chattingTypes";
+import AssistantListContainer from "../../assistantList/containers/AssistantListContainer";
 
 type ChattingContainerProps = {
   threadDate: TThreadDate;
@@ -53,7 +53,7 @@ export default function ChattingContainer({ threadDate, threadExpiredDate, reado
 
   return (
     <Fragment>
-      <AssistantList isVisible={isVisible} setIsVisible={setIsVisible} onPressAiCard={handlePressAiCard} />
+      <AssistantListContainer isVisible={isVisible} setIsVisible={setIsVisible} onPressAiCard={handlePressAiCard} />
       <SafeView edges={["left", "right", "top"]}>
         <HeaderBox>
           <BackButton onPress={() => router.back()} hitSlop={7}>

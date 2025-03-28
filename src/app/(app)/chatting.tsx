@@ -2,11 +2,11 @@ import { useState } from "react";
 import styled from "styled-components/native";
 import CommonError from "@/src/components/ui/CommonError";
 import Loading from "@/src/components/ui/Loading";
-import AssistantList from "@/src/components/AssistantList";
 import { setAiProfileId } from "@/src/libs/mmkv";
 import ChattingContainer from "@/src/features/chatting/containers/ChattingContainer";
 import { useInitializeChatting } from "@/src/features/chatting/hooks/useInitializeChatting";
 import { readOnlyTypeGuard } from "@/src/features/chatting/utils/readOnlyTypeGuard";
+import AssistantListContainer from "@/src/features/assistantList/containers/AssistantListContainer";
 
 export default function ChattingRouter(): JSX.Element | null {
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -28,7 +28,7 @@ export default function ChattingRouter(): JSX.Element | null {
   if (!threadDate || !threadExpiredDate) {
     return (
       <FlexView>
-        <AssistantList
+        <AssistantListContainer
           isVisible={isVisible}
           setIsVisible={setIsVisible}
           onPressAiCard={(aiProfileId) => {
