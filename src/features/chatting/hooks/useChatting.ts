@@ -2,19 +2,16 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useRouter } from "expo-router";
 import EventSource from "react-native-sse";
-
 import { getAccessToken, setAiProfileId } from "@/src/libs/mmkv";
 import { preventDoublePress } from "@/src/libs/esToolkit";
 import showToast from "@/src/libs/showToast";
 import toastMessage from "@/src/constants/toastMessage";
-
+import endpoint from "@/src/constants/endpoint";
 import { useMessagesQuery } from "./queries/useMessagesQuery";
 import { useDiaryMutation } from "./mutations/useDiaryMutation";
 import { useChangeAssistantMutation } from "./mutations/useChangeAssistantMutation";
 import { checkThreadExpire } from "../utils/time";
 import type { FluxEventDTO, MessagesDTO, TThreadDate } from "../types/chattingTypes";
-
-import endpoint from "@/src/constants/endpoint";
 
 export const useChatting = (threadDate: TThreadDate, threadExpiredDate: Date, readonly?: boolean) => {
   const queryClient = useQueryClient();
