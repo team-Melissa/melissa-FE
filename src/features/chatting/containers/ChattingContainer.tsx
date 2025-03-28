@@ -1,31 +1,38 @@
-import { Fragment, useRef } from "react";
+import { type ReactNode, type Dispatch, type SetStateAction, Fragment, useRef } from "react";
 import { Platform, ScrollView } from "react-native";
 import { useRouter } from "expo-router";
 import { Image as Img } from "expo-image";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import styled from "styled-components/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
 import Loading from "@/src/components/ui/Loading";
 import CommonError from "@/src/components/ui/CommonError";
 import CachedImage from "@/src/components/ui/CachedImage";
 import { shadowProps } from "@/src/constants/shadowProps";
 import { theme } from "@/src/constants/theme";
 import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
-
 import AiChatBox from "../components/AiChatBox";
 import UserChatBox from "../components/UserChatBox";
 import { useChatting } from "../hooks/useChatting";
 import type { TThreadDate } from "../types/chattingTypes";
-import AssistantListContainer from "../../assistantList/containers/AssistantListContainer";
 
 type ChattingContainerProps = {
   threadDate: TThreadDate;
   threadExpiredDate: Date;
   readonly?: boolean;
+  renderAssistantList: (props: {
+    isVisible: boolean;
+    setIsVisible: Dispatch<SetStateAction<boolean>>;
+    onPressAiCard: (id: number) => void;
+  }) => ReactNode;
 };
 
-export default function ChattingContainer({ threadDate, threadExpiredDate, readonly }: ChattingContainerProps) {
+export default function ChattingContainer({
+  threadDate,
+  threadExpiredDate,
+  renderAssistantList,
+  readonly,
+}: ChattingContainerProps) {
   const router = useRouter();
   const scrollViewRef = useRef<ScrollView>(null);
 
@@ -53,7 +60,7 @@ export default function ChattingContainer({ threadDate, threadExpiredDate, reado
 
   return (
     <Fragment>
-      <AssistantListContainer isVisible={isVisible} setIsVisible={setIsVisible} onPressAiCard={handlePressAiCard} />
+      {renderAssistantList({ isVisible, setIsVisible, onPressAiCard: handlePressAiCard })}
       <SafeView edges={["left", "right", "top"]}>
         <HeaderBox>
           <BackButton onPress={() => router.back()} hitSlop={7}>
