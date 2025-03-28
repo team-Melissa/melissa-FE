@@ -1,10 +1,11 @@
 import { Platform } from "react-native";
+import type { Dispatch, SetStateAction } from "react";
 import styled from "styled-components/native";
 import { Image as Img } from "expo-image";
-import responsiveToPx from "@/src/utils/responsiveToPx";
+import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
 import { shadowProps } from "@/src/constants/shadowProps";
 import { theme } from "@/src/constants/theme";
-import { Dispatch, SetStateAction } from "react";
+import { useIsKeyboardOpen } from "../hooks/useIsKeyboardOpen";
 
 type ChatInputProps = {
   input: string;
@@ -14,29 +15,33 @@ type ChatInputProps = {
 };
 
 export default function ChatInput({ input, setInput, onSubmitPress, readonly }: ChatInputProps) {
+  const isKeyboardOpen = useIsKeyboardOpen();
+
+  if (readonly) return null;
+
   return (
-    <KeyboardAvoidingBox behavior={Platform.OS === "ios" ? "padding" : "height"}>
-      {!readonly && (
-        <ChatInputBox>
-          <StyledChatInput
-            placeholder="오늘 하루에 대해 말해주세요"
-            multiline={true}
-            value={input}
-            onChangeText={(e) => setInput(e)}
-            hitSlop={15}
-            placeholderTextColor={theme.colors.placeholderText}
-          />
-          <ChatButton hitSlop={15} style={shadowProps} onPress={onSubmitPress}>
-            <ButtonImage source={require("@/assets/images/chatButton.png")} />
-          </ChatButton>
-        </ChatInputBox>
-      )}
+    <KeyboardAvoidingBox behavior={Platform.OS === "ios" ? "padding" : undefined}>
+      <ChatInputBox>
+        <StyledChatInput
+          placeholder="오늘 하루에 대해 말해주세요"
+          multiline={true}
+          value={input}
+          onChangeText={(e) => setInput(e)}
+          hitSlop={15}
+          placeholderTextColor={theme.colors.placeholderText}
+        />
+        <ChatButton hitSlop={15} style={shadowProps} onPress={onSubmitPress}>
+          <ButtonImage source={require("@/assets/images/chatButton.png")} />
+        </ChatButton>
+      </ChatInputBox>
+      <InfoText> {!isKeyboardOpen && "뒤로 가기 버튼을 누르면 대화가 자동으로 요약됩니다"}</InfoText>
     </KeyboardAvoidingBox>
   );
 }
 
 const KeyboardAvoidingBox = styled.KeyboardAvoidingView`
   width: 100%;
+  background-color: ${({ theme }) => theme.colors.whiteBlue};
   justify-content: center;
   align-items: center;
 `;
@@ -44,7 +49,6 @@ const KeyboardAvoidingBox = styled.KeyboardAvoidingView`
 const ChatInputBox = styled.View`
   width: 100%;
   min-height: ${responsiveToPx("100px")};
-  background-color: ${({ theme }) => theme.colors.whiteBlue};
   flex-direction: row;
   justify-content: center;
   align-items: flex-end;
@@ -75,4 +79,12 @@ const ChatButton = styled.TouchableOpacity`
 const ButtonImage = styled(Img)`
   width: 120%;
   height: 120%;
+`;
+
+const InfoText = styled.Text`
+  text-align: center;
+  bottom: ${responsiveToPxByHeight("30px")};
+  color: ${({ theme }) => theme.colors.assistantChat};
+  font-family: ${({ theme }) => theme.fontFamily.nsRegular};
+  font-size: ${({ theme }) => theme.fontSize.xs};
 `;

@@ -1,6 +1,5 @@
 import { type ReactNode, type Dispatch, type SetStateAction, Fragment, useRef } from "react";
 import { ScrollView } from "react-native";
-
 import styled from "styled-components/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Loading from "@/src/components/ui/Loading";
@@ -11,7 +10,6 @@ import UserChatBox from "../components/UserChatBox";
 import ChatInput from "../components/ChatInput";
 import { useChatting } from "../hooks/useChatting";
 import type { TThreadDate } from "../types/chattingTypes";
-import { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
 
 type ChattingContainerProps = {
   threadDate: TThreadDate;
@@ -80,7 +78,6 @@ export default function ChattingContainer({
         </ScrollBox>
         <ChatInput input={input} setInput={setInput} onSubmitPress={handleSubmitPress} readonly={readonly} />
       </SafeView>
-      <InfoText>뒤로 가기 버튼을 누르면 대화가 자동으로 요약됩니다</InfoText>
     </Fragment>
   );
 }
@@ -93,12 +90,4 @@ const SafeView = styled(SafeAreaView)`
 const ScrollBox = styled(ScrollView)`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.whiteBlue};
-`;
-
-const InfoText = styled.Text`
-  text-align: center;
-  bottom: ${responsiveToPxByHeight("30px")};
-  color: ${({ theme }) => theme.colors.assistantChat};
-  font-family: ${({ theme }) => theme.fontFamily.nsRegular};
-  font-size: ${({ theme }) => theme.fontSize.xs};
 `;
