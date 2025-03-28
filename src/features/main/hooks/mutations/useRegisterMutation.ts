@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useIsNewUserContext } from "@/src/contexts/IsNewUserProvider";
+import { useIsNewUserContext } from "@/src/contexts/isNewUserProvider";
 import toastMessage from "@/src/constants/toastMessage";
 import showToast from "@/src/libs/showToast";
 import { _register } from "../../apis/registerApi";

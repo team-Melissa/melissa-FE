@@ -1,10 +1,10 @@
 import { useMemo } from "react";
 import { useRouter } from "expo-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useIsNewUserContext } from "@/src/contexts/IsNewUserProvider";
+import { useIsNewUserContext } from "@/src/contexts/isNewUserProvider";
 import { setAiProfileId } from "@/src/libs/mmkv";
 import { _makeAssistant } from "../../apis/makeAssistantApi";
-import type { MakeAssistantDTO, TMakeAssistantAnswers } from "../../types/makeAssistantTypes";
+import type { MakeAssistantDTO, TAssistantMakeQnA } from "../../types/makeAssistantTypes";
 
 type TProps = {
   answers: string[];
@@ -18,9 +18,9 @@ export const useMakeAssistantMutation = ({ answers }: TProps) => {
   const answersJson = useMemo(
     () =>
       answers.reduce((prev, cur, idx) => {
-        prev[`q${idx + 1}` as keyof TMakeAssistantAnswers] = cur;
+        prev[`q${idx + 1}` as keyof TAssistantMakeQnA] = cur;
         return prev;
-      }, {} as TMakeAssistantAnswers),
+      }, {} as TAssistantMakeQnA),
     [answers]
   );
 

@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import { useIsNewUserContext } from "@/src/contexts/IsNewUserProvider";
+import { useIsNewUserContext } from "@/src/contexts/isNewUserProvider";
 import { questions } from "../constants/questions";
 import Intro from "../components/Intro";
 import Question from "../components/Question";
 import Submit from "../components/Submit";
-import type { TMakeAssistantAnswers } from "../types/makeAssistantTypes";
+import type { TAssistantMakeQnA } from "../types/makeAssistantTypes";
 
 type MakeAssistantContainerProps = {
-  prevAnswer?: TMakeAssistantAnswers & { createdAt: string };
+  prevAnswer?: TAssistantMakeQnA & { createdAt: string };
 };
 
 export default function MakeAssistantContainer({ prevAnswer }: MakeAssistantContainerProps) {
