@@ -22,7 +22,7 @@ export const useMakeThreadMutation = () => {
     onSuccess: ({ result }) => {
       queryClient.prefetchQuery({
         queryFn: () => _getMessages({ year: result.year, month: result.month, day: result.day }),
-        queryKey: ["message", result.year, result.month, result.day],
+        queryKey: ["messages", result.year, result.month, result.day],
       });
     },
     onError: (error) => console.error(error.response),
