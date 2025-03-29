@@ -13,7 +13,7 @@ type UserSettingDTO = SuccessDTO & {
 
 const _getUserSetting = async () => {
   const { data } = await axiosInstance.get<UserSettingDTO>(endpoint.setting.setting);
-  return data.result;
+  return data;
 };
 
 /**
@@ -24,6 +24,6 @@ export const useSleepTimeQuery = () => {
     queryFn: _getUserSetting,
     queryKey: ["user-setting"],
     staleTime: 5 * 60 * 1000,
-    select: (data) => data.sleepTime,
+    select: (data) => data.result.sleepTime,
   });
 };
