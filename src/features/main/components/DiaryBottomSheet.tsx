@@ -30,7 +30,7 @@ export default forwardRef(function DiaryBottomSheet(
     router.push(`/(app)/chatting?year=${year}&month=${month}&day=${day}`)
   );
 
-  const diary = data?.result.find((d) => d.day === day);
+  const diary = data?.find((d) => d.day === day);
 
   return (
     <BottomSheet

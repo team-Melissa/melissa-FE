@@ -21,7 +21,7 @@ export const _diaries = async (year: number, month: number) => {
           result: [],
         } as DiariesDTO;
       }
-      throw e;
     }
+    throw e;
   }
 };

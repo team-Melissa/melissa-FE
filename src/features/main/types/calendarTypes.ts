@@ -1,43 +1,38 @@
+import type { ObjectNonNullable } from "@/src/types/UtilTypes";
 import type { SuccessDTO } from "@/src/types/commonTypes";
 import type { DateData } from "react-native-calendars";
 
 export type TPressedDate = Pick<DateData, "year" | "month" | "day">;
 
-export type TDay = {
+export type TNullableDay = {
   year: number;
   month: number;
   day: number;
-  hashTag1: string;
-  hashTag2: string;
-  imageS3: string;
+  hashTag1: string | null;
+  hashTag2: string | null;
+  imageS3: string | null;
 };
 
-export type TDiary = {
+export type TDay = ObjectNonNullable<TNullableDay>;
+
+export type TNullableDiary = {
   year: number;
   month: number;
   day: number;
-  imageS3: string;
-  summaryTitle: string;
-  summaryContent: string;
-  hashTag1: string;
-  hashTag2: string;
-  summaryMood:
-    | "HAPPY"
-    | "SAD"
-    | "TIRED"
-    | "ANGRY"
-    | "RELAX"
-    | "HAPPY"
-    | "SAD"
-    | "TIRED"
-    | "ANGRY"
-    | "RELAX";
+  imageS3: string | null;
+  summaryTitle: string | null;
+  summaryContent: string | null;
+  hashTag1: string | null;
+  hashTag2: string | null;
+  summaryMood: ("HAPPY" | "SAD" | "TIRED" | "ANGRY" | "RELAX") | null;
 };
+
+export type TDiary = ObjectNonNullable<TNullableDiary>;
 
 export type CalendarDTO = SuccessDTO & {
-  result: TDay[];
+  result: (TNullableDay | TDay)[];
 };
 
 export type DiariesDTO = SuccessDTO & {
-  result: TDiary[];
+  result: (TNullableDiary | TDiary)[];
 };

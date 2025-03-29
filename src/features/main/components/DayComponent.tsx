@@ -14,11 +14,11 @@ export default function DayComponent({ date, onPress }: DayComponentProps) {
 
   if (!date || !data || !onPress) return null;
 
-  const dayDiary = data.result.find(
+  const dayDiary = data.find(
     (calendar) => calendar.year === date.year && calendar.month === date.month && calendar.day === date.day
   );
 
-  if (!dayDiary || dayDiary.imageS3 === null) {
+  if (!dayDiary) {
     return (
       <DayBox disabled={true}>
         <ImageBox>
