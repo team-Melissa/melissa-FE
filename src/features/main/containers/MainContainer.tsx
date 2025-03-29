@@ -8,7 +8,6 @@ import BottomSheet from "@gorhom/bottom-sheet";
 import { preventDoublePress } from "@/src/libs/esToolkit";
 import { theme } from "@/src/constants/theme";
 import responsiveToPx from "@/src/utils/responsiveToPx";
-import { useCalendarsQuery } from "../hooks/queries/useCalendarsQuery";
 import { useRegisterMutation } from "../hooks/mutations/useRegisterMutation";
 import { useBottomSheetBackHandler } from "../hooks/useBottomSheetBackHandler";
 import DayComponent from "../components/DayComponent";
@@ -27,7 +26,6 @@ export default function MainContainer() {
     day: new Date().getDate(),
   });
   const router = useRouter();
-  const { handleDateChange } = useCalendarsQuery();
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   useBottomSheetBackHandler({ isBottomSheetOpen, bottomSheetRef });
@@ -57,7 +55,6 @@ export default function MainContainer() {
         futureScrollRange={100}
         disableArrowLeft={true}
         onPressArrowRight={handleSettingPress}
-        onMonthChange={({ year, month }) => handleDateChange(year, month)}
         renderArrow={(direction) =>
           direction === "right" && <MaterialIcons name="settings" size={24} color={theme.colors.calendarIcon} />
         }
