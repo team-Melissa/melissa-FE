@@ -2,7 +2,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useRouter } from "expo-router";
 import EventSource from "react-native-sse";
-import { getAccessToken, setAiProfileId } from "@/src/libs/mmkv";
+import { getAccessToken } from "@/src/libs/mmkv";
 import { preventDoublePress } from "@/src/libs/esToolkit";
 import showToast from "@/src/libs/showToast";
 import toastMessage from "@/src/constants/toastMessage";
@@ -31,7 +31,6 @@ export const useChatting = (threadDate: TThreadDate, threadExpiredDate: Date, re
   };
 
   const handlePressAiCard = (aiProfileId: number) => {
-    setAiProfileId(aiProfileId);
     changeAssistantMutate({ ...threadDate, aiProfileId });
   };
 
