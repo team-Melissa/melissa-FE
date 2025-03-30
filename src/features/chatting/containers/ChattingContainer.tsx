@@ -11,23 +11,24 @@ import ChatInput from "../components/ChatInput";
 import { useChatting } from "../hooks/useChatting";
 import type { TThreadDate } from "../types/chattingTypes";
 
-type ChattingContainerProps = {
-  threadDate: TThreadDate;
-  threadExpiredDate: Date;
-  readonly?: boolean;
-  renderAssistantList: (props: {
-    isVisible: boolean;
-    setIsVisible: Dispatch<SetStateAction<boolean>>;
-    onPressAiCard: (id: number) => void;
-  }) => ReactNode;
-};
+type ChattingContainerProps =
+  | {
+      threadDate: TThreadDate;
+      threadExpiredDate: Date;
+      readonly?: false;
+      renderAssistantList: (props: {
+        isVisible: boolean;
+        setIsVisible: Dispatch<SetStateAction<boolean>>;
+        onPressAiCard: (id: number) => void;
+      }) => ReactNode;
+    }
+  | {
+      threadDate: TThreadDate;
+      threadExpiredDate: Date;
+      readonly: true;
+    };
 
-export default function ChattingContainer({
-  threadDate,
-  threadExpiredDate,
-  renderAssistantList,
-  readonly,
-}: ChattingContainerProps) {
+export default function ChattingContainer(props: ChattingContainerProps) {
   const scrollViewRef = useRef<ScrollView>(null);
 
   const {
@@ -42,7 +43,7 @@ export default function ChattingContainer({
     handlePressAiCard,
     handleHeaderPress,
     handleSubmitPress,
-  } = useChatting(threadDate, threadExpiredDate, readonly);
+  } = useChatting(props.threadDate, props.threadExpiredDate, props.readonly);
 
   if (isPending) {
     return <Loading />;
@@ -54,13 +55,13 @@ export default function ChattingContainer({
 
   return (
     <Fragment>
-      {renderAssistantList({ isVisible, setIsVisible, onPressAiCard: handlePressAiCard })}
+      {!props.readonly && props.renderAssistantList({ isVisible, setIsVisible, onPressAiCard: handlePressAiCard })}
       <SafeView edges={["left", "right", "top"]}>
         <ChatHeader
           imageSrc={data.result.aiProfileImageS3}
           assistantName={data.result.aiProfileName}
           onPress={handleHeaderPress}
-          readonly={readonly}
+          readonly={props.readonly}
         />
         <ScrollBox
           ref={scrollViewRef}
@@ -76,7 +77,7 @@ export default function ChattingContainer({
             )
           )}
         </ScrollBox>
-        <ChatInput input={input} setInput={setInput} onSubmitPress={handleSubmitPress} readonly={readonly} />
+        <ChatInput input={input} setInput={setInput} onSubmitPress={handleSubmitPress} readonly={props.readonly} />
       </SafeView>
     </Fragment>
   );

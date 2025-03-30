@@ -8,12 +8,14 @@ import { useAssistantListQuery } from "../hooks/queries/useAssistantListQuery";
 import AssistantCard from "../components/AssistantCard";
 
 type AssistantListContainerProps = {
+  aiProfileId?: number;
   isVisible: boolean;
   setIsVisible: Dispatch<SetStateAction<boolean>>;
   onPressAiCard: (aiProfileId: number) => void;
 };
 
 export default function AssistantListContainer({
+  aiProfileId,
   isVisible,
   setIsVisible,
   onPressAiCard,
@@ -23,6 +25,14 @@ export default function AssistantListContainer({
 
   const handleOuterClick = () => {
     setIsVisible(false);
+  };
+
+  const getDefaultIdx = () => {
+    let idx = 0;
+    if (aiProfileId && data) {
+      idx = data.findIndex((e) => "aiProfileId" in e && e.aiProfileId === aiProfileId);
+    }
+    return Math.max(idx, 0);
   };
 
   if (isVisible) {
@@ -73,6 +83,7 @@ export default function AssistantListContainer({
               <AssistantCard item={item} onPressAiCard={onPressAiCard} />
             </ItemLayout>
           )}
+          defaultIndex={getDefaultIdx()}
         />
       </AssistantListLayout>
     );
