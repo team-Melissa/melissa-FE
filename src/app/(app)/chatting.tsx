@@ -7,7 +7,8 @@ import { useInitializeChatting } from "@/src/features/chatting/hooks/useInitiali
 import { readOnlyTypeGuard } from "@/src/features/chatting/utils/readOnlyTypeGuard";
 
 export default function ChattingRouter(): JSX.Element | null {
-  const { isPending, isError, readOnlyDate, threadDate, threadExpiredDate, handleRetry } = useInitializeChatting();
+  const { aiProfileId, isPending, isError, readOnlyDate, threadDate, threadExpiredDate, handleRetry } =
+    useInitializeChatting();
 
   if (isPending) {
     return <Loading />;
@@ -35,7 +36,12 @@ export default function ChattingRouter(): JSX.Element | null {
       threadDate={threadDate}
       threadExpiredDate={threadExpiredDate}
       renderAssistantList={({ isVisible, setIsVisible, onPressAiCard }) => (
-        <AssistantListContainer isVisible={isVisible} setIsVisible={setIsVisible} onPressAiCard={onPressAiCard} />
+        <AssistantListContainer
+          aiProfileId={aiProfileId}
+          isVisible={isVisible}
+          setIsVisible={setIsVisible}
+          onPressAiCard={onPressAiCard}
+        />
       )}
     />
   );
