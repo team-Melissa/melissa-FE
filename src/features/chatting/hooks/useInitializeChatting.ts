@@ -58,5 +58,5 @@ export const useInitializeChatting = () => {
     }
   }, [aiProfileId, handleMakeThreadMutate, isFirstEffect, sleepTime]);
 
-  return { isPending, isError, aiProfileId, readOnlyDate, threadDate, threadExpiredDate, handleRetry };
+  return { isPending, isError, readOnlyDate, threadDate, threadExpiredDate, handleRetry };
 };

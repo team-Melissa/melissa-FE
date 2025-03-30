@@ -7,8 +7,7 @@ import { useInitializeChatting } from "@/src/features/chatting/hooks/useInitiali
 import { readOnlyTypeGuard } from "@/src/features/chatting/utils/readOnlyTypeGuard";
 
 export default function ChattingRouter(): JSX.Element | null {
-  const { isPending, isError, aiProfileId, readOnlyDate, threadDate, threadExpiredDate, handleRetry } =
-    useInitializeChatting();
+  const { isPending, isError, readOnlyDate, threadDate, threadExpiredDate, handleRetry } = useInitializeChatting();
 
   if (isPending) {
     return <Loading />;
@@ -20,16 +19,7 @@ export default function ChattingRouter(): JSX.Element | null {
 
   // readonly 채팅방이 필요한 경우
   if (readOnlyTypeGuard(readOnlyDate)) {
-    return (
-      <ChattingContainer
-        threadDate={readOnlyDate}
-        threadExpiredDate={new Date()}
-        readonly={true}
-        renderAssistantList={({ isVisible, setIsVisible, onPressAiCard }) => (
-          <AssistantListContainer isVisible={isVisible} setIsVisible={setIsVisible} onPressAiCard={onPressAiCard} />
-        )}
-      />
-    );
+    return <ChattingContainer threadDate={readOnlyDate} threadExpiredDate={new Date()} readonly />;
   }
 
   if (!threadDate || !threadExpiredDate) {
