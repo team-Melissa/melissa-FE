@@ -7,7 +7,10 @@ const endpoint = {
     delete: "/api/v1/user",
     refresh: "/api/v1/auth/refresh",
   },
-  aiProfile: "/api/v1/ai-profiles",
+  aiProfile: {
+    aiProfile: "/api/v1/ai-profiles",
+    recent: "/api/v1/ai-profiles/recent",
+  },
   setting: {
     checkNew: "/api/v1/user-settings/check-new",
     register: "/api/v1/user-settings/register",

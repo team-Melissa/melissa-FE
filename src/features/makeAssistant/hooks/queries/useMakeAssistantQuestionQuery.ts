@@ -4,7 +4,9 @@ import type { MakeAssistantQuestionDTO } from "../../types/makeAssistantTypes";
 import { useQuery } from "@tanstack/react-query";
 
 const _getAssistantQuestion = async (aiProfileId: string) => {
-  const { data } = await axiosInstance.get<MakeAssistantQuestionDTO>(`${endpoint.aiProfile}/${aiProfileId}/question`);
+  const { data } = await axiosInstance.get<MakeAssistantQuestionDTO>(
+    `${endpoint.aiProfile.aiProfile}/${aiProfileId}/question`
+  );
   return data;
 };
 
