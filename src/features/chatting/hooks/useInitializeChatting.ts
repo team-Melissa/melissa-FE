@@ -1,27 +1,37 @@
 import { useLocalSearchParams } from "expo-router";
-import { TThreadDate, type TThreadDateSearchParams } from "../types/chattingTypes";
 import { useCallback, useEffect, useState } from "react";
 import { useSleepTimeQuery } from "./queries/useSleepTimeQuery";
+import { useAiProfileIdQuery } from "./queries/useAiProfileIdQuery";
 import { useMakeThreadMutation } from "./mutations/useMakeThreadMutation";
-import { getAiProfileId } from "@/src/libs/mmkv";
 import { getThreadDateExpired } from "../utils/time";
+import type { TThreadDate, TThreadDateSearchParams } from "../types/chattingTypes";
 
 export const useInitializeChatting = () => {
   const { year, month, day } = useLocalSearchParams() as unknown as TThreadDateSearchParams;
   const [threadDate, setThreadDate] = useState<TThreadDate | null>(null);
   const [threadExpiredDate, setThreadExpiredDate] = useState<Date | null>(null);
 
-  const { isPending: isSleepTimePending, isError: isSleepTimeError, data: sleepTime, refetch } = useSleepTimeQuery();
+  const {
+    isPending: isAiProfileIdPending,
+    isError: isAiProfileIdError,
+    data: aiProfileId,
+    refetch: refetchAiProfileId,
+  } = useAiProfileIdQuery();
+  const {
+    isPending: isSleepTimePending,
+    isError: isSleepTimeError,
+    data: sleepTime,
+    refetch: refetchSleepTime,
+  } = useSleepTimeQuery();
   const { isPending: isMutatePending, isError: isMutateError, mutate } = useMakeThreadMutation();
 
-  const isPending = isSleepTimePending || isMutatePending;
-  const isError = isSleepTimeError || isMutateError;
+  const isPending = isSleepTimePending || isAiProfileIdPending || isMutatePending;
+  const isError = isSleepTimeError || isAiProfileIdError || isMutateError;
   const readOnlyDate = { year, month, day };
 
   const handleMakeThreadMutate = useCallback(
-    (sleepTime: string) => {
+    (sleepTime: string, aiProfileId: number) => {
       if (year || month || day) return;
-      const aiProfileId = getAiProfileId();
       if (aiProfileId) {
         const sleepHour = parseInt(sleepTime.slice(0, 2));
         const [{ year, month, day }, expiredDate] = getThreadDateExpired(sleepHour);
@@ -30,19 +40,19 @@ export const useInitializeChatting = () => {
         mutate({ aiProfileId, year, month, day });
       }
     },
-    [day, month, year, mutate]
+    [year, month, day, mutate]
   );
 
   const handleRetry = async () => {
-    await refetch();
-    if (sleepTime) {
-      handleMakeThreadMutate(sleepTime);
+    await Promise.all([refetchAiProfileId(), refetchSleepTime()]);
+    if (sleepTime && aiProfileId) {
+      handleMakeThreadMutate(sleepTime, aiProfileId);
     }
   };
 
   useEffect(() => {
-    if (sleepTime) handleMakeThreadMutate(sleepTime);
-  }, [handleMakeThreadMutate, sleepTime]);
+    if (sleepTime && aiProfileId) handleMakeThreadMutate(sleepTime, aiProfileId);
+  }, [aiProfileId, handleMakeThreadMutate, sleepTime]);
 
-  return { isPending, isError, readOnlyDate, threadDate, threadExpiredDate, handleRetry };
+  return { isPending, isError, aiProfileId, readOnlyDate, threadDate, threadExpiredDate, handleRetry };
 };
