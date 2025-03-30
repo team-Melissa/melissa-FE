@@ -1,7 +1,7 @@
 import { router } from "expo-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { removeRefreshToken } from "@/src/libs/secureStorage";
-import { removeAccessToken, removeAiProfileId } from "@/src/libs/mmkv";
+import { removeAccessToken } from "@/src/libs/mmkv";
 import showToast from "@/src/libs/showToast";
 import axiosInstance from "@/src/libs/axiosInstance";
 import toastMessage from "@/src/constants/toastMessage";
@@ -23,7 +23,6 @@ export const useLogoutMutation = () => {
       console.log(data);
       await removeRefreshToken();
       removeAccessToken();
-      removeAiProfileId();
       queryClient.clear();
       router.replace("/login");
     },

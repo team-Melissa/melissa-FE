@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { router } from "expo-router";
-import { getAccessToken, removeAccessToken, removeAiProfileId, setAccessToken } from "./mmkv";
+import { getAccessToken, removeAccessToken, setAccessToken } from "./mmkv";
 import { getRefreshToken, removeRefreshToken, setRefreshToken } from "./secureStorage";
 import endpoint from "../constants/endpoint";
 import type { LoginDTO } from "../features/login/types/loginTypes";
@@ -59,13 +59,7 @@ axiosInstance.interceptors.response.use(
 
     // 401 에러는 refresh token으로 재발급 시도 후 성공하면 기존 요청 재시도
     // 소셜 로그인 인증 실패 (OAuth 토큰 관련 문제)는 제외
-    if (
-      response &&
-      config &&
-      response.status === 401 &&
-      response.data.code !== "AUTH4001" &&
-      !config.sent
-    ) {
+    if (response && config && response.status === 401 && response.data.code !== "AUTH4001" && !config.sent) {
       // 해당 에러가 토큰 재발급 시도의 응답이 아니고, 이미 재발급 중이면 Queue에 대기시킴
       if (isRefreshing) {
         console.log("토큰 재발급중... 해당 요청을 Queue에 추가");
@@ -86,7 +80,6 @@ axiosInstance.interceptors.response.use(
           console.error("refresh token이 존재하지 않아 재발급 종료 (아마 앱 최초 설치)");
           await removeRefreshToken();
           removeAccessToken();
-          removeAiProfileId();
           router.replace("/login");
           return Promise.reject(error);
         }
@@ -95,12 +88,9 @@ axiosInstance.interceptors.response.use(
         config.sent = true;
 
         // refresh token으로 새 access token, refresh token 받아오기
-        const { data } = await axios.post<LoginDTO>(
-          `${process.env.EXPO_PUBLIC_API_URL}${endpoint.auth.refresh}`,
-          {
-            refreshToken,
-          }
-        );
+        const { data } = await axios.post<LoginDTO>(`${process.env.EXPO_PUBLIC_API_URL}${endpoint.auth.refresh}`, {
+          refreshToken,
+        });
 
         // 새 토큰들 저장
         const newAccessToken = `${data.result.tokenType} ${data.result.accessToken}`;
@@ -116,7 +106,6 @@ axiosInstance.interceptors.response.use(
         console.error("토큰 재발급 로직 도중 에러", e);
         await removeRefreshToken();
         removeAccessToken();
-        removeAiProfileId();
         showToast(toastMessage.tokenExpired, "error");
         router.replace("/login");
         return Promise.reject(error);

@@ -1,16 +1,14 @@
-import { useState } from "react";
 import styled from "styled-components/native";
 import CommonError from "@/src/components/ui/CommonError";
 import Loading from "@/src/components/ui/Loading";
-import { setAiProfileId } from "@/src/libs/mmkv";
 import ChattingContainer from "@/src/features/chatting/containers/ChattingContainer";
 import AssistantListContainer from "@/src/features/assistantList/containers/AssistantListContainer";
 import { useInitializeChatting } from "@/src/features/chatting/hooks/useInitializeChatting";
 import { readOnlyTypeGuard } from "@/src/features/chatting/utils/readOnlyTypeGuard";
 
 export default function ChattingRouter(): JSX.Element | null {
-  const [isVisible, setIsVisible] = useState<boolean>(false);
-  const { isPending, isError, readOnlyDate, threadDate, threadExpiredDate, handleRetry } = useInitializeChatting();
+  const { isPending, isError, aiProfileId, readOnlyDate, threadDate, threadExpiredDate, handleRetry } =
+    useInitializeChatting();
 
   if (isPending) {
     return <Loading />;
@@ -37,15 +35,7 @@ export default function ChattingRouter(): JSX.Element | null {
   if (!threadDate || !threadExpiredDate) {
     return (
       <FlexView>
-        <AssistantListContainer
-          isVisible={isVisible}
-          setIsVisible={setIsVisible}
-          onPressAiCard={(aiProfileId) => {
-            setAiProfileId(aiProfileId);
-            handleRetry();
-          }}
-        />
-        <CommonError titleText="서포터를 선택해주세요" buttonText="선택하기" onPress={() => setIsVisible(true)} />
+        <CommonError titleText="문제가 발생했어요." buttonText="다시 시도" onPress={handleRetry} />
       </FlexView>
     );
   }

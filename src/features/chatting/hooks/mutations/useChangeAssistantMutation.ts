@@ -23,8 +23,9 @@ export const useChangeAssistantMutation = (setIsVisible: Dispatch<SetStateAction
 
   return useMutation({
     mutationFn: _changeAssistant,
-    onSuccess: (data, { year, month, day }) => {
+    onSuccess: (_, { year, month, day }) => {
       queryClient.invalidateQueries({ queryKey: ["messages", year, month, day] });
+      queryClient.refetchQueries({ queryKey: ["aiProfileId"] });
       showToast(toastMessage.changeAssistant.success, "success");
       setIsVisible(false);
     },
