@@ -7,6 +7,7 @@ import { getThreadDateExpired } from "../utils/time";
 import type { TThreadDate, TThreadDateSearchParams } from "../types/chattingTypes";
 
 export const useInitializeChatting = () => {
+  const [isFirstEffect, setIsFirstEffect] = useState<boolean>(true);
   const { year, month, day } = useLocalSearchParams() as unknown as TThreadDateSearchParams;
   const [threadDate, setThreadDate] = useState<TThreadDate | null>(null);
   const [threadExpiredDate, setThreadExpiredDate] = useState<Date | null>(null);
@@ -51,8 +52,11 @@ export const useInitializeChatting = () => {
   };
 
   useEffect(() => {
-    if (sleepTime && aiProfileId) handleMakeThreadMutate(sleepTime, aiProfileId);
-  }, [aiProfileId, handleMakeThreadMutate, sleepTime]);
+    if (isFirstEffect && sleepTime && aiProfileId) {
+      handleMakeThreadMutate(sleepTime, aiProfileId);
+      setIsFirstEffect(false);
+    }
+  }, [aiProfileId, handleMakeThreadMutate, isFirstEffect, sleepTime]);
 
   return { isPending, isError, aiProfileId, readOnlyDate, threadDate, threadExpiredDate, handleRetry };
 };
