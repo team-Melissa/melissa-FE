@@ -8,6 +8,9 @@ patchedDependencies:
   react-native-calendars@1.1308.1:
     hash: nnurlqmg6jwybeqtzhjefpcclu
     path: patches/react-native-calendars@1.1308.1.patch
+  react-native-sse@1.2.1:
+    hash: 4vnnvvussd2kkzulmcakuihcsu
+    path: patches/react-native-sse@1.2.1.patch
 
 importers:
 
@@ -137,8 +140,8 @@ importers:
         specifier: ~4.8.0
         version: 4.8.0(react-native@0.76.9(@babel/core@7.26.10)(@babel/preset-env@7.26.9(@babel/core@7.26.10))(@types/react@18.3.20)(react@18.3.1))(react@18.3.1)
       react-native-sse:
-        specifier: ^1.2.1
-        version: 1.2.1
+        specifier: 1.2.1
+        version: 1.2.1(patch_hash=4vnnvvussd2kkzulmcakuihcsu)
       react-native-toast-message:
         specifier: ^2.2.1
         version: 2.2.1(react-native@0.76.9(@babel/core@7.26.10)(@babel/preset-env@7.26.9(@babel/core@7.26.10))(@types/react@18.3.20)(react@18.3.1))(react@18.3.1)
@@ -11214,7 +11217,7 @@ snapshots:
       react-native: 0.76.9(@babel/core@7.26.10)(@babel/preset-env@7.26.9(@babel/core@7.26.10))(@types/react@18.3.20)(react@18.3.1)
       warn-once: 0.1.1
 
-  react-native-sse@1.2.1: {}
+  react-native-sse@1.2.1(patch_hash=4vnnvvussd2kkzulmcakuihcsu): {}
 
   react-native-swipe-gestures@1.0.5: {}
 
