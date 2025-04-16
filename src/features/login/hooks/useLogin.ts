@@ -3,7 +3,7 @@ import { useRouter } from "expo-router";
 import { isAxiosError } from "axios";
 import { setAccessToken } from "@/src/libs/mmkv";
 import { setRefreshToken } from "@/src/libs/secureStorage";
-import showToast from "@/src/libs/showToast";
+import { toast } from "@/src/modules/toast";
 import toastMessage from "@/src/constants/toastMessage";
 import type { ErrorDTO } from "@/src/types/commonTypes";
 import type { LoginDTO } from "../types/loginTypes";
@@ -18,14 +18,14 @@ const useLogin = () => {
     await setRefreshToken(data.result.refreshToken);
     queryClient.invalidateQueries({ queryKey: ["check-new-user"] });
     router.replace("/(app)");
-    showToast(toastMessage.login.success, "success");
+    toast(toastMessage.login.success);
   };
 
   const handleError = (error: unknown) => {
     console.error("로그인 실패!", error);
     if (isAxiosError<ErrorDTO>(error)) {
       console.error("OAuth 프로바이더 정상 작동, 백엔드와 문제 발생", error.response?.data);
-      showToast(toastMessage.login.failed, "error");
+      toast(toastMessage.login.failed);
     }
   };
 

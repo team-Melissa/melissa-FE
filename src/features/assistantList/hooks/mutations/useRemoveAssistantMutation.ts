@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import showToast from "@/src/libs/showToast";
+import { toast } from "@/src/modules/toast";
 import axiosInstance from "@/src/libs/axiosInstance";
 import toastMessage from "@/src/constants/toastMessage";
 import endpoint from "@/src/constants/endpoint";
@@ -17,11 +17,11 @@ export const useRemoveAssistantMutation = () => {
     mutationFn: _removeAssistant,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["assistant-list"] });
-      showToast(toastMessage.removeAssistant.success, "success");
+      toast(toastMessage.removeAssistant.success);
     },
     onError: (error) => {
       console.error(error.response?.data);
-      showToast(toastMessage.removeAssistant.failed, "error");
+      toast(toastMessage.removeAssistant.failed);
     },
   });
 };

@@ -6,7 +6,7 @@ import endpoint from "../constants/endpoint";
 import type { LoginDTO } from "../features/login/types/loginTypes";
 import type { AxiosErrorToInterceptors, ErrorDTO } from "../types/commonTypes";
 import toastMessage from "@/src/constants/toastMessage";
-import showToast from "@/src/libs/showToast";
+import { toast } from "@/src/modules/toast";
 
 /**
  * 토큰 refresh 도중 새로 발생한 401 error 콜백 함수 Type
@@ -106,7 +106,7 @@ axiosInstance.interceptors.response.use(
         console.error("토큰 재발급 로직 도중 에러", e);
         await removeRefreshToken();
         removeAccessToken();
-        showToast(toastMessage.tokenExpired, "error");
+        toast(toastMessage.tokenExpired);
         router.replace("/login");
         return Promise.reject(error);
       } finally {

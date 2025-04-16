@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "@/src/modules/toast";
 import toastMessage from "@/src/constants/toastMessage";
 import axiosInstance from "@/src/libs/axiosInstance";
-import showToast from "@/src/libs/showToast";
 import endpoint from "@/src/constants/endpoint";
 import type { TThreadDate } from "../../types/chattingTypes";
 import type { DiaryDTO } from "../../types/diaryTypes";
@@ -20,13 +20,13 @@ export const useDiaryMutation = () => {
   return useMutation({
     mutationFn: _postDiary,
     onSuccess: ({ result }) => {
-      showToast(toastMessage.updateDiary.success, "success");
+      toast(toastMessage.updateDiary.success);
       queryClient.invalidateQueries({ queryKey: ["calendar", result.year, result.month] });
       queryClient.invalidateQueries({ queryKey: ["diaries", result.year, result.month] });
     },
     onError: (error) => {
       console.log(error);
-      showToast(toastMessage.updateDiary.failed, "error");
+      toast(toastMessage.updateDiary.failed);
     },
   });
 };

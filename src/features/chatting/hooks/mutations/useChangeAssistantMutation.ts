@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { Dispatch, SetStateAction } from "react";
 import axiosInstance from "@/src/libs/axiosInstance";
-import showToast from "@/src/libs/showToast";
+import { toast } from "@/src/modules/toast";
 import toastMessage from "@/src/constants/toastMessage";
 import endpoint from "@/src/constants/endpoint";
 import type { TThreadDate } from "../../types/chattingTypes";
@@ -26,12 +26,12 @@ export const useChangeAssistantMutation = (setIsVisible: Dispatch<SetStateAction
     onSuccess: (_, { year, month, day }) => {
       queryClient.invalidateQueries({ queryKey: ["messages", year, month, day] });
       queryClient.invalidateQueries({ queryKey: ["aiProfileId"] });
-      showToast(toastMessage.changeAssistant.success, "success");
+      toast(toastMessage.changeAssistant.success);
       setIsVisible(false);
     },
     onError: (error) => {
       console.error(error.response?.data);
-      showToast(toastMessage.changeAssistant.failed, "error");
+      toast(toastMessage.changeAssistant.failed);
     },
   });
 };

@@ -1,6 +1,6 @@
 import * as Linking from "expo-linking";
+import { toast } from "@/src/modules/toast";
 import toastMessage from "@/src/constants/toastMessage";
-import showToast from "@/src/libs/showToast";
 import * as S from "../styles/SettingItem.styles";
 
 export default function SendMailItem() {
@@ -12,7 +12,7 @@ export default function SendMailItem() {
       console.log(data);
     } catch (e) {
       console.error(e);
-      showToast(toastMessage.sendMailFailed, "error");
+      toast(toastMessage.sendMailFailed);
     }
   };
 
