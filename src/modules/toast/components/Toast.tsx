@@ -8,6 +8,8 @@ import type { TToast } from "../types/toastTypes";
 export const Toast = ({ message, options }: Omit<TToast, "id">) => {
   const [isRender, setIsRender] = useState<boolean>(true);
 
+  const handleToastTouch = () => setIsRender(false);
+
   useEffect(() => {
     const duration = options?.duration ?? DEFAULT_DURATION;
 
@@ -21,7 +23,12 @@ export const Toast = ({ message, options }: Omit<TToast, "id">) => {
   if (!isRender) return null;
 
   return (
-    <ToastBox entering={FadeInDown.duration(100)} exiting={FadeOutUp.duration(100)} style={shadowProps}>
+    <ToastBox
+      onTouchStart={handleToastTouch}
+      entering={FadeInDown.duration(100)}
+      exiting={FadeOutUp.duration(100)}
+      style={shadowProps}
+    >
       <ToastText>{message}</ToastText>
     </ToastBox>
   );
