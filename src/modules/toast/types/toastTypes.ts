@@ -1,4 +1,4 @@
-export type TToastParams = {
+export type TToast = {
   id: string;
   message: string;
   options?: {
@@ -6,4 +6,4 @@ export type TToastParams = {
   };
 };
 
-export type TObserver = ({ id, message, options }: TToastParams) => void;
+export type TObserver = ({ id, message, options }: TToast) => void;

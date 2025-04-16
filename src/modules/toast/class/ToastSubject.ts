@@ -1,4 +1,4 @@
-import type { TObserver, TToastParams } from "../types/toastTypes";
+import type { TObserver, TToast } from "../types/toastTypes";
 
 export class ToastSubject {
   private static instance: ToastSubject | null = null;
@@ -17,7 +17,7 @@ export class ToastSubject {
     this.observers = this.observers.filter((o) => o !== observer);
   }
 
-  notify(params: TToastParams) {
-    this.observers.forEach((observer) => observer(params));
+  notify(toast: TToast) {
+    this.observers.forEach((observer) => observer(toast));
   }
 }
