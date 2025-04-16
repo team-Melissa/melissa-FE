@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components/native";
-import Animated, { FadeInUp, FadeOutDown } from "react-native-reanimated";
+import Animated, { FadeInDown, FadeOutUp } from "react-native-reanimated";
+import { shadowProps } from "@/src/constants/shadowProps";
+import { DEFAULT_DURATION } from "../constants/toastConstants";
 import type { TToast } from "../types/toastTypes";
 
 export const Toast = ({ message, options }: Omit<TToast, "id">) => {
   const [isRender, setIsRender] = useState<boolean>(true);
 
   useEffect(() => {
-    const duration = options?.duration ?? 2000;
+    const duration = options?.duration ?? DEFAULT_DURATION;
 
     const timer = setTimeout(() => {
       setIsRender(false);
@@ -19,7 +21,7 @@ export const Toast = ({ message, options }: Omit<TToast, "id">) => {
   if (!isRender) return null;
 
   return (
-    <ToastBox entering={FadeInUp.duration(200)} exiting={FadeOutDown.duration(200)}>
+    <ToastBox entering={FadeInDown.duration(100)} exiting={FadeOutUp.duration(100)} style={shadowProps}>
       <ToastText>{message}</ToastText>
     </ToastBox>
   );
@@ -29,15 +31,16 @@ const ToastBox = styled(Animated.View)`
   position: absolute;
   justify-content: center;
   align-items: center;
-  bottom: 80px;
-  left: 20px;
-  right: 20px;
-  background-color: #333;
-  padding: 14px 20px;
-  border-radius: 8px;
+  bottom: 50px;
+  left: ${({ theme }) => theme.gap.xxl};
+  right: ${({ theme }) => theme.gap.xxl};
+  padding: 14px 16px;
+  background-color: ${({ theme }) => theme.colors.deepGreen};
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
 `;
 
 const ToastText = styled.Text`
-  color: white;
-  font-size: 15px;
+  font-family: ${({ theme }) => theme.fontFamily.nsRegular};
+  color: ${({ theme }) => theme.colors.textGray};
+  font-size: ${({ theme }) => theme.fontSize.base};
 `;

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ToastSubject } from "../class/ToastSubject";
+import { DEFAULT_DURATION } from "../constants/toastConstants";
 import type { TToast } from "../types/toastTypes";
 
 /**
@@ -13,7 +14,7 @@ export const useToastSubscribe = () => {
     const toastInstance = ToastSubject.getInstance();
 
     const toastObserver = (toast: TToast) => {
-      const duration = toast.options?.duration ?? 2000;
+      const duration = toast.options?.duration ?? DEFAULT_DURATION;
       setToasts((prev) => [...prev, toast]);
       const timer = setTimeout(() => {
         setToasts((prev) => prev.filter(({ id }) => id !== toast.id));
