@@ -57,7 +57,6 @@
     "react-native-safe-area-context": "5.1.0",
     "react-native-screens": "~4.8.0",
     "react-native-sse": "1.2.1",
-    "react-native-toast-message": "^2.2.1",
     "react-native-web": "~0.19.13",
     "react-native-webview": "13.13.5",
     "styled-components": "6.1.13"
