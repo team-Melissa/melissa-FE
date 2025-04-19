@@ -28,6 +28,8 @@ export const Toast = ({ message, options }: Omit<TToast, "id">) => {
       entering={FadeInDown.duration(100)}
       exiting={FadeOutUp.duration(100)}
       style={shadowProps}
+      accessibilityRole="alert"
+      accessibilityLiveRegion="assertive"
     >
       <ToastText>{message}</ToastText>
     </ToastBox>
