@@ -1,4 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
+import { Keyboard } from "react-native";
 import { useEffect, useState } from "react";
 import { useRouter } from "expo-router";
 import EventSource from "react-native-sse";
@@ -7,6 +8,7 @@ import { preventDoublePress } from "@/src/libs/esToolkit";
 import showToast from "@/src/libs/showToast";
 import toastMessage from "@/src/constants/toastMessage";
 import endpoint from "@/src/constants/endpoint";
+import { useIsKeyboardOpen } from "./useIsKeyboardOpen";
 import { useMessagesQuery } from "./queries/useMessagesQuery";
 import { useDiaryMutation } from "./mutations/useDiaryMutation";
 import { useChangeAssistantMutation } from "./mutations/useChangeAssistantMutation";
@@ -16,6 +18,7 @@ import type { FluxEventDTO, MessagesDTO, TThreadDate } from "../types/chattingTy
 export const useChatting = (threadDate: TThreadDate, threadExpiredDate: Date, readonly?: boolean) => {
   const queryClient = useQueryClient();
   const router = useRouter();
+  const isKeyboardOpen = useIsKeyboardOpen();
 
   const [input, setInput] = useState<string>("");
   const [isCanDiarySummary, setIsCanDiarySummary] = useState<boolean>(false);
@@ -27,6 +30,7 @@ export const useChatting = (threadDate: TThreadDate, threadExpiredDate: Date, re
   const { mutate: changeAssistantMutate } = useChangeAssistantMutation(setIsVisible);
 
   const handleHeaderPress = () => {
+    if (isKeyboardOpen) Keyboard.dismiss();
     setIsVisible(true);
   };
 
