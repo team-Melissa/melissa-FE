@@ -10,7 +10,7 @@ export class ToastSubject {
   }
 
   subscribe(observer: TObserver) {
-    this.observers.push(observer);
+    if (!this.observers.includes(observer)) this.observers.push(observer);
   }
 
   unsubscribe(observer: TObserver) {
