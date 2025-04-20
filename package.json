@@ -11,6 +11,7 @@
     "test": "jest --watchAll",
     "lint": "expo lint",
     "type-check": "tsc --noEmit",
+    "commitlint": "commitlint --edit",
     "prepare": "husky"
   },
   "jest": {
