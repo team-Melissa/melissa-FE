@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Image } from "expo-image";
 import styled from "styled-components/native";
-import Animated, { FadeInDown, FadeOutUp } from "react-native-reanimated";
+import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 import responsiveToPx from "@/src/utils/responsiveToPx";
 import { shadowProps } from "@/src/constants/shadowProps";
 import { DEFAULT_DURATION } from "../constants/toastConstants";
@@ -27,8 +27,8 @@ export const Toast = ({ message, options }: Omit<TToast, "id">) => {
   return (
     <ToastBox
       onTouchStart={handleToastTouch}
-      entering={FadeInDown.duration(100)}
-      exiting={FadeOutUp.duration(100)}
+      entering={FadeIn.duration(200)}
+      exiting={FadeOut.duration(200)}
       style={shadowProps}
       accessibilityRole="alert"
       accessibilityLiveRegion="assertive"
