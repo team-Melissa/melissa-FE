@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { Image } from "expo-image";
 import styled from "styled-components/native";
 import Animated, { FadeInDown, FadeOutUp } from "react-native-reanimated";
+import responsiveToPx from "@/src/utils/responsiveToPx";
 import { shadowProps } from "@/src/constants/shadowProps";
 import { DEFAULT_DURATION } from "../constants/toastConstants";
 import type { TToast } from "../types/toastTypes";
@@ -31,21 +33,29 @@ export const Toast = ({ message, options }: Omit<TToast, "id">) => {
       accessibilityRole="alert"
       accessibilityLiveRegion="assertive"
     >
+      <ToastIcon source={require("@/assets/images/warning-icon.svg")} />
       <ToastText>{message}</ToastText>
     </ToastBox>
   );
 };
 
 const ToastBox = styled(Animated.View)`
+  width: ${responsiveToPx("380px")};
   position: absolute;
-  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  gap: ${({ theme }) => theme.gap.lg};
   align-items: center;
+  align-self: center;
   bottom: 50px;
-  left: ${({ theme }) => theme.gap.xxl};
-  right: ${({ theme }) => theme.gap.xxl};
   padding: 14px 16px;
-  background-color: ${({ theme }) => theme.colors.deepGreen};
-  border-radius: ${({ theme }) => theme.borderRadius.sm};
+  background-color: ${({ theme }) => theme.colors.white};
+  border-radius: ${({ theme }) => theme.borderRadius.xs};
+`;
+
+const ToastIcon = styled(Image)`
+  width: ${responsiveToPx("24px")};
+  height: ${responsiveToPx("24px")};
 `;
 
 const ToastText = styled.Text`
