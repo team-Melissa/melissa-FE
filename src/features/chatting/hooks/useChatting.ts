@@ -5,7 +5,7 @@ import { useRouter } from "expo-router";
 import EventSource from "react-native-sse";
 import { getAccessToken } from "@/src/libs/mmkv";
 import { preventDoublePress } from "@/src/libs/esToolkit";
-import showToast from "@/src/libs/showToast";
+import { toast } from "@/src/modules/toast";
 import toastMessage from "@/src/constants/toastMessage";
 import endpoint from "@/src/constants/endpoint";
 import { useIsKeyboardOpen } from "./useIsKeyboardOpen";
@@ -43,7 +43,7 @@ export const useChatting = (threadDate: TThreadDate, threadExpiredDate: Date, re
     const token = getAccessToken();
     if (!token) return;
     if (checkThreadExpire(threadExpiredDate)) {
-      showToast(toastMessage.threadExpired, "success");
+      toast(toastMessage.threadExpired);
       router.replace("/(app)/chatting");
       return;
     }
@@ -149,7 +149,7 @@ export const useChatting = (threadDate: TThreadDate, threadExpiredDate: Date, re
     return () => {
       if (isCanDiarySummary) {
         console.log("일기 요약을 진행합니다.");
-        showToast(toastMessage.updateDiary.pending, "success");
+        toast(toastMessage.updateDiary.pending);
         diaryMutate(threadDate);
       }
     };

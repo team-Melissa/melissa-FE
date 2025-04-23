@@ -6,8 +6,8 @@ import { Slot, useNavigationContainerRef } from "expo-router";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { useReactQueryDevTools } from "@dev-plugins/react-query";
 import { useEffect, useState } from "react";
-import Toast from "react-native-toast-message";
 import { ThemeProvider } from "styled-components/native";
+import { ToastsRoot } from "@/src/modules/toast";
 import { theme } from "@/src/constants/theme";
 import queryClient from "@/src/libs/queryClient";
 import initializeApp from "@/src/utils/initializeApp";
@@ -69,7 +69,7 @@ function RootLayout() {
       <QueryClientProvider client={queryClient}>
         <StatusBar style="dark" />
         <Slot />
-        <Toast />
+        <ToastsRoot />
       </QueryClientProvider>
     </ThemeProvider>
   );
