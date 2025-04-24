@@ -31,7 +31,7 @@ export const useSettingMutation = (data: UserSettingDTO) => {
     onError: (error) => {
       console.error(error.response?.data);
       queryClient.invalidateQueries({ queryKey: ["user-setting"] });
-      toast({ message: toastMessage.updateSetting.failed, options: { type: "error" } });
+      toast({ message: toastMessage.updateSetting.error, options: { type: "error" } });
     },
   });
 };

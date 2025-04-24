@@ -21,7 +21,7 @@ export const useRemoveAssistantMutation = () => {
     },
     onError: (error) => {
       console.error(error.response?.data);
-      toast({ message: toastMessage.removeAssistant.failed, options: { type: "error" } });
+      toast({ message: toastMessage.removeAssistant.error, options: { type: "error" } });
     },
   });
 };

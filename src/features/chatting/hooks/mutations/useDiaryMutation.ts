@@ -26,7 +26,7 @@ export const useDiaryMutation = () => {
     },
     onError: (error) => {
       console.log(error);
-      toast({ message: toastMessage.updateDiary.failed, options: { type: "error" } });
+      toast({ message: toastMessage.updateDiary.error, options: { type: "error" } });
     },
   });
 };

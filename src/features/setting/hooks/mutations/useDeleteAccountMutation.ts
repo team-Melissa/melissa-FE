@@ -28,7 +28,7 @@ export const useDeleteAccountMutation = () => {
     },
     onError: (error) => {
       console.error(error.response?.data);
-      toast({ message: toastMessage.deleteAccount.failed, options: { type: "error" } });
+      toast({ message: toastMessage.deleteAccount.error, options: { type: "error" } });
     },
   });
 };

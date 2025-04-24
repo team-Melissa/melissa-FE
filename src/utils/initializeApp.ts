@@ -30,7 +30,7 @@ const initializeApp = async (setIsReady: Dispatch<SetStateAction<boolean>>) => {
     await Promise.all([loadFonts()]);
   } catch (e) {
     console.error(e);
-    toast({ message: toastMessage.fontLoading.failed, options: { type: "error" } });
+    toast({ message: toastMessage.fontLoading.error, options: { type: "error" } });
   } finally {
     setIsReady(true);
   }

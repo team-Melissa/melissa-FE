@@ -25,7 +25,7 @@ const useLogin = () => {
     console.error("로그인 실패!", error);
     if (isAxiosError<ErrorDTO>(error)) {
       console.error("OAuth 프로바이더 정상 작동, 백엔드와 문제 발생", error.response?.data);
-      toast({ message: toastMessage.login.failed, options: { type: "error" } });
+      toast({ message: toastMessage.login.error, options: { type: "error" } });
     }
   };
 

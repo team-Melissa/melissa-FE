@@ -28,7 +28,7 @@ export const useLogoutMutation = () => {
     },
     onError: (error) => {
       console.error(error.response?.data);
-      toast({ message: toastMessage.logout.failed, options: { type: "error" } });
+      toast({ message: toastMessage.logout.error, options: { type: "error" } });
     },
   });
 };

@@ -31,7 +31,7 @@ export const useChangeAssistantMutation = (setIsVisible: Dispatch<SetStateAction
     },
     onError: (error) => {
       console.error(error.response?.data);
-      toast({ message: toastMessage.changeAssistant.failed, options: { type: "error" } });
+      toast({ message: toastMessage.changeAssistant.error, options: { type: "error" } });
     },
   });
 };
