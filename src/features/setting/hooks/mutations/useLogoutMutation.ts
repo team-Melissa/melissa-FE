@@ -19,7 +19,7 @@ export const useLogoutMutation = () => {
   return useMutation({
     mutationFn: _logout,
     onSuccess: async (data) => {
-      toast(toastMessage.logout.success);
+      toast({ message: toastMessage.logout.success, options: { type: "success" } });
       console.log(data);
       await removeRefreshToken();
       removeAccessToken();
@@ -28,7 +28,7 @@ export const useLogoutMutation = () => {
     },
     onError: (error) => {
       console.error(error.response?.data);
-      toast(toastMessage.logout.failed);
+      toast({ message: toastMessage.logout.failed, options: { type: "error" } });
     },
   });
 };

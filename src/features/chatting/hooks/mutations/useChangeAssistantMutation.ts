@@ -26,12 +26,12 @@ export const useChangeAssistantMutation = (setIsVisible: Dispatch<SetStateAction
     onSuccess: (_, { year, month, day }) => {
       queryClient.invalidateQueries({ queryKey: ["messages", year, month, day] });
       queryClient.invalidateQueries({ queryKey: ["aiProfileId"] });
-      toast(toastMessage.changeAssistant.success);
+      toast({ message: toastMessage.changeAssistant.success, options: { type: "success" } });
       setIsVisible(false);
     },
     onError: (error) => {
       console.error(error.response?.data);
-      toast(toastMessage.changeAssistant.failed);
+      toast({ message: toastMessage.changeAssistant.failed, options: { type: "error" } });
     },
   });
 };

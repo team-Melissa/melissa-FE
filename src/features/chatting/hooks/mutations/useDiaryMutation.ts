@@ -20,13 +20,13 @@ export const useDiaryMutation = () => {
   return useMutation({
     mutationFn: _postDiary,
     onSuccess: ({ result }) => {
-      toast(toastMessage.updateDiary.success);
+      toast({ message: toastMessage.updateDiary.success, options: { type: "success" } });
       queryClient.invalidateQueries({ queryKey: ["calendar", result.year, result.month] });
       queryClient.invalidateQueries({ queryKey: ["diaries", result.year, result.month] });
     },
     onError: (error) => {
       console.log(error);
-      toast(toastMessage.updateDiary.failed);
+      toast({ message: toastMessage.updateDiary.failed, options: { type: "error" } });
     },
   });
 };

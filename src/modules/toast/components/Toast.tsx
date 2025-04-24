@@ -5,22 +5,23 @@ import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 import responsiveToPx from "@/src/utils/responsiveToPx";
 import { shadowProps } from "@/src/constants/shadowProps";
 import { DEFAULT_DURATION } from "../constants/toastConstants";
+import { getToastIcon } from "../utils/getToastIcon";
 import type { TToast } from "../types/toastTypes";
 
-export const Toast = ({ message, options }: Omit<TToast, "id">) => {
+export const Toast = ({ message, subMessage, options }: Omit<TToast, "id">) => {
   const [isRender, setIsRender] = useState<boolean>(true);
+  const duration = options?.duration ?? DEFAULT_DURATION;
+  const type = options?.type ?? "success";
 
   const handleToastTouch = () => setIsRender(false);
 
   useEffect(() => {
-    const duration = options?.duration ?? DEFAULT_DURATION;
-
     const timer = setTimeout(() => {
       setIsRender(false);
     }, duration);
 
     return () => clearTimeout(timer);
-  }, [options?.duration]);
+  }, [duration]);
 
   if (!isRender) return null;
 
@@ -33,8 +34,9 @@ export const Toast = ({ message, options }: Omit<TToast, "id">) => {
       accessibilityRole="alert"
       accessibilityLiveRegion="assertive"
     >
-      <ToastIcon source={require("@/assets/images/warning-icon.svg")} />
+      <ToastIcon source={getToastIcon(type)} />
       <ToastText>{message}</ToastText>
+      {subMessage && <ToastText>{subMessage}</ToastText>}
     </ToastBox>
   );
 };

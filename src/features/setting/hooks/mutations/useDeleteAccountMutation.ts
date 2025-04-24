@@ -19,7 +19,7 @@ export const useDeleteAccountMutation = () => {
   return useMutation({
     mutationFn: _deleteAccount,
     onSuccess: async (data) => {
-      toast(toastMessage.deleteAccount.success);
+      toast({ message: toastMessage.deleteAccount.success, options: { type: "success" } });
       console.log(data);
       await removeRefreshToken();
       removeAccessToken();
@@ -28,7 +28,7 @@ export const useDeleteAccountMutation = () => {
     },
     onError: (error) => {
       console.error(error.response?.data);
-      toast(toastMessage.deleteAccount.failed);
+      toast({ message: toastMessage.deleteAccount.failed, options: { type: "error" } });
     },
   });
 };

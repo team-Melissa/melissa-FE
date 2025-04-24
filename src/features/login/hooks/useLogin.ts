@@ -18,14 +18,14 @@ const useLogin = () => {
     await setRefreshToken(data.result.refreshToken);
     queryClient.invalidateQueries({ queryKey: ["check-new-user"] });
     router.replace("/(app)");
-    toast(toastMessage.login.success);
+    toast({ message: toastMessage.login.success, options: { type: "success" } });
   };
 
   const handleError = (error: unknown) => {
     console.error("로그인 실패!", error);
     if (isAxiosError<ErrorDTO>(error)) {
       console.error("OAuth 프로바이더 정상 작동, 백엔드와 문제 발생", error.response?.data);
-      toast(toastMessage.login.failed);
+      toast({ message: toastMessage.login.failed, options: { type: "error" } });
     }
   };
 

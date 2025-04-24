@@ -17,7 +17,7 @@ export const useRegisterMutation = () => {
     },
     onError: (error) => {
       console.error(error.response?.data);
-      toast(toastMessage.registerSetting.failed);
+      toast({ message: toastMessage.registerSetting.failed, options: { type: "error" } });
     },
   });
 
