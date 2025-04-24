@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { View } from "react-native";
 import { Image } from "expo-image";
 import styled from "styled-components/native";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
@@ -35,8 +36,10 @@ export const Toast = ({ message, subMessage, options }: Omit<TToast, "id">) => {
       accessibilityLiveRegion="assertive"
     >
       <ToastIcon source={getToastIcon(type)} />
-      <ToastText>{message}</ToastText>
-      {subMessage && <ToastText>{subMessage}</ToastText>}
+      <View>
+        <ToastText>{message}</ToastText>
+        {subMessage && <ToastText>{subMessage}</ToastText>}
+      </View>
     </ToastBox>
   );
 };
@@ -46,7 +49,7 @@ const ToastBox = styled(Animated.View)`
   position: absolute;
   display: flex;
   flex-direction: row;
-  gap: ${({ theme }) => theme.gap.lg};
+  gap: ${({ theme }) => theme.gap.md};
   align-items: center;
   align-self: center;
   bottom: 50px;
