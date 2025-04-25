@@ -17,11 +17,11 @@ export const useRemoveAssistantMutation = () => {
     mutationFn: _removeAssistant,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["assistant-list"] });
-      toast(toastMessage.removeAssistant.success);
+      toast({ message: toastMessage.removeAssistant.success, options: { type: "success" } });
     },
     onError: (error) => {
       console.error(error.response?.data);
-      toast(toastMessage.removeAssistant.failed);
+      toast({ message: toastMessage.removeAssistant.error, options: { type: "error" } });
     },
   });
 };

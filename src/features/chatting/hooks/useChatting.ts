@@ -43,7 +43,7 @@ export const useChatting = (threadDate: TThreadDate, threadExpiredDate: Date, re
     const token = getAccessToken();
     if (!token) return;
     if (checkThreadExpire(threadExpiredDate)) {
-      toast(toastMessage.threadExpired);
+      toast({ message: toastMessage.threadExpired, options: { type: "success" } });
       router.replace("/(app)/chatting");
       return;
     }
@@ -149,7 +149,7 @@ export const useChatting = (threadDate: TThreadDate, threadExpiredDate: Date, re
     return () => {
       if (isCanDiarySummary) {
         console.log("일기 요약을 진행합니다.");
-        toast(toastMessage.updateDiary.pending);
+        toast({ message: toastMessage.updateDiary.pending, options: { type: "success" } });
         diaryMutate(threadDate);
       }
     };

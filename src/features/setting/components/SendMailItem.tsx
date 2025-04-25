@@ -12,7 +12,7 @@ export default function SendMailItem() {
       console.log(data);
     } catch (e) {
       console.error(e);
-      toast(toastMessage.sendMailFailed);
+      toast({ message: toastMessage.sendMailError, options: { type: "error" } });
     }
   };
 

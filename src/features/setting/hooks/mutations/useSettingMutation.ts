@@ -26,12 +26,12 @@ export const useSettingMutation = (data: UserSettingDTO) => {
     },
     onSuccess: (data) => {
       console.log("성공", data);
-      toast(toastMessage.updateSetting.success);
+      toast({ message: toastMessage.updateSetting.success, options: { type: "success" } });
     },
     onError: (error) => {
       console.error(error.response?.data);
       queryClient.invalidateQueries({ queryKey: ["user-setting"] });
-      toast(toastMessage.updateSetting.failed);
+      toast({ message: toastMessage.updateSetting.error, options: { type: "error" } });
     },
   });
 };

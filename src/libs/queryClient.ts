@@ -22,10 +22,10 @@ export default new QueryClient({
           // 다른 기기에서 이미 삭제된 계정인 경우
           await removeRefreshToken();
           removeAccessToken();
-          toast(toastMessage.accountNotFound);
+          toast({ message: toastMessage.accountNotFound, options: { type: "error" } });
           router.navigate("/login");
         } else if (code !== "401") {
-          toast(error.response?.data.message);
+          toast({ message: error.response?.data.message, options: { type: "error" } });
         }
       }
     },
@@ -39,7 +39,7 @@ export default new QueryClient({
           // 다른 기기에서 이미 삭제된 계정인 경우
           await removeRefreshToken();
           removeAccessToken();
-          toast(toastMessage.accountNotFound);
+          toast({ message: toastMessage.accountNotFound, options: { type: "error" } });
           router.navigate("/login");
         }
       }

@@ -108,7 +108,7 @@ axiosInstance.interceptors.response.use(
         console.error("토큰 재발급 로직 도중 에러", e);
         await removeRefreshToken();
         removeAccessToken();
-        toast(toastMessage.tokenExpired);
+        toast({ message: toastMessage.tokenExpired, options: { type: "error" } });
         router.replace("/login");
         return Promise.reject(error);
       } finally {
