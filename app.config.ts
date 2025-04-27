@@ -55,7 +55,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       "@react-native-seoul/kakao-login",
       {
         kakaoAppKey: process.env.KAKAO_APP_KEY,
-        overrideKakaoSDKVersion: "2.11.2",
         kotlinVersion: "1.9.25",
       },
     ],
