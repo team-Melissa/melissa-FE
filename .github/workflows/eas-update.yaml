@@ -26,9 +26,9 @@ jobs:
         run: pnpm install --no-frozen-lockfile
 
       - name: 🚀 Run EAS Update
-        if: contains(github.event.pull_request.labels.*.name, 'eas-update')
+        if: contains(github.event.pull_request.labels.*.name, 'production-update')
         run: eas update --auto --non-interactive
 
       - name: 🚀 Run EAS Build and Submit
-        if: contains(github.event.pull_request.labels.*.name, 'eas-build-submit')
+        if: contains(github.event.pull_request.labels.*.name, 'production-build-submit')
         run: eas build --non-interactive --auto-submit
