@@ -1,7 +1,7 @@
 import { rest } from "msw";
 import { setupServer } from "msw/node";
-import { setRefreshToken, getRefreshToken, removeRefreshToken } from "@/src/libs/secureStorage";
-import { getAccessToken, setAccessToken, removeAccessToken } from "@/src/libs/mmkv";
+import { setRefreshToken, removeRefreshToken } from "@/src/libs/secureStorage";
+import { setAccessToken, removeAccessToken } from "@/src/libs/mmkv";
 import axiosInstance from "@/src/libs/axiosInstance";
 import { router } from "expo-router";
 
