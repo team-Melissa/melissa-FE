@@ -1,9 +1,9 @@
+import { useEffect } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useIsNewUserContext } from "@/src/contexts/isNewUserProvider";
+import { toast } from "@/src/modules/toast";
 import toastMessage from "@/src/constants/toastMessage";
-import showToast from "@/src/libs/showToast";
 import { _register } from "../../apis/registerApi";
-import { useEffect } from "react";
 
 export const useRegisterMutation = () => {
   const queryClient = useQueryClient();
@@ -17,7 +17,7 @@ export const useRegisterMutation = () => {
     },
     onError: (error) => {
       console.error(error.response?.data);
-      showToast(toastMessage.registerSetting.failed, "error");
+      toast({ message: toastMessage.registerSetting.error, options: { type: "error" } });
     },
   });
 

@@ -5,7 +5,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   name: "Melissa",
   slug: "melissa",
   owner: "teammelissa7",
-  version: "1.0.2",
+  version: "1.1.0",
   orientation: "portrait",
   icon: "./assets/images/icon.png",
   scheme: "myapp",
@@ -31,7 +31,14 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     output: "static",
     favicon: "./assets/images/favicon.png",
   },
+  updates: {
+    url: "https://u.expo.dev/4faef966-3986-491e-b718-3bf6c7143451",
+  },
+  runtimeVersion: {
+    policy: "sdkVersion",
+  },
   plugins: [
+    "expo-font",
     "expo-router",
     "expo-apple-authentication",
     [
@@ -54,7 +61,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       "@react-native-seoul/kakao-login",
       {
         kakaoAppKey: process.env.KAKAO_APP_KEY,
-        kotlinVersion: "1.9.0",
+        kotlinVersion: "1.9.25",
       },
     ],
     [
@@ -67,6 +74,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       "expo-build-properties",
       {
         android: {
+          compileSdkVersion: 35,
+          targetSdkVersion: 34,
+          buildToolsVersion: "35.0.0",
+          kotlinVersion: "1.9.25",
           extraMavenRepos: ["https://devrepo.kakao.com/nexus/content/groups/public/"],
         },
       },

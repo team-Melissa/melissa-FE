@@ -2,7 +2,7 @@ import { router } from "expo-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { removeRefreshToken } from "@/src/libs/secureStorage";
 import { removeAccessToken } from "@/src/libs/mmkv";
-import showToast from "@/src/libs/showToast";
+import { toast } from "@/src/modules/toast";
 import axiosInstance from "@/src/libs/axiosInstance";
 import toastMessage from "@/src/constants/toastMessage";
 import endpoint from "@/src/constants/endpoint";
@@ -19,7 +19,7 @@ export const useLogoutMutation = () => {
   return useMutation({
     mutationFn: _logout,
     onSuccess: async (data) => {
-      showToast(toastMessage.logout.success, "success");
+      toast({ message: toastMessage.logout.success, options: { type: "success" } });
       console.log(data);
       await removeRefreshToken();
       removeAccessToken();
@@ -28,7 +28,7 @@ export const useLogoutMutation = () => {
     },
     onError: (error) => {
       console.error(error.response?.data);
-      showToast(toastMessage.logout.failed, "error");
+      toast({ message: toastMessage.logout.error, options: { type: "error" } });
     },
   });
 };

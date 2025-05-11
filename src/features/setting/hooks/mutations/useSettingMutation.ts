@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import endpoint from "@/src/constants/endpoint";
+import { toast } from "@/src/modules/toast";
 import toastMessage from "@/src/constants/toastMessage";
 import axiosInstance from "@/src/libs/axiosInstance";
-import showToast from "@/src/libs/showToast";
 import type { UserSettingDTO } from "../../types/settingTypes";
 
 type Params = {
@@ -26,12 +26,12 @@ export const useSettingMutation = (data: UserSettingDTO) => {
     },
     onSuccess: (data) => {
       console.log("성공", data);
-      showToast(toastMessage.updateSetting.success, "success");
+      toast({ message: toastMessage.updateSetting.success, options: { type: "success" } });
     },
     onError: (error) => {
       console.error(error.response?.data);
       queryClient.invalidateQueries({ queryKey: ["user-setting"] });
-      showToast(toastMessage.updateSetting.failed, "error");
+      toast({ message: toastMessage.updateSetting.error, options: { type: "error" } });
     },
   });
 };

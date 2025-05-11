@@ -1,9 +1,9 @@
 import { MutationCache, QueryCache, QueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
-import showToast from "@/src/libs/showToast";
+import { toast } from "@/src/modules/toast";
+import toastMessage from "@/src/constants/toastMessage";
 import { removeRefreshToken } from "@/src/libs/secureStorage";
 import { removeAccessToken } from "@/src/libs/mmkv";
-import toastMessage from "@/src/constants/toastMessage";
 
 export default new QueryClient({
   defaultOptions: {
@@ -22,10 +22,10 @@ export default new QueryClient({
           // 다른 기기에서 이미 삭제된 계정인 경우
           await removeRefreshToken();
           removeAccessToken();
-          showToast(toastMessage.accountNotFound, "error");
+          toast({ message: toastMessage.accountNotFound, options: { type: "error" } });
           router.navigate("/login");
         } else if (code !== "401") {
-          showToast(error.response?.data.message, "error");
+          toast({ message: error.response?.data.message, options: { type: "error" } });
         }
       }
     },
@@ -39,7 +39,7 @@ export default new QueryClient({
           // 다른 기기에서 이미 삭제된 계정인 경우
           await removeRefreshToken();
           removeAccessToken();
-          showToast(toastMessage.accountNotFound, "error");
+          toast({ message: toastMessage.accountNotFound, options: { type: "error" } });
           router.navigate("/login");
         }
       }

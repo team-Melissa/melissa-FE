@@ -6,7 +6,9 @@ import endpoint from "../constants/endpoint";
 import type { LoginDTO } from "../features/login/types/loginTypes";
 import type { AxiosErrorToInterceptors, ErrorDTO } from "../types/commonTypes";
 import toastMessage from "@/src/constants/toastMessage";
-import showToast from "@/src/libs/showToast";
+import { toast } from "@/src/modules/toast";
+
+const BASE_URL = process.env.EXPO_PUBLIC_API_URL ?? "http://localhost";
 
 /**
  * 토큰 refresh 도중 새로 발생한 401 error 콜백 함수 Type
@@ -36,7 +38,7 @@ const runPendingApiCalls = (accessToken: string) => {
  * 전역 api 엔드포인트 설정
  */
 const axiosInstance = axios.create({
-  baseURL: process.env.EXPO_PUBLIC_API_URL,
+  baseURL: BASE_URL,
   withCredentials: true,
 });
 
@@ -88,7 +90,7 @@ axiosInstance.interceptors.response.use(
         config.sent = true;
 
         // refresh token으로 새 access token, refresh token 받아오기
-        const { data } = await axios.post<LoginDTO>(`${process.env.EXPO_PUBLIC_API_URL}${endpoint.auth.refresh}`, {
+        const { data } = await axios.post<LoginDTO>(`${BASE_URL}${endpoint.auth.refresh}`, {
           refreshToken,
         });
 
@@ -106,7 +108,7 @@ axiosInstance.interceptors.response.use(
         console.error("토큰 재발급 로직 도중 에러", e);
         await removeRefreshToken();
         removeAccessToken();
-        showToast(toastMessage.tokenExpired, "error");
+        toast({ message: toastMessage.tokenExpired, options: { type: "error" } });
         router.replace("/login");
         return Promise.reject(error);
       } finally {

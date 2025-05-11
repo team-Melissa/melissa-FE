@@ -2,10 +2,10 @@ import { router } from "expo-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { removeAccessToken } from "@/src/libs/mmkv";
 import { removeRefreshToken } from "@/src/libs/secureStorage";
-import showToast from "@/src/libs/showToast";
+import { toast } from "@/src/modules/toast";
+import toastMessage from "@/src/constants/toastMessage";
 import axiosInstance from "@/src/libs/axiosInstance";
 import endpoint from "@/src/constants/endpoint";
-import toastMessage from "@/src/constants/toastMessage";
 import type { DeleteAccountDTO } from "../../types/settingTypes";
 
 export const _deleteAccount = async () => {
@@ -19,7 +19,7 @@ export const useDeleteAccountMutation = () => {
   return useMutation({
     mutationFn: _deleteAccount,
     onSuccess: async (data) => {
-      showToast(toastMessage.deleteAccount.success, "success");
+      toast({ message: toastMessage.deleteAccount.success, options: { type: "success" } });
       console.log(data);
       await removeRefreshToken();
       removeAccessToken();
@@ -28,7 +28,7 @@ export const useDeleteAccountMutation = () => {
     },
     onError: (error) => {
       console.error(error.response?.data);
-      showToast(toastMessage.deleteAccount.failed, "error");
+      toast({ message: toastMessage.deleteAccount.error, options: { type: "error" } });
     },
   });
 };
