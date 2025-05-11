@@ -31,4 +31,4 @@ jobs:
 
       - name: 🚀 Run EAS Build and Submit
         if: contains(github.event.pull_request.labels.*.name, 'production-build-submit')
-        run: eas build --non-interactive --auto-submit
+        run: eas build --platform all --non-interactive --auto-submit
