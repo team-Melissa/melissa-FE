@@ -8,26 +8,27 @@ jobs:
   continuous-deployment:
     runs-on: ubuntu-latest
     steps:
-      - name: 🏗 Setup repo
-        uses: actions/checkout@v4
-      - name: 🏗 Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 18.x
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
       - name: 🏗 Setup EAS
         uses: expo/expo-github-action@v8
         with:
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
-      - name: 🏗 Install pnpm
-        run: npm install -g pnpm
+
       - name: 📦 Install dependencies
-        run: pnpm install --prod
-      - name: Run EAS Update
+        run: pnpm install --no-frozen-lockfile
+
+      - name: 🚀 Run EAS Update
         if: contains(github.event.pull_request.labels.*.name, 'eas-update')
         run: eas update --auto --non-interactive
-      - name: Run EAS Build and Submit
+
+      - name: 🚀 Run EAS Build and Submit
         if: contains(github.event.pull_request.labels.*.name, 'eas-build-submit')
-        run: |
-          eas build --non-interactive
-          eas submit --non-interactive
+        run: eas build --non-interactive --auto-submit
