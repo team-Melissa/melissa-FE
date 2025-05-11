@@ -55,7 +55,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       "@react-native-seoul/kakao-login",
       {
         kakaoAppKey: process.env.KAKAO_APP_KEY,
-        kotlinVersion: "1.9.0",
+        kotlinVersion: "1.9.25",
       },
     ],
     [
@@ -68,6 +68,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       "expo-build-properties",
       {
         android: {
+          compileSdkVersion: 35,
+          targetSdkVersion: 34,
+          buildToolsVersion: "35.0.0",
+          kotlinVersion: "1.9.25",
           extraMavenRepos: ["https://devrepo.kakao.com/nexus/content/groups/public/"],
         },
       },
