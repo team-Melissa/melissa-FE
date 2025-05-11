@@ -5,8 +5,7 @@ on:
       - main
 
 jobs:
-  ota-update:
-    if: contains(github.event.pull_request.labels.*.name, 'eas-update')
+  continuous-deployment:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo
@@ -25,4 +24,10 @@ jobs:
       - name: 📦 Install dependencies
         run: pnpm install --prod
       - name: Run EAS Update
+        if: contains(github.event.pull_request.labels.*.name, 'eas-update')
         run: eas update --auto --non-interactive
+      - name: Run EAS Build and Submit
+        if: contains(github.event.pull_request.labels.*.name, 'eas-build-submit')
+        run: |
+          eas build --non-interactive
+          eas submit --non-interactive
