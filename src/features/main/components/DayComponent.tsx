@@ -31,7 +31,8 @@ export default function DayComponent({ date, onPress }: DayComponentProps) {
   return (
     <DayBox onPress={() => onPress(date)}>
       <ImageBox>
-        <Image src={dayDiary.imageS3} />
+        {/* Todo: placeholder 이미지로 변경되면, 타입 정리 필요 */}
+        <Image src={dayDiary.imageS3 ?? ""} />
       </ImageBox>
       <TagBox>
         <TagText numberOfLines={1} ellipsizeMode="clip">

@@ -48,7 +48,8 @@ export default forwardRef(function DiaryBottomSheet(
         <BottomSheetLayout>
           <ScrollBox showsVerticalScrollIndicator={false}>
             <ImageBox>
-              <Image src={diary.imageS3} />
+              {/* Todo: placeholder 이미지로 변경되면, 타입 정리 필요 */}
+              <Image src={diary.imageS3 ?? ""} />
             </ImageBox>
             <DateText>
               {diary.year}. {diary.month}. {diary.day}
