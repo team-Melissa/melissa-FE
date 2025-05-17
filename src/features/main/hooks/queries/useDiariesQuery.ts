@@ -13,5 +13,11 @@ export const useDiariesQuery = ({ year, month }: TProps) => {
     queryKey: ["diaries", year, month],
     staleTime: 5 * 60 * 1000,
     select: (data: DiariesDTO) => data.result.filter((diary): diary is TDiary => !!diary.imageS3),
+    refetchInterval: (query) => {
+      const data = query.state.data;
+      if (!data) return 3000;
+      const isRefetch = data.result.find((d) => !!d.summaryTitle && !d.imageS3);
+      return isRefetch ? 2000 : false;
+    },
   });
 };
