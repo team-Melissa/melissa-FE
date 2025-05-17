@@ -13,7 +13,8 @@ export type TNullableDay = {
   imageS3: string | null;
 };
 
-export type TDay = ObjectNonNullable<TNullableDay>;
+// Todo: placeholder 이미지로 변경되면, 타입 정리 필요
+export type TDay = Omit<ObjectNonNullable<TNullableDay>, "imageS3"> & { imageS3: string | null };
 
 export type TNullableDiary = {
   year: number;
@@ -27,7 +28,8 @@ export type TNullableDiary = {
   summaryMood: ("HAPPY" | "SAD" | "TIRED" | "ANGRY" | "RELAX") | null;
 };
 
-export type TDiary = ObjectNonNullable<TNullableDiary>;
+// Todo: placeholder 이미지로 변경되면, 타입 정리 필요
+export type TDiary = Omit<ObjectNonNullable<TNullableDiary>, "imageS3"> & { imageS3: string | null };
 
 export type CalendarDTO = SuccessDTO & {
   result: (TNullableDay | TDay)[];
