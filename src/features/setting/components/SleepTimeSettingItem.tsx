@@ -14,7 +14,7 @@ export default function SleepTimeSettingItem({ sleepTime, showDatePicker }: Slee
     <S.ItemButton hitSlop={10} onPress={handleButtonPress}>
       <S.ItemTitleBox>
         <S.ItemTitleText>자는 시간 설정</S.ItemTitleText>
-        <S.ItemDescriptionText>해당 시간에 대화를 초기화 해드려요 123 456</S.ItemDescriptionText>
+        <S.ItemDescriptionText>해당 시간에 대화를 초기화 해드려요</S.ItemDescriptionText>
       </S.ItemTitleBox>
       <S.ItemValueText>{sleepTime.slice(0, -3)}</S.ItemValueText>
     </S.ItemButton>
