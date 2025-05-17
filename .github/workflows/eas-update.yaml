@@ -27,7 +27,7 @@ jobs:
 
       - name: 🚀 Run EAS Update
         if: contains(github.event.pull_request.labels.*.name, 'production-update')
-        run: GOOGLE_IOS_URL_SCHEME=${{ secrets.GOOGLE_IOS_URL_SCHEME }} eas update --auto --non-interactive
+        run: GOOGLE_IOS_URL_SCHEME=${{ secrets.GOOGLE_IOS_URL_SCHEME }} eas update --branch production --environment production --auto --non-interactive
 
       - name: 🚀 Run EAS Build and Submit
         if: contains(github.event.pull_request.labels.*.name, 'production-build-submit')
