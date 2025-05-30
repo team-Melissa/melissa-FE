@@ -6,7 +6,7 @@ import endpoint from "@/src/constants/endpoint";
 import type { SuccessDTO } from "@/src/types/commonTypes";
 
 const _removeAssistant = async (aiProfileId: number) => {
-  const { data } = await axiosInstance.delete<SuccessDTO>(endpoint.aiProfile.aiProfile, { params: { aiProfileId } });
+  const { data } = await axiosInstance.delete<SuccessDTO>(`${endpoint.aiProfile.aiProfile}/${aiProfileId}`);
   return data;
 };
 
