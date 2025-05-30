@@ -57,8 +57,9 @@ export default function ChattingContainer(props: ChattingContainerProps) {
     <Fragment>
       {!props.readonly && props.renderAssistantList({ isVisible, setIsVisible, onPressAiCard: handlePressAiCard })}
       <SafeView edges={["left", "right", "top"]}>
+        {/* Todo: placeholder 이미지로 변경되면, 타입 정리 필요 */}
         <ChatHeader
-          imageSrc={data.result.aiProfileImageS3}
+          imageSrc={data.result.aiProfileImageS3 ?? ""}
           assistantName={data.result.aiProfileName}
           onPress={handleHeaderPress}
           readonly={props.readonly}
@@ -69,9 +70,10 @@ export default function ChattingContainer(props: ChattingContainerProps) {
             scrollViewRef.current?.scrollToEnd();
           }}
         >
+          {/* Todo: placeholder 이미지로 변경되면, 타입 정리 필요 */}
           {data.result.chats.map((chat) =>
             chat.role === "AI" ? (
-              <AiChatBox content={chat.content} imageUrl={chat.aiProfileImageS3} key={chat.chatId} />
+              <AiChatBox content={chat.content} imageUrl={chat.aiProfileImageS3 ?? ""} key={chat.chatId} />
             ) : (
               <UserChatBox input={chat.content} key={chat.chatId} />
             )

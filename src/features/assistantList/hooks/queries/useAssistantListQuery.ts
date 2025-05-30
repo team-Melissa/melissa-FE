@@ -9,9 +9,19 @@ export const _getAssistantListWithNewAiTrigger = async () => {
   return dataWithNewAiTrigger;
 };
 
+const _isAssistantProfile = (item: TAssistantProfile | TNewAiTrigger): item is TAssistantProfile => {
+  return (item as TAssistantProfile).aiProfileId !== undefined;
+};
+
 export const useAssistantListQuery = () => {
   return useQuery({
     queryFn: _getAssistantListWithNewAiTrigger,
     queryKey: ["assistant-list"],
+    refetchInterval: (query) => {
+      const data = query.state.data;
+      if (!data) return 3000;
+      const isRefetch = data.filter(_isAssistantProfile).find((d) => !!d.profileName && !d.imageUrl);
+      return isRefetch ? 2000 : false;
+    },
   });
 };

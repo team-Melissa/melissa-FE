@@ -49,7 +49,8 @@ export default function AssistantCard({ item, onPressAiCard }: AssistantCardProp
   return (
     <TouchableWithoutFeedback>
       <ItemBox onPress={() => onPressAiCard(aiProfileId)} style={shadowProps}>
-        <ProfileImage url={imageUrl} />
+        {/* Todo: placeholder 이미지로 변경되면, 타입 정리 필요 */}
+        <ProfileImage url={imageUrl ?? ""} />
         <NameTagBox>
           <NameTag name={profileName} tag1={hashTag1} tag2={hashTag2} />
           <IconButtonBox>

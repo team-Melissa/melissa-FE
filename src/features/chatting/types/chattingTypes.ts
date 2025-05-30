@@ -1,12 +1,13 @@
 import { SuccessDTO } from "@/src/types/commonTypes";
 
+// Todo: placeholder 이미지로 변경되면, 타입 정리 필요
 export type TChat = {
   role: "AI" | "USER";
   chatId: number;
   content: string;
   createAt: string;
   aiProfileName: string;
-  aiProfileImageS3: string;
+  aiProfileImageS3: string | null;
 };
 
 export type NewThreadDTO = SuccessDTO & {
@@ -18,10 +19,11 @@ export type NewThreadDTO = SuccessDTO & {
   };
 };
 
+// Todo: placeholder 이미지로 변경되면, 타입 정리 필요
 export type MessagesDTO = SuccessDTO & {
   result: {
     aiProfileName: string;
-    aiProfileImageS3: string;
+    aiProfileImageS3: string | null;
     chats: TChat[];
   };
 };
