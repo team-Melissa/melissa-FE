@@ -8,7 +8,8 @@ const endpoint = {
     refresh: "/api/v1/auth/refresh",
   },
   aiProfile: {
-    aiProfile: "/api/v1/ai-profiles",
+    aiProfilesV1: "/api/v1/ai-profiles",
+    aiProfilesV2: "/api/v2/ai-profiles",
     recent: "/api/v1/ai-profiles/recent",
   },
   setting: {
@@ -27,6 +28,6 @@ const endpoint = {
     day: "/api/v1/calender/day",
     diaries: "/api/v1/calender/month/summary",
   },
-};
+} as const;
 
 export default endpoint;

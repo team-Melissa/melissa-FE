@@ -6,7 +6,7 @@ export type TChat = {
   content: string;
   createAt: string;
   aiProfileName: string;
-  aiProfileImageS3: string;
+  aiProfileImageS3: string | null;
 };
 
 export type NewThreadDTO = SuccessDTO & {
@@ -21,7 +21,7 @@ export type NewThreadDTO = SuccessDTO & {
 export type MessagesDTO = SuccessDTO & {
   result: {
     aiProfileName: string;
-    aiProfileImageS3: string;
+    aiProfileImageS3: string | null;
     chats: TChat[];
   };
 };

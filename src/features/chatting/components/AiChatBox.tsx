@@ -2,16 +2,17 @@ import styled from "styled-components/native";
 import CachedImage from "@/src/components/ui/CachedImage";
 import responsiveToPx from "@/src/utils/responsiveToPx";
 import { shadowProps } from "@/src/constants/shadowProps";
+import { PlaceholderImage } from "@/src/components/ui/PlaceholderImage";
 
 type AiChatBoxProps = {
   content: string;
-  imageUrl: string;
+  imageUrl: string | null;
 };
 
 export default function AiChatBox({ content, imageUrl }: AiChatBoxProps) {
   return (
     <AiChatLayout>
-      <Image src={imageUrl} />
+      <ImageBox>{imageUrl ? <Image src={imageUrl} /> : <PlaceholderImage />}</ImageBox>
       <AiChatTextBox style={shadowProps}>
         <AiChatText>{content}</AiChatText>
       </AiChatTextBox>
@@ -26,10 +27,16 @@ const AiChatLayout = styled.View`
   gap: ${({ theme }) => theme.gap.md};
 `;
 
-const Image = styled(CachedImage)`
+const ImageBox = styled.View`
   width: ${responsiveToPx("36px")};
   height: ${responsiveToPx("36px")};
   border-radius: 9999px;
+  overflow: hidden;
+`;
+
+const Image = styled(CachedImage)`
+  width: 100%;
+  height: 100%;
 `;
 
 const AiChatTextBox = styled.View`

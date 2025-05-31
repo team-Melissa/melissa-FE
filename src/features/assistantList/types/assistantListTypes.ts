@@ -3,7 +3,7 @@ import type { SuccessDTO } from "@/src/types/commonTypes";
 export type TAssistantProfile = {
   aiProfileId: number;
   profileName: string;
-  imageUrl: string;
+  imageUrl: string | null;
   hashTag1: string;
   hashTag2: string;
   feature1: string;
