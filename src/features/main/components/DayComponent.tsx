@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
 import CachedImage from "@/src/components/ui/CachedImage";
 import { useCalendarQuery } from "../hooks/queries/useCalendarQuery";
+import { PlaceholderImage } from "@/src/components/ui/PlaceholderImage";
 
 type DayComponentProps = Omit<BasicDayProps, "date"> & {
   date?: DateData;
@@ -30,9 +31,7 @@ export default function DayComponent({ date, onPress }: DayComponentProps) {
 
   return (
     <DayBox onPress={() => onPress(date)}>
-      <ImageBox>
-        <Image src={dayDiary.imageS3} />
-      </ImageBox>
+      <ImageBox>{dayDiary.imageS3 ? <Image src={dayDiary.imageS3} /> : <PlaceholderImage />}</ImageBox>
       <TagBox>
         <TagText numberOfLines={1} ellipsizeMode="clip">
           {dayDiary.hashTag1}

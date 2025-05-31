@@ -1,7 +1,7 @@
 import * as FileSystem from "expo-file-system";
 import { Image } from "expo-image";
 import { useEffect, useState } from "react";
-import { CachedImageProps } from "./types";
+import type { CachedImageProps } from "./types";
 
 function CachedImage({ src, ...rest }: CachedImageProps): JSX.Element {
   const [cachedSource, setCachedSource] = useState<undefined | { uri: string }>(undefined);
