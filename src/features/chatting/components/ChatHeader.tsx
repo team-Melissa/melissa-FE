@@ -4,9 +4,10 @@ import { MaterialIcons } from "@expo/vector-icons";
 import CachedImage from "@/src/components/ui/CachedImage";
 import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
 import { theme } from "@/src/constants/theme";
+import { PlaceholderImage } from "@/src/components/ui/PlaceholderImage";
 
 type ChatHeaderProps = {
-  imageSrc: string;
+  imageSrc: string | null;
   assistantName: string;
   onPress: () => void;
   readonly?: boolean;
@@ -21,7 +22,7 @@ export default function ChatHeader({ imageSrc, assistantName, onPress, readonly 
         <MaterialIcons name="arrow-back-ios" size={28} color={theme.colors.black} />
       </BackButton>
       <HeaderButton onPress={onPress} hitSlop={7} disabled={readonly}>
-        <Image src={imageSrc} />
+        <ImageBox>{imageSrc ? <Image src={imageSrc} /> : <PlaceholderImage />}</ImageBox>
         <AiNameText>{assistantName}</AiNameText>
       </HeaderButton>
     </HeaderBox>
@@ -51,10 +52,16 @@ const HeaderButton = styled.TouchableOpacity`
   align-items: center;
 `;
 
-const Image = styled(CachedImage)`
+const ImageBox = styled.View`
   width: ${responsiveToPx("48px")};
   height: ${responsiveToPx("48px")};
   border-radius: 9999px;
+  overflow: hidden;
+`;
+
+const Image = styled(CachedImage)`
+  width: 100%;
+  height: 100%;
 `;
 
 const AiNameText = styled.Text`
