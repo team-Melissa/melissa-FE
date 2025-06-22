@@ -10,7 +10,7 @@ function IndexRouter() {
 
   if (isNewUser === undefined) return <Loading />;
 
-  if (isNewUser) return <Redirect href="/(app)/make-assistant" />;
+  if (isNewUser) return <Redirect href="/(app)/intro" />;
 
   return <Redirect href="/(app)/main" />;
 }
