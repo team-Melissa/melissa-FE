@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useIsNewUserContext } from "@/src/contexts/isNewUserProvider";
 import { toast } from "@/src/modules/toast";
 import toastMessage from "@/src/constants/toastMessage";
 import { _register } from "../../apis/registerApi";
+import { useGetIsNewUser } from "@/src/hooks";
 
 export const useRegisterMutation = () => {
   const queryClient = useQueryClient();
-  const isNewUser = useIsNewUserContext();
+  const { data: isNewUser } = useGetIsNewUser();
 
   const { mutate } = useMutation({
     mutationFn: _register,

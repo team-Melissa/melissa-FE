@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
-import { useIsNewUserContext } from "@/src/contexts/isNewUserProvider";
 import { questions } from "../constants/questions";
 import Intro from "../components/Intro";
 import Question from "../components/Question";
 import Submit from "../components/Submit";
 import type { TAssistantMakeQnA } from "../types/makeAssistantTypes";
+import { useGetIsNewUser } from "@/src/hooks";
 
 type MakeAssistantContainerProps = {
   prevAnswer?: TAssistantMakeQnA & { createdAt: string };
 };
 
 export default function MakeAssistantContainer({ prevAnswer }: MakeAssistantContainerProps) {
-  const isNewUser = useIsNewUserContext();
+  const { data: isNewUser } = useGetIsNewUser();
   const [isIntro, setIsIntro] = useState<boolean>(true);
   const [cursor, setCursor] = useState<number>(0);
   const [answers, setAnswers] = useState<string[]>(() => {
