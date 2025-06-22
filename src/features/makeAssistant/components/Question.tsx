@@ -93,11 +93,7 @@ export default function Question({ answer, setAnswer, cursor, setCursor }: Quest
   );
 }
 
-export const SafeView = styled(SafeAreaView)`
-  flex: 1;
-`;
-
-export const BetweenBox = styled(SafeAreaView)`
+const BetweenBox = styled(SafeAreaView)`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.white};
   padding: 0px 0px ${responsiveToPx("200px")} 0px;
@@ -105,7 +101,7 @@ export const BetweenBox = styled(SafeAreaView)`
   align-items: center;
 `;
 
-export const AnimatedHeaderBox = styled(Animated.View)`
+const AnimatedHeaderBox = styled(Animated.View)`
   width: 100%;
   height: 17%;
   justify-content: center;
@@ -113,37 +109,37 @@ export const AnimatedHeaderBox = styled(Animated.View)`
   margin-bottom: ${responsiveToPx("60px")};
 `;
 
-export const HeaderBtn = styled.TouchableOpacity`
+const HeaderBtn = styled.TouchableOpacity`
   padding: ${responsiveToPx("14px")};
 `;
 
-export const HeaderText = styled.Text`
+const HeaderText = styled.Text`
   font-family: ${({ theme }) => theme.fontFamily.nsRegular};
   font-size: ${({ theme }) => theme.fontSize.md};
   letter-spacing: ${responsiveToPx("11px")};
   margin-top: ${responsiveToPx("50px")};
 `;
 
-export const ProgressBarWrapper = styled.View`
+const ProgressBarWrapper = styled.View`
   width: 80%;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 `;
 
-export const AnimatedBodyBox = styled(Animated.View)`
+const AnimatedBodyBox = styled(Animated.View)`
   width: 100%;
   flex: 1;
   justify-content: space-between;
   align-items: center;
 `;
 
-export const QuestionBox = styled.View`
+const QuestionBox = styled.View`
   width: 80%;
   margin-top: ${responsiveToPx("36px")};
 `;
 
-export const ButtonBox = styled.View`
+const ButtonBox = styled.View`
   width: 100%;
   flex-direction: column;
   justify-content: center;
@@ -151,7 +147,7 @@ export const ButtonBox = styled.View`
   gap: ${responsiveToPx("40px")};
 `;
 
-export const QuestionText = styled.Text`
+const QuestionText = styled.Text`
   align-self: baseline;
   font-family: ${({ theme }) => theme.fontFamily.nsBold};
   font-size: ${({ theme }) => theme.fontSize.xl};

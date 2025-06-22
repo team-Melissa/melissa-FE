@@ -4,11 +4,10 @@ import { Redirect, Stack } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 /**
- * @description ContextProvider들로 감싸는 레이아웃
+ * @description Provider들로 감싸는 레이아웃
  */
 function ContextLayout() {
   const { isPending, isError } = useGetIsNewUser();
-  console.log(isPending, isError);
 
   if (isPending) return <Loading />;
 
