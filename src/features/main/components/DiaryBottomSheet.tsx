@@ -10,6 +10,7 @@ import { theme } from "@/src/constants/theme";
 import { shadowProps } from "@/src/constants/shadowProps";
 import { useDiariesQuery } from "../hooks/queries/useDiariesQuery";
 import DiaryBottomSheetBackdrop from "./DiaryBottomSheetBackdrop";
+import { PlaceholderImage } from "@/src/components/ui/PlaceholderImage";
 
 type DiaryBottomSheetProps = {
   pressedDate: Pick<DateData, "year" | "month" | "day">;
@@ -47,9 +48,7 @@ export default forwardRef(function DiaryBottomSheet(
       {diary && (
         <BottomSheetLayout>
           <ScrollBox showsVerticalScrollIndicator={false}>
-            <ImageBox>
-              <Image src={diary.imageS3} />
-            </ImageBox>
+            <ImageBox>{diary.imageS3 ? <Image src={diary.imageS3} /> : <PlaceholderImage />}</ImageBox>
             <DateText>
               {diary.year}. {diary.month}. {diary.day}
             </DateText>
