@@ -3,7 +3,8 @@ import styled from "styled-components/native";
 import { GoToNextButton } from "../components/GoToNextButton";
 import { theme } from "@/src/constants/theme";
 import { IntroContent } from "../components/IntroContent";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { INTRO_TEXT, INTRO_TIMER } from "../constants";
 
 type Texts = {
   top: string;
@@ -13,23 +14,28 @@ type Texts = {
 
 export const IntroContainer = () => {
   const [isVisibleBtn, setIsVisibleBtn] = useState<boolean>(false);
-  const [txt, setTxt] = useState<Texts>({
-    top: "안녕하세요!",
-    middle: "당신의 따뜻한 하루를 함께할 서포터 멜리사입니다.",
-    bottom: "지친 하루, 일기 쓰기조차 번거롭지 않으신가요?",
-  });
+  const [txt, setTxt] = useState<Texts>(INTRO_TEXT.before);
+
+  const handleViewChange = useCallback(() => {
+    if (isVisibleBtn) return;
+    setTimeout(() => {
+      setTxt(INTRO_TEXT.after);
+    }, 0);
+    setIsVisibleBtn(true);
+  }, [isVisibleBtn]);
 
   const handleClick = () => {
     if (isVisibleBtn) return;
-    setTimeout(() => {
-      setTxt({
-        top: "그렇다면, 오늘 어떤 일이 있었는지 제게 말해주세요.",
-        middle: "당신의 이야기를 귀 기울여 듣고,",
-        bottom: "당신만을 위한 이야기를 정성스레 써드릴게요.",
-      });
-    }, 0);
-    setIsVisibleBtn(true);
+    handleViewChange();
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      handleViewChange();
+    }, INTRO_TIMER);
+
+    return () => clearTimeout(timer);
+  }, [handleViewChange]);
 
   return (
     <SafeWrapper>
