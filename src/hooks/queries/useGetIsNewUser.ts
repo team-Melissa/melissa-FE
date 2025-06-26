@@ -7,13 +7,14 @@ type CheckNewUserDTO = SuccessDTO & { result: boolean };
 
 const _getIsNewUser = async () => {
   const { data } = await axiosInstance.get<CheckNewUserDTO>(endpoint.setting.checkNew);
-  console.log(data);
-  return data;
+  return data.result;
 };
 
-export const useIsNewUserQuery = () => {
+export const IS_NEW_USER_QUERY_KEY = "IS_NEW_USER_QUERY_KEY";
+
+export const useGetIsNewUser = () => {
   return useQuery({
     queryFn: _getIsNewUser,
-    queryKey: ["check-new-user"],
+    queryKey: [IS_NEW_USER_QUERY_KEY],
   });
 };

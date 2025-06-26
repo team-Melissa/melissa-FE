@@ -8,7 +8,6 @@ import BottomSheet from "@gorhom/bottom-sheet";
 import { preventDoublePress } from "@/src/libs/esToolkit";
 import { theme } from "@/src/constants/theme";
 import responsiveToPx from "@/src/utils/responsiveToPx";
-import { useRegisterMutation } from "../hooks/mutations/useRegisterMutation";
 import { useBottomSheetBackHandler } from "../hooks/useBottomSheetBackHandler";
 import DayComponent from "../components/DayComponent";
 import ChatButton from "../components/ChatButton";
@@ -29,7 +28,6 @@ export default function MainContainer() {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   useBottomSheetBackHandler({ isBottomSheetOpen, bottomSheetRef });
-  useRegisterMutation();
 
   const handleDayPress = (date: DateData) => {
     const { year, month, day } = date;
