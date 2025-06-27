@@ -15,8 +15,9 @@ const useLogin = () => {
   const router = useRouter();
 
   const handleSuccess = async (data: LoginDTO) => {
-    setAccessToken(`${data.result.tokenType} ${data.result.accessToken}`);
-    await setRefreshToken(data.result.refreshToken);
+    const { tokenType, accessToken, refreshToken } = data.result;
+    setAccessToken(`${tokenType} ${accessToken}`);
+    await setRefreshToken(`${tokenType} ${refreshToken}`);
     queryClient.invalidateQueries({ queryKey: [IS_NEW_USER_QUERY_KEY] });
     router.replace("/(app)");
     toast({ message: toastMessage.login.success, options: { type: "success" } });
