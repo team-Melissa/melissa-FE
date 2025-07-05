@@ -19,6 +19,7 @@ import toastMessage from "@/src/constants/toastMessage";
 import EventSource from "react-native-sse";
 import endpoint from "@/src/constants/endpoint";
 import { getAccessToken } from "@/src/libs/mmkv";
+import { useDiaryMutation } from "../hooks/mutations/useDiaryMutation";
 
 type Props = {
   threadDate: TThreadDate;
@@ -34,6 +35,8 @@ export default function ChattingContainer({ threadDate, threadExpiredDate, reado
   const scrollViewRef = useRef<ScrollView>(null);
 
   const { isPending, isError, data, refetch } = useMessagesQuery(threadDate);
+
+  const { mutate: saveMutate } = useDiaryMutation();
 
   const handleSubmitPress = preventDoublePress(() => {
     if (!input || readonly || isAiTurn) return;
@@ -153,7 +156,8 @@ export default function ChattingContainer({ threadDate, threadExpiredDate, reado
         imageSrc={data.result.aiProfileImageS3}
         assistantName={data.result.aiProfileName}
         // Todo: onPress 함수 주입
-        onPress={() => {}}
+        onMenuPress={() => {}}
+        onSavePress={() => saveMutate(threadDate)}
         readonly={readonly}
       />
       <ScrollBox
