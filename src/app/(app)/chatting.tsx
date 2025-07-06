@@ -2,13 +2,11 @@ import styled from "styled-components/native";
 import CommonError from "@/src/components/ui/CommonError";
 import Loading from "@/src/components/ui/Loading";
 import ChattingContainer from "@/src/features/chatting/containers/ChattingContainer";
-import AssistantListContainer from "@/src/features/assistantList/containers/AssistantListContainer";
 import { useInitializeChatting } from "@/src/features/chatting/hooks/useInitializeChatting";
 import { readOnlyTypeGuard } from "@/src/features/chatting/utils/readOnlyTypeGuard";
 
 export default function ChattingRouter(): JSX.Element | null {
-  const { aiProfileId, isPending, isError, readOnlyDate, threadDate, threadExpiredDate, handleRetry } =
-    useInitializeChatting();
+  const { isPending, isError, readOnlyDate, threadDate, threadExpiredDate, handleRetry } = useInitializeChatting();
 
   if (isPending) {
     return <Loading />;
@@ -31,20 +29,7 @@ export default function ChattingRouter(): JSX.Element | null {
     );
   }
 
-  return (
-    <ChattingContainer
-      threadDate={threadDate}
-      threadExpiredDate={threadExpiredDate}
-      renderAssistantList={({ isVisible, setIsVisible, onPressAiCard }) => (
-        <AssistantListContainer
-          aiProfileId={aiProfileId}
-          isVisible={isVisible}
-          setIsVisible={setIsVisible}
-          onPressAiCard={onPressAiCard}
-        />
-      )}
-    />
-  );
+  return <ChattingContainer threadDate={threadDate} threadExpiredDate={threadExpiredDate} />;
 }
 
 const FlexView = styled.View`

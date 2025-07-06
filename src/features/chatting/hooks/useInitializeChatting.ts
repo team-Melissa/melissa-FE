@@ -18,12 +18,14 @@ export const useInitializeChatting = () => {
     data: aiProfileId,
     refetch: refetchAiProfileId,
   } = useAiProfileIdQuery();
+
   const {
     isPending: isSleepTimePending,
     isError: isSleepTimeError,
     data: sleepTime,
     refetch: refetchSleepTime,
   } = useSleepTimeQuery();
+
   const { isPending: isMutatePending, isError: isMutateError, mutate } = useMakeThreadMutation();
 
   const isPending = isSleepTimePending || isAiProfileIdPending || isMutatePending;
@@ -58,5 +60,5 @@ export const useInitializeChatting = () => {
     }
   }, [aiProfileId, handleMakeThreadMutate, isFirstEffect, sleepTime]);
 
-  return { aiProfileId, isPending, isError, readOnlyDate, threadDate, threadExpiredDate, handleRetry };
+  return { isPending, isError, readOnlyDate, threadDate, threadExpiredDate, handleRetry };
 };

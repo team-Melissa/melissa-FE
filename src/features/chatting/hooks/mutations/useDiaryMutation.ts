@@ -19,6 +19,7 @@ export const useDiaryMutation = () => {
 
   return useMutation({
     mutationFn: _postDiary,
+    onMutate: () => toast({ message: toastMessage.updateDiary.pending, options: { type: "success" } }),
     onSuccess: ({ result }) => {
       toast({ message: toastMessage.updateDiary.success, options: { type: "success" } });
       queryClient.invalidateQueries({ queryKey: ["calendar", result.year, result.month] });

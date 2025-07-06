@@ -1,30 +1,45 @@
 import styled from "styled-components/native";
 import { useRouter } from "expo-router";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, Fontisto, Feather } from "@expo/vector-icons";
 import CachedImage from "@/src/components/ui/CachedImage";
 import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
 import { theme } from "@/src/constants/theme";
 import { PlaceholderImage } from "@/src/components/ui/PlaceholderImage";
 
-type ChatHeaderProps = {
+type Props = {
   imageSrc: string | null;
   assistantName: string;
-  onPress: () => void;
+  onSavePress: () => void;
+  onMenuPress: () => void;
   readonly?: boolean;
 };
 
-export default function ChatHeader({ imageSrc, assistantName, onPress, readonly }: ChatHeaderProps) {
+export default function ChatHeader({ imageSrc, assistantName, onSavePress, onMenuPress, readonly }: Props) {
   const router = useRouter();
+
+  const goToBack = () => router.back();
 
   return (
     <HeaderBox>
-      <BackButton onPress={() => router.back()} hitSlop={7}>
-        <MaterialIcons name="arrow-back-ios" size={28} color={theme.colors.black} />
-      </BackButton>
-      <HeaderButton onPress={onPress} hitSlop={7} disabled={readonly}>
+      <StyledButton onPress={goToBack} hitSlop={12}>
+        <MaterialIcons name="arrow-back-ios" size={24} color={theme.colors.black} />
+      </StyledButton>
+      <ProfileBox>
         <ImageBox>{imageSrc ? <Image src={imageSrc} /> : <PlaceholderImage />}</ImageBox>
         <AiNameText>{assistantName}</AiNameText>
-      </HeaderButton>
+      </ProfileBox>
+      <ButtonBox>
+        {!readonly && (
+          <>
+            <StyledButton onPress={onSavePress} hitSlop={12}>
+              <Fontisto name="save" size={24} color="black" />
+            </StyledButton>
+            <StyledButton onPress={onMenuPress} hitSlop={12}>
+              <Feather name="menu" size={24} color="black" />
+            </StyledButton>
+          </>
+        )}
+      </ButtonBox>
     </HeaderBox>
   );
 }
@@ -35,18 +50,18 @@ const HeaderBox = styled.View`
   background-color: ${({ theme }) => theme.colors.white};
   flex-direction: row;
   padding: 0px ${responsiveToPx("24px")};
+  justify-content: space-between;
   align-items: center;
   gap: ${({ theme }) => theme.gap.lg};
 `;
 
-const BackButton = styled.TouchableOpacity`
-  width: ${responsiveToPx("28px")};
-  height: ${responsiveToPx("28px")};
+const StyledButton = styled.TouchableOpacity`
+  display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-const HeaderButton = styled.TouchableOpacity`
+const ProfileBox = styled.View`
   flex-direction: row;
   gap: ${({ theme }) => theme.gap.lg};
   align-items: center;
@@ -68,4 +83,13 @@ const AiNameText = styled.Text`
   color: ${({ theme }) => theme.colors.black};
   font-family: ${({ theme }) => theme.fontFamily.nsBold};
   font-size: ${({ theme }) => theme.fontSize.lg};
+`;
+
+const ButtonBox = styled.View`
+  width: ${responsiveToPx("60px")};
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
 `;

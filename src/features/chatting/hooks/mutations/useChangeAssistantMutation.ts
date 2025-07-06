@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { Dispatch, SetStateAction } from "react";
 import axiosInstance from "@/src/libs/axiosInstance";
 import { toast } from "@/src/modules/toast";
 import toastMessage from "@/src/constants/toastMessage";
@@ -18,7 +17,7 @@ const _changeAssistant = async ({ aiProfileId, year, month, day }: TProps) => {
 /**
  * @description 선택된 AI 프로필을 변경하는 mutation
  */
-export const useChangeAssistantMutation = (setIsVisible: Dispatch<SetStateAction<boolean>>) => {
+export const useChangeAssistantMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -27,7 +26,6 @@ export const useChangeAssistantMutation = (setIsVisible: Dispatch<SetStateAction
       queryClient.invalidateQueries({ queryKey: ["messages", year, month, day] });
       queryClient.invalidateQueries({ queryKey: ["aiProfileId"] });
       toast({ message: toastMessage.changeAssistant.success, options: { type: "success" } });
-      setIsVisible(false);
     },
     onError: (error) => {
       console.error(error.response?.data);
