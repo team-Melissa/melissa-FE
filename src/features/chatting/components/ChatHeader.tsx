@@ -27,12 +27,16 @@ export default function ChatHeader({ imageSrc, assistantName, onSavePress, onMen
         <AiNameText>{assistantName}</AiNameText>
       </ProfileBox>
       <ButtonBox>
-        <StyledButton onPress={onSavePress} hitSlop={7}>
-          <Fontisto name="save" size={24} color="black" />
-        </StyledButton>
-        <StyledButton onPress={onMenuPress} hitSlop={7}>
-          <Feather name="menu" size={24} color="black" />
-        </StyledButton>
+        {!readonly && (
+          <>
+            <StyledButton onPress={onSavePress} hitSlop={7}>
+              <Fontisto name="save" size={24} color="black" />
+            </StyledButton>
+            <StyledButton onPress={onMenuPress} hitSlop={7}>
+              <Feather name="menu" size={24} color="black" />
+            </StyledButton>
+          </>
+        )}
       </ButtonBox>
     </HeaderBox>
   );
