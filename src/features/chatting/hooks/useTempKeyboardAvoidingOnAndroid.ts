@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { KeyboardEvent, Platform } from "react-native";
-import { Keyboard } from "react-native";
+import { Keyboard, KeyboardEvent, Platform } from "react-native";
 
 /**
  * Todo: [Github issue](https://github.com/facebook/react-native/issues/49759)가 해결되면, 해당 훅 제거
