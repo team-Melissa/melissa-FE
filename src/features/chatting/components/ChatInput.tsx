@@ -1,12 +1,11 @@
 import { Platform } from "react-native";
 import type { Dispatch, SetStateAction } from "react";
 import styled from "styled-components/native";
-import { Image as Img } from "expo-image";
 import responsiveToPx from "@/src/utils/responsiveToPx";
-import { shadowProps } from "@/src/constants/shadowProps";
 import { theme } from "@/src/constants/theme";
 import { useIsKeyboardOpen } from "../hooks/useIsKeyboardOpen";
 import { useTempKeyboardAvoidingOnAndroid } from "../hooks/useTempKeyboardAvoidingOnAndroid";
+import { IconSend } from "./icons";
 
 type ChatInputProps = {
   input: string;
@@ -32,8 +31,8 @@ export default function ChatInput({ input, setInput, onSubmitPress, readonly }: 
           hitSlop={15}
           placeholderTextColor={theme.colors.placeholderText}
         />
-        <ChatButton hitSlop={15} style={shadowProps} onPress={onSubmitPress}>
-          <ButtonImage source={require("@/assets/images/chatButton.png")} />
+        <ChatButton hitSlop={15} onPress={onSubmitPress}>
+          <IconSend />
         </ChatButton>
       </ChatInputBox>
     </KeyboardAvoidingBox>
@@ -73,13 +72,6 @@ const StyledChatInput = styled.TextInput`
 const ChatButton = styled.TouchableOpacity`
   width: ${responsiveToPx("44px")};
   height: ${responsiveToPx("44px")};
-  border-radius: 9999px;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
-`;
-
-const ButtonImage = styled(Img)`
-  width: 120%;
-  height: 120%;
 `;
