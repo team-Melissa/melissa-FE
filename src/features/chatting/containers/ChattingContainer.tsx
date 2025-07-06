@@ -20,6 +20,8 @@ import EventSource from "react-native-sse";
 import endpoint from "@/src/constants/endpoint";
 import { getAccessToken } from "@/src/libs/mmkv";
 import { useDiaryMutation } from "../hooks/mutations/useDiaryMutation";
+import ChattingMenu from "../components/ChattingMenu";
+import type BottomSheet from "@gorhom/bottom-sheet";
 
 type Props = {
   threadDate: TThreadDate;
@@ -28,11 +30,12 @@ type Props = {
 };
 
 export default function ChattingContainer({ threadDate, threadExpiredDate, readonly }: Props) {
-  const [input, setInput] = useState<string>("");
-  const [isAiTurn, setIsAiTurn] = useState<boolean>(false);
   const queryClient = useQueryClient();
   const router = useRouter();
+  const [input, setInput] = useState<string>("");
+  const [isAiTurn, setIsAiTurn] = useState<boolean>(false);
   const scrollViewRef = useRef<ScrollView>(null);
+  const menuRef = useRef<BottomSheet>(null);
 
   const { isPending, isError, data, refetch } = useMessagesQuery(threadDate);
 
@@ -155,8 +158,7 @@ export default function ChattingContainer({ threadDate, threadExpiredDate, reado
       <ChatHeader
         imageSrc={data.result.aiProfileImageS3}
         assistantName={data.result.aiProfileName}
-        // Todo: onPress 함수 주입
-        onMenuPress={() => {}}
+        onMenuPress={() => menuRef.current?.expand()}
         onSavePress={() => saveMutate(threadDate)}
         readonly={readonly}
       />
@@ -175,6 +177,7 @@ export default function ChattingContainer({ threadDate, threadExpiredDate, reado
         )}
       </ScrollBox>
       <ChatInput input={input} setInput={setInput} onSubmitPress={handleSubmitPress} readonly={readonly} />
+      <ChattingMenu ref={menuRef} />
     </SafeView>
   );
 }

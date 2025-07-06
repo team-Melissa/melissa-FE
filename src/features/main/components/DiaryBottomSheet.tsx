@@ -1,4 +1,4 @@
-import { type Dispatch, type ForwardedRef, type SetStateAction, forwardRef, useMemo } from "react";
+import { type Dispatch, type SetStateAction, forwardRef, useMemo } from "react";
 import styled from "styled-components/native";
 import { useRouter } from "expo-router";
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
@@ -17,57 +17,60 @@ type DiaryBottomSheetProps = {
   setIsBottomSheetOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-export default forwardRef(function DiaryBottomSheet(
-  { pressedDate, setIsBottomSheetOpen }: DiaryBottomSheetProps,
-  ref: ForwardedRef<BottomSheet>
-) {
-  const router = useRouter();
-  const snapPoints = useMemo(() => ["60%", "90%"], []);
-  const { year, month, day } = pressedDate;
-  const { data } = useDiariesQuery({ year, month });
+const DiaryBottomSheet = forwardRef<BottomSheet, DiaryBottomSheetProps>(
+  ({ pressedDate, setIsBottomSheetOpen }, ref) => {
+    const router = useRouter();
+    const snapPoints = useMemo(() => ["60%", "90%"], []);
+    const { year, month, day } = pressedDate;
+    const { data } = useDiariesQuery({ year, month });
 
-  // 읽기만 가능한 채팅방 렌더링을 위해 year, month, day를 쿼리스트링으로 전달
-  const handlePressReadonlyChatting = preventDoublePress(() =>
-    router.push(`/(app)/chatting?year=${year}&month=${month}&day=${day}`)
-  );
+    // 읽기만 가능한 채팅방 렌더링을 위해 year, month, day를 쿼리스트링으로 전달
+    const handlePressReadonlyChatting = preventDoublePress(() =>
+      router.push(`/(app)/chatting?year=${year}&month=${month}&day=${day}`)
+    );
 
-  const diary = data?.find((d) => d.day === day);
+    const diary = data?.find((d) => d.day === day);
 
-  return (
-    <BottomSheet
-      ref={ref}
-      index={-1}
-      handleStyle={bottomSheetShadow}
-      handleIndicatorStyle={indicatorStyle}
-      snapPoints={snapPoints}
-      enableDynamicSizing={false}
-      enablePanDownToClose={true}
-      backdropComponent={DiaryBottomSheetBackdrop}
-      onChange={(idx) => setIsBottomSheetOpen(idx > -1)}
-    >
-      {diary && (
-        <BottomSheetLayout>
-          <ScrollBox showsVerticalScrollIndicator={false}>
-            <ImageBox>{diary.imageS3 ? <Image src={diary.imageS3} /> : <PlaceholderImage />}</ImageBox>
-            <DateText>
-              {diary.year}. {diary.month}. {diary.day}
-            </DateText>
-            <TitleText>{diary.summaryTitle}</TitleText>
-            <ContentText>{diary.summaryContent}</ContentText>
-            <TagText>
-              {diary.hashTag1} {diary.hashTag2}
-            </TagText>
-            <ChatButtonBox>
-              <ViewChatButton hitSlop={10} style={shadowProps} onPress={handlePressReadonlyChatting}>
-                <ButtonText>전체 대화 보기</ButtonText>
-              </ViewChatButton>
-            </ChatButtonBox>
-          </ScrollBox>
-        </BottomSheetLayout>
-      )}
-    </BottomSheet>
-  );
-});
+    return (
+      <BottomSheet
+        ref={ref}
+        index={-1}
+        handleStyle={bottomSheetShadow}
+        handleIndicatorStyle={indicatorStyle}
+        snapPoints={snapPoints}
+        enableDynamicSizing={false}
+        enablePanDownToClose={true}
+        backdropComponent={DiaryBottomSheetBackdrop}
+        onChange={(idx) => setIsBottomSheetOpen(idx > -1)}
+      >
+        {diary && (
+          <BottomSheetLayout>
+            <ScrollBox showsVerticalScrollIndicator={false}>
+              <ImageBox>{diary.imageS3 ? <Image src={diary.imageS3} /> : <PlaceholderImage />}</ImageBox>
+              <DateText>
+                {diary.year}. {diary.month}. {diary.day}
+              </DateText>
+              <TitleText>{diary.summaryTitle}</TitleText>
+              <ContentText>{diary.summaryContent}</ContentText>
+              <TagText>
+                {diary.hashTag1} {diary.hashTag2}
+              </TagText>
+              <ChatButtonBox>
+                <ViewChatButton hitSlop={10} style={shadowProps} onPress={handlePressReadonlyChatting}>
+                  <ButtonText>전체 대화 보기</ButtonText>
+                </ViewChatButton>
+              </ChatButtonBox>
+            </ScrollBox>
+          </BottomSheetLayout>
+        )}
+      </BottomSheet>
+    );
+  }
+);
+
+DiaryBottomSheet.displayName = "DiaryBottomSheet";
+
+export default DiaryBottomSheet;
 
 const indicatorStyle = {
   backgroundColor: theme.colors.settingSubText,
