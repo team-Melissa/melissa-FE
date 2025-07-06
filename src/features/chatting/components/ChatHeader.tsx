@@ -17,9 +17,11 @@ type Props = {
 export default function ChatHeader({ imageSrc, assistantName, onSavePress, onMenuPress, readonly }: Props) {
   const router = useRouter();
 
+  const goToBack = () => router.back();
+
   return (
     <HeaderBox>
-      <StyledButton onPress={() => router.back()} hitSlop={7}>
+      <StyledButton onPress={goToBack} hitSlop={12}>
         <MaterialIcons name="arrow-back-ios" size={24} color={theme.colors.black} />
       </StyledButton>
       <ProfileBox>
@@ -29,10 +31,10 @@ export default function ChatHeader({ imageSrc, assistantName, onSavePress, onMen
       <ButtonBox>
         {!readonly && (
           <>
-            <StyledButton onPress={onSavePress} hitSlop={7}>
+            <StyledButton onPress={onSavePress} hitSlop={12}>
               <Fontisto name="save" size={24} color="black" />
             </StyledButton>
-            <StyledButton onPress={onMenuPress} hitSlop={7}>
+            <StyledButton onPress={onMenuPress} hitSlop={12}>
               <Feather name="menu" size={24} color="black" />
             </StyledButton>
           </>
@@ -54,8 +56,6 @@ const HeaderBox = styled.View`
 `;
 
 const StyledButton = styled.TouchableOpacity`
-  width: fit-content;
-  height: fit-content;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -91,5 +91,5 @@ const ButtonBox = styled.View`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 25px;
 `;
