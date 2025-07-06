@@ -46,7 +46,7 @@ ChattingMenu.displayName = "ChattingMenu";
 export default ChattingMenu;
 
 const Backdrop = (props: BottomSheetBackdropProps) => {
-  return <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={1} />;
+  return <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} />;
 };
 
 const indicatorStyle = {
