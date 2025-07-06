@@ -90,6 +90,7 @@ export default function ChattingContainer({ threadDate, threadExpiredDate, reado
       method: "POST",
     });
     es.addEventListener("error", (error) => {
+      toast({ message: "응답을 수신하지 못했어요.", options: { type: "error" } });
       console.error(error);
       // 어떠한 이유로 SSE에 에러가 발생하면, EventSource를 해제
       queryClient.invalidateQueries({ queryKey: ["messages", threadDate.year, threadDate.month, threadDate.day] });
