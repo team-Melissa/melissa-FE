@@ -3,8 +3,6 @@ import type { Dispatch, SetStateAction } from "react";
 import styled from "styled-components/native";
 import responsiveToPx from "@/src/utils/responsiveToPx";
 import { theme } from "@/src/constants/theme";
-import { useIsKeyboardOpen } from "../hooks/useIsKeyboardOpen";
-import { useTempKeyboardAvoidingOnAndroid } from "../hooks/useTempKeyboardAvoidingOnAndroid";
 import { IconSend } from "./icons";
 
 type ChatInputProps = {
@@ -15,14 +13,11 @@ type ChatInputProps = {
 };
 
 export default function ChatInput({ input, setInput, onSubmitPress, readonly }: ChatInputProps) {
-  const isKeyboardOpen = useIsKeyboardOpen();
-  const height = useTempKeyboardAvoidingOnAndroid();
-
   if (readonly) return null;
 
   return (
     <KeyboardAvoidingBox behavior={Platform.OS === "ios" ? "padding" : undefined}>
-      <ChatInputBox $isKeyboardOpen={isKeyboardOpen} $keyboardHeight={height}>
+      <ChatInputBox>
         <StyledChatInput
           placeholder="오늘 하루에 대해 말해주세요"
           multiline={true}
@@ -46,16 +41,14 @@ const KeyboardAvoidingBox = styled.KeyboardAvoidingView`
   align-items: center;
 `;
 
-const ChatInputBox = styled.View<{ $isKeyboardOpen: boolean; $keyboardHeight: number }>`
+const ChatInputBox = styled.View`
   width: 100%;
   flex-direction: row;
   justify-content: center;
   align-items: flex-end;
   padding-top: ${responsiveToPx("10px")};
   gap: ${({ theme }) => theme.gap.md};
-  /* // Todo: [Github issue](https://github.com/facebook/react-native/issues/49759)가 해결되면 해당 padding 에서 $keyboardHeight 값 제거 */
-  padding-bottom: ${({ $isKeyboardOpen, $keyboardHeight }) =>
-    $isKeyboardOpen ? `${$keyboardHeight * 1.08 + 10}px` : `${$keyboardHeight + 40}px`};
+  padding-bottom: ${responsiveToPx("30px")};
 `;
 
 const StyledChatInput = styled.TextInput`

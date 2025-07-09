@@ -5,6 +5,8 @@ import CachedImage from "@/src/components/ui/CachedImage";
 import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
 import { theme } from "@/src/constants/theme";
 import { PlaceholderImage } from "@/src/components/ui/PlaceholderImage";
+import { Keyboard } from "react-native";
+import { useIsKeyboardOpen } from "@/src/hooks/useIsKeyboardOpen";
 
 type Props = {
   imageSrc: string | null;
@@ -16,8 +18,19 @@ type Props = {
 
 export default function ChatHeader({ imageSrc, assistantName, onSavePress, onMenuPress, readonly }: Props) {
   const router = useRouter();
+  const isKeyboardOpen = useIsKeyboardOpen();
 
   const goToBack = () => router.back();
+
+  const handleSavePress = () => {
+    if (isKeyboardOpen) Keyboard.dismiss();
+    onSavePress();
+  };
+
+  const handleMenuPress = () => {
+    if (isKeyboardOpen) Keyboard.dismiss();
+    onMenuPress();
+  };
 
   return (
     <HeaderBox>
@@ -31,10 +44,10 @@ export default function ChatHeader({ imageSrc, assistantName, onSavePress, onMen
       <ButtonBox>
         {!readonly && (
           <>
-            <StyledButton onPress={onSavePress} hitSlop={12}>
+            <StyledButton onPress={handleSavePress} hitSlop={12}>
               <Fontisto name="save" size={24} color="black" />
             </StyledButton>
-            <StyledButton onPress={onMenuPress} hitSlop={12}>
+            <StyledButton onPress={handleMenuPress} hitSlop={12}>
               <Feather name="menu" size={24} color="black" />
             </StyledButton>
           </>
