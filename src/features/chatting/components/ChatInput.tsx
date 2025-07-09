@@ -16,7 +16,7 @@ export default function ChatInput({ input, setInput, onSubmitPress, readonly }: 
   if (readonly) return null;
 
   return (
-    <KeyboardAvoidingBox behavior={Platform.OS === "ios" ? "padding" : "height"}>
+    <KeyboardAvoidingBox behavior={Platform.OS === "ios" ? "padding" : undefined}>
       <ChatInputBox>
         <StyledChatInput
           placeholder="오늘 하루에 대해 말해주세요"
