@@ -10,10 +10,12 @@ import { theme } from "@/src/constants/theme";
 import responsiveToPx from "@/src/utils/responsiveToPx";
 import { useBottomSheetBackHandler } from "../hooks/useBottomSheetBackHandler";
 import DayComponent from "../components/DayComponent";
-import ChatButton from "../components/ChatButton";
 import DiaryBottomSheet from "../components/DiaryBottomSheet";
 import { calendarLocale } from "../config/calendarLocale";
 import type { TPressedDate } from "../types/calendarTypes";
+import { useAiProfileListQuery } from "../hooks/queries/useAiProfileListQuery";
+import AiProfile from "../components/AiProfile";
+import { ScrollView } from "react-native-gesture-handler";
 
 calendarLocale();
 
@@ -26,6 +28,8 @@ export default function MainContainer() {
   });
   const router = useRouter();
   const bottomSheetRef = useRef<BottomSheet>(null);
+
+  const { data: aiProfileList } = useAiProfileListQuery();
 
   useBottomSheetBackHandler({ isBottomSheetOpen, bottomSheetRef });
 
@@ -42,24 +46,33 @@ export default function MainContainer() {
   const handleSettingPress = preventDoublePress(() => router.push("/(app)/setting"));
 
   return (
-    <SafeView>
-      <CalendarList
-        theme={calendarThemeProps}
-        monthFormat={"yyyy. MM"}
-        staticHeader={true}
-        horizontal={true}
-        pagingEnabled={true}
-        pastScrollRange={100}
-        futureScrollRange={100}
-        disableArrowLeft={true}
-        onPressArrowRight={handleSettingPress}
-        renderArrow={(direction) =>
-          direction === "right" && <MaterialIcons name="settings" size={24} color={theme.colors.calendarIcon} />
-        }
-        onDayPress={handleDayPress}
-        dayComponent={DayComponent}
-      />
-      <ChatButton />
+    <SafeView edges={["left", "right", "top"]}>
+      <ScrollView scrollEnabled={!isBottomSheetOpen}>
+        <CalendarWrapper>
+          <CalendarList
+            theme={calendarThemeProps}
+            monthFormat={"yyyy. MM"}
+            staticHeader={true}
+            horizontal={true}
+            pagingEnabled={true}
+            pastScrollRange={100}
+            futureScrollRange={100}
+            disableArrowLeft={true}
+            onPressArrowRight={handleSettingPress}
+            calendarHeight={1000}
+            renderArrow={(direction) =>
+              direction === "right" && <MaterialIcons name="settings" size={24} color={theme.colors.calendarIcon} />
+            }
+            onDayPress={handleDayPress}
+            dayComponent={DayComponent}
+          />
+        </CalendarWrapper>
+        <AiProfileScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {aiProfileList?.map((data) => (
+            <AiProfile key={data.aiProfileId} aiProfile={data} />
+          ))}
+        </AiProfileScrollView>
+      </ScrollView>
       <DiaryBottomSheet ref={bottomSheetRef} pressedDate={pressedDate} setIsBottomSheetOpen={setIsBottomSheetOpen} />
     </SafeView>
   );
@@ -68,6 +81,15 @@ export default function MainContainer() {
 const SafeView = styled(SafeAreaView)`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.white};
+`;
+
+const CalendarWrapper = styled.View`
+  width: 100%;
+  height: ${responsiveToPx("730px")};
+`;
+
+const AiProfileScrollView = styled(ScrollView)`
+  margin-bottom: 20px;
 `;
 
 const calendarThemeProps = {
@@ -86,7 +108,7 @@ const calendarThemeProps = {
       justifyContent: "space-between",
       alignItems: "center",
       paddingHorizontal: parseInt(responsiveToPx("15px")),
-      marginVertical: parseInt(responsiveToPx("25px")), // 캘린더 헤더 상하단 간격
+      marginVertical: parseInt(responsiveToPx("12px")), // 캘린더 헤더 상하단 간격
     },
     dayTextAtIndex0: {
       color: theme.colors.calendarRed,
