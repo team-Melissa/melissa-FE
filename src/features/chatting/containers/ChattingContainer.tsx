@@ -10,7 +10,6 @@ import type { FluxEventDTO, MessagesDTO, TThreadDate } from "../types/chattingTy
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
 import { MESSAGES_QUERY_KEY, useMessagesQuery } from "../hooks/queries/useMessagesQuery";
-import { preventDoublePress } from "@/src/libs/esToolkit";
 import { checkThreadExpire } from "../utils/time";
 import { toast } from "@/src/modules/toast";
 import toastMessage from "@/src/constants/toastMessage";
@@ -20,6 +19,7 @@ import { getAccessToken } from "@/src/libs/mmkv";
 import { useDiaryMutation } from "../hooks/mutations/useDiaryMutation";
 import ChattingMenu from "../components/ChattingMenu";
 import type BottomSheet from "@gorhom/bottom-sheet";
+import { debounce } from "@/src/utils/debounce";
 
 type Props = {
   threadDate: TThreadDate;
@@ -39,7 +39,7 @@ const ChattingContainer = ({ threadDate, threadExpiredDate, readonly }: Props) =
 
   const { mutate: saveMutate } = useDiaryMutation();
 
-  const handleSubmitPress = preventDoublePress(() => {
+  const handleSubmitPress = debounce(() => {
     if (!input || readonly || isAiTurn) return;
 
     const token = getAccessToken();
