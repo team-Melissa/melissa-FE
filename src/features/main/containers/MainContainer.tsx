@@ -16,6 +16,7 @@ import type { TPressedDate } from "../types/calendarTypes";
 import { useAiProfileListQuery } from "../hooks/queries/useAiProfileListQuery";
 import AiProfile from "../components/AiProfile";
 import { ScrollView } from "react-native-gesture-handler";
+import { debounce } from "@/src/utils/debounce";
 
 calendarLocale();
 
@@ -43,7 +44,7 @@ export default function MainContainer() {
     }, 0);
   };
 
-  const handleSettingPress = preventDoublePress(() => router.push("/(app)/setting"));
+  const handleSettingPress = debounce(() => router.push("/(app)/setting"));
 
   return (
     <SafeView edges={["left", "right", "top"]}>
@@ -69,7 +70,7 @@ export default function MainContainer() {
         </CalendarWrapper>
         <AiProfileScrollView horizontal showsHorizontalScrollIndicator={false}>
           {aiProfileList?.map((data) => (
-            <AiProfile key={data.aiProfileId} aiProfile={data} />
+            <AiProfile key={`${data.aiProfileId}-${data.default}`} aiProfile={data} />
           ))}
         </AiProfileScrollView>
       </ScrollView>

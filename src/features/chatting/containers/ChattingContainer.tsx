@@ -11,7 +11,7 @@ import ChatInput from "../components/ChatInput";
 import type { FluxEventDTO, MessagesDTO, TThreadDate } from "../types/chattingTypes";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
-import { useMessagesQuery } from "../hooks/queries/useMessagesQuery";
+import { MESSAGES_QUERY_KEY, useMessagesQuery } from "../hooks/queries/useMessagesQuery";
 import { preventDoublePress } from "@/src/libs/esToolkit";
 import { checkThreadExpire } from "../utils/time";
 import { toast } from "@/src/modules/toast";
@@ -54,7 +54,7 @@ export default function ChattingContainer({ threadDate, threadExpiredDate, reado
 
     setIsAiTurn(true); // 채팅 제출 후 답변 오기 전에 다시 제출하지 못하도록
     queryClient.setQueryData<MessagesDTO>(
-      ["messages", threadDate.year, threadDate.month, threadDate.day],
+      [MESSAGES_QUERY_KEY, threadDate.year, threadDate.month, threadDate.day],
       (prev) =>
         prev && {
           ...prev,
@@ -93,53 +93,60 @@ export default function ChattingContainer({ threadDate, threadExpiredDate, reado
       toast({ message: "응답을 수신하지 못했어요.", options: { type: "error" } });
       console.error(error);
       // 어떠한 이유로 SSE에 에러가 발생하면, EventSource를 해제
-      queryClient.invalidateQueries({ queryKey: ["messages", threadDate.year, threadDate.month, threadDate.day] });
+      queryClient.invalidateQueries({
+        queryKey: [MESSAGES_QUERY_KEY, threadDate.year, threadDate.month, threadDate.day],
+      });
       es.removeAllEventListeners();
       es.close();
       setIsAiTurn(false);
     });
     es.addEventListener("aiMessage", (event) => {
-      queryClient.setQueryData<MessagesDTO>(["messages", threadDate.year, threadDate.month, threadDate.day], (prev) => {
-        if (prev) {
-          const chats = prev.result.chats;
-          if (chats[chats.length - 1].role === "USER") {
-            return {
-              ...prev,
-              result: {
-                ...prev.result,
-                chats: [
-                  ...chats,
-                  {
-                    role: "AI",
-                    chatId: -101,
-                    content: "",
-                    createAt: "",
-                    aiProfileName: prev.result.aiProfileName,
-                    aiProfileImageS3: prev.result.aiProfileImageS3,
-                  },
-                ],
-              },
-            };
-          } else {
-            const last = chats[chats.length - 1];
-            const newLast = {
-              ...last,
-              content: last.content + event.data,
-            };
-            chats.pop();
-            return {
-              ...prev,
-              result: {
-                ...prev.result,
-                chats: [...chats, newLast],
-              },
-            };
+      queryClient.setQueryData<MessagesDTO>(
+        [MESSAGES_QUERY_KEY, threadDate.year, threadDate.month, threadDate.day],
+        (prev) => {
+          if (prev) {
+            const chats = prev.result.chats;
+            if (chats[chats.length - 1].role === "USER") {
+              return {
+                ...prev,
+                result: {
+                  ...prev.result,
+                  chats: [
+                    ...chats,
+                    {
+                      role: "AI",
+                      chatId: -101,
+                      content: "",
+                      createAt: "",
+                      aiProfileName: prev.result.aiProfileName,
+                      aiProfileImageS3: prev.result.aiProfileImageS3,
+                    },
+                  ],
+                },
+              };
+            } else {
+              const last = chats[chats.length - 1];
+              const newLast = {
+                ...last,
+                content: last.content + event.data,
+              };
+              chats.pop();
+              return {
+                ...prev,
+                result: {
+                  ...prev.result,
+                  chats: [...chats, newLast],
+                },
+              };
+            }
           }
         }
-      });
+      );
     });
     es.addEventListener("finish", () => {
-      queryClient.invalidateQueries({ queryKey: ["messages", threadDate.year, threadDate.month, threadDate.day] });
+      queryClient.invalidateQueries({
+        queryKey: [MESSAGES_QUERY_KEY, threadDate.year, threadDate.month, threadDate.day],
+      });
       es.removeAllEventListeners();
       es.close();
       setIsAiTurn(false);

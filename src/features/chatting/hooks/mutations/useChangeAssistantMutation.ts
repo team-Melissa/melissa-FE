@@ -4,6 +4,8 @@ import { toast } from "@/src/modules/toast";
 import toastMessage from "@/src/constants/toastMessage";
 import endpoint from "@/src/constants/endpoint";
 import type { TThreadDate } from "../../types/chattingTypes";
+import { MESSAGES_QUERY_KEY } from "../queries/useMessagesQuery";
+import { AI_PROFILE_LIST_QUERY_KEY } from "@/src/features/main/hooks/queries/useAiProfileListQuery";
 
 type TProps = TThreadDate & { aiProfileId: number };
 
@@ -23,8 +25,8 @@ export const useChangeAssistantMutation = () => {
   return useMutation({
     mutationFn: _changeAssistant,
     onSuccess: (_, { year, month, day }) => {
-      queryClient.invalidateQueries({ queryKey: ["messages", year, month, day] });
-      queryClient.invalidateQueries({ queryKey: ["aiProfileId"] });
+      queryClient.invalidateQueries({ queryKey: [MESSAGES_QUERY_KEY, year, month, day] });
+      queryClient.invalidateQueries({ queryKey: [AI_PROFILE_LIST_QUERY_KEY] });
       toast({ message: toastMessage.changeAssistant.success, options: { type: "success" } });
     },
     onError: (error) => {
