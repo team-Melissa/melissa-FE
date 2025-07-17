@@ -11,12 +11,11 @@ import { useIsKeyboardOpen } from "@/src/hooks/useIsKeyboardOpen";
 type Props = {
   imageSrc: string | null;
   assistantName: string;
-  onSavePress: () => void;
-  onMenuPress: () => void;
-  readonly?: boolean;
+  onSavePress?: () => void;
+  onMenuPress?: () => void;
 };
 
-export default function ChatHeader({ imageSrc, assistantName, onSavePress, onMenuPress, readonly }: Props) {
+const ChatHeader = ({ imageSrc, assistantName, onSavePress, onMenuPress }: Props) => {
   const router = useRouter();
   const isKeyboardOpen = useIsKeyboardOpen();
 
@@ -24,12 +23,12 @@ export default function ChatHeader({ imageSrc, assistantName, onSavePress, onMen
 
   const handleSavePress = () => {
     if (isKeyboardOpen) Keyboard.dismiss();
-    onSavePress();
+    onSavePress?.();
   };
 
   const handleMenuPress = () => {
     if (isKeyboardOpen) Keyboard.dismiss();
-    onMenuPress();
+    onMenuPress?.();
   };
 
   return (
@@ -42,20 +41,22 @@ export default function ChatHeader({ imageSrc, assistantName, onSavePress, onMen
         <AiNameText>{assistantName}</AiNameText>
       </ProfileBox>
       <ButtonBox>
-        {!readonly && (
-          <>
-            <StyledButton onPress={handleSavePress} hitSlop={12}>
-              <Fontisto name="save" size={24} color="black" />
-            </StyledButton>
-            <StyledButton onPress={handleMenuPress} hitSlop={12}>
-              <Feather name="menu" size={24} color="black" />
-            </StyledButton>
-          </>
+        {onSavePress && (
+          <StyledButton onPress={handleSavePress} hitSlop={12}>
+            <Fontisto name="save" size={24} color="black" />
+          </StyledButton>
+        )}
+        {onMenuPress && (
+          <StyledButton onPress={handleMenuPress} hitSlop={12}>
+            <Feather name="menu" size={24} color="black" />
+          </StyledButton>
         )}
       </ButtonBox>
     </HeaderBox>
   );
-}
+};
+
+export default ChatHeader;
 
 const HeaderBox = styled.View`
   width: 100%;

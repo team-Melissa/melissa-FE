@@ -2,8 +2,6 @@ import { useRef, useState } from "react";
 import { ScrollView } from "react-native";
 import styled from "styled-components/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Loading from "@/src/components/ui/Loading";
-import CommonError from "@/src/components/ui/CommonError";
 import ChatHeader from "../components/ChatHeader";
 import AiChatBox from "../components/AiChatBox";
 import UserChatBox from "../components/UserChatBox";
@@ -29,7 +27,7 @@ type Props = {
   readonly?: boolean;
 };
 
-export default function ChattingContainer({ threadDate, threadExpiredDate, readonly }: Props) {
+const ChattingContainer = ({ threadDate, threadExpiredDate, readonly }: Props) => {
   const queryClient = useQueryClient();
   const router = useRouter();
   const [input, setInput] = useState<string>("");
@@ -37,7 +35,7 @@ export default function ChattingContainer({ threadDate, threadExpiredDate, reado
   const scrollViewRef = useRef<ScrollView>(null);
   const menuRef = useRef<BottomSheet>(null);
 
-  const { isPending, isError, data, refetch } = useMessagesQuery(threadDate);
+  const { data: messages } = useMessagesQuery(threadDate);
 
   const { mutate: saveMutate } = useDiaryMutation();
 
@@ -153,22 +151,13 @@ export default function ChattingContainer({ threadDate, threadExpiredDate, reado
     });
   });
 
-  if (isPending) {
-    return <Loading />;
-  }
-
-  if (isError || !data) {
-    return <CommonError titleText="채팅 내역을 불러오지 못했어요" buttonText="다시 불러오기" onPress={refetch} />;
-  }
-
   return (
     <SafeView edges={["left", "right", "top"]}>
       <ChatHeader
-        imageSrc={data.result.aiProfileImageS3}
-        assistantName={data.result.aiProfileName}
+        imageSrc={messages?.result.aiProfileImageS3 ?? ""}
+        assistantName={messages?.result.aiProfileName ?? ""}
         onMenuPress={() => menuRef.current?.expand()}
         onSavePress={() => saveMutate(threadDate)}
-        readonly={readonly}
       />
       <ScrollBox
         ref={scrollViewRef}
@@ -176,7 +165,7 @@ export default function ChattingContainer({ threadDate, threadExpiredDate, reado
           scrollViewRef.current?.scrollToEnd();
         }}
       >
-        {data.result.chats.map((chat) =>
+        {messages?.result.chats.map((chat) =>
           chat.role === "AI" ? (
             <AiChatBox content={chat.content} imageUrl={chat.aiProfileImageS3} key={chat.chatId} />
           ) : (
@@ -188,7 +177,9 @@ export default function ChattingContainer({ threadDate, threadExpiredDate, reado
       <ChattingMenu ref={menuRef} />
     </SafeView>
   );
-}
+};
+
+export default ChattingContainer;
 
 const SafeView = styled(SafeAreaView)`
   flex: 1;

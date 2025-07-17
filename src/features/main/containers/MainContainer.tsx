@@ -5,7 +5,6 @@ import { useRouter } from "expo-router";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { CalendarList, type DateData } from "react-native-calendars";
 import BottomSheet from "@gorhom/bottom-sheet";
-import { preventDoublePress } from "@/src/libs/esToolkit";
 import { theme } from "@/src/constants/theme";
 import responsiveToPx from "@/src/utils/responsiveToPx";
 import { useBottomSheetBackHandler } from "../hooks/useBottomSheetBackHandler";
