@@ -1,23 +1,31 @@
 import { theme } from "@/src/constants/theme";
 import responsiveToPx from "@/src/utils/responsiveToPx";
 import BottomSheet, { BottomSheetBackdrop, type BottomSheetBackdropProps } from "@gorhom/bottom-sheet";
-import { forwardRef, useRef } from "react";
+import { forwardRef, useEffect, useRef } from "react";
 import { StyleProp, ViewStyle } from "react-native";
 import styled from "styled-components/native";
-import { useAiProfileIdQuery } from "../hooks/queries/useAiProfileIdQuery";
+import { RECENT_AI_PROFILE_ID_QUERY_KEY, useRecentAiProfileIdQuery } from "../hooks/queries/useRecentAiProfileIdQuery";
 import { mergeRefs } from "@/src/utils/mergeRefs";
 import { useRemoveAssistantMutation } from "../hooks/mutations/useRemoveAssistantMutation";
+import { useQueryClient } from "@tanstack/react-query";
 
 const ChattingMenu = forwardRef<BottomSheet, object>((_, ref) => {
+  const queryClient = useQueryClient();
   const innerRef = useRef<BottomSheet>(null);
-  const { data: aiProfileId } = useAiProfileIdQuery();
+  const { data: recentAiProfileId } = useRecentAiProfileIdQuery();
   const { mutate: removeAiMutate } = useRemoveAssistantMutation();
 
   const handleRemoveAiClick = () => {
-    if (!aiProfileId) return;
-    removeAiMutate(aiProfileId);
+    if (!recentAiProfileId) return;
+    removeAiMutate(recentAiProfileId);
     innerRef.current?.close();
   };
+
+  // ! 현재 대화하는 AI가 아니라, 이전에 대화한 AI가 삭제되는 캐싱 이슈 대응용
+  // Todo: refetchOnMount 옵션으로 대응하면 코드가 더 깔끔해질 듯
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: [RECENT_AI_PROFILE_ID_QUERY_KEY] });
+  }, [queryClient]);
 
   return (
     <BottomSheet

@@ -9,14 +9,16 @@ type AiProfileIdDTO = SuccessDTO & {
   };
 };
 
-const _getAiProfileId = async () => {
+const getRecentAiProfileId = async () => {
   const { data } = await axiosInstance<AiProfileIdDTO>(endpoint.aiProfile.recent);
   return data.result.aiProfileId;
 };
 
-export const useAiProfileIdQuery = () => {
+export const RECENT_AI_PROFILE_ID_QUERY_KEY = "RECENT_AI_PROFILE_ID_QUERY_KEY";
+
+export const useRecentAiProfileIdQuery = () => {
   return useQuery({
-    queryFn: _getAiProfileId,
-    queryKey: ["aiProfileId"],
+    queryFn: getRecentAiProfileId,
+    queryKey: [RECENT_AI_PROFILE_ID_QUERY_KEY],
   });
 };

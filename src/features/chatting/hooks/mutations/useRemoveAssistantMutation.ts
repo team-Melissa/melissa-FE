@@ -5,6 +5,7 @@ import toastMessage from "@/src/constants/toastMessage";
 import endpoint from "@/src/constants/endpoint";
 import type { SuccessDTO } from "@/src/types/commonTypes";
 import { useRouter } from "expo-router";
+import { AI_PROFILE_LIST_QUERY_KEY } from "@/src/features/main/hooks/queries/useAiProfileListQuery";
 
 const removeAssistant = async (aiProfileId: number) => {
   const { data } = await axiosInstance.delete<SuccessDTO>(`${endpoint.aiProfile.aiProfilesV1}/${aiProfileId}`);
@@ -21,7 +22,7 @@ export const useRemoveAssistantMutation = () => {
       router.replace("/(app)/main");
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["assistant-list"] });
+      queryClient.invalidateQueries({ queryKey: [AI_PROFILE_LIST_QUERY_KEY] });
       toast({ message: toastMessage.removeAssistant.success, options: { type: "success" } });
     },
     onError: (error) => {
