@@ -12,10 +12,9 @@ import DayComponent from "../components/DayComponent";
 import DiaryBottomSheet from "../components/DiaryBottomSheet";
 import { calendarLocale } from "../config/calendarLocale";
 import type { TPressedDate } from "../types/calendarTypes";
-import { useAiProfileListQuery } from "../hooks/queries/useAiProfileListQuery";
-import AiProfile from "../components/AiProfile";
 import { ScrollView } from "react-native-gesture-handler";
 import { debounce } from "@/src/utils/debounce";
+import AiProfileList from "../components/AiProfileList";
 
 calendarLocale();
 
@@ -28,8 +27,6 @@ export default function MainContainer() {
   });
   const router = useRouter();
   const bottomSheetRef = useRef<BottomSheet>(null);
-
-  const { data: aiProfileList } = useAiProfileListQuery();
 
   useBottomSheetBackHandler({ isBottomSheetOpen, bottomSheetRef });
 
@@ -67,11 +64,7 @@ export default function MainContainer() {
             dayComponent={DayComponent}
           />
         </CalendarWrapper>
-        <AiProfileScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {aiProfileList?.map((data) => (
-            <AiProfile key={`${data.aiProfileId}-${data.default}`} aiProfile={data} />
-          ))}
-        </AiProfileScrollView>
+        <AiProfileList />
       </ScrollView>
       <DiaryBottomSheet ref={bottomSheetRef} pressedDate={pressedDate} setIsBottomSheetOpen={setIsBottomSheetOpen} />
     </SafeView>
@@ -86,10 +79,6 @@ const SafeView = styled(SafeAreaView)`
 const CalendarWrapper = styled.View`
   width: 100%;
   height: ${responsiveToPx("730px")};
-`;
-
-const AiProfileScrollView = styled(ScrollView)`
-  margin-bottom: 20px;
 `;
 
 const calendarThemeProps = {

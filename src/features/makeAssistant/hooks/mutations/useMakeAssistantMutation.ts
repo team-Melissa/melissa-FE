@@ -1,11 +1,18 @@
 import { useMemo } from "react";
 import { useRouter } from "expo-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { _makeAssistant } from "../../apis/makeAssistantApi";
 import type { MakeAssistantDTO, TAssistantMakeQnA } from "../../types/makeAssistantTypes";
+import axiosInstance from "@/src/libs/axiosInstance";
+import endpoint from "@/src/constants/endpoint";
+import { AI_PROFILE_LIST_QUERY_KEY } from "@/src/features/main/hooks/queries/useAiProfileListQuery";
 
 type TProps = {
   answers: string[];
+};
+
+const makeAiProfile = async (answers: TAssistantMakeQnA) => {
+  const { data } = await axiosInstance.post<MakeAssistantDTO>(endpoint.aiProfile.aiProfilesV2, answers);
+  return data;
 };
 
 export const useMakeAssistantMutation = ({ answers }: TProps) => {
@@ -23,7 +30,7 @@ export const useMakeAssistantMutation = ({ answers }: TProps) => {
 
   const handleSuccess = (data: MakeAssistantDTO) => {
     console.log(data.message);
-    queryClient.invalidateQueries({ queryKey: ["assistant-list"] });
+    queryClient.invalidateQueries({ queryKey: [AI_PROFILE_LIST_QUERY_KEY] });
     setTimeout(() => {
       console.log("이전 페이지로 back 합니다.");
       router.back();
@@ -31,7 +38,7 @@ export const useMakeAssistantMutation = ({ answers }: TProps) => {
   };
 
   return useMutation({
-    mutationFn: () => _makeAssistant(answersJson),
+    mutationFn: () => makeAiProfile(answersJson),
     onSuccess: (data) => handleSuccess(data),
     onError: (error) => console.error(error.response?.data),
   });
