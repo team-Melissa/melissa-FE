@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ScrollView } from "react-native";
 import styled from "styled-components/native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -20,6 +20,7 @@ import { useDiaryMutation } from "../hooks/mutations/useDiaryMutation";
 import ChattingMenu from "../components/ChattingMenu";
 import type BottomSheet from "@gorhom/bottom-sheet";
 import { debounce } from "@/src/utils/debounce";
+import { AI_PROFILE_LIST_QUERY_KEY } from "../../main/hooks/queries/useAiProfileListQuery";
 
 type Props = {
   threadDate: TThreadDate;
@@ -150,6 +151,12 @@ const ChattingContainer = ({ threadDate, threadExpiredDate, readonly }: Props) =
       setIsAiTurn(false);
     });
   });
+
+  useEffect(() => {
+    return () => {
+      queryClient.invalidateQueries({ queryKey: [AI_PROFILE_LIST_QUERY_KEY] });
+    };
+  }, [queryClient]);
 
   return (
     <SafeView edges={["left", "right", "top"]}>
