@@ -10,7 +10,6 @@ const endpoint = {
   aiProfile: {
     aiProfilesV1: "/api/v1/ai-profiles",
     aiProfilesV2: "/api/v2/ai-profiles",
-    defaultAiProfiles: "/api/v1/default-ai-profiles",
     recent: "/api/v1/ai-profiles/recent",
   },
   setting: {
