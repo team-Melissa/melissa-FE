@@ -6,6 +6,8 @@ import { IconPlus } from "./icons";
 import { useRouter } from "expo-router";
 import { debounce } from "@/src/utils/debounce";
 
+const BG_COLORS = ["#BDDFE8", "#F0D69C", "#F4CBD0"];
+
 const AiProfileList = () => {
   const router = useRouter();
   const { data: aiProfileList } = useAiProfileListQuery();
@@ -26,8 +28,12 @@ const AiProfileList = () => {
         </AddAiButton>
       </HeaderWrapper>
       <AiProfileScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {aiProfileList?.map((data) => (
-          <AiProfile key={`${data.aiProfileId}-${data.default}`} aiProfile={data} />
+        {aiProfileList?.map((data, idx) => (
+          <AiProfile
+            key={`${data.aiProfileId}-${data.default}`}
+            aiProfile={data}
+            backgroundColor={BG_COLORS[idx % 3]}
+          />
         ))}
       </AiProfileScrollView>
     </>
