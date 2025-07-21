@@ -7,10 +7,12 @@ type TProps = {
   month: number;
 };
 
+export const DIARIES_QUERY_KEY = "diaries";
+
 export const useDiariesQuery = ({ year, month }: TProps) => {
   return useQuery({
     queryFn: () => _diaries(year, month),
-    queryKey: ["diaries", year, month],
+    queryKey: [DIARIES_QUERY_KEY, year, month],
     staleTime: 5 * 60 * 1000,
     select: (data: DiariesDTO) => data.result.filter((diary): diary is TDiary => !!diary.hashTag1),
     refetchInterval: (query) => {

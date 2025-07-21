@@ -1,12 +1,13 @@
 import styled from "styled-components/native";
 import { useRouter } from "expo-router";
-import { MaterialIcons, Fontisto, Feather } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import CachedImage from "@/src/components/ui/CachedImage";
 import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
 import { theme } from "@/src/constants/theme";
 import { PlaceholderImage } from "@/src/components/ui/PlaceholderImage";
 import { Keyboard } from "react-native";
 import { useIsKeyboardOpen } from "@/src/hooks/useIsKeyboardOpen";
+import { IconMenu, IconSave } from "./icons";
 
 type Props = {
   imageSrc: string | null;
@@ -43,12 +44,12 @@ const ChatHeader = ({ imageSrc, assistantName, onSavePress, onMenuPress }: Props
       <ButtonBox>
         {onSavePress && (
           <StyledButton onPress={handleSavePress} hitSlop={12}>
-            <Fontisto name="save" size={24} color="black" />
+            <IconSave />
           </StyledButton>
         )}
         {onMenuPress && (
           <StyledButton onPress={handleMenuPress} hitSlop={12}>
-            <Feather name="menu" size={24} color="black" />
+            <IconMenu />
           </StyledButton>
         )}
       </ButtonBox>

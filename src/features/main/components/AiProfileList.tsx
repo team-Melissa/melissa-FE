@@ -12,11 +12,8 @@ const AiProfileList = () => {
   const router = useRouter();
   const { data: aiProfileList } = useAiProfileListQuery();
 
-  const goToMakeAiProfilePage = debounce((aiProfileId: number | null = null) => {
-    if (!aiProfileId) {
-      return router.push("/(app)/make-assistant");
-    }
-    return router.push(`/(app)/make-assistant?aiProfileId=${aiProfileId}`);
+  const goToMakeAiProfilePage = debounce(() => {
+    return router.push("/(app)/make-assistant");
   });
 
   return (

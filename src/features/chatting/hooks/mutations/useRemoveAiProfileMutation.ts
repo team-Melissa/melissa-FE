@@ -7,17 +7,17 @@ import type { SuccessDTO } from "@/src/types/commonTypes";
 import { useRouter } from "expo-router";
 import { AI_PROFILE_LIST_QUERY_KEY } from "@/src/features/main/hooks/queries/useAiProfileListQuery";
 
-const removeAssistant = async (aiProfileId: number) => {
+const removeAiProfile = async (aiProfileId: number) => {
   const { data } = await axiosInstance.delete<SuccessDTO>(`${endpoint.aiProfile.aiProfilesV1}/${aiProfileId}`);
   return data;
 };
 
-export const useRemoveAssistantMutation = () => {
+export const useRemoveAiProfileMutation = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
 
   return useMutation({
-    mutationFn: removeAssistant,
+    mutationFn: removeAiProfile,
     onSettled: () => {
       router.replace("/(app)/main");
     },
