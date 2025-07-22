@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "@/src/libs/axiosInstance";
 import endpoint from "@/src/constants/endpoint";
-import { _getMessages } from "../queries/useMessagesQuery";
+import { _getMessages, MESSAGES_QUERY_KEY } from "../queries/useMessagesQuery";
 import type { NewThreadDTO, TThreadDate } from "../../types/chattingTypes";
 
 export const _postMakeThread = async ({ aiProfileId, year, month, day }: TThreadDate & { aiProfileId: number }) => {
@@ -22,7 +22,7 @@ export const useMakeThreadMutation = () => {
     onSuccess: ({ result }) => {
       queryClient.prefetchQuery({
         queryFn: () => _getMessages({ year: result.year, month: result.month, day: result.day }),
-        queryKey: ["messages", result.year, result.month, result.day],
+        queryKey: [MESSAGES_QUERY_KEY, result.year, result.month, result.day],
       });
     },
     onError: (error) => console.error(error.response),

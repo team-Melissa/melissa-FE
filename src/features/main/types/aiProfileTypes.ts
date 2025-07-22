@@ -1,6 +1,6 @@
 import type { SuccessDTO } from "@/src/types/commonTypes";
 
-export type TAssistantProfile = {
+export type TAiProfile = {
   aiProfileId: number;
   profileName: string;
   imageUrl: string | null;
@@ -10,10 +10,9 @@ export type TAssistantProfile = {
   feature2: string;
   feature3: string;
   createdAt: string;
+  default: boolean;
 };
 
-export type TNewAiTrigger = { isGenerateButton: boolean };
-
-export type AssistantProfileListDTO = SuccessDTO & {
-  result: TAssistantProfile[];
+export type AiProfileListDTO = SuccessDTO & {
+  result: TAiProfile[];
 };

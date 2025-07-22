@@ -4,13 +4,13 @@ import { useRouter } from "expo-router";
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import type { DateData } from "react-native-calendars";
 import CachedImage from "@/src/components/ui/CachedImage";
-import { preventDoublePress } from "@/src/libs/esToolkit";
 import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
 import { theme } from "@/src/constants/theme";
 import { shadowProps } from "@/src/constants/shadowProps";
 import { useDiariesQuery } from "../hooks/queries/useDiariesQuery";
 import DiaryBottomSheetBackdrop from "./DiaryBottomSheetBackdrop";
 import { PlaceholderImage } from "@/src/components/ui/PlaceholderImage";
+import { debounce } from "@/src/utils/debounce";
 
 type DiaryBottomSheetProps = {
   pressedDate: Pick<DateData, "year" | "month" | "day">;
@@ -24,8 +24,8 @@ const DiaryBottomSheet = forwardRef<BottomSheet, DiaryBottomSheetProps>(
     const { year, month, day } = pressedDate;
     const { data } = useDiariesQuery({ year, month });
 
-    // 읽기만 가능한 채팅방 렌더링을 위해 year, month, day를 쿼리스트링으로 전달
-    const handlePressReadonlyChatting = preventDoublePress(() =>
+    // * 읽기만 가능한 채팅방 렌더링을 위해 year, month, day를 쿼리스트링으로 전달
+    const handlePressReadonlyChatting = debounce(() =>
       router.push(`/(app)/chatting?year=${year}&month=${month}&day=${day}`)
     );
 

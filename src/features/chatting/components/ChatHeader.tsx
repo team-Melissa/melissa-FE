@@ -1,22 +1,22 @@
 import styled from "styled-components/native";
 import { useRouter } from "expo-router";
-import { MaterialIcons, Fontisto, Feather } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import CachedImage from "@/src/components/ui/CachedImage";
 import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
 import { theme } from "@/src/constants/theme";
 import { PlaceholderImage } from "@/src/components/ui/PlaceholderImage";
 import { Keyboard } from "react-native";
 import { useIsKeyboardOpen } from "@/src/hooks/useIsKeyboardOpen";
+import { IconMenu, IconSave } from "./icons";
 
 type Props = {
   imageSrc: string | null;
   assistantName: string;
-  onSavePress: () => void;
-  onMenuPress: () => void;
-  readonly?: boolean;
+  onSavePress?: () => void;
+  onMenuPress?: () => void;
 };
 
-export default function ChatHeader({ imageSrc, assistantName, onSavePress, onMenuPress, readonly }: Props) {
+const ChatHeader = ({ imageSrc, assistantName, onSavePress, onMenuPress }: Props) => {
   const router = useRouter();
   const isKeyboardOpen = useIsKeyboardOpen();
 
@@ -24,12 +24,12 @@ export default function ChatHeader({ imageSrc, assistantName, onSavePress, onMen
 
   const handleSavePress = () => {
     if (isKeyboardOpen) Keyboard.dismiss();
-    onSavePress();
+    onSavePress?.();
   };
 
   const handleMenuPress = () => {
     if (isKeyboardOpen) Keyboard.dismiss();
-    onMenuPress();
+    onMenuPress?.();
   };
 
   return (
@@ -42,20 +42,22 @@ export default function ChatHeader({ imageSrc, assistantName, onSavePress, onMen
         <AiNameText>{assistantName}</AiNameText>
       </ProfileBox>
       <ButtonBox>
-        {!readonly && (
-          <>
-            <StyledButton onPress={handleSavePress} hitSlop={12}>
-              <Fontisto name="save" size={24} color="black" />
-            </StyledButton>
-            <StyledButton onPress={handleMenuPress} hitSlop={12}>
-              <Feather name="menu" size={24} color="black" />
-            </StyledButton>
-          </>
+        {onSavePress && (
+          <StyledButton onPress={handleSavePress} hitSlop={12}>
+            <IconSave />
+          </StyledButton>
+        )}
+        {onMenuPress && (
+          <StyledButton onPress={handleMenuPress} hitSlop={12}>
+            <IconMenu />
+          </StyledButton>
         )}
       </ButtonBox>
     </HeaderBox>
   );
-}
+};
+
+export default ChatHeader;
 
 const HeaderBox = styled.View`
   width: 100%;
