@@ -37,8 +37,12 @@ const ChattingContainer = ({ threadDate, threadExpiredDate, readonly }: Props) =
   const menuRef = useRef<BottomSheet>(null);
 
   const { data: messages } = useMessagesQuery(threadDate);
+  const { isPending: isSavePending, mutate: saveMutate } = useDiaryMutation(threadDate);
 
-  const { mutate: saveMutate } = useDiaryMutation(threadDate);
+  const handleSaveMutate = () => {
+    if (isSavePending) return;
+    saveMutate();
+  };
 
   const handleSubmitPress = debounce(() => {
     if (!input || readonly || isAiTurn) return;
@@ -164,7 +168,7 @@ const ChattingContainer = ({ threadDate, threadExpiredDate, readonly }: Props) =
         imageSrc={messages?.result.aiProfileImageS3 ?? ""}
         assistantName={messages?.result.aiProfileName ?? ""}
         onMenuPress={() => menuRef.current?.expand()}
-        onSavePress={saveMutate}
+        onSavePress={handleSaveMutate}
       />
       <ScrollBox
         ref={scrollViewRef}
