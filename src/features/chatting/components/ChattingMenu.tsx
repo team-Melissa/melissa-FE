@@ -25,7 +25,6 @@ const ChattingMenu = forwardRef<BottomSheet, object>((_, ref) => {
 
   const handleDuplicateAiClick = () => {
     if (!recentAiProfileId) return;
-    console.log(recentAiProfileId);
     return router.push(`/(app)/make-assistant?aiProfileId=${recentAiProfileId}`);
   };
 

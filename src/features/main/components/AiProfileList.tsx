@@ -48,7 +48,6 @@ const HeaderWrapper = styled.View`
 `;
 
 const StyledText = styled.Text`
-  font-size: 20px;
   font-size: ${({ theme }) => theme.fontSize.lg};
   font-family: ${({ theme }) => theme.fontFamily.nsRegular};
 `;
