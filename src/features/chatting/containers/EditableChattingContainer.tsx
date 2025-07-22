@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { TThreadDate } from "../types/chattingTypes";
 import { useSleepTimeQuery } from "../hooks/queries/useSleepTimeQuery";
 import { useMakeThreadMutation } from "../hooks/mutations/useMakeThreadMutation";
@@ -19,6 +19,16 @@ const EditableChattingContainer = ({ aiProfileId }: Props) => {
   const { mutate: makeThreadMutate } = useMakeThreadMutation();
   const { mutate: changeAiMutate } = useChangeAiProfileMutation();
 
+  const enterChattingRoomMutate = useCallback(
+    (aiProfileId: number, year: number, month: number, day: number) => {
+      makeThreadMutate(
+        { aiProfileId, year, month, day },
+        { onSuccess: () => changeAiMutate({ aiProfileId, year, month, day }) }
+      );
+    },
+    [changeAiMutate, makeThreadMutate]
+  );
+
   useEffect(() => {
     if (!sleepTime) return;
 
@@ -26,13 +36,8 @@ const EditableChattingContainer = ({ aiProfileId }: Props) => {
     const [{ year, month, day }, expiredDate] = getThreadDateExpired(sleepHour);
     setThreadDate({ year, month, day });
     setThreadExpiredDate(expiredDate);
-    makeThreadMutate(
-      { aiProfileId, year, month, day },
-      {
-        onSuccess: () => changeAiMutate({ aiProfileId, year, month, day }),
-      }
-    );
-  }, [aiProfileId, sleepTime, makeThreadMutate, changeAiMutate]);
+    enterChattingRoomMutate(aiProfileId, year, month, day);
+  }, [aiProfileId, sleepTime, enterChattingRoomMutate]);
 
   if (!threadDate || !threadExpiredDate) return null;
 
