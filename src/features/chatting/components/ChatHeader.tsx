@@ -4,29 +4,60 @@ import { MaterialIcons } from "@expo/vector-icons";
 import CachedImage from "@/src/components/ui/CachedImage";
 import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
 import { theme } from "@/src/constants/theme";
+import { PlaceholderImage } from "@/src/components/ui/PlaceholderImage";
+import { Keyboard } from "react-native";
+import { useIsKeyboardOpen } from "@/src/hooks/useIsKeyboardOpen";
+import { IconMenu, IconSave } from "./icons";
 
-type ChatHeaderProps = {
-  imageSrc: string;
+type Props = {
+  imageSrc: string | null;
   assistantName: string;
-  onPress: () => void;
-  readonly?: boolean;
+  onSavePress?: () => void;
+  onMenuPress?: () => void;
 };
 
-export default function ChatHeader({ imageSrc, assistantName, onPress, readonly }: ChatHeaderProps) {
+const ChatHeader = ({ imageSrc, assistantName, onSavePress, onMenuPress }: Props) => {
   const router = useRouter();
+  const isKeyboardOpen = useIsKeyboardOpen();
+
+  const goToBack = () => router.back();
+
+  const handleSavePress = () => {
+    if (isKeyboardOpen) Keyboard.dismiss();
+    onSavePress?.();
+  };
+
+  const handleMenuPress = () => {
+    if (isKeyboardOpen) Keyboard.dismiss();
+    onMenuPress?.();
+  };
 
   return (
     <HeaderBox>
-      <BackButton onPress={() => router.back()} hitSlop={7}>
-        <MaterialIcons name="arrow-back-ios" size={28} color={theme.colors.black} />
-      </BackButton>
-      <HeaderButton onPress={onPress} hitSlop={7} disabled={readonly}>
-        <Image src={imageSrc} />
+      <StyledButton onPress={goToBack} hitSlop={12}>
+        <MaterialIcons name="arrow-back-ios" size={24} color={theme.colors.black} />
+      </StyledButton>
+      <ProfileBox>
+        <ImageBox>{imageSrc ? <Image src={imageSrc} /> : <PlaceholderImage />}</ImageBox>
         <AiNameText>{assistantName}</AiNameText>
-      </HeaderButton>
+      </ProfileBox>
+      <ButtonBox>
+        {onSavePress && (
+          <StyledButton onPress={handleSavePress} hitSlop={12}>
+            <IconSave />
+          </StyledButton>
+        )}
+        {onMenuPress && (
+          <StyledButton onPress={handleMenuPress} hitSlop={12}>
+            <IconMenu />
+          </StyledButton>
+        )}
+      </ButtonBox>
     </HeaderBox>
   );
-}
+};
+
+export default ChatHeader;
 
 const HeaderBox = styled.View`
   width: 100%;
@@ -34,31 +65,46 @@ const HeaderBox = styled.View`
   background-color: ${({ theme }) => theme.colors.white};
   flex-direction: row;
   padding: 0px ${responsiveToPx("24px")};
+  justify-content: space-between;
   align-items: center;
   gap: ${({ theme }) => theme.gap.lg};
 `;
 
-const BackButton = styled.TouchableOpacity`
-  width: ${responsiveToPx("28px")};
-  height: ${responsiveToPx("28px")};
+const StyledButton = styled.TouchableOpacity`
+  display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-const HeaderButton = styled.TouchableOpacity`
+const ProfileBox = styled.View`
   flex-direction: row;
   gap: ${({ theme }) => theme.gap.lg};
   align-items: center;
 `;
 
-const Image = styled(CachedImage)`
+const ImageBox = styled.View`
   width: ${responsiveToPx("48px")};
   height: ${responsiveToPx("48px")};
   border-radius: 9999px;
+  overflow: hidden;
+`;
+
+const Image = styled(CachedImage)`
+  width: 100%;
+  height: 100%;
 `;
 
 const AiNameText = styled.Text`
   color: ${({ theme }) => theme.colors.black};
   font-family: ${({ theme }) => theme.fontFamily.nsBold};
   font-size: ${({ theme }) => theme.fontSize.lg};
+`;
+
+const ButtonBox = styled.View`
+  width: ${responsiveToPx("60px")};
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
 `;

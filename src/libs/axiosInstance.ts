@@ -90,14 +90,15 @@ axiosInstance.interceptors.response.use(
         config.sent = true;
 
         // refresh token으로 새 access token, refresh token 받아오기
-        const { data } = await axios.post<LoginDTO>(`${BASE_URL}${endpoint.auth.refresh}`, {
-          refreshToken,
+        const { data } = await axios.post<LoginDTO>(`${BASE_URL}${endpoint.auth.refresh}`, undefined, {
+          headers: { Authorization: refreshToken },
         });
 
         // 새 토큰들 저장
         const newAccessToken = `${data.result.tokenType} ${data.result.accessToken}`;
+        const newRefreshToken = `${data.result.tokenType} ${data.result.refreshToken}`;
         setAccessToken(newAccessToken);
-        await setRefreshToken(data.result.refreshToken);
+        await setRefreshToken(newRefreshToken);
         console.log("토큰 재발급 성공");
 
         // 재요청 대기중이던 api와 토큰 재발급을 일으킨 api 재요청 수행

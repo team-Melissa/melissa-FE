@@ -8,15 +8,17 @@ import toastMessage from "@/src/constants/toastMessage";
 import type { ErrorDTO } from "@/src/types/commonTypes";
 import type { LoginDTO } from "../types/loginTypes";
 import { _appleLogin, _googleLogin, _kakaoLogin } from "../apis/loginApi";
+import { IS_NEW_USER_QUERY_KEY } from "@/src/hooks";
 
 const useLogin = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
 
   const handleSuccess = async (data: LoginDTO) => {
-    setAccessToken(`${data.result.tokenType} ${data.result.accessToken}`);
-    await setRefreshToken(data.result.refreshToken);
-    queryClient.invalidateQueries({ queryKey: ["check-new-user"] });
+    const { tokenType, accessToken, refreshToken } = data.result;
+    setAccessToken(`${tokenType} ${accessToken}`);
+    await setRefreshToken(`${tokenType} ${refreshToken}`);
+    queryClient.invalidateQueries({ queryKey: [IS_NEW_USER_QUERY_KEY] });
     router.replace("/(app)");
     toast({ message: toastMessage.login.success, options: { type: "success" } });
   };

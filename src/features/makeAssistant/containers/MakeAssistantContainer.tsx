@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useIsNewUserContext } from "@/src/contexts/isNewUserProvider";
 import { questions } from "../constants/questions";
 import Intro from "../components/Intro";
 import Question from "../components/Question";
@@ -11,7 +10,6 @@ type MakeAssistantContainerProps = {
 };
 
 export default function MakeAssistantContainer({ prevAnswer }: MakeAssistantContainerProps) {
-  const isNewUser = useIsNewUserContext();
   const [isIntro, setIsIntro] = useState<boolean>(true);
   const [cursor, setCursor] = useState<number>(0);
   const [answers, setAnswers] = useState<string[]>(() => {
@@ -23,25 +21,14 @@ export default function MakeAssistantContainer({ prevAnswer }: MakeAssistantCont
   });
 
   useEffect(() => {
-    let timer: NodeJS.Timeout | null = null;
-    if (isNewUser) {
-      timer = setTimeout(() => {
-        setIsIntro(false);
-      }, 4000);
-    }
+    const timer = setTimeout(() => {
+      setIsIntro(false);
+    }, 4000);
 
-    return () => {
-      if (timer) clearTimeout(timer);
-    };
-  }, [isNewUser]);
+    return () => clearTimeout(timer);
+  }, []);
 
-  useEffect(() => {
-    console.log(answers);
-  }, [answers]);
-
-  if (isNewUser && isIntro) {
-    return <Intro />;
-  }
+  if (isIntro) return <Intro />;
 
   if (cursor + 1 <= questions.length) {
     return <Question answer={answers} setAnswer={setAnswers} cursor={cursor} setCursor={setCursor} />;

@@ -1,18 +1,23 @@
 import { useMemo } from "react";
 import { useRouter } from "expo-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useIsNewUserContext } from "@/src/contexts/isNewUserProvider";
-import { _makeAssistant } from "../../apis/makeAssistantApi";
 import type { MakeAssistantDTO, TAssistantMakeQnA } from "../../types/makeAssistantTypes";
+import axiosInstance from "@/src/libs/axiosInstance";
+import endpoint from "@/src/constants/endpoint";
+import { AI_PROFILE_LIST_QUERY_KEY } from "@/src/features/main/hooks/queries/useAiProfileListQuery";
 
 type TProps = {
   answers: string[];
 };
 
+const makeAiProfile = async (answers: TAssistantMakeQnA) => {
+  const { data } = await axiosInstance.post<MakeAssistantDTO>(endpoint.aiProfile.aiProfilesV2, answers);
+  return data;
+};
+
 export const useMakeAssistantMutation = ({ answers }: TProps) => {
   const queryClient = useQueryClient();
   const router = useRouter();
-  const isNewUser = useIsNewUserContext();
 
   const answersJson = useMemo(
     () =>
@@ -25,24 +30,15 @@ export const useMakeAssistantMutation = ({ answers }: TProps) => {
 
   const handleSuccess = (data: MakeAssistantDTO) => {
     console.log(data.message);
-    if (isNewUser) {
-      console.log("새로운 유저입니다.");
-      setTimeout(() => {
-        console.log("/main으로 리다이렉트합니다.");
-        router.replace("/(app)/main");
-      }, 2500);
-    } else {
-      console.log("기존 유저입니다.");
-      queryClient.invalidateQueries({ queryKey: ["assistant-list"] });
-      setTimeout(() => {
-        console.log("이전 페이지로 back 합니다.");
-        router.back();
-      }, 2500);
-    }
+    queryClient.invalidateQueries({ queryKey: [AI_PROFILE_LIST_QUERY_KEY] });
+    setTimeout(() => {
+      console.log("이전 페이지로 back 합니다.");
+      router.back();
+    }, 2500);
   };
 
   return useMutation({
-    mutationFn: () => _makeAssistant(answersJson),
+    mutationFn: () => makeAiProfile(answersJson),
     onSuccess: (data) => handleSuccess(data),
     onError: (error) => console.error(error.response?.data),
   });

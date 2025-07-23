@@ -1,11 +1,12 @@
-import { ExpoConfig, ConfigContext } from "expo/config";
+import type { ExpoConfig, ConfigContext } from "expo/config";
+import "ts-node/register";
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: "Melissa",
   slug: "melissa",
   owner: "teammelissa7",
-  version: "1.1.0",
+  version: "1.2.0",
   orientation: "portrait",
   icon: "./assets/images/icon.png",
   scheme: "myapp",
@@ -75,7 +76,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       {
         android: {
           compileSdkVersion: 35,
-          targetSdkVersion: 34,
+          targetSdkVersion: 35,
           buildToolsVersion: "35.0.0",
           kotlinVersion: "1.9.25",
           extraMavenRepos: ["https://devrepo.kakao.com/nexus/content/groups/public/"],
@@ -90,6 +91,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         url: "https://sentry.io/",
       },
     ],
+    ["./plugins/android-keyboard-fix.ts"], // Todo: RN에서 MainActivity.kt에 setPadding을 넣어줄 때까지 유지
   ],
   experiments: {
     typedRoutes: true,

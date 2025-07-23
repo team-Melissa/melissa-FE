@@ -10,6 +10,11 @@ type QuestionButtonProps = {
   children: ReactNode;
 };
 
+type StyledButtonProps = {
+  pressed: boolean;
+  selected: boolean;
+};
+
 export default function QuestionButton({ selected, onPress, children }: QuestionButtonProps) {
   return (
     <Pressable onPress={onPress}>
@@ -23,11 +28,6 @@ export default function QuestionButton({ selected, onPress, children }: Question
     </Pressable>
   );
 }
-
-type StyledButtonProps = {
-  pressed: boolean;
-  selected: boolean;
-};
 
 const ButtonBox = styled.View<StyledButtonProps>`
   width: ${responsiveToPx("340px")};
