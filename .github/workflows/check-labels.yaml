@@ -6,14 +6,10 @@ on:
       - main
 
 jobs:
-  check-labels:
-    if: github.event.pull_request.merged == true
-    runs-on: ubuntu-latest
-    steps:
-      - name: 🔄 Trigger EAS Update
-        if: contains(github.event.pull_request.labels.*.name, 'production-update')
-        uses: ./.github/workflows/eas-update.yaml
+  eas-update:
+    if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'production-update')
+    uses: ./.github/workflows/eas-update.yaml
 
-      - name: 🔄 Trigger EAS Build and Submit
-        if: contains(github.event.pull_request.labels.*.name, 'production-build-submit')
-        uses: ./.github/workflows/eas-build-submit.yaml
+  eas-build-submit:
+    if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'production-build-submit')
+    uses: ./.github/workflows/eas-build-submit.yaml
