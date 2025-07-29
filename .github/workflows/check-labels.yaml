@@ -9,7 +9,9 @@ jobs:
   eas-update:
     if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'production-update')
     uses: ./.github/workflows/eas-update.yaml
+    secrets: inherit
 
   eas-build-submit:
     if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'production-build-submit')
     uses: ./.github/workflows/eas-build-submit.yaml
+    secrets: inherit
