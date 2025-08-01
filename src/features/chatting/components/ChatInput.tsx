@@ -35,7 +35,6 @@ export default function ChatInput({ input, setInput, onSubmitPress, readonly }: 
 }
 
 const KeyboardAvoidingBox = styled.KeyboardAvoidingView`
-  width: 100%;
   background-color: ${({ theme }) => theme.colors.whiteBlue};
   justify-content: center;
   align-items: center;
