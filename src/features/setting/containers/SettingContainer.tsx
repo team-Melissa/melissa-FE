@@ -49,6 +49,7 @@ export default function SettingContainer({ data }: SettingContainerProps) {
           <LogoutItem onPress={handleLogoutPress} />
           <DeleteAccountItem onPress={handleDeleteAccountPress} />
         </SettingBox>
+        <OTAVersionTxt>OTA version: 0</OTAVersionTxt>
       </ScrollView>
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
@@ -74,4 +75,10 @@ const SettingBox = styled.View`
   justify-content: center;
   align-items: center;
   gap: ${({ theme }) => theme.gap.xxl};
+`;
+
+const OTAVersionTxt = styled.Text`
+  color: ${({ theme }) => theme.colors.darkGray};
+  align-self: flex-end;
+  margin: 10px 10px 0 0;
 `;
