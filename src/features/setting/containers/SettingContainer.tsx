@@ -1,4 +1,5 @@
 import { ScrollView } from "react-native";
+import { useUpdates } from "expo-updates";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styled from "styled-components/native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -32,6 +33,7 @@ export default function SettingContainer({ data }: SettingContainerProps) {
     handleDeleteAccountPress,
     handleNotificationSummary,
   } = useSetting(data);
+  const { currentlyRunning } = useUpdates();
 
   if (isPending) {
     return <Loading />;
@@ -49,6 +51,7 @@ export default function SettingContainer({ data }: SettingContainerProps) {
           <LogoutItem onPress={handleLogoutPress} />
           <DeleteAccountItem onPress={handleDeleteAccountPress} />
         </SettingBox>
+        <OTAVersionTxt>OTA version: {currentlyRunning.updateId ?? "DEV"}</OTAVersionTxt>
       </ScrollView>
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
@@ -74,4 +77,10 @@ const SettingBox = styled.View`
   justify-content: center;
   align-items: center;
   gap: ${({ theme }) => theme.gap.xxl};
+`;
+
+const OTAVersionTxt = styled.Text`
+  color: ${({ theme }) => theme.colors.settingSubText};
+  align-self: flex-end;
+  margin: 10px 10px 0 0;
 `;
