@@ -1,9 +1,9 @@
 import styled from "styled-components/native";
+import { useRouter } from "expo-router";
+import { Image } from "expo-image";
 import { TAiProfile } from "../types/aiProfileTypes";
 import responsiveToPx from "@/src/utils/responsiveToPx";
 import { debounce } from "@/src/utils/debounce";
-import { useRouter } from "expo-router";
-import CachedImage from "@/src/components/ui/CachedImage";
 import { PlaceholderImage } from "@/src/components/ui/PlaceholderImage";
 
 type Props = {
@@ -21,7 +21,7 @@ const AiProfile = ({ aiProfile, backgroundColor }: Props) => {
   return (
     <Wrapper onPress={handleAiProfilePress} $backgroundColor={backgroundColor}>
       <ImageWrapper>
-        {aiProfile.imageUrl ? <StyledImage src={aiProfile.imageUrl} /> : <PlaceholderImage />}
+        {aiProfile.imageUrl ? <SImage source={{ uri: aiProfile.imageUrl }} /> : <PlaceholderImage />}
       </ImageWrapper>
       <NameTxt>{aiProfile.profileName}</NameTxt>
       <FirstTagTxt>{aiProfile.hashTag1}</FirstTagTxt>
@@ -47,7 +47,7 @@ const ImageWrapper = styled.View`
   border-radius: 5px;
 `;
 
-const StyledImage = styled(CachedImage)`
+const SImage = styled(Image)`
   width: ${responsiveToPx("108px")};
   height: ${responsiveToPx("108px")};
   border-radius: 5px;

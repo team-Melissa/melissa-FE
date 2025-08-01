@@ -1,9 +1,9 @@
 import { type Dispatch, type SetStateAction, forwardRef, useMemo } from "react";
 import styled from "styled-components/native";
 import { useRouter } from "expo-router";
+import { Image } from "expo-image";
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import type { DateData } from "react-native-calendars";
-import CachedImage from "@/src/components/ui/CachedImage";
 import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
 import { theme } from "@/src/constants/theme";
 import { shadowProps } from "@/src/constants/shadowProps";
@@ -46,7 +46,7 @@ const DiaryBottomSheet = forwardRef<BottomSheet, DiaryBottomSheetProps>(
         {diary && (
           <BottomSheetLayout>
             <ScrollBox showsVerticalScrollIndicator={false}>
-              <ImageBox>{diary.imageS3 ? <Image src={diary.imageS3} /> : <PlaceholderImage />}</ImageBox>
+              <ImageBox>{diary.imageS3 ? <SImage source={{ uri: diary.imageS3 }} /> : <PlaceholderImage />}</ImageBox>
               <DateText>
                 {diary.year}. {diary.month}. {diary.day}
               </DateText>
@@ -93,7 +93,7 @@ const ImageBox = styled.View`
   overflow: hidden;
 `;
 
-const Image = styled(CachedImage)`
+const SImage = styled(Image)`
   width: 100%;
   height: 100%;
 `;
