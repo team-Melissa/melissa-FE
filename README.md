@@ -48,7 +48,6 @@
 ## 주요 문제 해결 경험
 
 - Refresh token 기반 로그인 유지를 위해 토큰 재발급 [Axios interceptor](https://github.com/team-Melissa/melissa-FE/blob/dev/src/libs/axiosInstance.ts) 구현
-- S3 요청 수를 줄이기 위해 파일 시스템의 cache directory에 이미지를 저장하고 활용하는 [CachedImage](https://github.com/team-Melissa/melissa-FE/blob/dev/src/components/ui/CachedImage/index.tsx) 컴포넌트 구현
 - pnpm patch를 활용해 일부 라이브러리(react-native-calendars, react-native-sse) 코드를 필요에 맞게 수정 ([관련 포스트](https://velog.io/@hyeonseong0305/react-native-calendars-%ED%97%A4%EB%8D%94-%EC%BB%A4%EC%8A%A4%ED%84%B0%EB%A7%88%EC%9D%B4%EC%A7%95%ED%95%98%EA%B8%B0-pnpm-patch))
 - 빌드 타임에 네이티브 코드를 수정하기 위한 custom Expo plugin 구현 ([관련 포스트](https://velog.io/@hyeonseong0305/RN-Android-SDK-35-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8-%EC%9D%B4%ED%9B%84-%ED%82%A4%EB%B3%B4%EB%93%9C%EA%B0%80-%ED%99%94%EB%A9%B4%EC%9D%84-%EA%B0%80%EB%A6%AC%EB%8A%94-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0-Expo-plugin-%ED%99%9C%EC%9A%A9))
 - Android, IOS 버전 업데이트 시 발생하는 다양한 이슈 트러블슈팅 경험

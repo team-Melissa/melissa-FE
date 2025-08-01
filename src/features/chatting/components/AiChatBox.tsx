@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import CachedImage from "@/src/components/ui/CachedImage";
+import { Image } from "expo-image";
 import responsiveToPx from "@/src/utils/responsiveToPx";
 import { shadowProps } from "@/src/constants/shadowProps";
 import { PlaceholderImage } from "@/src/components/ui/PlaceholderImage";
@@ -12,7 +12,7 @@ type AiChatBoxProps = {
 export default function AiChatBox({ content, imageUrl }: AiChatBoxProps) {
   return (
     <AiChatLayout>
-      <ImageBox>{imageUrl ? <Image src={imageUrl} /> : <PlaceholderImage />}</ImageBox>
+      <ImageBox>{imageUrl ? <SImage source={{ uri: imageUrl }} /> : <PlaceholderImage />}</ImageBox>
       <AiChatTextBox style={shadowProps}>
         <AiChatText>{content}</AiChatText>
       </AiChatTextBox>
@@ -34,7 +34,7 @@ const ImageBox = styled.View`
   overflow: hidden;
 `;
 
-const Image = styled(CachedImage)`
+const SImage = styled(Image)`
   width: 100%;
   height: 100%;
 `;
