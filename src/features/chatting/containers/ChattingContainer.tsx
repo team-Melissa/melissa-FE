@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { ScrollView } from "react-native";
+import { Platform, ScrollView } from "react-native";
 import styled from "styled-components/native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { type Edge, SafeAreaView } from "react-native-safe-area-context";
 import ChatHeader from "../components/ChatHeader";
 import AiChatBox from "../components/AiChatBox";
 import UserChatBox from "../components/UserChatBox";
@@ -38,6 +38,14 @@ const ChattingContainer = ({ threadDate, threadExpiredDate, readonly }: Props) =
 
   const { data: messages } = useMessagesQuery(threadDate);
   const { isPending: isSavePending, mutate: saveMutate } = useDiaryMutation(threadDate);
+
+  const getSafeViewEdges = (): Edge[] => {
+    const os = Platform.OS;
+    if (os === "android") {
+      return ["top", "left", "right", "bottom"];
+    }
+    return ["top", "left", "right"];
+  };
 
   const handleSaveMutate = () => {
     if (isSavePending) return;
@@ -163,7 +171,7 @@ const ChattingContainer = ({ threadDate, threadExpiredDate, readonly }: Props) =
   }, [queryClient]);
 
   return (
-    <SafeView edges={["left", "right", "top"]}>
+    <SafeView edges={getSafeViewEdges()}>
       <ChatHeader
         imageSrc={messages?.result.aiProfileImageS3 ?? ""}
         assistantName={messages?.result.aiProfileName ?? ""}
