@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 import { useRouter } from "expo-router";
 import { MaterialIcons } from "@expo/vector-icons";
-import CachedImage from "@/src/components/ui/CachedImage";
+import { Image } from "expo-image";
 import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
 import { theme } from "@/src/constants/theme";
 import { PlaceholderImage } from "@/src/components/ui/PlaceholderImage";
@@ -38,7 +38,7 @@ const ChatHeader = ({ imageSrc, assistantName, onSavePress, onMenuPress }: Props
         <MaterialIcons name="arrow-back-ios" size={24} color={theme.colors.black} />
       </StyledButton>
       <ProfileBox>
-        <ImageBox>{imageSrc ? <Image src={imageSrc} /> : <PlaceholderImage />}</ImageBox>
+        <ImageBox>{imageSrc ? <SImage source={{ uri: imageSrc }} /> : <PlaceholderImage />}</ImageBox>
         <AiNameText>{assistantName}</AiNameText>
       </ProfileBox>
       <ButtonBox>
@@ -89,7 +89,7 @@ const ImageBox = styled.View`
   overflow: hidden;
 `;
 
-const Image = styled(CachedImage)`
+const SImage = styled(Image)`
   width: 100%;
   height: 100%;
 `;

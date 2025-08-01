@@ -1,8 +1,8 @@
 import type { BasicDayProps } from "react-native-calendars/src/calendar/day/basic";
 import type { DateData } from "react-native-calendars";
 import styled from "styled-components/native";
+import { Image } from "expo-image";
 import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
-import CachedImage from "@/src/components/ui/CachedImage";
 import { useCalendarQuery } from "../hooks/queries/useCalendarQuery";
 import { PlaceholderImage } from "@/src/components/ui/PlaceholderImage";
 
@@ -31,7 +31,7 @@ export default function DayComponent({ date, onPress }: DayComponentProps) {
 
   return (
     <DayBox onPress={() => onPress(date)}>
-      <ImageBox>{dayDiary.imageS3 ? <Image src={dayDiary.imageS3} /> : <PlaceholderImage />}</ImageBox>
+      <ImageBox>{dayDiary.imageS3 ? <SImage source={{ uri: dayDiary.imageS3 }} /> : <PlaceholderImage />}</ImageBox>
       <TagBox>
         <TagText numberOfLines={1} ellipsizeMode="clip">
           {dayDiary.hashTag1}
@@ -60,7 +60,7 @@ const ImageBox = styled.View`
   overflow: hidden;
 `;
 
-const Image = styled(CachedImage)`
+const SImage = styled(Image)`
   width: ${responsiveToPxByHeight("54px")};
   height: ${responsiveToPxByHeight("54px")};
 `;

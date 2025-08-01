@@ -1,5 +1,4 @@
-import { ImageProps } from "expo-image";
-import CachedImage from "../CachedImage";
+import { Image, type ImageProps } from "expo-image";
 import styled from "styled-components/native";
 import { Animated, Easing, type LayoutChangeEvent } from "react-native";
 import { useEffect, useRef, useState } from "react";
@@ -42,7 +41,7 @@ export const PlaceholderImage = (props: Omit<ImageProps, "src">) => {
 
   return (
     <Wrapper onLayout={onLayout}>
-      <SCachedImage src={PLACEHOLDER_IMG_SRC} {...props} />
+      <SImage source={{ uri: PLACEHOLDER_IMG_SRC }} {...props} />
       <AnimatedShimmer style={{ transform: [{ translateX }] }} />
     </Wrapper>
   );
@@ -55,7 +54,7 @@ const Wrapper = styled.View`
   overflow: hidden;
 `;
 
-const SCachedImage = styled(CachedImage)`
+const SImage = styled(Image)`
   position: absolute;
   top: 0;
   left: 0;
