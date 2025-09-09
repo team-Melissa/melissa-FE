@@ -51,7 +51,7 @@ export default function SettingContainer({ data }: SettingContainerProps) {
           <LogoutItem onPress={handleLogoutPress} />
           <DeleteAccountItem onPress={handleDeleteAccountPress} />
         </SettingBox>
-        <OTAVersionTxt>OTA version: {currentlyRunning.updateId ?? "DEV"}</OTAVersionTxt>
+        {currentlyRunning.updateId && <OTAVersionTxt>OTA version: {currentlyRunning.updateId}</OTAVersionTxt>}
       </ScrollView>
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
