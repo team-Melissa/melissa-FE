@@ -11,6 +11,7 @@ import { ToastsRoot } from "@/src/modules/toast";
 import { theme } from "@/src/constants/theme";
 import queryClient from "@/src/libs/queryClient";
 import initializeApp from "@/src/utils/initializeApp";
+import { ModalsProvider } from "../modules/modal";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -67,9 +68,11 @@ function RootLayout() {
   return (
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <StatusBar style="dark" />
-        <Slot />
-        <ToastsRoot />
+        <ModalsProvider>
+          <StatusBar style="dark" />
+          <Slot />
+          <ToastsRoot />
+        </ModalsProvider>
       </QueryClientProvider>
     </ThemeProvider>
   );
