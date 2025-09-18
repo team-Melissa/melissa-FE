@@ -1,9 +1,9 @@
-import type { SuccessDTO } from "@/src/types/commonTypes";
+import type { OAuthProvider, SuccessDTO } from "@/src/types/commonTypes";
 
 export type LoginDTO = SuccessDTO & {
   result: {
     userId: number;
-    oauthProvider: "KAKAO" | "GOOGLE" | "APPLE";
+    oauthProvider: OAuthProvider;
     email: string;
     nickname: string;
     accessToken: string;

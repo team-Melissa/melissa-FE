@@ -1,4 +1,5 @@
 import { MMKV } from "react-native-mmkv";
+import type { OAuthProvider } from "../types/commonTypes";
 
 const storage = new MMKV();
 
@@ -12,7 +13,7 @@ const removeStorageValue = (key: string): void => {
 
 export const getAccessToken = (): string | null => {
   const accessToken = storage.getString("accessToken");
-  return accessToken ? accessToken : null;
+  return accessToken ?? null;
 };
 
 export const setAccessToken = (accessToken: string): void => {
@@ -21,4 +22,17 @@ export const setAccessToken = (accessToken: string): void => {
 
 export const removeAccessToken = (): void => {
   removeStorageValue("accessToken");
+};
+
+export const getOAuthProvider = (): OAuthProvider | null => {
+  const oauthProvider = storage.getString("oauthProvider") as OAuthProvider;
+  return oauthProvider ?? null;
+};
+
+export const setOAuthProvider = (oauthProvider: OAuthProvider) => {
+  setStorageValue("oauthProvider", oauthProvider);
+};
+
+export const removeOAuthProvider = () => {
+  removeStorageValue("oauthProvider");
 };
