@@ -4,8 +4,7 @@ import responsiveToPx from "@/src/utils/responsiveToPx";
 import { shadowProps } from "@/src/constants/shadowProps";
 import type { ReactNode } from "react";
 import type { OAuthProvider } from "@/src/types/commonTypes";
-import { getOAuthProvider } from "@/src/libs/mmkv";
-import PrevLoginBadge from "./PrevLoginBadge";
+import { backgroundColors, logoPaths, textColors, textOpacities } from "../constants";
 
 type LoginButtonProps = {
   provider: OAuthProvider;
@@ -13,46 +12,9 @@ type LoginButtonProps = {
   children: ReactNode;
 };
 
-type StyledProps = {
-  backgroundColor: string;
-  isPrevLoginProvider: boolean;
-};
-
 export default function LoginButton({ provider, onPress, children }: LoginButtonProps) {
-  const logoPaths = {
-    KAKAO: require("@/assets/images/kakao.svg"),
-    GOOGLE: require("@/assets/images/google.svg"),
-    APPLE: require("@/assets/images/apple.svg"),
-  } satisfies Record<OAuthProvider, any>;
-
-  const backgroundColors = {
-    KAKAO: "#fee500",
-    GOOGLE: "#ffffff",
-    APPLE: "#050708",
-  } satisfies Record<OAuthProvider, string>;
-
-  const textOpacities = {
-    KAKAO: 0.85,
-    GOOGLE: 0.54,
-    APPLE: 1,
-  } satisfies Record<OAuthProvider, number>;
-
-  const textColors = {
-    KAKAO: "#000000",
-    GOOGLE: "#000000",
-    APPLE: "#ffffff",
-  } satisfies Record<OAuthProvider, string>;
-
-  const isPrevLoginProvider = getOAuthProvider() === provider;
-
   return (
-    <StyledButton
-      style={shadowProps}
-      backgroundColor={backgroundColors[provider]}
-      isPrevLoginProvider={isPrevLoginProvider}
-      onPress={onPress}
-    >
-      <PrevLoginBadge isPrevLoginProvider={isPrevLoginProvider} />
+    <StyledButton style={shadowProps} backgroundColor={backgroundColors[provider]} onPress={onPress}>
       <Image source={logoPaths[provider]} contentFit="contain" />
       <StyledText textOpacity={textOpacities[provider]} textColor={textColors[provider]}>
         {children}
@@ -61,7 +23,7 @@ export default function LoginButton({ provider, onPress, children }: LoginButton
   );
 }
 
-const StyledButton = styled.TouchableOpacity<StyledProps>`
+const StyledButton = styled.TouchableOpacity<{ backgroundColor: string }>`
   position: relative;
   width: ${responsiveToPx("340px")};
   height: ${responsiveToPx("50px")};

@@ -5,6 +5,7 @@ import responsiveToPx from "@/src/utils/responsiveToPx";
 import useLogin from "../hooks/useLogin";
 import LoginTitle from "../components/LoginTitle";
 import LoginButton from "../components/LoginButton";
+import LastLoginBadge from "../components/LastLoginBadge";
 
 export default function LoginContainer() {
   const { isPending, kakaoMutate, googleMutate, appleMutate } = useLogin();
@@ -16,6 +17,7 @@ export default function LoginContainer() {
   return (
     <ContentBox>
       <LoginTitle />
+      <LastLoginBadge />
       <ButtonBox>
         <LoginButton provider="KAKAO" onPress={kakaoMutate}>
           카카오로 로그인
