@@ -5,6 +5,7 @@ import responsiveToPx from "@/src/utils/responsiveToPx";
 import useLogin from "../hooks/useLogin";
 import LoginTitle from "../components/LoginTitle";
 import LoginButton from "../components/LoginButton";
+import LastLoginBadge from "../components/LastLoginBadge";
 
 export default function LoginContainer() {
   const { isPending, kakaoMutate, googleMutate, appleMutate } = useLogin();
@@ -16,15 +17,16 @@ export default function LoginContainer() {
   return (
     <ContentBox>
       <LoginTitle />
+      <LastLoginBadge />
       <ButtonBox>
-        <LoginButton provider="kakao" onPress={kakaoMutate}>
+        <LoginButton provider="KAKAO" onPress={kakaoMutate}>
           카카오로 로그인
         </LoginButton>
-        <LoginButton provider="google" onPress={googleMutate}>
+        <LoginButton provider="GOOGLE" onPress={googleMutate}>
           Google로 로그인
         </LoginButton>
         {Platform.OS === "ios" && (
-          <LoginButton provider="apple" onPress={appleMutate}>
+          <LoginButton provider="APPLE" onPress={appleMutate}>
             Apple로 로그인
           </LoginButton>
         )}

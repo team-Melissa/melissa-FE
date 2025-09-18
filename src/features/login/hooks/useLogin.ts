@@ -1,24 +1,24 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
 import { isAxiosError } from "axios";
-import { setAccessToken } from "@/src/libs/mmkv";
+import { setAccessToken, setOAuthProvider } from "@/src/libs/mmkv";
 import { setRefreshToken } from "@/src/libs/secureStorage";
 import { toast } from "@/src/modules/toast";
 import toastMessage from "@/src/constants/toastMessage";
 import type { ErrorDTO } from "@/src/types/commonTypes";
 import type { LoginDTO } from "../types/loginTypes";
 import { _appleLogin, _googleLogin, _kakaoLogin } from "../apis/loginApi";
-import { IS_NEW_USER_QUERY_KEY } from "@/src/hooks";
 
 const useLogin = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
 
   const handleSuccess = async (data: LoginDTO) => {
-    const { tokenType, accessToken, refreshToken } = data.result;
+    const { tokenType, accessToken, refreshToken, oauthProvider } = data.result;
     setAccessToken(`${tokenType} ${accessToken}`);
     await setRefreshToken(`${tokenType} ${refreshToken}`);
-    queryClient.invalidateQueries({ queryKey: [IS_NEW_USER_QUERY_KEY] });
+    setOAuthProvider(oauthProvider);
+    queryClient.invalidateQueries({ queryKey: [] });
     router.replace("/(app)");
     toast({ message: toastMessage.login.success, options: { type: "success" } });
   };
