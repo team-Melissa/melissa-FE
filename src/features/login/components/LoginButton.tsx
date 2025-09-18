@@ -3,49 +3,66 @@ import { Image as Img } from "expo-image";
 import responsiveToPx from "@/src/utils/responsiveToPx";
 import { shadowProps } from "@/src/constants/shadowProps";
 import type { ReactNode } from "react";
+import type { OAuthProvider } from "@/src/types/commonTypes";
+import { getOAuthProvider } from "@/src/libs/mmkv";
+import PrevLoginBadge from "./PrevLoginBadge";
 
 type LoginButtonProps = {
-  provider: "kakao" | "google" | "apple";
+  provider: OAuthProvider;
   onPress: () => void;
   children: ReactNode;
 };
 
+type StyledProps = {
+  backgroundColor: string;
+  isPrevLoginProvider: boolean;
+};
+
 export default function LoginButton({ provider, onPress, children }: LoginButtonProps) {
   const logoPaths = {
-    kakao: require("@/assets/images/kakao.svg"),
-    google: require("@/assets/images/google.svg"),
-    apple: require("@/assets/images/apple.svg"),
-  };
+    KAKAO: require("@/assets/images/kakao.svg"),
+    GOOGLE: require("@/assets/images/google.svg"),
+    APPLE: require("@/assets/images/apple.svg"),
+  } satisfies Record<OAuthProvider, any>;
 
   const backgroundColors = {
-    kakao: "#fee500",
-    google: "#ffffff",
-    apple: "#050708",
-  };
+    KAKAO: "#fee500",
+    GOOGLE: "#ffffff",
+    APPLE: "#050708",
+  } satisfies Record<OAuthProvider, string>;
 
   const textOpacities = {
-    kakao: 0.85,
-    google: 0.54,
-    apple: 1,
-  };
+    KAKAO: 0.85,
+    GOOGLE: 0.54,
+    APPLE: 1,
+  } satisfies Record<OAuthProvider, number>;
 
   const textColors = {
-    kakao: "#000000",
-    google: "#000000",
-    apple: "#ffffff",
-  };
+    KAKAO: "#000000",
+    GOOGLE: "#000000",
+    APPLE: "#ffffff",
+  } satisfies Record<OAuthProvider, string>;
+
+  const isPrevLoginProvider = getOAuthProvider() === provider;
 
   return (
-    <Btn style={shadowProps} backgroundColor={backgroundColors[provider]} onPress={onPress}>
+    <StyledButton
+      style={shadowProps}
+      backgroundColor={backgroundColors[provider]}
+      isPrevLoginProvider={isPrevLoginProvider}
+      onPress={onPress}
+    >
+      <PrevLoginBadge isPrevLoginProvider={isPrevLoginProvider} />
       <Image source={logoPaths[provider]} contentFit="contain" />
-      <Text textOpacity={textOpacities[provider]} textColor={textColors[provider]}>
+      <StyledText textOpacity={textOpacities[provider]} textColor={textColors[provider]}>
         {children}
-      </Text>
-    </Btn>
+      </StyledText>
+    </StyledButton>
   );
 }
 
-const Btn = styled.TouchableOpacity<{ backgroundColor: string }>`
+const StyledButton = styled.TouchableOpacity<StyledProps>`
+  position: relative;
   width: ${responsiveToPx("340px")};
   height: ${responsiveToPx("50px")};
   background-color: ${({ backgroundColor }) => backgroundColor};
@@ -55,7 +72,7 @@ const Btn = styled.TouchableOpacity<{ backgroundColor: string }>`
   border-radius: ${responsiveToPx("12px")};
 `;
 
-const Text = styled.Text<{ textOpacity: number; textColor: string }>`
+const StyledText = styled.Text<{ textOpacity: number; textColor: string }>`
   font-family: ${({ theme }) => theme.fontFamily.robotoMedium};
   font-size: ${({ theme }) => theme.fontSize.md};
   color: ${({ textColor }) => textColor};

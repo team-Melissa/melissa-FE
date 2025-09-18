@@ -17,14 +17,14 @@ export default function LoginContainer() {
     <ContentBox>
       <LoginTitle />
       <ButtonBox>
-        <LoginButton provider="kakao" onPress={kakaoMutate}>
+        <LoginButton provider="KAKAO" onPress={kakaoMutate}>
           카카오로 로그인
         </LoginButton>
-        <LoginButton provider="google" onPress={googleMutate}>
+        <LoginButton provider="GOOGLE" onPress={googleMutate}>
           Google로 로그인
         </LoginButton>
         {Platform.OS === "ios" && (
-          <LoginButton provider="apple" onPress={appleMutate}>
+          <LoginButton provider="APPLE" onPress={appleMutate}>
             Apple로 로그인
           </LoginButton>
         )}
