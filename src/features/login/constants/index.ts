@@ -1,10 +1,11 @@
 import type { OAuthProvider } from "@/src/types/commonTypes";
+import type { ImageSource } from "expo-image";
 
 export const logoPaths = {
   KAKAO: require("@/assets/images/kakao.svg"),
   GOOGLE: require("@/assets/images/google.svg"),
   APPLE: require("@/assets/images/apple.svg"),
-} satisfies Record<OAuthProvider, any>;
+} satisfies Record<OAuthProvider, ImageSource>;
 
 export const backgroundColors = {
   KAKAO: "#fee500",
