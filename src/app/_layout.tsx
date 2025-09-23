@@ -12,6 +12,7 @@ import { theme } from "@/src/constants/theme";
 import queryClient from "@/src/libs/queryClient";
 import initializeApp from "@/src/utils/initializeApp";
 import { ModalsProvider } from "../modules/modal";
+import { TutorialProvider } from "../modules/tutorial";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -68,11 +69,13 @@ function RootLayout() {
   return (
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <ModalsProvider>
-          <StatusBar style="dark" />
-          <Slot />
-          <ToastsRoot />
-        </ModalsProvider>
+        <TutorialProvider>
+          <ModalsProvider>
+            <StatusBar style="dark" />
+            <Slot />
+            <ToastsRoot />
+          </ModalsProvider>
+        </TutorialProvider>
       </QueryClientProvider>
     </ThemeProvider>
   );
