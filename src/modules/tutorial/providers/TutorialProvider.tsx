@@ -4,16 +4,16 @@ import {
   completeDiaryTutorial,
   completeMainTutorial,
   getIsChatTutorialOpen,
-  getIsDiaryTutorialOpen,
   getIsMainTutorialOpen,
 } from "../utils/mmkv";
 import { TutorialDispatchContext } from "../contexts/TutorialDispatchContext";
 import { TutorialStateContext } from "../contexts/TutorialStateContext";
+import { canShowDiaryTutorial } from "../utils/canShowDiaryTutorial";
 
 export const TutorialProvider = ({ children }: PropsWithChildren) => {
   const [showMainTutorial, setShowMainTutorial] = useState<boolean>(getIsMainTutorialOpen());
   const [showChatTutorial, setShowChatTutorial] = useState<boolean>(getIsChatTutorialOpen());
-  const [showDiaryTutorial, setShowDiaryTutorial] = useState<boolean>(getIsDiaryTutorialOpen());
+  const [showDiaryTutorial, setShowDiaryTutorial] = useState<boolean>(canShowDiaryTutorial());
 
   const handleCompleteMainTutorial = useCallback(() => {
     setShowMainTutorial(false);
