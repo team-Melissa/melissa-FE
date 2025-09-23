@@ -12,10 +12,6 @@ export const getIsChatTutorialOpen = () => {
 };
 
 export const getIsDiaryTutorialOpen = () => {
-  const isMainTutorialOpen = getIsMainTutorialOpen();
-  const isChatTutorialOpen = getIsChatTutorialOpen();
-
-  if (isMainTutorialOpen || isChatTutorialOpen) return false;
   return storage.getBoolean(DIARY_TUTORIAL_KEY) ?? true;
 };
 
