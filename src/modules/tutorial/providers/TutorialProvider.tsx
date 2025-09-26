@@ -1,4 +1,4 @@
-import { useCallback, useState, type PropsWithChildren } from "react";
+import { useCallback, useEffect, useState, type PropsWithChildren } from "react";
 import {
   completeChatTutorial,
   completeDiaryTutorial,
@@ -29,6 +29,12 @@ export const TutorialProvider = ({ children }: PropsWithChildren) => {
     setShowDiaryTutorial(false);
     completeDiaryTutorial();
   }, []);
+
+  useEffect(() => {
+    if (!showMainTutorial && !showChatTutorial) {
+      setShowDiaryTutorial(canShowDiaryTutorial());
+    }
+  }, [showChatTutorial, showMainTutorial]);
 
   const stateValue = { showMainTutorial, showChatTutorial, showDiaryTutorial };
   const dispatchValue = { handleCompleteMainTutorial, handleCompleteChatTutorial, handleCompleteDiaryTutorial };
