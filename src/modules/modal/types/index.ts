@@ -4,7 +4,7 @@ export type ModalState = {
   renderFn: ModalRenderFn;
 };
 
-type ModalProps = {
+export type ModalProps = {
   isOpen: boolean;
   close: () => void;
   exit: () => void;

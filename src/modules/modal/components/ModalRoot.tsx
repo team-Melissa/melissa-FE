@@ -1,6 +1,6 @@
-import styled from "styled-components/native";
-import type { ReactNode } from "react";
 import { type GestureResponderEvent, Modal, TouchableWithoutFeedback } from "react-native";
+import type { ReactNode } from "react";
+import styled from "styled-components/native";
 
 type ModalRootProps = {
   isOpen: boolean;
@@ -18,7 +18,7 @@ export const ModalRoot = ({ isOpen, onClose, children }: ModalRootProps) => {
   };
 
   return (
-    <Modal visible={isOpen} transparent={true} animationType="fade" onRequestClose={onClose}>
+    <Modal visible={isOpen} animationType="fade" onRequestClose={onClose} transparent statusBarTranslucent>
       <TouchableWithoutFeedback onPress={handleBackdropPress}>
         <Backdrop>
           <TouchableWithoutFeedback onPress={handleInnerClick}>{children}</TouchableWithoutFeedback>
