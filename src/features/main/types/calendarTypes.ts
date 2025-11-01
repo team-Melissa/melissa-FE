@@ -29,6 +29,10 @@ export type TNullableDiary = {
 
 export type TDiary = Omit<ObjectNonNullable<TNullableDiary>, "imageS3"> & { imageS3: string | null };
 
+export type TManualDiaryDTO = SuccessDTO & {
+  result: TNullableDiary;
+};
+
 export type CalendarDTO = SuccessDTO & {
   result: (TNullableDay | TDay)[];
 };
