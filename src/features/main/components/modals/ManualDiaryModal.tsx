@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 import type { DateData } from "react-native-calendars";
 import { ModalRoot, type ModalProps } from "@/src/modules/modal";
-import responsiveToPx from "@/src/utils/responsiveToPx";
+import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
 import { theme } from "@/src/constants/theme";
 import { useState } from "react";
 
@@ -94,7 +94,7 @@ const TitleInput = styled.TextInput`
 
 const ContentInput = styled.TextInput`
   width: 100%;
-  height: ${responsiveToPx("200px")};
+  height: ${responsiveToPxByHeight("120px")};
   padding: ${responsiveToPx("11px")};
   background-color: ${theme.colors.white};
   border: 1px solid ${theme.colors.gray};
