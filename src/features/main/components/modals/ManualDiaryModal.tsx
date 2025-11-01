@@ -4,6 +4,8 @@ import { ModalRoot, type ModalProps } from "@/src/modules/modal";
 import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
 import { theme } from "@/src/constants/theme";
 import { useState } from "react";
+import { useManualDiaryMutation } from "../../hooks/mutations/useManualDiaryMutation";
+import { Keyboard } from "react-native";
 
 type Props = ModalProps & {
   date: DateData;
@@ -14,8 +16,21 @@ const ManualDiaryModal = ({ isOpen, close, exit, date }: Props) => {
   const [content, setContent] = useState<string>("");
   const [hashtag1, setHashtag1] = useState<string>("");
   const [hashtag2, setHashtag2] = useState<string>("");
-
   const isSubmitable = !!title && !!content && !!hashtag1 && !!hashtag2;
+
+  const manualDiaryMutation = useManualDiaryMutation();
+
+  const handleSubmitSuccess = () => {
+    Keyboard.dismiss();
+    exit();
+  };
+
+  const handleSubmitPress = () => {
+    if (manualDiaryMutation.isPending) return;
+
+    const diary = { title, content, hashtag1, hashtag2 };
+    manualDiaryMutation.mutate({ date, diary }, { onSuccess: handleSubmitSuccess });
+  };
 
   return (
     <ModalRoot isOpen={isOpen} onClose={close}>
@@ -53,7 +68,7 @@ const ManualDiaryModal = ({ isOpen, close, exit, date }: Props) => {
             placeholderTextColor={theme.colors.placeholderText}
           />
         </HashtagInputWrapper>
-        <SubmitButton disabled={!isSubmitable}>
+        <SubmitButton disabled={!isSubmitable} onPress={handleSubmitPress}>
           <SubmitButtonText>저장하기</SubmitButtonText>
         </SubmitButton>
       </Wrapper>
