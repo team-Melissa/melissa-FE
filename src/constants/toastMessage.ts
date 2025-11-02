@@ -38,6 +38,10 @@ const toastMessage = {
     success: "일기가 업데이트 되었습니다.",
     error: "일기 생성에 실패했습니다.",
   },
+  createDiary: {
+    success: "일기가 작성되었습니다.",
+    error: "일기 작성에 실패했습니다.",
+  },
 };
 
 export default toastMessage;

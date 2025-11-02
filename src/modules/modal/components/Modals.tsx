@@ -1,6 +1,6 @@
-import { Fragment } from "react";
 import type { ModalState } from "../types";
 import { useModalDispatch } from "../context/ModalDispatchContext";
+import { View } from "react-native";
 
 type Props = {
   modals: ModalState[];
@@ -14,6 +14,6 @@ export const Modals = ({ modals }: Props) => {
     const close = () => closeModal(id);
     const exit = () => exitModal(id);
 
-    return <Fragment key={id}>{renderFn({ isOpen, close, exit })}</Fragment>;
+    return <View key={id}>{renderFn({ isOpen, close, exit })}</View>;
   });
 };

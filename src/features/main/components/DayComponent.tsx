@@ -1,16 +1,19 @@
-import type { BasicDayProps } from "react-native-calendars/src/calendar/day/basic";
-import type { DateData } from "react-native-calendars";
 import styled from "styled-components/native";
 import { Image } from "expo-image";
+import type { BasicDayProps } from "react-native-calendars/src/calendar/day/basic";
+import type { DateData } from "react-native-calendars";
 import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
-import { useCalendarQuery } from "../hooks/queries/useCalendarQuery";
 import { PlaceholderImage } from "@/src/components/ui/PlaceholderImage";
+import { useModal } from "@/src/modules/modal";
+import { useCalendarQuery } from "../hooks/queries/useCalendarQuery";
+import ManualDiaryModal from "./modals/ManualDiaryModal";
 
 type DayComponentProps = Omit<BasicDayProps, "date"> & {
   date?: DateData;
 };
 
 export default function DayComponent({ date, onPress }: DayComponentProps) {
+  const manualDiaryModal = useModal();
   const { data } = useCalendarQuery({ year: date?.year, month: date?.month });
 
   if (!date || !data || !onPress) return null;
@@ -19,9 +22,15 @@ export default function DayComponent({ date, onPress }: DayComponentProps) {
     (calendar) => calendar.year === date.year && calendar.month === date.month && calendar.day === date.day
   );
 
+  const handleManualDiaryModalOpen = () => {
+    manualDiaryModal.open((modalProps) => {
+      return <ManualDiaryModal {...modalProps} date={date} />;
+    });
+  };
+
   if (!dayDiary) {
     return (
-      <DayBox disabled={true}>
+      <DayBox onPress={handleManualDiaryModalOpen}>
         <ImageBox>
           <DayText>{date.day}</DayText>
         </ImageBox>

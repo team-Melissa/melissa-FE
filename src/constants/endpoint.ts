@@ -27,6 +27,7 @@ const endpoint = {
     month: "/api/v1/calender/month",
     day: "/api/v1/calender/day",
     diaries: "/api/v1/calender/month/summary",
+    createDiary: "/api/v2/chats/manual",
   },
 } as const;
 
