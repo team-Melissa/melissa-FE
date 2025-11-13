@@ -25,6 +25,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       foregroundImage: "./assets/images/adaptive-icon.png",
       backgroundColor: "#FFFFFF",
     },
+    googleServicesFile: process.env.GOOGLE_SERVICES_JSON,
     package: "com.melissa.melissaFE",
   },
   web: {
