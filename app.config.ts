@@ -42,6 +42,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   plugins: [
     "expo-font",
     "expo-router",
+    "expo-notifications",
     "expo-apple-authentication",
     [
       "expo-splash-screen",
