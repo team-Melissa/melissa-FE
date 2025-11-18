@@ -36,3 +36,12 @@ export const setOAuthProvider = (oauthProvider: OAuthProvider) => {
 export const removeOAuthProvider = () => {
   removeStorageValue("oauthProvider");
 };
+
+export const getNotificationToken = (): string | null => {
+  const notificationToken = storage.getString("notificationToken");
+  return notificationToken ?? null;
+};
+
+export const setNotificationToken = (notificationToken: string) => {
+  setStorageValue("notificationToken", notificationToken);
+};

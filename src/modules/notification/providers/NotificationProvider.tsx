@@ -1,5 +1,6 @@
 import * as Notifications from "expo-notifications";
 import { useEffect, type PropsWithChildren } from "react";
+import { setNotificationToken } from "@/src/libs/mmkv";
 import { initializePushNotification } from "../utils/setup";
 
 Notifications.setNotificationHandler({
@@ -13,9 +14,9 @@ Notifications.setNotificationHandler({
 export const NotificationProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     (async () => {
-      const pushToken = await initializePushNotification();
-      if (!pushToken) return;
-      // TODO: 백엔드로 expo push token 저장
+      const notificationToken = await initializePushNotification();
+      if (!notificationToken) return;
+      setNotificationToken(notificationToken);
     })();
 
     const notificationListener = Notifications.addNotificationReceivedListener((notification) => {
