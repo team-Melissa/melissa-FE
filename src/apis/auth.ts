@@ -37,12 +37,14 @@ export const googleLogin = async () => {
   const result = await axiosInstance.post<LoginDTO>("/api/v1/auth/google", {
     idToken: data.idToken,
   });
+  console.log("구글 로그인 성공: ", data);
   return result.data;
 };
 
 export const kakaoLogin = async () => {
   const { accessToken } = await login();
   const { data } = await axiosInstance.post<LoginDTO>("/api/v1/auth/kakao", { accessToken });
+  console.log("카카오 로그인 성공: ", data);
   return data;
 };
 
@@ -56,15 +58,18 @@ export const appleLogin = async () => {
   const { data } = await axiosInstance.post<LoginDTO>("/api/v1/auth/apple", {
     idToken: identityToken,
   });
+  console.log("애플 로그인 성공: ", data);
   return data;
 };
 
 export const logout = async () => {
   const { data } = await axiosInstance.post<SuccessDTO>("/api/v1/auth/logout");
+  console.log("로그아웃 성공: ", data);
   return data;
 };
 
 export const deleteAccount = async () => {
   const { data } = await axiosInstance.delete<DeleteAccountDTO>("/api/v1/user");
+  console.log("회원탈퇴 성공: ", data);
   return data;
 };
