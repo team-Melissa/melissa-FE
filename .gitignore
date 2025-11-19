@@ -44,3 +44,4 @@ app.json
 *.tsbuildinfo
 
 app-example
+google-services.json

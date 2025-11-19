@@ -1,12 +1,4 @@
 const endpoint = {
-  auth: {
-    kakao: "/api/v1/auth/kakao",
-    google: "/api/v1/auth/google",
-    apple: "/api/v1/auth/apple",
-    logout: "/api/v1/auth/logout",
-    delete: "/api/v1/user",
-    refresh: "/api/v1/auth/refresh",
-  },
   aiProfile: {
     aiProfilesV1: "/api/v1/ai-profiles",
     aiProfilesV2: "/api/v2/ai-profiles",
