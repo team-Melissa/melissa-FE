@@ -20,11 +20,13 @@ export const NotificationProvider = ({ children }: PropsWithChildren) => {
     })();
 
     const notificationListener = Notifications.addNotificationReceivedListener((notification) => {
-      console.log("알림 수신 (foreground):", notification);
+      // TODO: 포어그라운드 알림 수신에 대한 처리 진행
+      console.log("FG 알림 수신: ", notification);
     });
 
     const responseListener = Notifications.addNotificationResponseReceivedListener((response) => {
-      console.log("알림 내 데이터:", response.notification.request.content.data);
+      // TODO: 백그라운드 알림 수신에 대한 처리 진행
+      console.log("BG 알림 내 데이터: ", response.notification.request.content.data);
     });
 
     return () => {

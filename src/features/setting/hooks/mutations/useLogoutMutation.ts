@@ -1,28 +1,31 @@
 import { router } from "expo-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { removeRefreshToken } from "@/src/libs/secureStorage";
-import { removeAccessToken } from "@/src/libs/mmkv";
+import { removeAccessToken, removeNotificationToken } from "@/src/libs/mmkv";
 import { toast } from "@/src/modules/toast";
-import axiosInstance from "@/src/libs/axiosInstance";
 import toastMessage from "@/src/constants/toastMessage";
-import endpoint from "@/src/constants/endpoint";
-import type { SuccessDTO } from "@/src/types/commonTypes";
-
-export const _logout = async () => {
-  const { data } = await axiosInstance.post<SuccessDTO>(endpoint.auth.logout);
-  return data;
-};
+import { logout } from "@/src/apis/auth";
+import { deleteExpoPushToken } from "@/src/apis/expoPushToken";
 
 export const useLogoutMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: _logout,
+    mutationFn: logout,
     onSuccess: async (data) => {
       toast({ message: toastMessage.logout.success, options: { type: "success" } });
       console.log(data);
+
+      try {
+        await deleteExpoPushToken();
+        removeNotificationToken();
+      } catch (error) {
+        console.error("Expo push token 삭제 도중 에러 발생: ", error);
+      }
+
       await removeRefreshToken();
       removeAccessToken();
+
       queryClient.clear();
       router.replace("/login");
     },

@@ -45,3 +45,7 @@ export const getNotificationToken = (): string | null => {
 export const setNotificationToken = (notificationToken: string) => {
   setStorageValue("notificationToken", notificationToken);
 };
+
+export const removeNotificationToken = () => {
+  removeStorageValue("notificationToken");
+};
