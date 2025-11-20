@@ -1,3 +1,8 @@
+// TODO: 삭제
+
+/**
+ * @deprecated
+ */
 const endpoint = {
   aiProfile: {
     aiProfilesV1: "/api/v1/ai-profiles",

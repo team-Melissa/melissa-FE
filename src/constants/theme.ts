@@ -1,6 +1,11 @@
+// TODO: 삭제
+
 import { DefaultTheme } from "styled-components/native";
 import responsiveToPx from "../utils/responsiveToPx";
 
+/**
+ * @deprecated
+ */
 const fontSize = {
   xxs: responsiveToPx("8px"),
   xs: responsiveToPx("10px"),
@@ -14,6 +19,9 @@ const fontSize = {
   xxxxl: responsiveToPx("55px"),
 };
 
+/**
+ * @deprecated
+ */
 const fontFamily = {
   nsLight: "nanumSquareNeoLight",
   nsRegular: "nanumSquareNeoRegular",
@@ -25,6 +33,9 @@ const fontFamily = {
   podkovaRegular: "podkovaRegular",
 };
 
+/**
+ * @deprecated
+ */
 const borderRadius = {
   xs: responsiveToPx("5px"),
   sm: responsiveToPx("15px"),
@@ -32,6 +43,9 @@ const borderRadius = {
   lg: responsiveToPx("30px"),
 };
 
+/**
+ * @deprecated
+ */
 const colors = {
   white: "#FFFFFF",
   whiteBlue: "#F0F5F8",
@@ -60,6 +74,9 @@ const colors = {
   deleteAccount: "#CD3636",
 };
 
+/**
+ * @deprecated
+ */
 const gap = {
   sm: responsiveToPx("4px"),
   base: responsiveToPx("8px"),
@@ -68,6 +85,9 @@ const gap = {
   xxl: responsiveToPx("50px"),
 };
 
+/**
+ * @deprecated
+ */
 export const theme: DefaultTheme = {
   fontSize,
   fontFamily,
@@ -75,7 +95,9 @@ export const theme: DefaultTheme = {
   colors,
   gap,
 };
-
+/**
+ * @deprecated
+ */
 export type Fontsize = typeof fontSize;
 export type FontFamily = typeof fontFamily;
 export type BorderRadius = typeof borderRadius;
