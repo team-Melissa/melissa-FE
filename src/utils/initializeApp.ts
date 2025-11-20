@@ -6,6 +6,7 @@ import toastMessage from "@/src/constants/toastMessage";
 
 /**
  * @description 필요한 모든 폰트를 로딩하는 함수
+ * @deprecated
  */
 const loadFonts = async () => {
   await Font.loadAsync({
@@ -23,6 +24,7 @@ const loadFonts = async () => {
 
 /**
  * @description EAS Update가 존재하면, 다운로드 후 앱 재실행을 수행하는 함수
+ * @deprecated
  */
 const fetchEasUpdate = async () => {
   try {
@@ -41,8 +43,9 @@ const fetchEasUpdate = async () => {
 
 /**
  * @description 초기 필수 로딩 작업들을 수행한 뒤, isReady를 true로 변경하고 splashscreen을 내리는 함수
+ * @deprecated
  */
-const initializeApp = async (setIsReady: Dispatch<SetStateAction<boolean>>) => {
+export const initializeApp = async (setIsReady: Dispatch<SetStateAction<boolean>>) => {
   try {
     await Promise.all([fetchEasUpdate(), loadFonts()]);
   } catch (e) {
@@ -52,5 +55,3 @@ const initializeApp = async (setIsReady: Dispatch<SetStateAction<boolean>>) => {
     setIsReady(true);
   }
 };
-
-export default initializeApp;
