@@ -3,6 +3,16 @@
 import { DefaultTheme } from "styled-components/native";
 import responsiveToPx from "../utils/responsiveToPx";
 
+export const COLORS = {
+  black: "#000",
+  background: "#E1F0ED",
+  weeks: "#82ACA4",
+  main: "#00A887",
+  title: "#6C5244",
+  sub1: "#937261",
+  sub2: "#F4EBD4",
+};
+
 /**
  * @deprecated
  */
