@@ -5,7 +5,8 @@ import responsiveToPx from "../utils/responsiveToPx";
 import type { TFontName } from "../types/fonts";
 
 export const COLOR = {
-  black: "#000",
+  white: "#FFFFFF",
+  black: "#000000",
   background: "#E1F0ED",
   weeks: "#82ACA4",
   main: "#00A887",
