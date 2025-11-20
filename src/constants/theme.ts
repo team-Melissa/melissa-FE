@@ -2,8 +2,9 @@
 
 import { DefaultTheme } from "styled-components/native";
 import responsiveToPx from "../utils/responsiveToPx";
+import type { TFontName } from "../types/fonts";
 
-export const COLORS = {
+export const COLOR = {
   black: "#000",
   background: "#E1F0ED",
   weeks: "#82ACA4",
@@ -11,7 +12,14 @@ export const COLORS = {
   title: "#6C5244",
   sub1: "#937261",
   sub2: "#F4EBD4",
-};
+} as const;
+
+export const FONT_FAMILY = {
+  pretendard400: "pretendard400",
+  pretendard500: "pretendard500",
+  pretendard600: "pretendard600",
+  pretendard700: "pretendard700",
+} satisfies Record<TFontName, TFontName>;
 
 /**
  * @deprecated
