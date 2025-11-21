@@ -4,8 +4,8 @@ import Loading from "@/src/components/ui/Loading";
 import responsiveToPx from "@/src/utils/responsiveToPx";
 import useLogin from "../hooks/useLogin";
 import LoginTitle from "../components/LoginTitle";
-import LoginButton from "../components/LoginButton";
 import LastLoginBadge from "../components/LastLoginBadge";
+import { LoginButton } from "@/src/core/Button";
 
 export default function LoginContainer() {
   const { isPending, kakaoMutate, googleMutate, appleMutate } = useLogin();
@@ -19,15 +19,15 @@ export default function LoginContainer() {
       <LoginTitle />
       <LastLoginBadge />
       <ButtonBox>
-        <LoginButton provider="KAKAO" onPress={kakaoMutate}>
-          카카오로 로그인
+        <LoginButton provider="KAKAO" onPress={() => kakaoMutate()}>
+          Kakao로 시작하기
         </LoginButton>
-        <LoginButton provider="GOOGLE" onPress={googleMutate}>
-          Google로 로그인
+        <LoginButton provider="GOOGLE" onPress={() => googleMutate()}>
+          Google로 시작하기
         </LoginButton>
         {Platform.OS === "ios" && (
-          <LoginButton provider="APPLE" onPress={appleMutate}>
-            Apple로 로그인
+          <LoginButton provider="APPLE" onPress={() => appleMutate()}>
+            Apple로 시작하기
           </LoginButton>
         )}
       </ButtonBox>
