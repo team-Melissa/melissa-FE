@@ -28,15 +28,13 @@ export const PrimaryButton = ({ children, size = "large", icon, ...props }: Prop
   const { translateY, handlePressIn, handlePressOut } = useButtonAnimation();
 
   const Txt = size === "small" ? Body2 : Title;
-  const width = WIDTH[size];
-  const height = HEIGHT[size];
 
   return (
     <StyledButton
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
-      $width={width}
-      $height={height}
+      $width={WIDTH[size]}
+      $height={HEIGHT[size]}
       hitSlop={5}
       {...props}
     >

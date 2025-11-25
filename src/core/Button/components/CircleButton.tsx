@@ -3,61 +3,58 @@ import { Animated, type TouchableHighlightProps } from "react-native";
 import styled from "styled-components/native";
 import { useButtonAnimation } from "../hooks/useButtonAnimation";
 
-type Size = "large" | "small";
+type Size = "large" | "medium" | "small";
+type Variant = "primary" | "secondary" | "transparent";
+type Color = { front: string; back: string };
 
 type Props = TouchableHighlightProps & {
-  active?: boolean;
-  size?: Size;
+  size: Size;
+  variant: Variant;
 };
 
-const WIDTH = {
-  large: responsiveToPx("66px"),
-  small: responsiveToPx("56px"),
+const SIZE = {
+  large: responsiveToPx("60px"),
+  medium: responsiveToPx("56px"),
+  small: responsiveToPx("44px"),
 } satisfies Record<Size, string>;
 
-const HEIGHT = responsiveToPx("52px");
+const COLOR = {
+  primary: {
+    front: "#46C9B0",
+    back: "#36A48F",
+  },
+  secondary: {
+    front: "#937261",
+    back: "#6C5244",
+  },
+  transparent: {
+    front: "#CCE5E0",
+    back: "#B2CFC9",
+  },
+} satisfies Record<Variant, Color>;
 
-export const NavButton = ({ size = "large", active = false, children, ...props }: Props) => {
+export const CircleButton = ({ size, variant, children, ...props }: Props) => {
   const { translateY, handlePressIn, handlePressOut } = useButtonAnimation();
-
-  const getFrontColor = () => {
-    if (size === "large") {
-      if (active) return "#46C9B0";
-      return "#FFFFFF";
-    }
-    return "#937261";
-  };
-
-  const getBackColor = () => {
-    if (size === "large") {
-      if (active) return "#36A48F";
-      return "#FFFFFF";
-    }
-    return "#6C5244";
-  };
 
   return (
     <StyledButton
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
-      $width={WIDTH[size]}
-      $color={getBackColor()}
+      $size={SIZE[size]}
+      $color={COLOR[variant].back}
       hitSlop={5}
       {...props}
     >
-      <AnimatedView
-        style={{ transform: [{ translateY: size === "large" && active ? translateY : 0 }] }}
-        $color={getFrontColor()}
-      >
+      <AnimatedView style={{ transform: [{ translateY }] }} $color={COLOR[variant].front}>
         {children}
       </AnimatedView>
     </StyledButton>
   );
 };
 
-const StyledButton = styled.TouchableHighlight<{ $width: string; $color: string }>`
-  width: ${({ $width }) => $width};
-  height: ${HEIGHT};
+const StyledButton = styled.TouchableHighlight<{ $size: string; $color: string }>`
+  width: ${({ $size }) => $size};
+  height: ${({ $size }) => $size};
   background-color: ${({ $color }) => $color};
   border-radius: 99px;
   margin: 1px;

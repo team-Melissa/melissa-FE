@@ -23,19 +23,16 @@ const HEIGHT = responsiveToPx("52px");
 export const SubButton = ({ children, size = "large", icon, ...props }: Props) => {
   const { translateY, handlePressIn, handlePressOut } = useButtonAnimation();
 
-  const width = WIDTH[size];
-
   return (
     <StyledButton
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
-      $width={width}
+      $width={WIDTH[size]}
       hitSlop={5}
       {...props}
     >
       <AnimatedView style={{ transform: [{ translateY }] }}>
         {icon}
-
         <Body2 color="sub2">{children}</Body2>
       </AnimatedView>
     </StyledButton>
