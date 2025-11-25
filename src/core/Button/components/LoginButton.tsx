@@ -1,7 +1,5 @@
 import { Title } from "@/src/core/Txt";
-import { IconApple } from "@/src/icons/IconApple";
-import { IconGoogle } from "@/src/icons/IconGoogle";
-import { IconKakao } from "@/src/icons/IconKakao";
+import { IconApple, IconGoogle, IconKakao } from "@/src/icons";
 import type { OAuthProvider } from "@/src/types/commonTypes";
 import responsiveToPx from "@/src/utils/responsiveToPx";
 import type { ReactNode } from "react";
