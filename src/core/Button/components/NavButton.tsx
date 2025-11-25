@@ -17,7 +17,7 @@ const WIDTH = {
 
 const HEIGHT = responsiveToPx("52px");
 
-export const NavButton = ({ size = "large", active = true, children, ...props }: Props) => {
+export const NavButton = ({ size = "large", active = false, children, ...props }: Props) => {
   const { translateY, handlePressIn, handlePressOut } = useButtonAnimation();
 
   const width = WIDTH[size];

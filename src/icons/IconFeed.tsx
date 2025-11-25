@@ -4,7 +4,7 @@ type Props = SvgProps & {
   active?: boolean;
 };
 
-export const IconFeed = ({ active, ...props }: Props) => {
+export const IconFeed = ({ active = false, ...props }: Props) => {
   return (
     <Svg width="20" height="20" viewBox="0 0 20 20" fill="none" {...props}>
       <G clipPath="url(#clip0_1123_3473)">

@@ -4,7 +4,7 @@ type Props = SvgProps & {
   active?: boolean;
 };
 
-export const IconCalendar = ({ active, ...props }: Props) => {
+export const IconCalendar = ({ active = false, ...props }: Props) => {
   return (
     <Svg width="22" height="22" viewBox="0 0 22 22" fill="none" {...props}>
       <Path
