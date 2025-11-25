@@ -6,7 +6,7 @@ export const useButtonAnimation = () => {
 
   const translateY = animationRef.current.interpolate({
     inputRange: [0, 1],
-    outputRange: [-1.5, 0],
+    outputRange: [-2, 0],
   });
 
   const handlePressIn = () => {

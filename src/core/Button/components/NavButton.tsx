@@ -18,7 +18,10 @@ const WIDTH = {
 const HEIGHT = responsiveToPx("52px");
 
 export const NavButton = ({ size = "large", active = false, children, ...props }: Props) => {
-  const { translateY, handlePressIn, handlePressOut } = useButtonAnimation();
+  const { translateY: _translateY, handlePressIn, handlePressOut } = useButtonAnimation();
+
+  const shouldAnimate = size === "small" || (size === "large" && active);
+  const translateY = shouldAnimate ? _translateY : 0;
 
   const getFrontColor = () => {
     if (size === "large") {
@@ -45,10 +48,7 @@ export const NavButton = ({ size = "large", active = false, children, ...props }
       hitSlop={5}
       {...props}
     >
-      <AnimatedView
-        style={{ transform: [{ translateY: size === "large" && active ? translateY : 0 }] }}
-        $color={getFrontColor()}
-      >
+      <AnimatedView style={{ transform: [{ translateY }] }} $color={getFrontColor()}>
         {children}
       </AnimatedView>
     </StyledButton>
