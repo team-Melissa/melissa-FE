@@ -1,25 +1,35 @@
+import { COLOR } from "@/src/constants/theme";
+import { Body2 } from "@/src/core/Txt";
+import responsiveToPx from "@/src/utils/responsiveToPx";
 import type { ReactNode } from "react";
 import { Animated, type TouchableHighlightProps } from "react-native";
 import styled from "styled-components/native";
-import { Body2 } from "@/src/core/Txt";
 import { useButtonAnimation } from "../hooks/useButtonAnimation";
-import { subButtonHeight, subButtonWidth } from "../constants/buttonConstants";
-import type { SubButtonVariant } from "../types/buttonTypes";
-import { COLOR } from "@/src/constants/theme";
+
+type Size = "large" | "small";
 
 type Props = TouchableHighlightProps & {
-  variant?: SubButtonVariant;
+  size?: Size;
   icon?: ReactNode;
 };
 
-export const SubButton = ({ children, variant = "large", icon, ...props }: Props) => {
+const WIDTH = {
+  large: responsiveToPx("135px"),
+  small: responsiveToPx("105px"),
+} satisfies Record<Size, string>;
+
+const HEIGHT = responsiveToPx("52px");
+
+export const SubButton = ({ children, size = "large", icon, ...props }: Props) => {
   const { translateY, handlePressIn, handlePressOut } = useButtonAnimation();
+
+  const width = WIDTH[size];
 
   return (
     <StyledButton
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
-      variant={variant}
+      $width={width}
       hitSlop={5}
       {...props}
     >
@@ -32,9 +42,9 @@ export const SubButton = ({ children, variant = "large", icon, ...props }: Props
   );
 };
 
-const StyledButton = styled.TouchableHighlight<{ variant: SubButtonVariant }>`
-  width: ${({ variant }) => subButtonWidth[variant]};
-  height: ${subButtonHeight};
+const StyledButton = styled.TouchableHighlight<{ $width: string }>`
+  width: ${({ $width }) => $width};
+  height: ${HEIGHT};
   background-color: ${COLOR.title};
   border-radius: 99px;
   margin: 1px;

@@ -1,42 +1,56 @@
+import { Body2, Title } from "@/src/core/Txt";
+import responsiveToPx from "@/src/utils/responsiveToPx";
 import type { ReactNode } from "react";
 import { Animated, type TouchableHighlightProps } from "react-native";
 import styled from "styled-components/native";
-import { Body2, Title } from "@/src/core/Txt";
 import { useButtonAnimation } from "../hooks/useButtonAnimation";
-import { primaryButtonHeight, primaryButtonWidth } from "../constants/buttonConstants";
-import type { PrimaryButtonVariant } from "../types/buttonTypes";
+
+type Size = "large" | "medium" | "small";
 
 type Props = TouchableHighlightProps & {
-  variant?: PrimaryButtonVariant;
+  size?: Size;
   icon?: ReactNode;
 };
 
-export const PrimaryButton = ({ children, variant = "large", icon, ...props }: Props) => {
+const WIDTH = {
+  large: responsiveToPx("245px"),
+  medium: responsiveToPx("155px"),
+  small: responsiveToPx("135px"),
+} satisfies Record<Size, string>;
+
+const HEIGHT = {
+  large: responsiveToPx("60px"),
+  medium: responsiveToPx("58px"),
+  small: responsiveToPx("52px"),
+} satisfies Record<Size, string>;
+
+export const PrimaryButton = ({ children, size = "large", icon, ...props }: Props) => {
   const { translateY, handlePressIn, handlePressOut } = useButtonAnimation();
+
+  const Txt = size === "small" ? Body2 : Title;
+  const width = WIDTH[size];
+  const height = HEIGHT[size];
 
   return (
     <StyledButton
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
-      variant={variant}
+      $width={width}
+      $height={height}
       hitSlop={5}
       {...props}
     >
       <AnimatedView style={{ transform: [{ translateY }] }}>
         {icon}
-        {variant === "small" ? (
-          <Body2 color="white">{children}</Body2>
-        ) : (
-          <Title color="white">{children}</Title>
-        )}
+        <Txt color="white">{children}</Txt>
       </AnimatedView>
     </StyledButton>
   );
 };
 
-const StyledButton = styled.TouchableHighlight<{ variant: PrimaryButtonVariant }>`
-  width: ${({ variant }) => primaryButtonWidth[variant]};
-  height: ${({ variant }) => primaryButtonHeight[variant]};
+const StyledButton = styled.TouchableHighlight<{ $width: string; $height: string }>`
+  width: ${({ $width }) => $width};
+  height: ${({ $height }) => $height};
   background-color: #36a48f;
   border-radius: 99px;
   margin: 1px;
