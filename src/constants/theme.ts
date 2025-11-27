@@ -1,6 +1,30 @@
+// TODO: 삭제
+
 import { DefaultTheme } from "styled-components/native";
 import responsiveToPx from "../utils/responsiveToPx";
+import type { TFontName } from "../types/fonts";
 
+export const COLOR = {
+  white: "#FFFFFF",
+  black: "#000000",
+  background: "#E1F0ED",
+  weeks: "#82ACA4",
+  main: "#00A887",
+  title: "#6C5244",
+  sub1: "#937261",
+  sub2: "#F4EBD4",
+} as const;
+
+export const FONT_FAMILY = {
+  pretendard400: "pretendard400",
+  pretendard500: "pretendard500",
+  pretendard600: "pretendard600",
+  pretendard700: "pretendard700",
+} satisfies Record<TFontName, TFontName>;
+
+/**
+ * @deprecated
+ */
 const fontSize = {
   xxs: responsiveToPx("8px"),
   xs: responsiveToPx("10px"),
@@ -14,6 +38,9 @@ const fontSize = {
   xxxxl: responsiveToPx("55px"),
 };
 
+/**
+ * @deprecated
+ */
 const fontFamily = {
   nsLight: "nanumSquareNeoLight",
   nsRegular: "nanumSquareNeoRegular",
@@ -25,6 +52,9 @@ const fontFamily = {
   podkovaRegular: "podkovaRegular",
 };
 
+/**
+ * @deprecated
+ */
 const borderRadius = {
   xs: responsiveToPx("5px"),
   sm: responsiveToPx("15px"),
@@ -32,6 +62,9 @@ const borderRadius = {
   lg: responsiveToPx("30px"),
 };
 
+/**
+ * @deprecated
+ */
 const colors = {
   white: "#FFFFFF",
   whiteBlue: "#F0F5F8",
@@ -60,6 +93,9 @@ const colors = {
   deleteAccount: "#CD3636",
 };
 
+/**
+ * @deprecated
+ */
 const gap = {
   sm: responsiveToPx("4px"),
   base: responsiveToPx("8px"),
@@ -68,6 +104,9 @@ const gap = {
   xxl: responsiveToPx("50px"),
 };
 
+/**
+ * @deprecated
+ */
 export const theme: DefaultTheme = {
   fontSize,
   fontFamily,
@@ -75,7 +114,9 @@ export const theme: DefaultTheme = {
   colors,
   gap,
 };
-
+/**
+ * @deprecated
+ */
 export type Fontsize = typeof fontSize;
 export type FontFamily = typeof fontFamily;
 export type BorderRadius = typeof borderRadius;

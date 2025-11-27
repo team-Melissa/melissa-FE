@@ -3,7 +3,7 @@ import { Dimensions } from "react-native";
 /**
  * Figma 화면 사이즈 (가로 기준)
  */
-const baseDesignScreenSize = 430;
+const baseDesignScreenSize = 375;
 const baseDesignScreenSizeByHeight = 932;
 const { width, height } = Dimensions.get("window");
 
