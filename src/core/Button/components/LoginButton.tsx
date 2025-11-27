@@ -53,6 +53,7 @@ export const LoginButton = ({ children, provider, ...props }: Props) => {
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
       $color={COLOR[provider].back}
+      underlayColor={COLOR[provider].back}
       hitSlop={5}
       {...props}
     >
@@ -89,5 +90,5 @@ const StyledTitle = styled(Title)<{ $color: string }>`
 
 const IconWrapper = styled.View`
   position: absolute;
-  left: ${responsiveToPx("30px")};
+  left: ${responsiveToPx("25px")};
 `;

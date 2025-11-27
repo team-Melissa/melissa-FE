@@ -42,6 +42,7 @@ export const CircleButton = ({ size, variant, children, ...props }: Props) => {
       onPressOut={handlePressOut}
       $size={SIZE[size]}
       $color={COLOR[variant].back}
+      underlayColor={COLOR[variant].back}
       hitSlop={5}
       {...props}
     >

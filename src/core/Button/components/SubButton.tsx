@@ -1,4 +1,3 @@
-import { COLOR } from "@/src/constants/theme";
 import { Body2 } from "@/src/core/Txt";
 import responsiveToPx from "@/src/utils/responsiveToPx";
 import type { ReactNode } from "react";
@@ -28,6 +27,7 @@ export const SubButton = ({ children, size = "large", icon, ...props }: Props) =
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
       $width={WIDTH[size]}
+      underlayColor="#6C5244"
       hitSlop={5}
       {...props}
     >
@@ -42,7 +42,7 @@ export const SubButton = ({ children, size = "large", icon, ...props }: Props) =
 const StyledButton = styled.TouchableHighlight<{ $width: string }>`
   width: ${({ $width }) => $width};
   height: ${HEIGHT};
-  background-color: ${COLOR.title};
+  background-color: #6c5244;
   border-radius: 99px;
   margin: 1px;
 `;
@@ -52,7 +52,7 @@ const AnimatedView = styled(Animated.View)`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: ${COLOR.sub1};
+  background-color: #937261;
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 99px;
   gap: 6px;

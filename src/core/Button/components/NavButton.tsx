@@ -45,6 +45,7 @@ export const NavButton = ({ size = "large", active = false, children, ...props }
       onPressOut={handlePressOut}
       $width={WIDTH[size]}
       $color={getBackColor()}
+      underlayColor={getBackColor()}
       hitSlop={5}
       {...props}
     >

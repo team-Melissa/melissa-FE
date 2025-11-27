@@ -15,7 +15,7 @@ type Props = TouchableHighlightProps & {
 const WIDTH = {
   large: responsiveToPx("245px"),
   medium: responsiveToPx("155px"),
-  small: responsiveToPx("135px"),
+  small: responsiveToPx("100px"),
 } satisfies Record<Size, string>;
 
 const HEIGHT = {
@@ -35,6 +35,7 @@ export const PrimaryButton = ({ children, size = "large", icon, ...props }: Prop
       onPressOut={handlePressOut}
       $width={WIDTH[size]}
       $height={HEIGHT[size]}
+      underlayColor="#36a48f"
       hitSlop={5}
       {...props}
     >
