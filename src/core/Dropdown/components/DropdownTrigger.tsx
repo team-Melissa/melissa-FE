@@ -1,3 +1,4 @@
+import { IconEllipsis } from "@/src/icons/IconEllipsis";
 import { useRef } from "react";
 import {
   TouchableOpacity,
@@ -27,7 +28,7 @@ export const DropdownTrigger = ({ children, onPress, ...props }: TouchableOpacit
 
   return (
     <TouchableOpacity ref={triggerRef} onPress={handleTriggerPress} {...props}>
-      {children}
+      {children ?? <IconEllipsis fill="#6C5244" />}
     </TouchableOpacity>
   );
 };
