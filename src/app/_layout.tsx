@@ -11,7 +11,8 @@ import { ToastsRoot } from "@/src/modules/toast";
 import { theme } from "@/src/constants/theme";
 import queryClient from "@/src/libs/queryClient";
 import initializeApp from "@/src/utils/initializeApp";
-import { ModalsProvider } from "../modules/modal";
+import { ModalsProvider, useModal } from "../modules/modal";
+import NoticeModal from "@/src/features/main/components/modals/NoticeModal";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -38,6 +39,20 @@ const navigationIntegration = Sentry.reactNavigationIntegration({
     ],
     enableNativeFramesTracking: !isRunningInExpoGo(),
   });
+
+/**
+ * @deprecated 1.3.0 이후 제거 예정
+ * //TODO: 삭제 예정
+ */
+function AppNoticeModal() {
+  const modal = useModal();
+
+  useEffect(() => {
+    modal.open((props) => <NoticeModal {...props} />);
+  }, [modal]);
+
+  return null;
+}
 
 /**
  * @description 폰트 로딩, 라이브러리 provider, 공용 스타일 컴포넌트로 감싸는 레이아웃
@@ -69,6 +84,7 @@ function RootLayout() {
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <ModalsProvider>
+          <AppNoticeModal />
           <StatusBar style="dark" />
           <Slot />
           <ToastsRoot />
