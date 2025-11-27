@@ -10,12 +10,12 @@ export const DropdownMenu = ({ children, ...props }: AnimatedProps<ViewProps>) =
 
   if (!isOpen || !triggerPos) return null;
 
-  const top = triggerPos.y + 10; // TODO: 문제 존재, AOS/IOS 차이
+  const top = triggerPos.y + 10;
   const left = triggerPos.x + triggerPos.width - width;
 
   return (
     <Modal
-      visible={isOpen}
+      visible={true}
       transparent
       animationType="none"
       onRequestClose={closeDropdown}
