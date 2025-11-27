@@ -18,7 +18,6 @@ export const DropdownTrigger = ({ children, onPress, ...props }: TouchableOpacit
       setTriggerPos(null);
     } else {
       triggerRef.current?.measure((_x, _y, width, height, pageX, pageY) => {
-        console.log("measureInWindow:", pageY, height);
         setTriggerPos({ x: pageX, y: pageY + height, width });
         openDropdown();
       });
