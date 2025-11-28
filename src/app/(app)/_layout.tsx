@@ -3,7 +3,7 @@ import { useGetIsNewUser } from "@/src/hooks";
 import { Redirect, Stack } from "expo-router";
 
 /**
- * @description Provider들로 감싸는 레이아웃
+ * @description Stack navigator layout
  */
 export default function ContextLayout() {
   const { isPending, isError } = useGetIsNewUser();
