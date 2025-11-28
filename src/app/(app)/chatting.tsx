@@ -16,7 +16,7 @@ type Params = EditableParams | ReadOnlyParams;
 
 const isEditable = (params: Params): params is EditableParams => "aiProfileId" in params;
 
-const ChattingRouter = () => {
+export default function ChattingRouter() {
   const params = useLocalSearchParams() as unknown as Params;
 
   if (isEditable(params)) {
@@ -26,6 +26,4 @@ const ChattingRouter = () => {
     const { year, month, day } = params;
     return <ReadOnlyChattingContainer year={year} month={month} day={day} />;
   }
-};
-
-export default ChattingRouter;
+}
