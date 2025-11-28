@@ -4,14 +4,28 @@ import Animated, { FadeIn, FadeOut, type AnimatedProps } from "react-native-rean
 import styled from "styled-components/native";
 import { useDropdownContext } from "../context/DropdownContext";
 
-export const DropdownMenu = ({ children, ...props }: AnimatedProps<ViewProps>) => {
+type Props = AnimatedProps<ViewProps> & {
+  align?: "start" | "center" | "end";
+};
+
+export const DropdownMenu = ({ align = "end", children, ...props }: Props) => {
   const { isOpen, closeDropdown, triggerPos } = useDropdownContext();
   const [width, setWidth] = useState<number>(0);
 
   if (!isOpen || !triggerPos) return null;
 
   const top = triggerPos.y + 10;
-  const left = triggerPos.x + triggerPos.width - width;
+
+  const getLeft = () => {
+    switch (align) {
+      case "start":
+        return triggerPos.x;
+      case "center":
+        return triggerPos.x + triggerPos.width / 2 - width / 2;
+      case "end":
+        return triggerPos.x + triggerPos.width - width;
+    }
+  };
 
   return (
     <Modal
@@ -24,7 +38,7 @@ export const DropdownMenu = ({ children, ...props }: AnimatedProps<ViewProps>) =
       <TouchableWithoutFeedback onPress={closeDropdown}>
         <Backdrop>
           <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
-            <View style={{ position: "absolute", top, left }}>
+            <View style={{ position: "absolute", top, left: getLeft() }}>
               <StyledMenu
                 entering={FadeIn.duration(200)}
                 exiting={FadeOut.duration(200)}
