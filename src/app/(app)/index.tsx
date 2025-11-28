@@ -12,5 +12,5 @@ export default function IndexRouter() {
 
   if (isNewUser) return <Redirect href="/(app)/intro" />;
 
-  return <Redirect href="/(app)/(tab)/feed" />;
+  return <Redirect href="/(app)/(tab)/calendar" />;
 }
