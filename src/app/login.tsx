@@ -1,6 +1,6 @@
-import styled from "styled-components/native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import LoginContainer from "@/src/features/login/containers/LoginContainer";
+import { SafeAreaView } from "react-native-safe-area-context";
+import styled from "styled-components/native";
 
 /**
  * @description 로그인 페이지의 라우터

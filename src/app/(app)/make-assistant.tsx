@@ -1,11 +1,11 @@
-import { useLocalSearchParams } from "expo-router";
 import MakeAssistantContainer from "@/src/features/makeAssistant/containers/MakeAssistantContainer";
 import { useMakeAssistantQuestionQuery } from "@/src/features/makeAssistant/hooks/queries/useMakeAssistantQuestionQuery";
+import { useLocalSearchParams } from "expo-router";
 
 /**
  * @description 어시스턴트 생성하는 페이지의 라우터
  */
-function MakeAssistantRouter() {
+export default function MakeAssistantRouter() {
   // 어시스턴트 복제인지 확인 & 어떤 어시스턴트 복제인지 query하기 위한 param
   const { aiProfileId } = useLocalSearchParams() as { aiProfileId: string | undefined };
 
@@ -18,4 +18,3 @@ function MakeAssistantRouter() {
 
   return <MakeAssistantContainer />;
 }
-export default MakeAssistantRouter;

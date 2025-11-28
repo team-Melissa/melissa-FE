@@ -1,20 +1,20 @@
+import { theme } from "@/src/constants/theme";
+import { debounce } from "@/src/utils/debounce";
+import responsiveToPx from "@/src/utils/responsiveToPx";
+import { MaterialIcons } from "@expo/vector-icons";
+import BottomSheet from "@gorhom/bottom-sheet";
+import { useRouter } from "expo-router";
 import { useRef, useState } from "react";
+import { CalendarList, type DateData } from "react-native-calendars";
+import { ScrollView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styled from "styled-components/native";
-import { useRouter } from "expo-router";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { CalendarList, type DateData } from "react-native-calendars";
-import BottomSheet from "@gorhom/bottom-sheet";
-import { theme } from "@/src/constants/theme";
-import responsiveToPx from "@/src/utils/responsiveToPx";
-import { useBottomSheetBackHandler } from "../hooks/useBottomSheetBackHandler";
+import AiProfileList from "../components/AiProfileList";
 import DayComponent from "../components/DayComponent";
 import DiaryBottomSheet from "../components/DiaryBottomSheet";
 import { calendarLocale } from "../config/calendarLocale";
+import { useBottomSheetBackHandler } from "../hooks/useBottomSheetBackHandler";
 import type { TPressedDate } from "../types/calendarTypes";
-import { ScrollView } from "react-native-gesture-handler";
-import { debounce } from "@/src/utils/debounce";
-import AiProfileList from "../components/AiProfileList";
 
 calendarLocale();
 
@@ -58,7 +58,9 @@ export default function MainContainer() {
             onPressArrowRight={handleSettingPress}
             calendarHeight={1000}
             renderArrow={(direction) =>
-              direction === "right" && <MaterialIcons name="settings" size={24} color={theme.colors.calendarIcon} />
+              direction === "right" && (
+                <MaterialIcons name="settings" size={24} color={theme.colors.calendarIcon} />
+              )
             }
             onDayPress={handleDayPress}
             dayComponent={DayComponent}
@@ -66,7 +68,11 @@ export default function MainContainer() {
         </CalendarWrapper>
         <AiProfileList />
       </ScrollView>
-      <DiaryBottomSheet ref={bottomSheetRef} pressedDate={pressedDate} setIsBottomSheetOpen={setIsBottomSheetOpen} />
+      <DiaryBottomSheet
+        ref={bottomSheetRef}
+        pressedDate={pressedDate}
+        setIsBottomSheetOpen={setIsBottomSheetOpen}
+      />
     </SafeView>
   );
 }

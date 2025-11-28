@@ -2,10 +2,15 @@ import { shadowProps } from "@/src/constants/shadowProps";
 import { theme } from "@/src/constants/theme";
 import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
 import { useRouter } from "expo-router";
+import { useEffect } from "react";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withDelay,
+  withTiming,
+} from "react-native-reanimated";
 import styled from "styled-components/native";
 import { useRegisterMutation } from "../hooks/mutations/useRegisterMutation";
-import Animated, { useAnimatedStyle, useSharedValue, withDelay, withTiming } from "react-native-reanimated";
-import { useEffect } from "react";
 
 export const GoToNextButton = () => {
   const router = useRouter();
@@ -17,7 +22,7 @@ export const GoToNextButton = () => {
   const handleClick = () => {
     mutate(undefined, {
       onSuccess: () => {
-        router.replace("/(app)/main");
+        router.replace("/(app)/(tab)/calendar");
       },
     });
   };
