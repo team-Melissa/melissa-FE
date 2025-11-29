@@ -1,8 +1,12 @@
 // TODO: 삭제
 
 import { DefaultTheme } from "styled-components/native";
-import responsiveToPx from "../utils/responsiveToPx";
 import type { TFontName } from "../types/fonts";
+import responsiveToPx from "../utils/responsiveToPx";
+
+export const SHADOW = {
+  boxShadow: "0 0 10 0 rgba(23, 23, 23, 0.2)",
+};
 
 export const COLOR = {
   white: "#FFFFFF",

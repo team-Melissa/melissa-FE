@@ -1,3 +1,4 @@
+import { SHADOW } from "@/src/constants/theme";
 import { useState } from "react";
 import { Modal, TouchableWithoutFeedback, View, type ViewProps } from "react-native";
 import Animated, { FadeIn, FadeOut, type AnimatedProps } from "react-native-reanimated";
@@ -8,7 +9,7 @@ type Props = AnimatedProps<ViewProps> & {
   align?: "start" | "center" | "end";
 };
 
-export const DropdownMenu = ({ align = "end", children, ...props }: Props) => {
+export const DropdownMenu = ({ align = "end", children, style, ...props }: Props) => {
   const { isOpen, closeDropdown, triggerPos } = useDropdownContext();
   const [width, setWidth] = useState<number>(0);
 
@@ -43,6 +44,7 @@ export const DropdownMenu = ({ align = "end", children, ...props }: Props) => {
                 entering={FadeIn.duration(200)}
                 exiting={FadeOut.duration(200)}
                 onLayout={({ nativeEvent }) => setWidth(nativeEvent.layout.width)}
+                style={[style, SHADOW]}
                 {...props}
               >
                 {children}
