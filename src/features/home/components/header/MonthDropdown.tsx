@@ -6,30 +6,32 @@ import styled from "styled-components/native";
 
 type Props = {
   value: number;
-  onValueChange: (newValue: number) => void;
+  onValueChange?: (newValue: number) => void;
 };
 
 const MONTH_LIST = Array.from({ length: 12 }, (_, idx) => idx + 1);
 
-const MonthChangeDropdown = ({ value, onValueChange }: Props) => {
+const MonthDropdown = ({ value, onValueChange }: Props) => {
   return (
     <Dropdown>
       <StyledDropdownTrigger>
         <LargeTitle color="title">{value}월</LargeTitle>
         <IconArrowDown />
       </StyledDropdownTrigger>
-      <StyledDropdownMenu align="center">
-        {MONTH_LIST.map((month) => (
-          <StyledDropdownItem key={month} onPress={() => onValueChange(month)}>
-            <Title color="title">{month}월</Title>
-          </StyledDropdownItem>
-        ))}
-      </StyledDropdownMenu>
+      {onValueChange && (
+        <StyledDropdownMenu align="center">
+          {MONTH_LIST.map((month) => (
+            <StyledDropdownItem key={month} onPress={() => onValueChange(month)}>
+              <Title color="title">{month}월</Title>
+            </StyledDropdownItem>
+          ))}
+        </StyledDropdownMenu>
+      )}
     </Dropdown>
   );
 };
 
-export default MonthChangeDropdown;
+export default MonthDropdown;
 
 const StyledDropdownTrigger = styled(Dropdown.Trigger)`
   flex-direction: row;

@@ -1,18 +1,18 @@
 import styled from "styled-components/native";
 import MenuButtons from "./MenuButtons";
-import MonthChangeDropdown from "./MonthChangeDropdown";
+import MonthDropdown from "./MonthDropdown";
 import StreakBadge from "./StreakBadge";
 
 type Props = {
   month: number;
-  onChange: (newMonth: number) => void;
+  onChange?: (newMonth: number) => void;
 };
 
 const HomeHeader = ({ month, onChange }: Props) => {
   return (
     <Wrapper>
       <StreakBadge />
-      <MonthChangeDropdown value={month} onValueChange={onChange} />
+      <MonthDropdown value={month} onValueChange={onChange} />
       <MenuButtons />
     </Wrapper>
   );

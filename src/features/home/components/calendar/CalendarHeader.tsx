@@ -7,14 +7,14 @@ import HomeHeader from "../header/HomeHeader";
 const DAY_NAMES = ["일", "월", "화", "수", "목", "금", "토"];
 
 const CalendarHeader = (props: CalendarHeaderProps) => {
-  const { month, addMonth } = props;
+  const { month } = props;
 
   const date = new Date(month);
   const monthNum = date.getMonth() + 1;
 
   return (
     <Wrapper>
-      <HomeHeader month={monthNum} onChange={() => {}} />
+      <HomeHeader month={monthNum} />
       <DayNamesWrapper>
         {DAY_NAMES.map((dayName) => (
           <StyledDescription1 key={dayName} color="weeks">
