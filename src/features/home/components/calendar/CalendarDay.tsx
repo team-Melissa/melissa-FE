@@ -12,12 +12,16 @@ type Props = Omit<BasicDayProps, "date"> & {
 // TODO: query hook을 감싸는 hook에서 fetch된 데이터에 툴팁 렌더링 유무 필드를 추가하고, setInterval로 랜덤하게 true false 왔다갔다 하도록 구현
 // TODO: query data에서 툴팁 렌더링 유무 값이 변경되면, 약간의 딜레이 후 내부 state를 변경하는 방향으로 툴팁 렌더링에 fade animation 적용 (혹은 reanimated 고려)
 const CalendarDay = ({ date, onPress }: Props) => {
+  if (!date) return null;
+
+  const today = new Date().toISOString().split("T")[0];
+
   return (
     <Wrapper>
-      <Description1 color="sub1">{date?.day}</Description1>
-      {/* <ImageBorderWrapper> */}
-      <EmptyBox />
-      {/* </ImageBorderWrapper> */}
+      <StyledDescription1 $isToday={today === date.dateString}>{date.day}</StyledDescription1>
+      <ImageBorderWrapper>
+        <EmptyBox />
+      </ImageBorderWrapper>
     </Wrapper>
   );
 };
@@ -30,6 +34,13 @@ const Wrapper = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
   gap: 10px;
+`;
+
+const StyledDescription1 = styled(Description1)<{ $isToday: boolean }>`
+  padding: 3px 7px;
+  background-color: ${({ $isToday }) => ($isToday ? COLOR.sub1 : "transparent")};
+  color: ${({ $isToday }) => ($isToday ? COLOR.sub2 : COLOR.sub1)};
+  border-radius: 12px;
 `;
 
 const ImageBorderWrapper = styled.View`
