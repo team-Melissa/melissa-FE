@@ -9,6 +9,8 @@ type Props = Omit<BasicDayProps, "date"> & {
 };
 
 // TODO: 일기 있는 날이면 imageborderwrapper에 이미지 감싸서 렌더링하고, 없으면 emptybox만 렌더링한다.
+// TODO: query hook을 감싸는 hook에서 fetch된 데이터에 툴팁 렌더링 유무 필드를 추가하고, setInterval로 랜덤하게 true false 왔다갔다 하도록 구현
+// TODO: query data에서 툴팁 렌더링 유무 값이 변경되면, 약간의 딜레이 후 내부 state를 변경하는 방향으로 툴팁 렌더링에 fade animation 적용 (혹은 reanimated 고려)
 const CalendarDay = ({ date, onPress }: Props) => {
   return (
     <Wrapper>
