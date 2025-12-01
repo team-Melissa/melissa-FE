@@ -16,8 +16,12 @@ const CalendarDay = ({ date, onPress }: Props) => {
 
   const today = new Date().toISOString().split("T")[0];
 
+  const handleDayPress = () => {
+    onPress?.(date);
+  };
+
   return (
-    <Wrapper>
+    <Wrapper onPress={handleDayPress}>
       <StyledDescription1 $isToday={today === date.dateString}>{date.day}</StyledDescription1>
       <ImageBorderWrapper>
         <EmptyBox />
