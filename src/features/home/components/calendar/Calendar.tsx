@@ -7,8 +7,6 @@ const Calendar = () => {
     <CalendarList
       horizontal
       pagingEnabled
-      hideArrows
-      hideDayNames={false}
       pastScrollRange={50}
       futureScrollRange={50}
       theme={{ calendarBackground: "transparent" }}
