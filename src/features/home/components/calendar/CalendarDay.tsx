@@ -3,6 +3,7 @@ import { Description1 } from "@/src/core/Txt";
 import type { DateData } from "react-native-calendars";
 import type { BasicDayProps } from "react-native-calendars/src/calendar/day/basic";
 import styled from "styled-components/native";
+import { getTodayDateData } from "../../utils/getTodayDateData";
 
 type Props = Omit<BasicDayProps, "date"> & {
   date?: DateData;
@@ -14,7 +15,7 @@ type Props = Omit<BasicDayProps, "date"> & {
 const CalendarDay = ({ date, onPress }: Props) => {
   if (!date) return null;
 
-  const today = new Date().toISOString().split("T")[0];
+  const today = getTodayDateData();
 
   const handleDayPress = () => {
     onPress?.(date);
@@ -22,7 +23,9 @@ const CalendarDay = ({ date, onPress }: Props) => {
 
   return (
     <Wrapper onPress={handleDayPress}>
-      <StyledDescription1 $isToday={today === date.dateString}>{date.day}</StyledDescription1>
+      <StyledDescription1 $isToday={today.dateString === date.dateString}>
+        {date.day}
+      </StyledDescription1>
       <ImageBorderWrapper>
         <EmptyBox />
       </ImageBorderWrapper>
