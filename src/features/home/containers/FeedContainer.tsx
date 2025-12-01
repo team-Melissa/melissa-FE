@@ -21,5 +21,5 @@ const SafeView = styled(SafeAreaView)`
 `;
 
 const Wrapper = styled.View`
-  padding-inline: 15px;
+  padding: 0 15px;
 `;
