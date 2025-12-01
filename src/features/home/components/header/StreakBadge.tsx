@@ -29,8 +29,8 @@ const Wrapper = styled.View`
 `;
 
 const StyledIconCharacter = styled(IconCharacter)`
-  right: 5;
-  top: -1;
+  right: 5px;
+  top: -1px;
   align-items: center;
   align-self: center;
   overflow: visible;
