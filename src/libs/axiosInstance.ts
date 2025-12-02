@@ -1,11 +1,11 @@
-import axios, { AxiosResponse } from "axios";
-import { router } from "expo-router";
-import { getAccessToken, removeAccessToken, setAccessToken } from "./mmkv";
-import { getRefreshToken, removeRefreshToken, setRefreshToken } from "./secureStorage";
-import type { AxiosErrorToInterceptors, ErrorDTO } from "../types/commonTypes";
 import toastMessage from "@/src/constants/toastMessage";
 import { toast } from "@/src/modules/toast";
+import axios, { AxiosResponse } from "axios";
+import { router } from "expo-router";
 import type { LoginDTO } from "../apis/auth";
+import type { AxiosErrorToInterceptors, ErrorDTO } from "../types/commonTypes";
+import { getAccessToken, removeAccessToken, setAccessToken } from "./mmkv";
+import { getRefreshToken, removeRefreshToken, setRefreshToken } from "./secureStorage";
 
 const BASE_URL = process.env.EXPO_PUBLIC_API_URL ?? "http://localhost";
 
@@ -35,6 +35,7 @@ const runPendingApiCalls = (accessToken: string) => {
 
 /**
  * 전역 api 엔드포인트 설정
+ * @deprecated
  */
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -60,7 +61,13 @@ axiosInstance.interceptors.response.use(
 
     // 401 에러는 refresh token으로 재발급 시도 후 성공하면 기존 요청 재시도
     // 소셜 로그인 인증 실패 (OAuth 토큰 관련 문제)는 제외
-    if (response && config && response.status === 401 && response.data.code !== "AUTH4001" && !config.sent) {
+    if (
+      response &&
+      config &&
+      response.status === 401 &&
+      response.data.code !== "AUTH4001" &&
+      !config.sent
+    ) {
       // 해당 에러가 토큰 재발급 시도의 응답이 아니고, 이미 재발급 중이면 Queue에 대기시킴
       if (isRefreshing) {
         console.log("토큰 재발급중... 해당 요청을 Queue에 추가");
