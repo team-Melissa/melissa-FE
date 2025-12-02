@@ -3,7 +3,7 @@ import { removeRefreshToken, setRefreshToken } from "@/src/libs/secureStorage";
 import { router } from "expo-router";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
-import axiosInstance from "../instance";
+import { axiosInstance } from "../instances/instance";
 
 let mockAccessToken = "expired-at";
 let mockRefreshToken = "valid-rt";

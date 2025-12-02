@@ -45,3 +45,6 @@ app.json
 
 app-example
 google-services.json
+
+# generated API hooks
+src/apis/_generated
