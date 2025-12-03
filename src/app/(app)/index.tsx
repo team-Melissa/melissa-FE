@@ -1,14 +1,14 @@
-import Loading from '@/src/components/ui/Loading';
-import { useGetIsNewUser } from '@/src/hooks';
+import { useCheckNewUser } from '@/src/apis/_generated/serverAPI';
+import { CommonLoading } from '@/src/core/Loading';
 import { Redirect } from 'expo-router';
 
 /**
  * @description 유저의 초기화면을 결정하는 라우터
  */
 export default function IndexRouter() {
-  const { data: isNewUser } = useGetIsNewUser();
+  const { data: isNewUser } = useCheckNewUser();
 
-  if (isNewUser === undefined) return <Loading />;
+  if (isNewUser === undefined) return <CommonLoading />;
 
   if (isNewUser) return <Redirect href="/(app)/intro" />;
 
