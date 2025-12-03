@@ -1,14 +1,14 @@
-import styled from "styled-components/native";
-import { Image } from "expo-image";
-import type { BasicDayProps } from "react-native-calendars/src/calendar/day/basic";
-import type { DateData } from "react-native-calendars";
-import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
-import { PlaceholderImage } from "@/src/components/ui/PlaceholderImage";
-import { useModal } from "@/src/modules/modal";
-import { useCalendarQuery } from "../hooks/queries/useCalendarQuery";
-import ManualDiaryModal from "./modals/ManualDiaryModal";
+import styled from 'styled-components/native';
+import { Image } from 'expo-image';
+import type { BasicDayProps } from 'react-native-calendars/src/calendar/day/basic';
+import type { DateData } from 'react-native-calendars';
+import responsiveToPx, { responsiveToPxByHeight } from '@/src/utils/responsiveToPx';
+import { PlaceholderImage } from '@/src/components/ui/PlaceholderImage';
+import { useModal } from '@/src/modules/modal';
+import { useCalendarQuery } from '../hooks/queries/useCalendarQuery';
+import ManualDiaryModal from './modals/ManualDiaryModal';
 
-type DayComponentProps = Omit<BasicDayProps, "date"> & {
+type DayComponentProps = Omit<BasicDayProps, 'date'> & {
   date?: DateData;
 };
 
@@ -56,13 +56,13 @@ export default function DayComponent({ date, onPress }: DayComponentProps) {
 }
 
 const DayBox = styled.TouchableOpacity`
-  width: ${responsiveToPxByHeight("54px")};
-  height: ${responsiveToPxByHeight("96px")};
+  width: ${responsiveToPxByHeight('54px')};
+  height: ${responsiveToPxByHeight('96px')};
 `;
 
 const ImageBox = styled.View`
-  width: ${responsiveToPxByHeight("54px")};
-  height: ${responsiveToPxByHeight("54px")};
+  width: ${responsiveToPxByHeight('54px')};
+  height: ${responsiveToPxByHeight('54px')};
   border-radius: ${({ theme }) => theme.borderRadius.sm};
   justify-content: center;
   align-items: center;
@@ -70,18 +70,18 @@ const ImageBox = styled.View`
 `;
 
 const SImage = styled(Image)`
-  width: ${responsiveToPxByHeight("54px")};
-  height: ${responsiveToPxByHeight("54px")};
+  width: ${responsiveToPxByHeight('54px')};
+  height: ${responsiveToPxByHeight('54px')};
 `;
 
 const TagBox = styled.View`
   background-color: ${({ theme }) => theme.colors.skyBlue};
-  width: ${responsiveToPxByHeight("54px")};
-  height: ${responsiveToPxByHeight("15px")};
-  margin-top: ${responsiveToPxByHeight("3px")};
+  width: ${responsiveToPxByHeight('54px')};
+  height: ${responsiveToPxByHeight('15px')};
+  margin-top: ${responsiveToPxByHeight('3px')};
   border-radius: ${({ theme }) => theme.borderRadius.xs};
   justify-content: center;
-  padding-left: ${responsiveToPx("4px")};
+  padding-left: ${responsiveToPx('4px')};
 `;
 
 const DayText = styled.Text`

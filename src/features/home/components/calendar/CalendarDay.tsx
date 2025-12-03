@@ -1,11 +1,11 @@
-import { COLOR } from "@/src/constants/theme";
-import { Description1 } from "@/src/core/Txt";
-import type { DateData } from "react-native-calendars";
-import type { BasicDayProps } from "react-native-calendars/src/calendar/day/basic";
-import styled from "styled-components/native";
-import { getTodayDateData } from "../../utils/getTodayDateData";
+import { COLOR } from '@/src/constants/theme';
+import { Description1 } from '@/src/core/Txt';
+import type { DateData } from 'react-native-calendars';
+import type { BasicDayProps } from 'react-native-calendars/src/calendar/day/basic';
+import styled from 'styled-components/native';
+import { getTodayDateData } from '../../utils/getTodayDateData';
 
-type Props = Omit<BasicDayProps, "date"> & {
+type Props = Omit<BasicDayProps, 'date'> & {
   date?: DateData;
 };
 
@@ -23,9 +23,7 @@ const CalendarDay = ({ date, onPress }: Props) => {
 
   return (
     <Wrapper onPress={handleDayPress}>
-      <StyledDescription1 $isToday={today.dateString === date.dateString}>
-        {date.day}
-      </StyledDescription1>
+      <StyledDescription1 $isToday={today.dateString === date.dateString}>{date.day}</StyledDescription1>
       <ImageBorderWrapper>
         <EmptyBox />
       </ImageBorderWrapper>
@@ -45,7 +43,7 @@ const Wrapper = styled.TouchableOpacity`
 
 const StyledDescription1 = styled(Description1)<{ $isToday: boolean }>`
   padding: 3px 7px;
-  background-color: ${({ $isToday }) => ($isToday ? COLOR.sub1 : "transparent")};
+  background-color: ${({ $isToday }) => ($isToday ? COLOR.sub1 : 'transparent')};
   color: ${({ $isToday }) => ($isToday ? COLOR.sub2 : COLOR.sub1)};
   border-radius: 12px;
 `;

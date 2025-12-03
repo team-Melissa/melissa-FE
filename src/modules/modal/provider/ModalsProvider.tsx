@@ -1,11 +1,11 @@
-import { useMemo, useState, type PropsWithChildren } from "react";
-import { ModalState, type ModalsDispatch } from "../types";
-import { ModalDispatchContext } from "../context/ModalDispatchContext";
-import { Modals } from "../components/Modals";
+import { useMemo, useState, type PropsWithChildren } from 'react';
+import { ModalState, type ModalsDispatch } from '../types';
+import { ModalDispatchContext } from '../context/ModalDispatchContext';
+import { Modals } from '../components/Modals';
 
-type OpenModal = ModalsDispatch["openModal"];
-type CloseModal = ModalsDispatch["closeModal"];
-type ExitModal = ModalsDispatch["exitModal"];
+type OpenModal = ModalsDispatch['openModal'];
+type CloseModal = ModalsDispatch['closeModal'];
+type ExitModal = ModalsDispatch['exitModal'];
 
 export const ModalsProvider = ({ children }: PropsWithChildren) => {
   const [modals, setModals] = useState<ModalState[]>([]);

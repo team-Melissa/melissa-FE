@@ -1,8 +1,8 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axiosInstance from "@/src/libs/axiosInstance";
-import endpoint from "@/src/constants/endpoint";
-import { _getMessages, MESSAGES_QUERY_KEY } from "../queries/useMessagesQuery";
-import type { NewThreadDTO, TThreadDate } from "../../types/chattingTypes";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import axiosInstance from '@/src/libs/axiosInstance';
+import endpoint from '@/src/constants/endpoint';
+import { _getMessages, MESSAGES_QUERY_KEY } from '../queries/useMessagesQuery';
+import type { NewThreadDTO, TThreadDate } from '../../types/chattingTypes';
 
 export const _postMakeThread = async ({ aiProfileId, year, month, day }: TThreadDate & { aiProfileId: number }) => {
   const { data } = await axiosInstance.post<NewThreadDTO>(endpoint.thread.chat, null, {

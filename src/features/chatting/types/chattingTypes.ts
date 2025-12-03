@@ -1,7 +1,7 @@
-import { SuccessDTO } from "@/src/types/commonTypes";
+import { SuccessDTO } from '@/src/types/commonTypes';
 
 export type TChat = {
-  role: "AI" | "USER";
+  role: 'AI' | 'USER';
   chatId: number;
   content: string;
   createAt: string;
@@ -26,7 +26,7 @@ export type MessagesDTO = SuccessDTO & {
   };
 };
 
-export type FluxEventDTO = "aiMessage" | "finish";
+export type FluxEventDTO = 'aiMessage' | 'finish';
 
 export type TThreadDate = {
   year: number;

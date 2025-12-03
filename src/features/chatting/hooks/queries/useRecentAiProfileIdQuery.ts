@@ -1,7 +1,7 @@
-import endpoint from "@/src/constants/endpoint";
-import axiosInstance from "@/src/libs/axiosInstance";
-import { SuccessDTO } from "@/src/types/commonTypes";
-import { useQuery } from "@tanstack/react-query";
+import endpoint from '@/src/constants/endpoint';
+import axiosInstance from '@/src/libs/axiosInstance';
+import { SuccessDTO } from '@/src/types/commonTypes';
+import { useQuery } from '@tanstack/react-query';
 
 type AiProfileIdDTO = SuccessDTO & {
   result: {
@@ -14,7 +14,7 @@ const getRecentAiProfileId = async () => {
   return data.result.aiProfileId;
 };
 
-export const RECENT_AI_PROFILE_ID_QUERY_KEY = "RECENT_AI_PROFILE_ID_QUERY_KEY";
+export const RECENT_AI_PROFILE_ID_QUERY_KEY = 'RECENT_AI_PROFILE_ID_QUERY_KEY';
 
 export const useRecentAiProfileIdQuery = () => {
   return useQuery({

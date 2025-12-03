@@ -1,13 +1,13 @@
-import { useQuery, skipToken } from "@tanstack/react-query";
-import type { CalendarDTO, TDay } from "../../types/calendarTypes";
-import { _calendar } from "../../apis/calendarApi";
+import { useQuery, skipToken } from '@tanstack/react-query';
+import type { CalendarDTO, TDay } from '../../types/calendarTypes';
+import { _calendar } from '../../apis/calendarApi';
 
 type TProps = {
   year?: number;
   month?: number;
 };
 
-export const CALENDAR_QUERY_KEY = "calendar";
+export const CALENDAR_QUERY_KEY = 'calendar';
 
 export const useCalendarQuery = ({ year, month }: TProps) => {
   return useQuery({

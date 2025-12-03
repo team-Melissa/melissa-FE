@@ -1,21 +1,21 @@
-import styled from "styled-components/native";
-import type { DateData } from "react-native-calendars";
-import { ModalRoot, type ModalProps } from "@/src/modules/modal";
-import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
-import { theme } from "@/src/constants/theme";
-import { useState } from "react";
-import { useManualDiaryMutation } from "../../hooks/mutations/useManualDiaryMutation";
-import { Keyboard } from "react-native";
+import styled from 'styled-components/native';
+import type { DateData } from 'react-native-calendars';
+import { ModalRoot, type ModalProps } from '@/src/modules/modal';
+import responsiveToPx, { responsiveToPxByHeight } from '@/src/utils/responsiveToPx';
+import { theme } from '@/src/constants/theme';
+import { useState } from 'react';
+import { useManualDiaryMutation } from '../../hooks/mutations/useManualDiaryMutation';
+import { Keyboard } from 'react-native';
 
 type Props = ModalProps & {
   date: DateData;
 };
 
 const ManualDiaryModal = ({ isOpen, close, exit, date }: Props) => {
-  const [title, setTitle] = useState<string>("");
-  const [content, setContent] = useState<string>("");
-  const [hashtag1, setHashtag1] = useState<string>("");
-  const [hashtag2, setHashtag2] = useState<string>("");
+  const [title, setTitle] = useState<string>('');
+  const [content, setContent] = useState<string>('');
+  const [hashtag1, setHashtag1] = useState<string>('');
+  const [hashtag2, setHashtag2] = useState<string>('');
   const isSubmitable = !!title && !!content && !!hashtag1 && !!hashtag2;
 
   const manualDiaryMutation = useManualDiaryMutation();
@@ -85,7 +85,7 @@ const Wrapper = styled.View`
   justify-content: center;
   align-items: center;
   background-color: ${theme.colors.white};
-  padding: ${responsiveToPx("30px")};
+  padding: ${responsiveToPx('30px')};
   gap: ${theme.gap.lg};
   border-radius: ${theme.borderRadius.lg};
 `;
@@ -98,8 +98,8 @@ const Title = styled.Text`
 
 const TitleInput = styled.TextInput`
   width: 100%;
-  height: ${responsiveToPx("45px")};
-  padding: ${responsiveToPx("11px")};
+  height: ${responsiveToPx('45px')};
+  padding: ${responsiveToPx('11px')};
   background-color: ${theme.colors.white};
   border: 1px solid ${theme.colors.gray};
   border-radius: ${theme.borderRadius.sm};
@@ -109,8 +109,8 @@ const TitleInput = styled.TextInput`
 
 const ContentInput = styled.TextInput`
   width: 100%;
-  height: ${responsiveToPxByHeight("120px")};
-  padding: ${responsiveToPx("11px")};
+  height: ${responsiveToPxByHeight('120px')};
+  padding: ${responsiveToPx('11px')};
   background-color: ${theme.colors.white};
   border: 1px solid ${theme.colors.gray};
   border-radius: ${theme.borderRadius.sm};
@@ -127,8 +127,8 @@ const HashtagInputWrapper = styled.View`
 
 const HashtagInput = styled.TextInput`
   flex: 1;
-  height: ${responsiveToPx("45px")};
-  padding: ${responsiveToPx("11px")};
+  height: ${responsiveToPx('45px')};
+  padding: ${responsiveToPx('11px')};
   background-color: ${theme.colors.white};
   border: 1px solid ${theme.colors.gray};
   border-radius: ${theme.borderRadius.sm};
@@ -138,7 +138,7 @@ const HashtagInput = styled.TextInput`
 
 const SubmitButton = styled.TouchableOpacity`
   width: 100%;
-  height: ${responsiveToPx("45px")};
+  height: ${responsiveToPx('45px')};
   display: flex;
   justify-content: center;
   align-items: center;

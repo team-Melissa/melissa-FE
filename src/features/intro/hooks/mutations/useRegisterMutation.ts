@@ -1,10 +1,10 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "@/src/modules/toast";
-import toastMessage from "@/src/constants/toastMessage";
-import { IS_NEW_USER_QUERY_KEY } from "@/src/hooks";
-import axiosInstance from "@/src/libs/axiosInstance";
-import { SuccessDTO } from "@/src/types/commonTypes";
-import endpoint from "@/src/constants/endpoint";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from '@/src/modules/toast';
+import toastMessage from '@/src/constants/toastMessage';
+import { IS_NEW_USER_QUERY_KEY } from '@/src/hooks';
+import axiosInstance from '@/src/libs/axiosInstance';
+import { SuccessDTO } from '@/src/types/commonTypes';
+import endpoint from '@/src/constants/endpoint';
 
 type RegisterDTO = SuccessDTO & { result: null };
 
@@ -24,7 +24,7 @@ export const useRegisterMutation = () => {
     },
     onError: (error) => {
       console.error(error.response?.data);
-      toast({ message: toastMessage.registerSetting.error, options: { type: "error" } });
+      toast({ message: toastMessage.registerSetting.error, options: { type: 'error' } });
     },
   });
 };

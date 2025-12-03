@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { View, type ViewProps } from "react-native";
-import { DropdownContext } from "../context/DropdownContext";
-import { useAndroidBackHandler } from "../hooks/useAndroidBackHandler";
-import type { DropdownPos } from "../types";
+import { useState } from 'react';
+import { View, type ViewProps } from 'react-native';
+import { DropdownContext } from '../context/DropdownContext';
+import { useAndroidBackHandler } from '../hooks/useAndroidBackHandler';
+import type { DropdownPos } from '../types';
 
 export const DropdownRoot = ({ children, ...props }: ViewProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);

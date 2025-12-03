@@ -1,20 +1,20 @@
-import { theme } from "@/src/constants/theme";
-import { debounce } from "@/src/utils/debounce";
-import responsiveToPx from "@/src/utils/responsiveToPx";
-import { MaterialIcons } from "@expo/vector-icons";
-import BottomSheet from "@gorhom/bottom-sheet";
-import { useRouter } from "expo-router";
-import { useRef, useState } from "react";
-import { CalendarList, type DateData } from "react-native-calendars";
-import { ScrollView } from "react-native-gesture-handler";
-import { SafeAreaView } from "react-native-safe-area-context";
-import styled from "styled-components/native";
-import AiProfileList from "../components/AiProfileList";
-import DayComponent from "../components/DayComponent";
-import DiaryBottomSheet from "../components/DiaryBottomSheet";
-import { calendarLocale } from "../config/calendarLocale";
-import { useBottomSheetBackHandler } from "../hooks/useBottomSheetBackHandler";
-import type { TPressedDate } from "../types/calendarTypes";
+import { theme } from '@/src/constants/theme';
+import { debounce } from '@/src/utils/debounce';
+import responsiveToPx from '@/src/utils/responsiveToPx';
+import { MaterialIcons } from '@expo/vector-icons';
+import BottomSheet from '@gorhom/bottom-sheet';
+import { useRouter } from 'expo-router';
+import { useRef, useState } from 'react';
+import { CalendarList, type DateData } from 'react-native-calendars';
+import { ScrollView } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import styled from 'styled-components/native';
+import AiProfileList from '../components/AiProfileList';
+import DayComponent from '../components/DayComponent';
+import DiaryBottomSheet from '../components/DiaryBottomSheet';
+import { calendarLocale } from '../config/calendarLocale';
+import { useBottomSheetBackHandler } from '../hooks/useBottomSheetBackHandler';
+import type { TPressedDate } from '../types/calendarTypes';
 
 calendarLocale();
 
@@ -40,15 +40,15 @@ export default function MainContainer() {
     }, 0);
   };
 
-  const handleSettingPress = debounce(() => router.push("/(app)/setting"));
+  const handleSettingPress = debounce(() => router.push('/(app)/setting'));
 
   return (
-    <SafeView edges={["left", "right", "top"]}>
+    <SafeView edges={['left', 'right', 'top']}>
       <ScrollView scrollEnabled={!isBottomSheetOpen}>
         <CalendarWrapper>
           <CalendarList
             theme={calendarThemeProps}
-            monthFormat={"yyyy. MM"}
+            monthFormat={'yyyy. MM'}
             staticHeader={true}
             horizontal={true}
             pagingEnabled={true}
@@ -58,9 +58,7 @@ export default function MainContainer() {
             onPressArrowRight={handleSettingPress}
             calendarHeight={1000}
             renderArrow={(direction) =>
-              direction === "right" && (
-                <MaterialIcons name="settings" size={24} color={theme.colors.calendarIcon} />
-              )
+              direction === 'right' && <MaterialIcons name="settings" size={24} color={theme.colors.calendarIcon} />
             }
             onDayPress={handleDayPress}
             dayComponent={DayComponent}
@@ -68,11 +66,7 @@ export default function MainContainer() {
         </CalendarWrapper>
         <AiProfileList />
       </ScrollView>
-      <DiaryBottomSheet
-        ref={bottomSheetRef}
-        pressedDate={pressedDate}
-        setIsBottomSheetOpen={setIsBottomSheetOpen}
-      />
+      <DiaryBottomSheet ref={bottomSheetRef} pressedDate={pressedDate} setIsBottomSheetOpen={setIsBottomSheetOpen} />
     </SafeView>
   );
 }
@@ -84,7 +78,7 @@ const SafeView = styled(SafeAreaView)`
 
 const CalendarWrapper = styled.View`
   width: 100%;
-  height: ${responsiveToPx("730px")};
+  height: ${responsiveToPx('730px')};
 `;
 
 const calendarThemeProps = {
@@ -94,16 +88,16 @@ const calendarThemeProps = {
   textMonthFontFamily: theme.fontFamily.podkovaRegular, // 헤더 년월 폰트
   textMonthFontSize: parseInt(theme.fontSize.xl), // 헤더 년월 크기
   textSectionTitleColor: theme.colors.textGray, // 일 ~ 토 텍스트 색상
-  "stylesheet.calendar.header": {
+  'stylesheet.calendar.header': {
     headerContainer: {
-      flexDirection: "row",
+      flexDirection: 'row',
     },
     header: {
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
-      paddingHorizontal: parseInt(responsiveToPx("15px")),
-      marginVertical: parseInt(responsiveToPx("12px")), // 캘린더 헤더 상하단 간격
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingHorizontal: parseInt(responsiveToPx('15px')),
+      marginVertical: parseInt(responsiveToPx('12px')), // 캘린더 헤더 상하단 간격
     },
     dayTextAtIndex0: {
       color: theme.colors.calendarRed,

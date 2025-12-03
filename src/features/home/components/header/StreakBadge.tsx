@@ -1,7 +1,7 @@
-import { COLOR } from "@/src/constants/theme";
-import { Label } from "@/src/core/Txt";
-import { IconCharacter } from "@/src/icons/IconCharacter";
-import styled from "styled-components/native";
+import { COLOR } from '@/src/constants/theme';
+import { Label } from '@/src/core/Txt';
+import { IconCharacter } from '@/src/icons/IconCharacter';
+import styled from 'styled-components/native';
 
 const StreakBadge = () => {
   //TODO: 스트릭 수 API 요청해서 응답 받아오기

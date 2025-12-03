@@ -1,8 +1,8 @@
-import responsiveToPx from "@/src/utils/responsiveToPx";
-import { Image, View } from "react-native";
-import Animated, { useAnimatedStyle, useSharedValue, withDelay, withTiming } from "react-native-reanimated";
-import styled from "styled-components/native";
-import { PropsWithChildren, useEffect } from "react";
+import responsiveToPx from '@/src/utils/responsiveToPx';
+import { Image, View } from 'react-native';
+import Animated, { useAnimatedStyle, useSharedValue, withDelay, withTiming } from 'react-native-reanimated';
+import styled from 'styled-components/native';
+import { PropsWithChildren, useEffect } from 'react';
 
 export const IntroContent = ({ children }: PropsWithChildren) => {
   const imgY = useSharedValue(50);
@@ -34,22 +34,22 @@ export const IntroContent = ({ children }: PropsWithChildren) => {
 
   return (
     <ContentWrapper>
-      <StyledImage source={require("@/assets/images/logo.png")} style={imgStyle} />
+      <StyledImage source={require('@/assets/images/logo.png')} style={imgStyle} />
       <TextWrapper style={txtStyle}>{children}</TextWrapper>
     </ContentWrapper>
   );
 };
 
 const ContentWrapper = styled.View`
-  height: ${responsiveToPx("200px")};
+  height: ${responsiveToPx('200px')};
   justify-content: start;
   align-items: center;
-  gap: ${responsiveToPx("20px")};
+  gap: ${responsiveToPx('20px')};
 `;
 
 const StyledImage = styled(Animated.createAnimatedComponent(Image))`
-  width: ${responsiveToPx("102px")};
-  height: ${responsiveToPx("82px")};
+  width: ${responsiveToPx('102px')};
+  height: ${responsiveToPx('82px')};
 `;
 
 const TextWrapper = styled(Animated.createAnimatedComponent(View))`

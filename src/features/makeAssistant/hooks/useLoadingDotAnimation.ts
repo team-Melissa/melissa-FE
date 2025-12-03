@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export const useLoadingDotAnimation = () => {
-  const [loadingDot, setLoadingDot] = useState<"." | ".." | "...">(".");
+  const [loadingDot, setLoadingDot] = useState<'.' | '..' | '...'>('.');
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout | null = null;
     intervalId = setInterval(() => {
       setLoadingDot((prev) => {
-        if (prev === ".") {
-          return "..";
-        } else if (prev === "..") {
-          return "...";
+        if (prev === '.') {
+          return '..';
+        } else if (prev === '..') {
+          return '...';
         } else {
-          return ".";
+          return '.';
         }
       });
     }, 700);

@@ -1,10 +1,10 @@
-import { removeAccessToken, setAccessToken } from "@/src/libs/mmkv";
-import { getRefreshToken, removeRefreshToken, setRefreshToken } from "@/src/libs/secureStorage";
-import type { AxiosError } from "axios";
-import axios from "axios";
-import { router } from "expo-router";
-import { getNewToken } from "../apis/getNewToken";
-import type { PendingApiCallback } from "../types";
+import { removeAccessToken, setAccessToken } from '@/src/libs/mmkv';
+import { getRefreshToken, removeRefreshToken, setRefreshToken } from '@/src/libs/secureStorage';
+import type { AxiosError } from 'axios';
+import axios from 'axios';
+import { router } from 'expo-router';
+import { getNewToken } from '../apis/getNewToken';
+import type { PendingApiCallback } from '../types';
 
 let pendingApiQueue: PendingApiCallback[] = [];
 
@@ -36,7 +36,7 @@ export const responseErrorInterceptor = async (error: AxiosError) => {
         },
         onRefreshError: () => {
           reject(error);
-        }
+        },
       });
     });
   }
@@ -45,10 +45,10 @@ export const responseErrorInterceptor = async (error: AxiosError) => {
 
   try {
     const refreshToken = await getRefreshToken();
-    if (!refreshToken) throw new Error("refreshToken이 없습니다");
+    if (!refreshToken) throw new Error('refreshToken이 없습니다');
 
     const newTokens = await getNewToken(refreshToken);
-    if (!newTokens) throw new Error("토큰 재발급 실패");
+    if (!newTokens) throw new Error('토큰 재발급 실패');
 
     setAccessToken(newTokens.accessToken);
     await setRefreshToken(newTokens.refreshToken);
@@ -59,7 +59,7 @@ export const responseErrorInterceptor = async (error: AxiosError) => {
     removeAccessToken();
     await removeRefreshToken();
     rejectPendingApiQueue();
-    router.replace("/login");
+    router.replace('/login');
     return Promise.reject(error);
   } finally {
     isRefreshing = false;

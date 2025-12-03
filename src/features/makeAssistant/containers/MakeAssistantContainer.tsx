@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { questions } from "../constants/questions";
-import Intro from "../components/Intro";
-import Question from "../components/Question";
-import Submit from "../components/Submit";
-import type { TAssistantMakeQnA } from "../types/makeAssistantTypes";
+import { useState, useEffect } from 'react';
+import { questions } from '../constants/questions';
+import Intro from '../components/Intro';
+import Question from '../components/Question';
+import Submit from '../components/Submit';
+import type { TAssistantMakeQnA } from '../types/makeAssistantTypes';
 
 type MakeAssistantContainerProps = {
   prevAnswer?: TAssistantMakeQnA & { createdAt: string };

@@ -1,1 +1,1 @@
-export * from "./queries/useGetIsNewUser";
+export * from './queries/useGetIsNewUser';

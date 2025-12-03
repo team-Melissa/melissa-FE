@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useState } from "react";
-import { TThreadDate } from "../types/chattingTypes";
-import { useSleepTimeQuery } from "../hooks/queries/useSleepTimeQuery";
-import { useMakeThreadMutation } from "../hooks/mutations/useMakeThreadMutation";
-import { getThreadDateExpired } from "../utils/time";
-import ChattingContainer from "./ChattingContainer";
-import { useChangeAiProfileMutation } from "../hooks/mutations/useChangeAiProfileMutation";
+import { useCallback, useEffect, useState } from 'react';
+import { TThreadDate } from '../types/chattingTypes';
+import { useSleepTimeQuery } from '../hooks/queries/useSleepTimeQuery';
+import { useMakeThreadMutation } from '../hooks/mutations/useMakeThreadMutation';
+import { getThreadDateExpired } from '../utils/time';
+import ChattingContainer from './ChattingContainer';
+import { useChangeAiProfileMutation } from '../hooks/mutations/useChangeAiProfileMutation';
 
 type Props = {
   aiProfileId: number;

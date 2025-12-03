@@ -1,13 +1,13 @@
-import styled from "styled-components/native";
-import { useRouter } from "expo-router";
-import { MaterialIcons } from "@expo/vector-icons";
-import { Image } from "expo-image";
-import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
-import { theme } from "@/src/constants/theme";
-import { PlaceholderImage } from "@/src/components/ui/PlaceholderImage";
-import { Keyboard } from "react-native";
-import { useIsKeyboardOpen } from "@/src/hooks/useIsKeyboardOpen";
-import { IconMenu, IconSave } from "./icons";
+import styled from 'styled-components/native';
+import { useRouter } from 'expo-router';
+import { MaterialIcons } from '@expo/vector-icons';
+import { Image } from 'expo-image';
+import responsiveToPx, { responsiveToPxByHeight } from '@/src/utils/responsiveToPx';
+import { theme } from '@/src/constants/theme';
+import { PlaceholderImage } from '@/src/components/ui/PlaceholderImage';
+import { Keyboard } from 'react-native';
+import { useIsKeyboardOpen } from '@/src/hooks/useIsKeyboardOpen';
+import { IconMenu, IconSave } from './icons';
 
 type Props = {
   imageSrc: string | null;
@@ -61,10 +61,10 @@ export default ChatHeader;
 
 const HeaderBox = styled.View`
   width: 100%;
-  height: ${responsiveToPxByHeight("110px")};
+  height: ${responsiveToPxByHeight('110px')};
   background-color: ${({ theme }) => theme.colors.white};
   flex-direction: row;
-  padding: 0px ${responsiveToPx("24px")};
+  padding: 0px ${responsiveToPx('24px')};
   justify-content: space-between;
   align-items: center;
   gap: ${({ theme }) => theme.gap.lg};
@@ -83,8 +83,8 @@ const ProfileBox = styled.View`
 `;
 
 const ImageBox = styled.View`
-  width: ${responsiveToPx("48px")};
-  height: ${responsiveToPx("48px")};
+  width: ${responsiveToPx('48px')};
+  height: ${responsiveToPx('48px')};
   border-radius: 9999px;
   overflow: hidden;
 `;
@@ -101,7 +101,7 @@ const AiNameText = styled.Text`
 `;
 
 const ButtonBox = styled.View`
-  width: ${responsiveToPx("60px")};
+  width: ${responsiveToPx('60px')};
   display: flex;
   flex-direction: row;
   justify-content: center;

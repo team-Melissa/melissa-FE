@@ -1,20 +1,20 @@
-import { theme } from "@/src/constants/theme";
-import queryClient from "@/src/libs/queryClient";
-import { ModalsProvider } from "@/src/modules/modal";
-import { NotificationProvider } from "@/src/modules/notification";
-import { SentryProvider } from "@/src/modules/sentry";
-import { ToastsRoot } from "@/src/modules/toast";
-import { useReactQueryDevTools } from "@dev-plugins/react-query";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { Slot } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
-import { StatusBar } from "expo-status-bar";
-import { useEffect, useState } from "react";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { ThemeProvider } from "styled-components/native";
-import { useEasUpdate } from "../hooks/useEasUpdate";
-import { useInitializeFonts } from "../hooks/useInitializeFonts";
-import { initializeApp } from "../utils/initializeApp";
+import { theme } from '@/src/constants/theme';
+import queryClient from '@/src/libs/queryClient';
+import { ModalsProvider } from '@/src/modules/modal';
+import { NotificationProvider } from '@/src/modules/notification';
+import { SentryProvider } from '@/src/modules/sentry';
+import { ToastsRoot } from '@/src/modules/toast';
+import { useReactQueryDevTools } from '@dev-plugins/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { Slot } from 'expo-router';
+import * as SplashScreen from 'expo-splash-screen';
+import { StatusBar } from 'expo-status-bar';
+import { useEffect, useState } from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { ThemeProvider } from 'styled-components/native';
+import { useEasUpdate } from '../hooks/useEasUpdate';
+import { useInitializeFonts } from '../hooks/useInitializeFonts';
+import { initializeApp } from '../utils/initializeApp';
 
 SplashScreen.preventAutoHideAsync();
 

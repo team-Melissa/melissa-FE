@@ -1,4 +1,4 @@
-import Svg, { Path, type SvgProps } from "react-native-svg";
+import Svg, { Path, type SvgProps } from 'react-native-svg';
 
 export const IconKakao = (props: SvgProps) => {
   return (

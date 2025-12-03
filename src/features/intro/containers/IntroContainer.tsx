@@ -1,10 +1,10 @@
-import { SafeAreaView } from "react-native-safe-area-context";
-import styled from "styled-components/native";
-import { GoToNextButton } from "../components/GoToNextButton";
-import { theme } from "@/src/constants/theme";
-import { IntroContent } from "../components/IntroContent";
-import { useCallback, useEffect, useState } from "react";
-import { INTRO_TEXT, INTRO_TIMER } from "../constants";
+import { SafeAreaView } from 'react-native-safe-area-context';
+import styled from 'styled-components/native';
+import { GoToNextButton } from '../components/GoToNextButton';
+import { theme } from '@/src/constants/theme';
+import { IntroContent } from '../components/IntroContent';
+import { useCallback, useEffect, useState } from 'react';
+import { INTRO_TEXT, INTRO_TIMER } from '../constants';
 
 type Texts = {
   top: string;

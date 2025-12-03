@@ -1,12 +1,7 @@
-import { IconEllipsis } from "@/src/icons/IconEllipsis";
-import { useRef } from "react";
-import {
-  TouchableOpacity,
-  View,
-  type GestureResponderEvent,
-  type TouchableOpacityProps,
-} from "react-native";
-import { useDropdownContext } from "../context/DropdownContext";
+import { IconEllipsis } from '@/src/icons/IconEllipsis';
+import { useRef } from 'react';
+import { TouchableOpacity, View, type GestureResponderEvent, type TouchableOpacityProps } from 'react-native';
+import { useDropdownContext } from '../context/DropdownContext';
 
 export const DropdownTrigger = ({ children, onPress, ...props }: TouchableOpacityProps) => {
   const { isOpen, openDropdown, closeDropdown, setTriggerPos } = useDropdownContext();

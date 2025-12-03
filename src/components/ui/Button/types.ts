@@ -1,6 +1,6 @@
-import { PropsWithChildren } from "react";
-import { TouchableOpacityProps } from "react-native";
-import { Fontsize, FontFamily, BorderRadius, Colors } from "@/src/constants/theme";
+import { BorderRadius, Colors, FontFamily, Fontsize } from '@/src/constants/theme';
+import { PropsWithChildren } from 'react';
+import { TouchableOpacityProps } from 'react-native';
 
 export type BtnStyle = {
   color?: keyof Colors;

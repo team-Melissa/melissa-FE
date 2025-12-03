@@ -1,5 +1,5 @@
-import TabBarContainer from "@/src/features/home/containers/TabBarContainer";
-import { Tabs } from "expo-router";
+import TabBarContainer from '@/src/features/home/containers/TabBarContainer';
+import { Tabs } from 'expo-router';
 
 /**
  * @description Bottom tabs navigator layout

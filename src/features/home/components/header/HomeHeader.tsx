@@ -1,7 +1,7 @@
-import styled from "styled-components/native";
-import MenuButtons from "./MenuButtons";
-import MonthDropdown from "./MonthDropdown";
-import StreakBadge from "./StreakBadge";
+import styled from 'styled-components/native';
+import MenuButtons from './MenuButtons';
+import MonthDropdown from './MonthDropdown';
+import StreakBadge from './StreakBadge';
 
 type Props = {
   month: number;

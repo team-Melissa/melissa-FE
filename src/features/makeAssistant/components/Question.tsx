@@ -1,14 +1,14 @@
-import { type Dispatch, type SetStateAction, useState } from "react";
-import styled from "styled-components/native";
-import Animated, { runOnJS } from "react-native-reanimated";
-import AntDesign from "@expo/vector-icons/AntDesign";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { fadeIn, fadeInWithCallback, fadeOut } from "@/src/libs/animations";
-import { theme } from "@/src/constants/theme";
-import responsiveToPx from "@/src/utils/responsiveToPx";
-import { questions } from "../constants/questions";
-import QuestionButton from "./QuestionButton";
-import ProgressBar from "./ProgressBar";
+import { type Dispatch, type SetStateAction, useState } from 'react';
+import styled from 'styled-components/native';
+import Animated, { runOnJS } from 'react-native-reanimated';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { fadeIn, fadeInWithCallback, fadeOut } from '@/src/libs/animations';
+import { theme } from '@/src/constants/theme';
+import responsiveToPx from '@/src/utils/responsiveToPx';
+import { questions } from '../constants/questions';
+import QuestionButton from './QuestionButton';
+import ProgressBar from './ProgressBar';
 
 type QuestionProps = {
   answer: string[];
@@ -57,7 +57,7 @@ export default function Question({ answer, setAnswer, cursor, setCursor }: Quest
 
   // fadeIn 애니메이션 실행 뒤 콜백 함수
   const questionEnterCallback = (finished: boolean) => {
-    "worklet";
+    'worklet';
     if (finished) runOnJS(setIsAnimating)(false);
   };
 
@@ -96,7 +96,7 @@ export default function Question({ answer, setAnswer, cursor, setCursor }: Quest
 const BetweenBox = styled(SafeAreaView)`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.white};
-  padding: 0px 0px ${responsiveToPx("200px")} 0px;
+  padding: 0px 0px ${responsiveToPx('200px')} 0px;
   justify-content: space-between;
   align-items: center;
 `;
@@ -106,18 +106,18 @@ const AnimatedHeaderBox = styled(Animated.View)`
   height: 17%;
   justify-content: center;
   align-items: center;
-  margin-bottom: ${responsiveToPx("60px")};
+  margin-bottom: ${responsiveToPx('60px')};
 `;
 
 const HeaderBtn = styled.TouchableOpacity`
-  padding: ${responsiveToPx("14px")};
+  padding: ${responsiveToPx('14px')};
 `;
 
 const HeaderText = styled.Text`
   font-family: ${({ theme }) => theme.fontFamily.nsRegular};
   font-size: ${({ theme }) => theme.fontSize.md};
-  letter-spacing: ${responsiveToPx("11px")};
-  margin-top: ${responsiveToPx("50px")};
+  letter-spacing: ${responsiveToPx('11px')};
+  margin-top: ${responsiveToPx('50px')};
 `;
 
 const ProgressBarWrapper = styled.View`
@@ -136,7 +136,7 @@ const AnimatedBodyBox = styled(Animated.View)`
 
 const QuestionBox = styled.View`
   width: 80%;
-  margin-top: ${responsiveToPx("36px")};
+  margin-top: ${responsiveToPx('36px')};
 `;
 
 const ButtonBox = styled.View`
@@ -144,13 +144,13 @@ const ButtonBox = styled.View`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: ${responsiveToPx("40px")};
+  gap: ${responsiveToPx('40px')};
 `;
 
 const QuestionText = styled.Text`
   align-self: baseline;
   font-family: ${({ theme }) => theme.fontFamily.nsBold};
   font-size: ${({ theme }) => theme.fontSize.xl};
-  line-height: ${responsiveToPx("40px")};
-  padding-bottom: ${responsiveToPx("16px")};
+  line-height: ${responsiveToPx('40px')};
+  padding-bottom: ${responsiveToPx('16px')};
 `;

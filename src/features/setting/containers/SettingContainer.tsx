@@ -1,19 +1,19 @@
-import { ScrollView } from "react-native";
-import { useUpdates } from "expo-updates";
-import { SafeAreaView } from "react-native-safe-area-context";
-import styled from "styled-components/native";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import Loading from "@/src/components/ui/Loading";
-import responsiveToPx from "@/src/utils/responsiveToPx";
-import SettingHeader from "../components/SettingHeader";
-import SleepTimeSettingItem from "../components/SleepTimeSettingItem";
-import PushNotiSettingItem from "../components/PushNotiSettingItem";
-import NotiTimeSettingItem from "../components/NotiTimeSettingItem";
-import SendMailItem from "../components/SendMailItem";
-import LogoutItem from "../components/LogoutItem";
-import DeleteAccountItem from "../components/DeleteAccountItem";
-import { useSetting } from "../hooks/useSetting";
-import type { UserSettingDTO } from "../types/settingTypes";
+import { ScrollView } from 'react-native';
+import { useUpdates } from 'expo-updates';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import styled from 'styled-components/native';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import Loading from '@/src/components/ui/Loading';
+import responsiveToPx from '@/src/utils/responsiveToPx';
+import SettingHeader from '../components/SettingHeader';
+import SleepTimeSettingItem from '../components/SleepTimeSettingItem';
+import PushNotiSettingItem from '../components/PushNotiSettingItem';
+import NotiTimeSettingItem from '../components/NotiTimeSettingItem';
+import SendMailItem from '../components/SendMailItem';
+import LogoutItem from '../components/LogoutItem';
+import DeleteAccountItem from '../components/DeleteAccountItem';
+import { useSetting } from '../hooks/useSetting';
+import type { UserSettingDTO } from '../types/settingTypes';
 
 type SettingContainerProps = {
   data: UserSettingDTO;
@@ -65,13 +65,13 @@ export default function SettingContainer({ data }: SettingContainerProps) {
 
 const SafeView = styled(SafeAreaView)`
   flex: 1;
-  padding: ${responsiveToPx("26px")};
+  padding: ${responsiveToPx('26px')};
   background-color: ${({ theme }) => theme.colors.whiteBlue};
 `;
 
 const SettingBox = styled.View`
   width: 100%;
-  padding: ${responsiveToPx("22px")} ${responsiveToPx("33px")};
+  padding: ${responsiveToPx('22px')} ${responsiveToPx('33px')};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   background-color: ${({ theme }) => theme.colors.white};
   justify-content: center;

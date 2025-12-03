@@ -1,7 +1,7 @@
-import type BottomSheet from "@gorhom/bottom-sheet";
-import { type RefObject, useCallback } from "react";
-import { useFocusEffect } from "expo-router";
-import { BackHandler } from "react-native";
+import type BottomSheet from '@gorhom/bottom-sheet';
+import { type RefObject, useCallback } from 'react';
+import { useFocusEffect } from 'expo-router';
+import { BackHandler } from 'react-native';
 
 type TProps = {
   isBottomSheetOpen: boolean;
@@ -19,9 +19,9 @@ export const useBottomSheetBackHandler = ({ isBottomSheetOpen, bottomSheetRef }:
           return false;
         }
       };
-      BackHandler.addEventListener("hardwareBackPress", onBackPress);
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
 
-      return () => BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+      return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
     }, [bottomSheetRef, isBottomSheetOpen])
   );
 };

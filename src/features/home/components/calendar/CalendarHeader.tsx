@@ -1,10 +1,10 @@
-import { Description1 } from "@/src/core/Txt";
-import type { CalendarHeaderProps } from "react-native-calendars/src/calendar/header";
-import { HEADER_HEIGHT } from "react-native-calendars/src/expandableCalendar/style";
-import styled from "styled-components/native";
-import HomeHeader from "../header/HomeHeader";
+import { Description1 } from '@/src/core/Txt';
+import type { CalendarHeaderProps } from 'react-native-calendars/src/calendar/header';
+import { HEADER_HEIGHT } from 'react-native-calendars/src/expandableCalendar/style';
+import styled from 'styled-components/native';
+import HomeHeader from '../header/HomeHeader';
 
-const DAY_NAMES = ["일", "월", "화", "수", "목", "금", "토"];
+const DAY_NAMES = ['일', '월', '화', '수', '목', '금', '토'];
 
 const CalendarHeader = (props: CalendarHeaderProps) => {
   const { month } = props;

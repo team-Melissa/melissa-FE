@@ -1,4 +1,4 @@
-import Svg, { Defs, LinearGradient, Path, Stop, type SvgProps } from "react-native-svg";
+import Svg, { Defs, LinearGradient, Path, Stop, type SvgProps } from 'react-native-svg';
 
 export const IconCharacter = (props: SvgProps) => {
   return (
@@ -28,25 +28,11 @@ export const IconCharacter = (props: SvgProps) => {
         fill="url(#paint1_linear_0_1)"
       />
       <Defs>
-        <LinearGradient
-          id="paint0_linear_0_1"
-          x1="21"
-          y1="3.99939"
-          x2="21"
-          y2="44.0005"
-          gradientUnits="userSpaceOnUse"
-        >
+        <LinearGradient id="paint0_linear_0_1" x1="21" y1="3.99939" x2="21" y2="44.0005" gradientUnits="userSpaceOnUse">
           <Stop stopColor="#AFE8DD" />
           <Stop offset="1" stopColor="#5ADFC5" />
         </LinearGradient>
-        <LinearGradient
-          id="paint1_linear_0_1"
-          x1="39.25"
-          y1="2"
-          x2="39.25"
-          y2="18"
-          gradientUnits="userSpaceOnUse"
-        >
+        <LinearGradient id="paint1_linear_0_1" x1="39.25" y1="2" x2="39.25" y2="18" gradientUnits="userSpaceOnUse">
           <Stop stopColor="#FFDA00" />
           <Stop offset="1" stopColor="#FFA04D" />
         </LinearGradient>

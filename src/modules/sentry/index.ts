@@ -1,1 +1,1 @@
-export * from "./providers/SentryProvider";
+export * from './providers/SentryProvider';

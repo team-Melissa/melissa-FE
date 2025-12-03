@@ -1,10 +1,10 @@
-import responsiveToPx from "@/src/utils/responsiveToPx";
-import { Animated, type TouchableHighlightProps } from "react-native";
-import styled from "styled-components/native";
-import { useButtonAnimation } from "../hooks/useButtonAnimation";
+import responsiveToPx from '@/src/utils/responsiveToPx';
+import { Animated, type TouchableHighlightProps } from 'react-native';
+import styled from 'styled-components/native';
+import { useButtonAnimation } from '../hooks/useButtonAnimation';
 
-type Size = "large" | "medium" | "small";
-type Variant = "primary" | "secondary" | "transparent";
+type Size = 'large' | 'medium' | 'small';
+type Variant = 'primary' | 'secondary' | 'transparent';
 type Color = { front: string; back: string };
 
 type Props = TouchableHighlightProps & {
@@ -13,23 +13,23 @@ type Props = TouchableHighlightProps & {
 };
 
 const SIZE = {
-  large: responsiveToPx("60px"),
-  medium: responsiveToPx("56px"),
-  small: responsiveToPx("44px"),
+  large: responsiveToPx('60px'),
+  medium: responsiveToPx('56px'),
+  small: responsiveToPx('44px'),
 } satisfies Record<Size, string>;
 
 const COLOR = {
   primary: {
-    front: "#46C9B0",
-    back: "#36A48F",
+    front: '#46C9B0',
+    back: '#36A48F',
   },
   secondary: {
-    front: "#937261",
-    back: "#6C5244",
+    front: '#937261',
+    back: '#6C5244',
   },
   transparent: {
-    front: "#CCE5E0",
-    back: "#B2CFC9",
+    front: '#CCE5E0',
+    back: '#B2CFC9',
   },
 } satisfies Record<Variant, Color>;
 

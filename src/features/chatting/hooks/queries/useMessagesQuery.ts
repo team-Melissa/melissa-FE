@@ -1,7 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
-import endpoint from "@/src/constants/endpoint";
-import axiosInstance from "@/src/libs/axiosInstance";
-import type { MessagesDTO, TThreadDate } from "../../types/chattingTypes";
+import { useQuery } from '@tanstack/react-query';
+import endpoint from '@/src/constants/endpoint';
+import axiosInstance from '@/src/libs/axiosInstance';
+import type { MessagesDTO, TThreadDate } from '../../types/chattingTypes';
 
 export const _getMessages = async ({ year, month, day }: TThreadDate) => {
   const { data } = await axiosInstance.get<MessagesDTO>(endpoint.thread.chat, { params: { year, month, day } });
@@ -9,7 +9,7 @@ export const _getMessages = async ({ year, month, day }: TThreadDate) => {
   return data;
 };
 
-export const MESSAGES_QUERY_KEY = "MESSAGES_QUERY_KEY";
+export const MESSAGES_QUERY_KEY = 'MESSAGES_QUERY_KEY';
 
 /**
  * @description 채팅 리스트를 가져오는 query

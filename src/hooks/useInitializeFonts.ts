@@ -1,12 +1,12 @@
-import { useFonts } from "expo-font";
-import type { FontSource } from "expo-font";
-import type { TFontName } from "../types/fonts";
+import { useFonts } from 'expo-font';
+import type { FontSource } from 'expo-font';
+import type { TFontName } from '../types/fonts';
 
 const fontsMap = {
-  pretendard400: require("@/assets/fonts/pretendard-400.otf"),
-  pretendard500: require("@/assets/fonts/pretendard-500.otf"),
-  pretendard600: require("@/assets/fonts/pretendard-600.otf"),
-  pretendard700: require("@/assets/fonts/pretendard-700.otf"),
+  pretendard400: require('@/assets/fonts/pretendard-400.otf'),
+  pretendard500: require('@/assets/fonts/pretendard-500.otf'),
+  pretendard600: require('@/assets/fonts/pretendard-600.otf'),
+  pretendard700: require('@/assets/fonts/pretendard-700.otf'),
 } satisfies Record<TFontName, FontSource>;
 
 /**

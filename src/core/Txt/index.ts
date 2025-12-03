@@ -1,5 +1,5 @@
-import styled from "styled-components/native";
-import { COLOR, FONT_FAMILY } from "@/src/constants/theme";
+import styled from 'styled-components/native';
+import { COLOR, FONT_FAMILY } from '@/src/constants/theme';
 
 type Props = {
   color?: keyof typeof COLOR;

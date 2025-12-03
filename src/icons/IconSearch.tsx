@@ -1,4 +1,4 @@
-import { Path, Svg, type SvgProps } from "react-native-svg";
+import { Path, Svg, type SvgProps } from 'react-native-svg';
 
 export const IconSearch = (props: SvgProps) => {
   return (
@@ -10,12 +10,7 @@ export const IconSearch = (props: SvgProps) => {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <Path
-        d="M18.6743 18.9613L23.384 23.7373"
-        stroke="#6C5244"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
+      <Path d="M18.6743 18.9613L23.384 23.7373" stroke="#6C5244" strokeWidth="2" strokeLinecap="round" />
     </Svg>
   );
 };

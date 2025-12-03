@@ -1,4 +1,4 @@
-import Svg, { ClipPath, Defs, G, Path, Rect, type SvgProps } from "react-native-svg";
+import Svg, { ClipPath, Defs, G, Path, Rect, type SvgProps } from 'react-native-svg';
 
 export const IconWave = (props: SvgProps) => {
   return (

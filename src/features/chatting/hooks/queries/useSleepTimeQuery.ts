@@ -1,7 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
-import axiosInstance from "@/src/libs/axiosInstance";
-import endpoint from "@/src/constants/endpoint";
-import type { SuccessDTO } from "@/src/types/commonTypes";
+import { useQuery } from '@tanstack/react-query';
+import axiosInstance from '@/src/libs/axiosInstance';
+import endpoint from '@/src/constants/endpoint';
+import type { SuccessDTO } from '@/src/types/commonTypes';
 
 type UserSettingDTO = SuccessDTO & {
   result: {
@@ -22,7 +22,7 @@ const _getUserSetting = async () => {
 export const useSleepTimeQuery = () => {
   return useQuery({
     queryFn: _getUserSetting,
-    queryKey: ["user-setting"],
+    queryKey: ['user-setting'],
     staleTime: 5 * 60 * 1000,
     select: (data) => data.result.sleepTime,
   });

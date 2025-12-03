@@ -1,7 +1,7 @@
-import axiosInstance from "@/src/libs/axiosInstance";
-import endpoint from "@/src/constants/endpoint";
-import type { MakeAssistantQuestionDTO } from "../../types/makeAssistantTypes";
-import { skipToken, useQuery } from "@tanstack/react-query";
+import axiosInstance from '@/src/libs/axiosInstance';
+import endpoint from '@/src/constants/endpoint';
+import type { MakeAssistantQuestionDTO } from '../../types/makeAssistantTypes';
+import { skipToken, useQuery } from '@tanstack/react-query';
 
 const _getAssistantQuestion = async (aiProfileId: string) => {
   const { data } = await axiosInstance.get<MakeAssistantQuestionDTO>(
@@ -13,7 +13,7 @@ const _getAssistantQuestion = async (aiProfileId: string) => {
 export const useMakeAssistantQuestionQuery = (aiProfileId?: string) => {
   return useQuery({
     queryFn: !!aiProfileId ? () => _getAssistantQuestion(aiProfileId) : skipToken,
-    queryKey: ["make-assistant-question", aiProfileId],
+    queryKey: ['make-assistant-question', aiProfileId],
     enabled: !!aiProfileId,
   });
 };

@@ -1,8 +1,8 @@
-import * as Font from "expo-font";
-import * as Updates from "expo-updates";
-import { Dispatch, SetStateAction } from "react";
-import { toast } from "@/src/modules/toast";
-import toastMessage from "@/src/constants/toastMessage";
+import toastMessage from '@/src/constants/toastMessage';
+import { toast } from '@/src/modules/toast';
+import * as Font from 'expo-font';
+import * as Updates from 'expo-updates';
+import { Dispatch, SetStateAction } from 'react';
 
 /**
  * @description 필요한 모든 폰트를 로딩하는 함수
@@ -10,16 +10,16 @@ import toastMessage from "@/src/constants/toastMessage";
  */
 const loadFonts = async () => {
   await Font.loadAsync({
-    nanumSquareNeoLight: require("@/assets/fonts/NanumSquareNeo-light.ttf"),
-    nanumSquareNeoRegular: require("@/assets/fonts/NanumSquareNeo-regular.ttf"),
-    nanumSquareNeoBold: require("@/assets/fonts/NanumSquareNeo-bold.ttf"),
-    nanumSquareNeoExtraBold: require("@/assets/fonts/NanumSquareNeo-extrabold.ttf"),
-    nanumSquareNeoHeavy: require("@/assets/fonts/NanumSquareNeo-heavy.ttf"),
-    robotoMedium: require("@/assets/fonts/Roboto-medium.ttf"),
-    poetsenOneRegular: require("@/assets/fonts/PoetsenOne-Regular.ttf"),
-    podkovaRegular: require("@/assets/fonts/Podkova-Regular.ttf"),
+    nanumSquareNeoLight: require('@/assets/fonts/NanumSquareNeo-light.ttf'),
+    nanumSquareNeoRegular: require('@/assets/fonts/NanumSquareNeo-regular.ttf'),
+    nanumSquareNeoBold: require('@/assets/fonts/NanumSquareNeo-bold.ttf'),
+    nanumSquareNeoExtraBold: require('@/assets/fonts/NanumSquareNeo-extrabold.ttf'),
+    nanumSquareNeoHeavy: require('@/assets/fonts/NanumSquareNeo-heavy.ttf'),
+    robotoMedium: require('@/assets/fonts/Roboto-medium.ttf'),
+    poetsenOneRegular: require('@/assets/fonts/PoetsenOne-Regular.ttf'),
+    podkovaRegular: require('@/assets/fonts/Podkova-Regular.ttf'),
   });
-  console.log("폰트 로딩 완료");
+  console.log('폰트 로딩 완료');
 };
 
 /**
@@ -50,7 +50,7 @@ export const initializeApp = async (setIsReady: Dispatch<SetStateAction<boolean>
     await Promise.all([fetchEasUpdate(), loadFonts()]);
   } catch (e) {
     console.error(e);
-    toast({ message: toastMessage.fontLoading.error, options: { type: "error" } });
+    toast({ message: toastMessage.fontLoading.error, options: { type: 'error' } });
   } finally {
     setIsReady(true);
   }

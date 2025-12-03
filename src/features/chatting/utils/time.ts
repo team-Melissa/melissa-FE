@@ -1,4 +1,4 @@
-import { TThreadDate } from "../types/chattingTypes";
+import { TThreadDate } from '../types/chattingTypes';
 
 export const getThreadDateExpired = (sleepHour: number): [TThreadDate, Date] => {
   const date = new Date();

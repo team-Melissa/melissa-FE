@@ -1,7 +1,7 @@
-import axiosInstance from "@/src/libs/axiosInstance";
-import type { AiProfileListDTO } from "../../types/aiProfileTypes";
-import endpoint from "@/src/constants/endpoint";
-import { useQuery } from "@tanstack/react-query";
+import axiosInstance from '@/src/libs/axiosInstance';
+import type { AiProfileListDTO } from '../../types/aiProfileTypes';
+import endpoint from '@/src/constants/endpoint';
+import { useQuery } from '@tanstack/react-query';
 
 const getAiProfileList = async () => {
   const result = await axiosInstance.get<AiProfileListDTO>(endpoint.aiProfile.aiProfilesV1);
@@ -9,7 +9,7 @@ const getAiProfileList = async () => {
   return result.data.result;
 };
 
-export const AI_PROFILE_LIST_QUERY_KEY = "AI_PROFILE_LIST_QUERY_KEY";
+export const AI_PROFILE_LIST_QUERY_KEY = 'AI_PROFILE_LIST_QUERY_KEY';
 
 export const useAiProfileListQuery = () => {
   return useQuery({

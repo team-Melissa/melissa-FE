@@ -1,8 +1,8 @@
-import styled from "styled-components/native";
-import { Pressable } from "react-native";
-import type { ReactNode } from "react";
-import { shadowProps } from "@/src/constants/shadowProps";
-import responsiveToPx from "@/src/utils/responsiveToPx";
+import styled from 'styled-components/native';
+import { Pressable } from 'react-native';
+import type { ReactNode } from 'react';
+import { shadowProps } from '@/src/constants/shadowProps';
+import responsiveToPx from '@/src/utils/responsiveToPx';
 
 type QuestionButtonProps = {
   selected: boolean;
@@ -30,8 +30,8 @@ export default function QuestionButton({ selected, onPress, children }: Question
 }
 
 const ButtonBox = styled.View<StyledButtonProps>`
-  width: ${responsiveToPx("340px")};
-  height: ${responsiveToPx("50px")};
+  width: ${responsiveToPx('340px')};
+  height: ${responsiveToPx('50px')};
   justify-content: center;
   align-items: center;
   background-color: ${({ pressed, selected, theme }) =>

@@ -1,11 +1,11 @@
-import { Image, type ImageProps } from "expo-image";
-import styled from "styled-components/native";
-import { Animated, Easing, type LayoutChangeEvent } from "react-native";
-import { useEffect, useRef, useState } from "react";
+import { Image, type ImageProps } from 'expo-image';
+import { useEffect, useRef, useState } from 'react';
+import { Animated, Easing, type LayoutChangeEvent } from 'react-native';
+import styled from 'styled-components/native';
 
-const PLACEHOLDER_IMG_SRC = "https://melissa-s3.s3.ap-northeast-2.amazonaws.com/default.png";
+const PLACEHOLDER_IMG_SRC = 'https://melissa-s3.s3.ap-northeast-2.amazonaws.com/default.png';
 
-export const PlaceholderImage = (props: Omit<ImageProps, "src">) => {
+export const PlaceholderImage = (props: Omit<ImageProps, 'src'>) => {
   const [width, setWidth] = useState<number>(0);
 
   const translateX = useRef(new Animated.Value(0)).current;

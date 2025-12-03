@@ -1,5 +1,5 @@
-import { getAccessToken } from "@/src/libs/mmkv";
-import type { InternalAxiosRequestConfig } from "axios";
+import { getAccessToken } from '@/src/libs/mmkv';
+import type { InternalAxiosRequestConfig } from 'axios';
 
 export const requestInterceptor = (config: InternalAxiosRequestConfig) => {
   const accessToken = getAccessToken();

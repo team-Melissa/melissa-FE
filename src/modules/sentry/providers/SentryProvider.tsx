@@ -1,7 +1,7 @@
-import * as Sentry from "@sentry/react-native";
-import { useNavigationContainerRef } from "expo-router";
-import { useEffect, type PropsWithChildren } from "react";
-import { getSentryNavigationIntegration, initializeSentry } from "../utils/setup";
+import * as Sentry from '@sentry/react-native';
+import { useNavigationContainerRef } from 'expo-router';
+import { useEffect, type PropsWithChildren } from 'react';
+import { getSentryNavigationIntegration, initializeSentry } from '../utils/setup';
 
 const navigationIntegration = getSentryNavigationIntegration();
 

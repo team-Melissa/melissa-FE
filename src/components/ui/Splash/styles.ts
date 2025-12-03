@@ -1,6 +1,6 @@
-import responsiveToPx from "@/src/utils/responsiveToPx";
-import { Image as Img } from "expo-image";
-import styled from "styled-components/native";
+import responsiveToPx from '@/src/utils/responsiveToPx';
+import { Image as Img } from 'expo-image';
+import styled from 'styled-components/native';
 
 export const SplashLayout = styled.View`
   background-color: ${({ theme }) => theme.colors.white};
@@ -10,6 +10,6 @@ export const SplashLayout = styled.View`
 `;
 
 export const LogoImage = styled(Img)`
-  width: ${responsiveToPx("200px")};
-  height: ${responsiveToPx("200px")};
+  width: ${responsiveToPx('200px')};
+  height: ${responsiveToPx('200px')};
 `;

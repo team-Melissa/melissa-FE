@@ -1,6 +1,6 @@
-import Loading from "@/src/components/ui/Loading";
-import { useGetIsNewUser } from "@/src/hooks";
-import { Redirect, Stack } from "expo-router";
+import Loading from '@/src/components/ui/Loading';
+import { useGetIsNewUser } from '@/src/hooks';
+import { Redirect, Stack } from 'expo-router';
 
 /**
  * @description Stack navigator layout

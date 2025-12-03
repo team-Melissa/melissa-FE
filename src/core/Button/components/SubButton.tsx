@@ -1,11 +1,11 @@
-import { Body2 } from "@/src/core/Txt";
-import responsiveToPx from "@/src/utils/responsiveToPx";
-import type { ReactNode } from "react";
-import { Animated, type TouchableHighlightProps } from "react-native";
-import styled from "styled-components/native";
-import { useButtonAnimation } from "../hooks/useButtonAnimation";
+import { Body2 } from '@/src/core/Txt';
+import responsiveToPx from '@/src/utils/responsiveToPx';
+import type { ReactNode } from 'react';
+import { Animated, type TouchableHighlightProps } from 'react-native';
+import styled from 'styled-components/native';
+import { useButtonAnimation } from '../hooks/useButtonAnimation';
 
-type Size = "large" | "small";
+type Size = 'large' | 'small';
 
 type Props = TouchableHighlightProps & {
   size?: Size;
@@ -13,13 +13,13 @@ type Props = TouchableHighlightProps & {
 };
 
 const WIDTH = {
-  large: responsiveToPx("135px"),
-  small: responsiveToPx("105px"),
+  large: responsiveToPx('135px'),
+  small: responsiveToPx('105px'),
 } satisfies Record<Size, string>;
 
-const HEIGHT = responsiveToPx("52px");
+const HEIGHT = responsiveToPx('52px');
 
-export const SubButton = ({ children, size = "large", icon, ...props }: Props) => {
+export const SubButton = ({ children, size = 'large', icon, ...props }: Props) => {
   const { translateY, handlePressIn, handlePressOut } = useButtonAnimation();
 
   return (

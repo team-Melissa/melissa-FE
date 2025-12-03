@@ -1,10 +1,10 @@
-import { useMemo } from "react";
-import { useRouter } from "expo-router";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { MakeAssistantDTO, TAssistantMakeQnA } from "../../types/makeAssistantTypes";
-import axiosInstance from "@/src/libs/axiosInstance";
-import endpoint from "@/src/constants/endpoint";
-import { AI_PROFILE_LIST_QUERY_KEY } from "@/src/features/main/hooks/queries/useAiProfileListQuery";
+import { useMemo } from 'react';
+import { useRouter } from 'expo-router';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import type { MakeAssistantDTO, TAssistantMakeQnA } from '../../types/makeAssistantTypes';
+import axiosInstance from '@/src/libs/axiosInstance';
+import endpoint from '@/src/constants/endpoint';
+import { AI_PROFILE_LIST_QUERY_KEY } from '@/src/features/main/hooks/queries/useAiProfileListQuery';
 
 type TProps = {
   answers: string[];
@@ -32,7 +32,7 @@ export const useMakeAssistantMutation = ({ answers }: TProps) => {
     console.log(data.message);
     queryClient.invalidateQueries({ queryKey: [AI_PROFILE_LIST_QUERY_KEY] });
     setTimeout(() => {
-      console.log("이전 페이지로 back 합니다.");
+      console.log('이전 페이지로 back 합니다.');
       router.back();
     }, 2500);
   };

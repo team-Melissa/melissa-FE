@@ -1,19 +1,19 @@
-import { NavButton } from "@/src/core/Button";
-import { IconChat } from "@/src/icons/IconChat";
-import { IconWave } from "@/src/icons/IconWave";
-import { useRouter } from "expo-router";
-import { Alert } from "react-native";
-import styled from "styled-components/native";
+import { NavButton } from '@/src/core/Button';
+import { IconChat } from '@/src/icons/IconChat';
+import { IconWave } from '@/src/icons/IconWave';
+import { useRouter } from 'expo-router';
+import { Alert } from 'react-native';
+import styled from 'styled-components/native';
 
 const SubTabBarItem = () => {
   const router = useRouter();
 
   const goToTalkingPage = () => {
-    Alert.alert("준비중인 기능입니다.");
+    Alert.alert('준비중인 기능입니다.');
   };
 
   const goToChattingPage = () => {
-    router.push("/chatting");
+    router.push('/chatting');
   };
 
   return (

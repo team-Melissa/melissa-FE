@@ -1,19 +1,19 @@
-import { ScrollView } from "react-native-gesture-handler";
-import styled from "styled-components/native";
-import { useAiProfileListQuery } from "../hooks/queries/useAiProfileListQuery";
-import AiProfile from "./AiProfile";
-import { IconPlus } from "./icons";
-import { useRouter } from "expo-router";
-import { debounce } from "@/src/utils/debounce";
+import { ScrollView } from 'react-native-gesture-handler';
+import styled from 'styled-components/native';
+import { useAiProfileListQuery } from '../hooks/queries/useAiProfileListQuery';
+import AiProfile from './AiProfile';
+import { IconPlus } from './icons';
+import { useRouter } from 'expo-router';
+import { debounce } from '@/src/utils/debounce';
 
-const BG_COLORS = ["#BDDFE8", "#F0D69C", "#F4CBD0"];
+const BG_COLORS = ['#BDDFE8', '#F0D69C', '#F4CBD0'];
 
 const AiProfileList = () => {
   const router = useRouter();
   const { data: aiProfileList } = useAiProfileListQuery();
 
   const goToMakeAiProfilePage = debounce(() => {
-    return router.push("/(app)/make-assistant");
+    return router.push('/(app)/make-assistant');
   });
 
   return (
