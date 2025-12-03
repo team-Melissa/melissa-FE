@@ -1,49 +1,56 @@
-import { Platform } from 'react-native';
-import styled from 'styled-components/native';
-import Loading from '@/src/components/ui/Loading';
-import responsiveToPx from '@/src/utils/responsiveToPx';
-import useLogin from '../hooks/useLogin';
-import LoginTitle from '../components/LoginTitle';
-import LastLoginBadge from '../components/LastLoginBadge';
+import { COLOR } from '@/src/constants/theme';
 import { LoginButton } from '@/src/core/Button';
+import responsiveToPx from '@/src/utils/responsiveToPx';
+import { Platform } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import styled from 'styled-components/native';
+import CopyrightTxt from '../components/CopyrightTxt';
+import MainLogo from '../components/MainLogo';
 
-export default function LoginContainer() {
-  const { isPending, kakaoMutate, googleMutate, appleMutate } = useLogin();
-
-  if (isPending) {
-    return <Loading />;
-  }
-
+const LoginContainer = () => {
   return (
-    <ContentBox>
-      <LoginTitle />
-      <LastLoginBadge />
-      <ButtonBox>
-        <LoginButton provider="KAKAO" onPress={() => kakaoMutate()}>
+    <SafeView>
+      <LogoWrapper>
+        <MainLogo />
+      </LogoWrapper>
+      <Wrapper>
+        <LoginButton provider="KAKAO" onPress={() => {}}>
           Kakao로 시작하기
         </LoginButton>
-        <LoginButton provider="GOOGLE" onPress={() => googleMutate()}>
+        <LoginButton provider="GOOGLE" onPress={() => {}}>
           Google로 시작하기
         </LoginButton>
         {Platform.OS === 'ios' && (
-          <LoginButton provider="APPLE" onPress={() => appleMutate()}>
+          <LoginButton provider="APPLE" onPress={() => {}}>
             Apple로 시작하기
           </LoginButton>
         )}
-      </ButtonBox>
-    </ContentBox>
+        <StyledCopyrightTxt />
+      </Wrapper>
+    </SafeView>
   );
-}
+};
 
-const ContentBox = styled.View`
+export default LoginContainer;
+
+const SafeView = styled(SafeAreaView)`
   flex: 1;
-  background-color: ${({ theme }) => theme.colors.whiteBlue};
-  padding: ${responsiveToPx('80px')} 0px;
-  justify-content: space-between;
+  background-color: ${COLOR.background};
 `;
 
-const ButtonBox = styled.View`
+const LogoWrapper = styled.View`
+  flex: 4;
   justify-content: center;
   align-items: center;
-  gap: ${({ theme }) => theme.gap.lg};
+`;
+
+const Wrapper = styled.View`
+  flex: 3;
+  justify-content: center;
+  align-items: center;
+  gap: ${responsiveToPx('15px')};
+`;
+
+const StyledCopyrightTxt = styled(CopyrightTxt)`
+  margin-top: ${responsiveToPx('30px')};
 `;
