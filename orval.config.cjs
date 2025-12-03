@@ -19,7 +19,6 @@ module.exports = defineConfig({
           useQuery: true,
           useMutation: true,
           usePrefetch: true,
-          signal: false,
         },
       },
       fileExtension: ".ts",
