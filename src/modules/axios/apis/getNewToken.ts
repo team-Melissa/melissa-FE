@@ -7,6 +7,7 @@ export const getNewToken = async (refreshToken: string) => {
     headers: {
       Authorization: `Bearer ${refreshToken}`,
     },
+    timeout: 5 * 1000,
   });
   return data;
 };
