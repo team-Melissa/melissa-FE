@@ -10,18 +10,18 @@ let mockRefreshToken = "valid-rt";
 
 jest.mock("expo-router", () => ({
   router: {
-    replace: jest.fn(),
-  },
+    replace: jest.fn()
+  }
 }));
 jest.mock("@/src/libs/secureStorage", () => ({
   getRefreshToken: jest.fn(() => mockRefreshToken),
   setRefreshToken: jest.fn((token: string) => (mockRefreshToken = token)),
-  removeRefreshToken: jest.fn(),
+  removeRefreshToken: jest.fn()
 }));
 jest.mock("@/src/libs/mmkv", () => ({
   getAccessToken: jest.fn(() => mockAccessToken),
   setAccessToken: jest.fn((token: string) => (mockAccessToken = token)),
-  removeAccessToken: jest.fn(),
+  removeAccessToken: jest.fn()
 }));
 jest.mock("@/src/modules/axios/apis/getNewToken", () => ({
   getNewToken: jest.fn(async (refreshToken: string) => {
@@ -30,13 +30,13 @@ jest.mock("@/src/modules/axios/apis/getNewToken", () => ({
         result: {
           tokenType: "Bearer",
           accessToken: "valid-at",
-          refreshToken: "new-rt",
-        },
+          refreshToken: "new-rt"
+        }
       };
     }
 
     throw new Error("Invalid refresh token");
-  }),
+  })
 }));
 
 const mockServer = setupServer(
@@ -75,7 +75,7 @@ describe("access token 자동 재발급 테스트", () => {
       axiosInstance.get("/api/test1"),
       axiosInstance.get("/api/test1"),
       axiosInstance.get("/api/test1"),
-      axiosInstance.get("/api/test1"),
+      axiosInstance.get("/api/test1")
     ]);
 
     expect(res1.data.message).toBe("success");
@@ -104,9 +104,9 @@ describe("access token 자동 재발급 테스트", () => {
       response: {
         status: 401,
         data: {
-          message: "unauthorized",
-        },
-      },
+          message: "unauthorized"
+        }
+      }
     });
 
     expect(router.replace).toHaveBeenCalledWith("/login");
