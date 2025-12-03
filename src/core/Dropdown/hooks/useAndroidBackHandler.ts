@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import { BackHandler } from "react-native";
+import { useEffect, useRef } from 'react';
+import { BackHandler } from 'react-native';
 
 export const useAndroidBackHandler = (isOpen: boolean, callback: () => void) => {
   const callbackRef = useRef(callback);
@@ -16,7 +16,7 @@ export const useAndroidBackHandler = (isOpen: boolean, callback: () => void) => 
       return true;
     };
 
-    const subscription = BackHandler.addEventListener("hardwareBackPress", onBackPress);
+    const subscription = BackHandler.addEventListener('hardwareBackPress', onBackPress);
 
     return () => {
       subscription.remove();

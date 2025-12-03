@@ -1,4 +1,4 @@
-import type { TObserver, TToast } from "../types/toastTypes";
+import type { TObserver, TToast } from '../types/toastTypes';
 
 export class ToastSubject {
   private static instance: ToastSubject | null = null;

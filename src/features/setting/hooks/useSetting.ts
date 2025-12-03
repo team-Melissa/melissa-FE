@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { Alert } from "react-native";
-import { useDeleteAccountMutation } from "./mutations/useDeleteAccountMutation";
-import { useLogoutMutation } from "./mutations/useLogoutMutation";
-import { useSettingMutation } from "./mutations/useSettingMutation";
-import type { TDatePickerType, UserSettingDTO } from "../types/settingTypes";
+import { useEffect, useState } from 'react';
+import { Alert } from 'react-native';
+import { useDeleteAccountMutation } from './mutations/useDeleteAccountMutation';
+import { useLogoutMutation } from './mutations/useLogoutMutation';
+import { useSettingMutation } from './mutations/useSettingMutation';
+import type { TDatePickerType, UserSettingDTO } from '../types/settingTypes';
 
 export const useSetting = (data: UserSettingDTO) => {
   const { sleepTime, notificationSummary, notificationTime } = data.result;
@@ -28,8 +28,8 @@ export const useSetting = (data: UserSettingDTO) => {
   };
 
   const handleConfirm = (date: Date) => {
-    const hours = String(date.getHours()).padStart(2, "0");
-    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
     console.log(hours, minutes);
 
     if (datePickerType) {
@@ -48,11 +48,11 @@ export const useSetting = (data: UserSettingDTO) => {
 
   const handleDeleteAccountPress = () => {
     Alert.alert(
-      "회원탈퇴",
-      "정말 탈퇴하시겠습니까?",
+      '회원탈퇴',
+      '정말 탈퇴하시겠습니까?',
       [
-        { text: "취소", style: "cancel" },
-        { text: "탈퇴", style: "destructive", onPress: () => deleteAccountMutate() },
+        { text: '취소', style: 'cancel' },
+        { text: '탈퇴', style: 'destructive', onPress: () => deleteAccountMutate() },
       ],
       { cancelable: true }
     );

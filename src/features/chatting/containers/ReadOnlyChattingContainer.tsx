@@ -1,12 +1,12 @@
-import styled from "styled-components/native";
-import { useMessagesQuery } from "../hooks/queries/useMessagesQuery";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { ScrollView } from "react-native";
-import ChatHeader from "../components/ChatHeader";
-import { useRef } from "react";
-import AiChatBox from "../components/AiChatBox";
-import UserChatBox from "../components/UserChatBox";
-import responsiveToPx from "@/src/utils/responsiveToPx";
+import styled from 'styled-components/native';
+import { useMessagesQuery } from '../hooks/queries/useMessagesQuery';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView } from 'react-native';
+import ChatHeader from '../components/ChatHeader';
+import { useRef } from 'react';
+import AiChatBox from '../components/AiChatBox';
+import UserChatBox from '../components/UserChatBox';
+import responsiveToPx from '@/src/utils/responsiveToPx';
 
 type Props = {
   year: number;
@@ -19,10 +19,10 @@ const ReadOnlyChattingContainer = ({ year, month, day }: Props) => {
   const { data: messages } = useMessagesQuery({ year, month, day });
 
   return (
-    <SafeView edges={["left", "right", "top"]}>
+    <SafeView edges={['left', 'right', 'top']}>
       <ChatHeader
-        imageSrc={messages?.result.aiProfileImageS3 ?? ""}
-        assistantName={messages?.result.aiProfileName ?? ""}
+        imageSrc={messages?.result.aiProfileImageS3 ?? ''}
+        assistantName={messages?.result.aiProfileName ?? ''}
       />
       <ScrollBox
         ref={scrollViewRef}
@@ -31,7 +31,7 @@ const ReadOnlyChattingContainer = ({ year, month, day }: Props) => {
         }}
       >
         {messages?.result.chats.map((chat) =>
-          chat.role === "AI" ? (
+          chat.role === 'AI' ? (
             <AiChatBox content={chat.content} imageUrl={chat.aiProfileImageS3} key={chat.chatId} />
           ) : (
             <UserChatBox input={chat.content} key={chat.chatId} />
@@ -57,5 +57,5 @@ const ScrollBox = styled(ScrollView)`
 
 const PaddingBox = styled.View`
   width: 100%;
-  height: ${responsiveToPx("40px")};
+  height: ${responsiveToPx('40px')};
 `;

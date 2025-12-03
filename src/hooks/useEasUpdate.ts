@@ -1,5 +1,5 @@
-import * as Updates from "expo-updates";
-import { useEffect, useState } from "react";
+import * as Updates from 'expo-updates';
+import { useEffect, useState } from 'react';
 
 /**
  * @description EAS Update가 존재하는지 확인하고, 있으면 업데이트한 뒤 재실행합니다.

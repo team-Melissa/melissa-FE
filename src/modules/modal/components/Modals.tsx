@@ -1,6 +1,6 @@
-import type { ModalState } from "../types";
-import { useModalDispatch } from "../context/ModalDispatchContext";
-import { View } from "react-native";
+import type { ModalState } from '../types';
+import { useModalDispatch } from '../context/ModalDispatchContext';
+import { View } from 'react-native';
 
 type Props = {
   modals: ModalState[];

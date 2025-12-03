@@ -1,5 +1,5 @@
-import Button from "@/src/components/ui/Button";
-import * as S from "./styles";
+import Button from '@/src/components/ui/Button';
+import * as S from './styles';
 
 interface Props {
   titleText: string;

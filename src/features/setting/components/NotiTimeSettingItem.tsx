@@ -1,13 +1,13 @@
-import * as S from "../styles/SettingItem.styles";
+import * as S from '../styles/SettingItem.styles';
 
 type NotiTimeSettingItemProps = {
   notificationTime: string;
-  showDatePicker: (datePickerType: "sleepTime" | "notificationTime") => void;
+  showDatePicker: (datePickerType: 'sleepTime' | 'notificationTime') => void;
 };
 
 export default function NotiTimeSettingItem({ notificationTime, showDatePicker }: NotiTimeSettingItemProps) {
   const handleButtonPress = () => {
-    showDatePicker("notificationTime");
+    showDatePicker('notificationTime');
   };
 
   return (

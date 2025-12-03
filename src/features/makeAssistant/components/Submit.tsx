@@ -1,13 +1,13 @@
-import { useEffect } from "react";
-import { Image as Img } from "expo-image";
-import Animated from "react-native-reanimated";
-import styled from "styled-components/native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Button from "@/src/components/ui/Button";
-import { fadeIn, fadeOut } from "@/src/libs/animations";
-import responsiveToPx from "@/src/utils/responsiveToPx";
-import { useMakeAssistantMutation } from "../hooks/mutations/useMakeAssistantMutation";
-import { useLoadingDotAnimation } from "../hooks/useLoadingDotAnimation";
+import { useEffect } from 'react';
+import { Image as Img } from 'expo-image';
+import Animated from 'react-native-reanimated';
+import styled from 'styled-components/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Button from '@/src/components/ui/Button';
+import { fadeIn, fadeOut } from '@/src/libs/animations';
+import responsiveToPx from '@/src/utils/responsiveToPx';
+import { useMakeAssistantMutation } from '../hooks/mutations/useMakeAssistantMutation';
+import { useLoadingDotAnimation } from '../hooks/useLoadingDotAnimation';
 
 type SubmitProps = {
   answers: string[];
@@ -27,7 +27,7 @@ export default function Submit({ answers }: SubmitProps) {
     return (
       <SubmitLayout>
         <FinishAnimatedView entering={fadeIn(900)} exiting={fadeOut()}>
-          <Image source={require("@/assets/images/checked.svg")} contentFit="contain" />
+          <Image source={require('@/assets/images/checked.svg')} contentFit="contain" />
           <InfoText>서포터가 성공적으로 만들어졌어요!</InfoText>
           <InfoText>하단의 버튼을 통해 대화를 나누어보세요.</InfoText>
         </FinishAnimatedView>
@@ -81,11 +81,11 @@ const FinishAnimatedView = styled(AnimatedView)`
 const InfoText = styled.Text`
   font-family: ${({ theme }) => theme.fontFamily.nsRegular};
   font-size: ${({ theme }) => theme.fontSize.md};
-  padding-bottom: ${responsiveToPx("30px")};
+  padding-bottom: ${responsiveToPx('30px')};
 `;
 
 const Image = styled(Img)`
-  width: ${responsiveToPx("130px")};
-  height: ${responsiveToPx("130px")};
-  margin-bottom: ${responsiveToPx("30px")};
+  width: ${responsiveToPx('130px')};
+  height: ${responsiveToPx('130px')};
+  margin-bottom: ${responsiveToPx('30px')};
 `;

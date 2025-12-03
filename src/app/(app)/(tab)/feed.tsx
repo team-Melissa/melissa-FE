@@ -1,4 +1,4 @@
-import FeedContainer from "@/src/features/home/containers/FeedContainer";
+import FeedContainer from '@/src/features/home/containers/FeedContainer';
 
 /**
  * @description 피드 페이지 라우터

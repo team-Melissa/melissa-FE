@@ -1,8 +1,8 @@
-import styled from "styled-components/native";
-import Animated from "react-native-reanimated";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { fadeIn, fadeOut } from "@/src/libs/animations";
-import responsiveToPx from "@/src/utils/responsiveToPx";
+import styled from 'styled-components/native';
+import Animated from 'react-native-reanimated';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { fadeIn, fadeOut } from '@/src/libs/animations';
+import responsiveToPx from '@/src/utils/responsiveToPx';
 
 export default function Intro() {
   return (
@@ -31,7 +31,7 @@ const CenteringBox = styled(SafeAreaView)`
 const InfoText = styled.Text`
   font-family: ${({ theme }) => theme.fontFamily.nsRegular};
   font-size: ${({ theme }) => theme.fontSize.md};
-  padding-bottom: ${responsiveToPx("30px")};
+  padding-bottom: ${responsiveToPx('30px')};
 `;
 
 const Bold = styled(InfoText)`

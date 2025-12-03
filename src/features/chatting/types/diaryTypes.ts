@@ -1,4 +1,4 @@
-import type { SuccessDTO } from "@/src/types/commonTypes";
+import type { SuccessDTO } from '@/src/types/commonTypes';
 
 export type TDiary = {
   year: number;
@@ -9,7 +9,7 @@ export type TDiary = {
   summaryContent: string;
   hashTag1: string;
   hashTag2: string;
-  summaryMood: "HAPPY" | "SAD" | "TIRED" | "ANGRY" | "RELAX" | "HAPPY" | "SAD" | "TIRED" | "ANGRY" | "RELAX";
+  summaryMood: 'HAPPY' | 'SAD' | 'TIRED' | 'ANGRY' | 'RELAX' | 'HAPPY' | 'SAD' | 'TIRED' | 'ANGRY' | 'RELAX';
 };
 
 export type DiaryDTO = SuccessDTO & {

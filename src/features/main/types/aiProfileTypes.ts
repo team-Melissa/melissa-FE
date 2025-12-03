@@ -1,4 +1,4 @@
-import type { SuccessDTO } from "@/src/types/commonTypes";
+import type { SuccessDTO } from '@/src/types/commonTypes';
 
 export type TAiProfile = {
   aiProfileId: number;

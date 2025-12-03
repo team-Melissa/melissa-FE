@@ -1,16 +1,11 @@
-import { shadowProps } from "@/src/constants/shadowProps";
-import { theme } from "@/src/constants/theme";
-import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
-import { useRouter } from "expo-router";
-import { useEffect } from "react";
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withDelay,
-  withTiming,
-} from "react-native-reanimated";
-import styled from "styled-components/native";
-import { useRegisterMutation } from "../hooks/mutations/useRegisterMutation";
+import { shadowProps } from '@/src/constants/shadowProps';
+import { theme } from '@/src/constants/theme';
+import responsiveToPx, { responsiveToPxByHeight } from '@/src/utils/responsiveToPx';
+import { useRouter } from 'expo-router';
+import { useEffect } from 'react';
+import Animated, { useAnimatedStyle, useSharedValue, withDelay, withTiming } from 'react-native-reanimated';
+import styled from 'styled-components/native';
+import { useRegisterMutation } from '../hooks/mutations/useRegisterMutation';
 
 export const GoToNextButton = () => {
   const router = useRouter();
@@ -22,7 +17,7 @@ export const GoToNextButton = () => {
   const handleClick = () => {
     mutate(undefined, {
       onSuccess: () => {
-        router.replace("/(app)/(tab)/calendar");
+        router.replace('/(app)/(tab)/calendar');
       },
     });
   };
@@ -48,12 +43,12 @@ export const GoToNextButton = () => {
 
 const StyledView = styled(Animated.View)`
   position: absolute;
-  bottom: ${responsiveToPxByHeight("100px")};
+  bottom: ${responsiveToPxByHeight('100px')};
 `;
 
 const Button = styled.TouchableOpacity`
-  width: ${responsiveToPx("170px")};
-  height: ${responsiveToPx("40px")};
+  width: ${responsiveToPx('170px')};
+  height: ${responsiveToPx('40px')};
   display: flex;
   justify-content: center;
   align-items: center;

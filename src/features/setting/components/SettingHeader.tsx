@@ -1,8 +1,8 @@
-import { useRouter } from "expo-router";
-import { Fragment } from "react";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-import { theme } from "@/src/constants/theme";
-import * as S from "../styles/SettingItem.styles";
+import { useRouter } from 'expo-router';
+import { Fragment } from 'react';
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { theme } from '@/src/constants/theme';
+import * as S from '../styles/SettingItem.styles';
 
 export default function SettingHeader() {
   const router = useRouter();

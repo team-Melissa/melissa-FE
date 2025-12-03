@@ -1,13 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
-import type { DiariesDTO, TDiary } from "../../types/calendarTypes";
-import { _diaries } from "../../apis/diariesApi";
+import { useQuery } from '@tanstack/react-query';
+import type { DiariesDTO, TDiary } from '../../types/calendarTypes';
+import { _diaries } from '../../apis/diariesApi';
 
 type TProps = {
   year: number;
   month: number;
 };
 
-export const DIARIES_QUERY_KEY = "diaries";
+export const DIARIES_QUERY_KEY = 'diaries';
 
 export const useDiariesQuery = ({ year, month }: TProps) => {
   return useQuery({

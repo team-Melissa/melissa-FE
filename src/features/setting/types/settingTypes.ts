@@ -1,4 +1,4 @@
-import type { SuccessDTO } from "@/src/types/commonTypes";
+import type { SuccessDTO } from '@/src/types/commonTypes';
 
 export type UserSettingDTO = SuccessDTO & {
   result: {
@@ -11,11 +11,11 @@ export type UserSettingDTO = SuccessDTO & {
 export type DeleteAccountDTO = SuccessDTO & {
   result: {
     userId: number;
-    oauthProvider: "KAKAO" | "GOOGLE" | "APPLE";
-    providerId: "string";
-    email: "string";
-    nickname: "string";
+    oauthProvider: 'KAKAO' | 'GOOGLE' | 'APPLE';
+    providerId: 'string';
+    email: 'string';
+    nickname: 'string';
   };
 };
 
-export type TDatePickerType = "sleepTime" | "notificationTime" | null;
+export type TDatePickerType = 'sleepTime' | 'notificationTime' | null;

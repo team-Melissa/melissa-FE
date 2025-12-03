@@ -1,8 +1,8 @@
-import { Dropdown } from "@/src/core/Dropdown";
-import { LargeTitle, Title } from "@/src/core/Txt";
-import { IconArrowDown } from "@/src/icons/IconArrowDown";
-import responsiveToPx from "@/src/utils/responsiveToPx";
-import styled from "styled-components/native";
+import { Dropdown } from '@/src/core/Dropdown';
+import { LargeTitle, Title } from '@/src/core/Txt';
+import { IconArrowDown } from '@/src/icons/IconArrowDown';
+import responsiveToPx from '@/src/utils/responsiveToPx';
+import styled from 'styled-components/native';
 
 type Props = {
   value: number;
@@ -41,7 +41,7 @@ const StyledDropdownTrigger = styled(Dropdown.Trigger)`
 `;
 
 const StyledDropdownMenu = styled(Dropdown.Menu)`
-  width: ${responsiveToPx("232px")};
+  width: ${responsiveToPx('232px')};
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
@@ -51,7 +51,7 @@ const StyledDropdownMenu = styled(Dropdown.Menu)`
 `;
 
 const StyledDropdownItem = styled(Dropdown.Item)`
-  width: ${responsiveToPx("55px")};
+  width: ${responsiveToPx('55px')};
   justify-content: center;
   align-items: center;
   padding: 0;

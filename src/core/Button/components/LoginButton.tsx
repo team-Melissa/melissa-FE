@@ -1,11 +1,11 @@
-import { Title } from "@/src/core/Txt";
-import { IconApple, IconGoogle, IconKakao } from "@/src/icons";
-import type { OAuthProvider } from "@/src/types/commonTypes";
-import responsiveToPx from "@/src/utils/responsiveToPx";
-import type { ReactNode } from "react";
-import { Animated, type TouchableHighlightProps } from "react-native";
-import styled from "styled-components/native";
-import { useButtonAnimation } from "../hooks/useButtonAnimation";
+import { Title } from '@/src/core/Txt';
+import { IconApple, IconGoogle, IconKakao } from '@/src/icons';
+import type { OAuthProvider } from '@/src/types/commonTypes';
+import responsiveToPx from '@/src/utils/responsiveToPx';
+import type { ReactNode } from 'react';
+import { Animated, type TouchableHighlightProps } from 'react-native';
+import styled from 'styled-components/native';
+import { useButtonAnimation } from '../hooks/useButtonAnimation';
 
 type ButtonColor = {
   front: string;
@@ -17,25 +17,25 @@ type Props = TouchableHighlightProps & {
   provider: OAuthProvider;
 };
 
-const WIDTH = responsiveToPx("245px");
+const WIDTH = responsiveToPx('245px');
 
-const HEIGHT = responsiveToPx("58px");
+const HEIGHT = responsiveToPx('58px');
 
 const COLOR = {
   KAKAO: {
-    front: "#FAE100",
-    back: "#CCB700",
-    text: "#6C5244",
+    front: '#FAE100',
+    back: '#CCB700',
+    text: '#6C5244',
   },
   GOOGLE: {
-    front: "#FFFFFF",
-    back: "#D2D8DB",
-    text: "#6C5244",
+    front: '#FFFFFF',
+    back: '#D2D8DB',
+    text: '#6C5244',
   },
   APPLE: {
-    front: "#4C4C4C",
-    back: "#313131",
-    text: "#FFFFFF",
+    front: '#4C4C4C',
+    back: '#313131',
+    text: '#FFFFFF',
   },
 } satisfies Record<OAuthProvider, ButtonColor>;
 
@@ -90,5 +90,5 @@ const StyledTitle = styled(Title)<{ $color: string }>`
 
 const IconWrapper = styled.View`
   position: absolute;
-  left: ${responsiveToPx("25px")};
+  left: ${responsiveToPx('25px')};
 `;

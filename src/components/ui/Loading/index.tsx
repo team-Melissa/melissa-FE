@@ -1,5 +1,5 @@
-import { ActivityIndicator } from "react-native";
-import * as S from "./styles";
+import { ActivityIndicator } from 'react-native';
+import * as S from './styles';
 
 function Loading() {
   return (

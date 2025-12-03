@@ -1,7 +1,7 @@
-import { shadowProps } from "@/src/constants/shadowProps";
-import { getOAuthProvider } from "@/src/libs/mmkv";
-import styled from "styled-components/native";
-import { loginProviderLabels } from "../constants";
+import { shadowProps } from '@/src/constants/shadowProps';
+import { getOAuthProvider } from '@/src/libs/mmkv';
+import styled from 'styled-components/native';
+import { loginProviderLabels } from '../constants';
 
 export default function LastLoginBadge() {
   const lastLoginProvider = getOAuthProvider();

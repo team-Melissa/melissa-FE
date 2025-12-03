@@ -1,9 +1,9 @@
-import responsiveToPx from "@/src/utils/responsiveToPx";
-import { Animated, type TouchableHighlightProps } from "react-native";
-import styled from "styled-components/native";
-import { useButtonAnimation } from "../hooks/useButtonAnimation";
+import responsiveToPx from '@/src/utils/responsiveToPx';
+import { Animated, type TouchableHighlightProps } from 'react-native';
+import styled from 'styled-components/native';
+import { useButtonAnimation } from '../hooks/useButtonAnimation';
 
-type Size = "large" | "small";
+type Size = 'large' | 'small';
 
 type Props = TouchableHighlightProps & {
   active?: boolean;
@@ -11,32 +11,32 @@ type Props = TouchableHighlightProps & {
 };
 
 const WIDTH = {
-  large: responsiveToPx("66px"),
-  small: responsiveToPx("56px"),
+  large: responsiveToPx('66px'),
+  small: responsiveToPx('56px'),
 } satisfies Record<Size, string>;
 
-const HEIGHT = responsiveToPx("52px");
+const HEIGHT = responsiveToPx('52px');
 
-export const NavButton = ({ size = "large", active = false, children, ...props }: Props) => {
+export const NavButton = ({ size = 'large', active = false, children, ...props }: Props) => {
   const { translateY: _translateY, handlePressIn, handlePressOut } = useButtonAnimation();
 
-  const shouldAnimate = size === "small" || (size === "large" && active);
+  const shouldAnimate = size === 'small' || (size === 'large' && active);
   const translateY = shouldAnimate ? _translateY : 0;
 
   const getFrontColor = () => {
-    if (size === "large") {
-      if (active) return "#46C9B0";
-      return "#FFFFFF";
+    if (size === 'large') {
+      if (active) return '#46C9B0';
+      return '#FFFFFF';
     }
-    return "#937261";
+    return '#937261';
   };
 
   const getBackColor = () => {
-    if (size === "large") {
-      if (active) return "#36A48F";
-      return "#FFFFFF";
+    if (size === 'large') {
+      if (active) return '#36A48F';
+      return '#FFFFFF';
     }
-    return "#6C5244";
+    return '#6C5244';
   };
 
   return (

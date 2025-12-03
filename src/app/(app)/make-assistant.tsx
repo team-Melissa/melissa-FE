@@ -1,6 +1,6 @@
-import MakeAssistantContainer from "@/src/features/makeAssistant/containers/MakeAssistantContainer";
-import { useMakeAssistantQuestionQuery } from "@/src/features/makeAssistant/hooks/queries/useMakeAssistantQuestionQuery";
-import { useLocalSearchParams } from "expo-router";
+import MakeAssistantContainer from '@/src/features/makeAssistant/containers/MakeAssistantContainer';
+import { useMakeAssistantQuestionQuery } from '@/src/features/makeAssistant/hooks/queries/useMakeAssistantQuestionQuery';
+import { useLocalSearchParams } from 'expo-router';
 
 /**
  * @description 어시스턴트 생성하는 페이지의 라우터

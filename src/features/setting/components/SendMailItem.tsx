@@ -1,18 +1,18 @@
-import * as Linking from "expo-linking";
-import { toast } from "@/src/modules/toast";
-import toastMessage from "@/src/constants/toastMessage";
-import * as S from "../styles/SettingItem.styles";
+import * as Linking from 'expo-linking';
+import { toast } from '@/src/modules/toast';
+import toastMessage from '@/src/constants/toastMessage';
+import * as S from '../styles/SettingItem.styles';
 
 export default function SendMailItem() {
   const handleSendMail = async () => {
     try {
       const data = await Linking.openURL(
-        "mailto: teammelissa7@gmail.com?subject=[Melissa] 제목을 작성해주세요.&body=내용을 작성해주세요."
+        'mailto: teammelissa7@gmail.com?subject=[Melissa] 제목을 작성해주세요.&body=내용을 작성해주세요.'
       );
       console.log(data);
     } catch (e) {
       console.error(e);
-      toast({ message: toastMessage.sendMailError, options: { type: "error" } });
+      toast({ message: toastMessage.sendMailError, options: { type: 'error' } });
     }
   };
 

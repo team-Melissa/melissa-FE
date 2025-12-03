@@ -1,6 +1,6 @@
-import EditableChattingContainer from "@/src/features/chatting/containers/EditableChattingContainer";
-import ReadOnlyChattingContainer from "@/src/features/chatting/containers/ReadOnlyChattingContainer";
-import { useLocalSearchParams } from "expo-router";
+import EditableChattingContainer from '@/src/features/chatting/containers/EditableChattingContainer';
+import ReadOnlyChattingContainer from '@/src/features/chatting/containers/ReadOnlyChattingContainer';
+import { useLocalSearchParams } from 'expo-router';
 
 type EditableParams = {
   aiProfileId: number;
@@ -14,7 +14,7 @@ type ReadOnlyParams = {
 
 type Params = EditableParams | ReadOnlyParams;
 
-const isEditable = (params: Params): params is EditableParams => "aiProfileId" in params;
+const isEditable = (params: Params): params is EditableParams => 'aiProfileId' in params;
 
 export default function ChattingRouter() {
   const params = useLocalSearchParams() as unknown as Params;

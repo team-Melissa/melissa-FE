@@ -1,11 +1,11 @@
-import { Platform } from "react-native";
-import styled from "styled-components/native";
-import Loading from "@/src/components/ui/Loading";
-import responsiveToPx from "@/src/utils/responsiveToPx";
-import useLogin from "../hooks/useLogin";
-import LoginTitle from "../components/LoginTitle";
-import LastLoginBadge from "../components/LastLoginBadge";
-import { LoginButton } from "@/src/core/Button";
+import { Platform } from 'react-native';
+import styled from 'styled-components/native';
+import Loading from '@/src/components/ui/Loading';
+import responsiveToPx from '@/src/utils/responsiveToPx';
+import useLogin from '../hooks/useLogin';
+import LoginTitle from '../components/LoginTitle';
+import LastLoginBadge from '../components/LastLoginBadge';
+import { LoginButton } from '@/src/core/Button';
 
 export default function LoginContainer() {
   const { isPending, kakaoMutate, googleMutate, appleMutate } = useLogin();
@@ -25,7 +25,7 @@ export default function LoginContainer() {
         <LoginButton provider="GOOGLE" onPress={() => googleMutate()}>
           Google로 시작하기
         </LoginButton>
-        {Platform.OS === "ios" && (
+        {Platform.OS === 'ios' && (
           <LoginButton provider="APPLE" onPress={() => appleMutate()}>
             Apple로 시작하기
           </LoginButton>
@@ -38,7 +38,7 @@ export default function LoginContainer() {
 const ContentBox = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.whiteBlue};
-  padding: ${responsiveToPx("80px")} 0px;
+  padding: ${responsiveToPx('80px')} 0px;
   justify-content: space-between;
 `;
 

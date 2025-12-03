@@ -1,5 +1,5 @@
-import * as Sentry from "@sentry/react-native";
-import { isRunningInExpoGo } from "expo";
+import * as Sentry from '@sentry/react-native';
+import { isRunningInExpoGo } from 'expo';
 
 export const getSentryNavigationIntegration = () => {
   return Sentry.reactNavigationIntegration({

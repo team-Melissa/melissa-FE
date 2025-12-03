@@ -1,5 +1,5 @@
-import { useRef } from "react";
-import { Animated } from "react-native";
+import { useRef } from 'react';
+import { Animated } from 'react-native';
 
 export const useButtonAnimation = () => {
   const animationRef = useRef<Animated.Value>(new Animated.Value(0));

@@ -1,13 +1,13 @@
-import * as S from "../styles/SettingItem.styles";
+import * as S from '../styles/SettingItem.styles';
 
 type SleepTimeSettingItemProps = {
   sleepTime: string;
-  showDatePicker: (datePickerType: "sleepTime" | "notificationTime") => void;
+  showDatePicker: (datePickerType: 'sleepTime' | 'notificationTime') => void;
 };
 
 export default function SleepTimeSettingItem({ sleepTime, showDatePicker }: SleepTimeSettingItemProps) {
   const handleButtonPress = () => {
-    showDatePicker("sleepTime");
+    showDatePicker('sleepTime');
   };
 
   return (

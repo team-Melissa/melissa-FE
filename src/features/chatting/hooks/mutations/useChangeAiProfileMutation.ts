@@ -1,9 +1,9 @@
-import endpoint from "@/src/constants/endpoint";
-import toastMessage from "@/src/constants/toastMessage";
-import { MESSAGES_QUERY_KEY } from "@/src/features/chatting/hooks/queries/useMessagesQuery";
-import axiosInstance from "@/src/libs/axiosInstance";
-import { toast } from "@/src/modules/toast";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import endpoint from '@/src/constants/endpoint';
+import toastMessage from '@/src/constants/toastMessage';
+import { MESSAGES_QUERY_KEY } from '@/src/features/chatting/hooks/queries/useMessagesQuery';
+import axiosInstance from '@/src/libs/axiosInstance';
+import { toast } from '@/src/modules/toast';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 type Params = {
   year: number;
@@ -28,7 +28,7 @@ export const useChangeAiProfileMutation = () => {
     },
     onError: (error) => {
       console.error(error.response?.data);
-      toast({ message: toastMessage.changeAssistant.error, options: { type: "error" } });
+      toast({ message: toastMessage.changeAssistant.error, options: { type: 'error' } });
     },
   });
 };

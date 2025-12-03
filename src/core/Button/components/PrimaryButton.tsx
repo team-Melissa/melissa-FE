@@ -1,11 +1,11 @@
-import { Body2, Title } from "@/src/core/Txt";
-import responsiveToPx from "@/src/utils/responsiveToPx";
-import type { ReactNode } from "react";
-import { Animated, type TouchableHighlightProps } from "react-native";
-import styled from "styled-components/native";
-import { useButtonAnimation } from "../hooks/useButtonAnimation";
+import { Body2, Title } from '@/src/core/Txt';
+import responsiveToPx from '@/src/utils/responsiveToPx';
+import type { ReactNode } from 'react';
+import { Animated, type TouchableHighlightProps } from 'react-native';
+import styled from 'styled-components/native';
+import { useButtonAnimation } from '../hooks/useButtonAnimation';
 
-type Size = "large" | "medium" | "small";
+type Size = 'large' | 'medium' | 'small';
 
 type Props = TouchableHighlightProps & {
   size?: Size;
@@ -13,21 +13,21 @@ type Props = TouchableHighlightProps & {
 };
 
 const WIDTH = {
-  large: responsiveToPx("245px"),
-  medium: responsiveToPx("155px"),
-  small: responsiveToPx("100px"),
+  large: responsiveToPx('245px'),
+  medium: responsiveToPx('155px'),
+  small: responsiveToPx('100px'),
 } satisfies Record<Size, string>;
 
 const HEIGHT = {
-  large: responsiveToPx("60px"),
-  medium: responsiveToPx("58px"),
-  small: responsiveToPx("52px"),
+  large: responsiveToPx('60px'),
+  medium: responsiveToPx('58px'),
+  small: responsiveToPx('52px'),
 } satisfies Record<Size, string>;
 
-export const PrimaryButton = ({ children, size = "large", icon, ...props }: Props) => {
+export const PrimaryButton = ({ children, size = 'large', icon, ...props }: Props) => {
   const { translateY, handlePressIn, handlePressOut } = useButtonAnimation();
 
-  const Txt = size === "small" ? Body2 : Title;
+  const Txt = size === 'small' ? Body2 : Title;
 
   return (
     <StyledButton

@@ -1,3 +1,3 @@
-export * from "./IconSend";
-export * from "./IconSave";
-export * from "./IconMenu";
+export * from './IconSend';
+export * from './IconSave';
+export * from './IconMenu';

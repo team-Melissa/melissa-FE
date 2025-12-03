@@ -1,16 +1,11 @@
-import Svg, { Defs, Image, Pattern, Rect, Use, type SvgProps } from "react-native-svg";
+import Svg, { Defs, Image, Pattern, Rect, Use, type SvgProps } from 'react-native-svg';
 
 export const IconGoogle = (props: SvgProps) => {
   return (
     <Svg width="22" height="22" viewBox="0 0 22 22" fill="none" {...props}>
       <Rect width="22" height="22" fill="url(#pattern0_1112_2189)" />
       <Defs>
-        <Pattern
-          id="pattern0_1112_2189"
-          patternContentUnits="objectBoundingBox"
-          width="1"
-          height="1"
-        >
+        <Pattern id="pattern0_1112_2189" patternContentUnits="objectBoundingBox" width="1" height="1">
           <Use xlinkHref="#image0_1112_2189" transform="scale(0.00195312)" />
         </Pattern>
         <Image

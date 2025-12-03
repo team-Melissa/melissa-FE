@@ -1,14 +1,14 @@
-import { theme } from "@/src/constants/theme";
-import responsiveToPx from "@/src/utils/responsiveToPx";
-import BottomSheet, { BottomSheetBackdrop, type BottomSheetBackdropProps } from "@gorhom/bottom-sheet";
-import { forwardRef, useEffect, useRef } from "react";
-import { StyleProp, ViewStyle } from "react-native";
-import styled from "styled-components/native";
-import { RECENT_AI_PROFILE_ID_QUERY_KEY, useRecentAiProfileIdQuery } from "../hooks/queries/useRecentAiProfileIdQuery";
-import { mergeRefs } from "@/src/utils/mergeRefs";
-import { useRemoveAiProfileMutation } from "../hooks/mutations/useRemoveAiProfileMutation";
-import { useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "expo-router";
+import { theme } from '@/src/constants/theme';
+import responsiveToPx from '@/src/utils/responsiveToPx';
+import BottomSheet, { BottomSheetBackdrop, type BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
+import { forwardRef, useEffect, useRef } from 'react';
+import { StyleProp, ViewStyle } from 'react-native';
+import styled from 'styled-components/native';
+import { RECENT_AI_PROFILE_ID_QUERY_KEY, useRecentAiProfileIdQuery } from '../hooks/queries/useRecentAiProfileIdQuery';
+import { mergeRefs } from '@/src/utils/mergeRefs';
+import { useRemoveAiProfileMutation } from '../hooks/mutations/useRemoveAiProfileMutation';
+import { useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'expo-router';
 
 const ChattingMenu = forwardRef<BottomSheet, object>((_, ref) => {
   const queryClient = useQueryClient();
@@ -41,7 +41,7 @@ const ChattingMenu = forwardRef<BottomSheet, object>((_, ref) => {
       handleStyle={bottomSheetShadow}
       handleIndicatorStyle={indicatorStyle}
       backdropComponent={Backdrop}
-      snapPoints={["20%"]}
+      snapPoints={['20%']}
       enableDynamicSizing={false}
       enableContentPanningGesture={false}
       enableHandlePanningGesture={false}
@@ -59,7 +59,7 @@ const ChattingMenu = forwardRef<BottomSheet, object>((_, ref) => {
   );
 });
 
-ChattingMenu.displayName = "ChattingMenu";
+ChattingMenu.displayName = 'ChattingMenu';
 
 export default ChattingMenu;
 
@@ -68,23 +68,23 @@ const Backdrop = (props: BottomSheetBackdropProps) => {
 };
 
 const indicatorStyle = {
-  display: "none",
+  display: 'none',
   backgroundColor: theme.colors.settingSubText,
 } satisfies StyleProp<ViewStyle>;
 
 const bottomSheetShadow = {
-  boxShadow: "0 -2 10 0 #ffffff",
-  borderRadius: "100%",
+  boxShadow: '0 -2 10 0 #ffffff',
+  borderRadius: '100%',
 } satisfies StyleProp<ViewStyle>;
 
 const BottomSheetLayout = styled.View`
   flex: 1;
-  padding: 0px ${responsiveToPx("25px")};
+  padding: 0px ${responsiveToPx('25px')};
 `;
 
 const MenuButton = styled.TouchableOpacity`
   width: 100%;
-  height: ${responsiveToPx("50px")};
+  height: ${responsiveToPx('50px')};
   display: flex;
   justify-content: center;
   align-items: center;

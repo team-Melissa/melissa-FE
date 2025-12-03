@@ -1,26 +1,26 @@
-import { type Dispatch, type SetStateAction, forwardRef, useMemo } from "react";
-import styled from "styled-components/native";
-import { useRouter } from "expo-router";
-import { Image } from "expo-image";
-import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
-import type { DateData } from "react-native-calendars";
-import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
-import { theme } from "@/src/constants/theme";
-import { shadowProps } from "@/src/constants/shadowProps";
-import { useDiariesQuery } from "../hooks/queries/useDiariesQuery";
-import DiaryBottomSheetBackdrop from "./DiaryBottomSheetBackdrop";
-import { PlaceholderImage } from "@/src/components/ui/PlaceholderImage";
-import { debounce } from "@/src/utils/debounce";
+import { type Dispatch, type SetStateAction, forwardRef, useMemo } from 'react';
+import styled from 'styled-components/native';
+import { useRouter } from 'expo-router';
+import { Image } from 'expo-image';
+import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
+import type { DateData } from 'react-native-calendars';
+import responsiveToPx, { responsiveToPxByHeight } from '@/src/utils/responsiveToPx';
+import { theme } from '@/src/constants/theme';
+import { shadowProps } from '@/src/constants/shadowProps';
+import { useDiariesQuery } from '../hooks/queries/useDiariesQuery';
+import DiaryBottomSheetBackdrop from './DiaryBottomSheetBackdrop';
+import { PlaceholderImage } from '@/src/components/ui/PlaceholderImage';
+import { debounce } from '@/src/utils/debounce';
 
 type DiaryBottomSheetProps = {
-  pressedDate: Pick<DateData, "year" | "month" | "day">;
+  pressedDate: Pick<DateData, 'year' | 'month' | 'day'>;
   setIsBottomSheetOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 const DiaryBottomSheet = forwardRef<BottomSheet, DiaryBottomSheetProps>(
   ({ pressedDate, setIsBottomSheetOpen }, ref) => {
     const router = useRouter();
-    const snapPoints = useMemo(() => ["60%", "90%"], []);
+    const snapPoints = useMemo(() => ['60%', '90%'], []);
     const { year, month, day } = pressedDate;
     const { data } = useDiariesQuery({ year, month });
 
@@ -68,7 +68,7 @@ const DiaryBottomSheet = forwardRef<BottomSheet, DiaryBottomSheetProps>(
   }
 );
 
-DiaryBottomSheet.displayName = "DiaryBottomSheet";
+DiaryBottomSheet.displayName = 'DiaryBottomSheet';
 
 export default DiaryBottomSheet;
 
@@ -77,18 +77,18 @@ const indicatorStyle = {
 };
 
 const bottomSheetShadow = {
-  boxShadow: "0 -2 10 0 #ffffff",
-  borderRadius: "100%",
+  boxShadow: '0 -2 10 0 #ffffff',
+  borderRadius: '100%',
 };
 
 const BottomSheetLayout = styled.View`
   flex: 1;
-  padding: 0px ${responsiveToPx("25px")};
+  padding: 0px ${responsiveToPx('25px')};
 `;
 
 const ImageBox = styled.View`
-  width: ${responsiveToPx("380px")};
-  height: ${responsiveToPx("380px")};
+  width: ${responsiveToPx('380px')};
+  height: ${responsiveToPx('380px')};
   border-radius: ${({ theme }) => theme.borderRadius.base};
   overflow: hidden;
 `;
@@ -101,29 +101,29 @@ const SImage = styled(Image)`
 const ScrollBox = styled(BottomSheetScrollView)``;
 
 const DateText = styled.Text`
-  padding-top: ${responsiveToPx("13px")};
+  padding-top: ${responsiveToPx('13px')};
   font-family: ${({ theme }) => theme.fontFamily.podkovaRegular};
   font-size: ${({ theme }) => theme.fontSize.lg};
   color: ${({ theme }) => theme.colors.black};
 `;
 
 const TitleText = styled.Text`
-  padding-top: ${responsiveToPx("13px")};
+  padding-top: ${responsiveToPx('13px')};
   font-family: ${({ theme }) => theme.fontFamily.nsBold};
   font-size: ${({ theme }) => theme.fontSize.lg};
   color: ${({ theme }) => theme.colors.black};
 `;
 
 const ContentText = styled.Text`
-  padding-top: ${responsiveToPx("13px")};
+  padding-top: ${responsiveToPx('13px')};
   font-family: ${({ theme }) => theme.fontFamily.nsRegular};
   font-size: ${({ theme }) => theme.fontSize.base};
   color: ${({ theme }) => theme.colors.diaryText};
-  line-height: ${responsiveToPxByHeight("24px")};
+  line-height: ${responsiveToPxByHeight('24px')};
 `;
 
 const TagText = styled.Text`
-  padding-top: ${responsiveToPx("13px")};
+  padding-top: ${responsiveToPx('13px')};
   font-family: ${({ theme }) => theme.fontFamily.nsBold};
   font-size: ${({ theme }) => theme.fontSize.base};
   color: ${({ theme }) => theme.colors.deepGreen};
@@ -131,14 +131,14 @@ const TagText = styled.Text`
 
 const ChatButtonBox = styled.View`
   width: 100%;
-  padding: ${responsiveToPxByHeight("26px")};
+  padding: ${responsiveToPxByHeight('26px')};
   justify-content: center;
   align-items: center;
 `;
 
 const ViewChatButton = styled.TouchableOpacity`
-  width: ${responsiveToPx("173px")};
-  height: ${responsiveToPx("40px")};
+  width: ${responsiveToPx('173px')};
+  height: ${responsiveToPx('40px')};
   border-radius: ${({ theme }) => theme.borderRadius.base};
   background-color: ${({ theme }) => theme.colors.deepGreen};
   justify-content: center;

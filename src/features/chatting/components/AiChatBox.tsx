@@ -1,8 +1,8 @@
-import styled from "styled-components/native";
-import { Image } from "expo-image";
-import responsiveToPx from "@/src/utils/responsiveToPx";
-import { shadowProps } from "@/src/constants/shadowProps";
-import { PlaceholderImage } from "@/src/components/ui/PlaceholderImage";
+import styled from 'styled-components/native';
+import { Image } from 'expo-image';
+import responsiveToPx from '@/src/utils/responsiveToPx';
+import { shadowProps } from '@/src/constants/shadowProps';
+import { PlaceholderImage } from '@/src/components/ui/PlaceholderImage';
 
 type AiChatBoxProps = {
   content: string;
@@ -23,13 +23,13 @@ export default function AiChatBox({ content, imageUrl }: AiChatBoxProps) {
 const AiChatLayout = styled.View`
   flex-direction: row;
   align-items: center;
-  margin: ${responsiveToPx("12px")} ${responsiveToPx("10px")};
+  margin: ${responsiveToPx('12px')} ${responsiveToPx('10px')};
   gap: ${({ theme }) => theme.gap.md};
 `;
 
 const ImageBox = styled.View`
-  width: ${responsiveToPx("36px")};
-  height: ${responsiveToPx("36px")};
+  width: ${responsiveToPx('36px')};
+  height: ${responsiveToPx('36px')};
   border-radius: 9999px;
   overflow: hidden;
 `;
@@ -40,10 +40,10 @@ const SImage = styled(Image)`
 `;
 
 const AiChatTextBox = styled.View`
-  max-width: ${responsiveToPx("290px")};
+  max-width: ${responsiveToPx('290px')};
   border-radius: ${({ theme }) => theme.borderRadius.base};
   background-color: ${({ theme }) => theme.colors.white};
-  padding: ${responsiveToPx("12px")} ${responsiveToPx("15px")};
+  padding: ${responsiveToPx('12px')} ${responsiveToPx('15px')};
   align-self: flex-start;
 `;
 
@@ -51,5 +51,5 @@ const AiChatText = styled.Text`
   color: ${({ theme }) => theme.colors.assistantChat};
   font-family: ${({ theme }) => theme.fontFamily.nsRegular};
   font-size: ${({ theme }) => theme.fontSize.md};
-  line-height: ${responsiveToPx("24px")};
+  line-height: ${responsiveToPx('24px')};
 `;

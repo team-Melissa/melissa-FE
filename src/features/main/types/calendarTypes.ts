@@ -1,8 +1,8 @@
-import type { ObjectNonNullable } from "@/src/types/UtilTypes";
-import type { SuccessDTO } from "@/src/types/commonTypes";
-import type { DateData } from "react-native-calendars";
+import type { ObjectNonNullable } from '@/src/types/UtilTypes';
+import type { SuccessDTO } from '@/src/types/commonTypes';
+import type { DateData } from 'react-native-calendars';
 
-export type TPressedDate = Pick<DateData, "year" | "month" | "day">;
+export type TPressedDate = Pick<DateData, 'year' | 'month' | 'day'>;
 
 export type TNullableDay = {
   year: number;
@@ -13,7 +13,7 @@ export type TNullableDay = {
   imageS3: string | null;
 };
 
-export type TDay = Omit<ObjectNonNullable<TNullableDay>, "imageS3"> & { imageS3: string | null };
+export type TDay = Omit<ObjectNonNullable<TNullableDay>, 'imageS3'> & { imageS3: string | null };
 
 export type TNullableDiary = {
   year: number;
@@ -24,10 +24,10 @@ export type TNullableDiary = {
   summaryContent: string | null;
   hashTag1: string | null;
   hashTag2: string | null;
-  summaryMood: ("HAPPY" | "SAD" | "TIRED" | "ANGRY" | "RELAX") | null;
+  summaryMood: ('HAPPY' | 'SAD' | 'TIRED' | 'ANGRY' | 'RELAX') | null;
 };
 
-export type TDiary = Omit<ObjectNonNullable<TNullableDiary>, "imageS3"> & { imageS3: string | null };
+export type TDiary = Omit<ObjectNonNullable<TNullableDiary>, 'imageS3'> & { imageS3: string | null };
 
 export type TManualDiaryDTO = SuccessDTO & {
   result: TNullableDiary;

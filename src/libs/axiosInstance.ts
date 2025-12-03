@@ -1,13 +1,13 @@
-import toastMessage from "@/src/constants/toastMessage";
-import { toast } from "@/src/modules/toast";
-import axios, { AxiosResponse } from "axios";
-import { router } from "expo-router";
-import type { LoginDTO } from "../apis/auth";
-import type { AxiosErrorToInterceptors, ErrorDTO } from "../types/commonTypes";
-import { getAccessToken, removeAccessToken, setAccessToken } from "./mmkv";
-import { getRefreshToken, removeRefreshToken, setRefreshToken } from "./secureStorage";
+import toastMessage from '@/src/constants/toastMessage';
+import { toast } from '@/src/modules/toast';
+import axios, { AxiosResponse } from 'axios';
+import { router } from 'expo-router';
+import type { LoginDTO } from '../apis/auth';
+import type { AxiosErrorToInterceptors, ErrorDTO } from '../types/commonTypes';
+import { getAccessToken, removeAccessToken, setAccessToken } from './mmkv';
+import { getRefreshToken, removeRefreshToken, setRefreshToken } from './secureStorage';
 
-const BASE_URL = process.env.EXPO_PUBLIC_API_URL ?? "http://localhost";
+const BASE_URL = process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost';
 
 /**
  * 토큰 refresh 도중 새로 발생한 401 error 콜백 함수 Type
@@ -28,7 +28,7 @@ let isRefreshing: boolean = false;
  * 새 토큰을 받았으면, 대기시켰던 api들을 새 토큰으로 다시 요청하고 Queue를 비우는 함수
  */
 const runPendingApiCalls = (accessToken: string) => {
-  console.log("배열 상태", pendingApiQueue.length);
+  console.log('배열 상태', pendingApiQueue.length);
   pendingApiQueue.forEach((callback) => callback(accessToken));
   pendingApiQueue = [];
 };
@@ -61,16 +61,10 @@ axiosInstance.interceptors.response.use(
 
     // 401 에러는 refresh token으로 재발급 시도 후 성공하면 기존 요청 재시도
     // 소셜 로그인 인증 실패 (OAuth 토큰 관련 문제)는 제외
-    if (
-      response &&
-      config &&
-      response.status === 401 &&
-      response.data.code !== "AUTH4001" &&
-      !config.sent
-    ) {
+    if (response && config && response.status === 401 && response.data.code !== 'AUTH4001' && !config.sent) {
       // 해당 에러가 토큰 재발급 시도의 응답이 아니고, 이미 재발급 중이면 Queue에 대기시킴
       if (isRefreshing) {
-        console.log("토큰 재발급중... 해당 요청을 Queue에 추가");
+        console.log('토큰 재발급중... 해당 요청을 Queue에 추가');
         return new Promise((resolve) => {
           pendingApiQueue.push((newAccessToken) => {
             config.headers.Authorization = newAccessToken;
@@ -81,14 +75,14 @@ axiosInstance.interceptors.response.use(
 
       // 재발급 중이 아니면 재발급 시도
       try {
-        console.log("토큰 재발급 시작", config.url);
+        console.log('토큰 재발급 시작', config.url);
         isRefreshing = true;
         const refreshToken = await getRefreshToken();
         if (!refreshToken) {
-          console.error("refresh token이 존재하지 않아 재발급 종료 (아마 앱 최초 설치)");
+          console.error('refresh token이 존재하지 않아 재발급 종료 (아마 앱 최초 설치)');
           await removeRefreshToken();
           removeAccessToken();
-          router.replace("/login");
+          router.replace('/login');
           return Promise.reject(error);
         }
 
@@ -105,18 +99,18 @@ axiosInstance.interceptors.response.use(
         const newRefreshToken = `${data.result.tokenType} ${data.result.refreshToken}`;
         setAccessToken(newAccessToken);
         await setRefreshToken(newRefreshToken);
-        console.log("토큰 재발급 성공");
+        console.log('토큰 재발급 성공');
 
         // 재요청 대기중이던 api와 토큰 재발급을 일으킨 api 재요청 수행
         runPendingApiCalls(newAccessToken);
         config.headers.Authorization = newAccessToken;
         return axiosInstance(config);
       } catch (e) {
-        console.error("토큰 재발급 로직 도중 에러", e);
+        console.error('토큰 재발급 로직 도중 에러', e);
         await removeRefreshToken();
         removeAccessToken();
-        toast({ message: toastMessage.tokenExpired, options: { type: "error" } });
-        router.replace("/login");
+        toast({ message: toastMessage.tokenExpired, options: { type: 'error' } });
+        router.replace('/login');
         return Promise.reject(error);
       } finally {
         isRefreshing = false;
@@ -125,7 +119,7 @@ axiosInstance.interceptors.response.use(
 
     // 그 외의 에러는 그냥 reject
     return Promise.reject(error);
-  },
+  }
 );
 
 // axios 대신 axiosInstance를 사용하면 기본URL과 토큰 추가, refresh를 자동으로 수행

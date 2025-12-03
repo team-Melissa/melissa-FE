@@ -1,4 +1,4 @@
-import * as S from "../styles/SettingItem.styles";
+import * as S from '../styles/SettingItem.styles';
 
 type LogoutItemProps = {
   onPress: () => void;

@@ -1,19 +1,19 @@
-import { COLOR } from "@/src/constants/theme";
-import { NavButton } from "@/src/core/Button";
-import { IconCalendar, IconFeed } from "@/src/icons";
-import type { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import styled from "styled-components/native";
+import { COLOR } from '@/src/constants/theme';
+import { NavButton } from '@/src/core/Button';
+import { IconCalendar, IconFeed } from '@/src/icons';
+import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
+import styled from 'styled-components/native';
 
 const MainTabBarItem = ({ state, navigation }: BottomTabBarProps) => {
   const { index } = state;
   const { navigate } = navigation;
 
   const goToCalendar = () => {
-    navigate("calendar");
+    navigate('calendar');
   };
 
   const goToFeed = () => {
-    navigate("feed");
+    navigate('feed');
   };
 
   return (

@@ -1,5 +1,5 @@
-import { Switch } from "react-native";
-import * as S from "../styles/SettingItem.styles";
+import { Switch } from 'react-native';
+import * as S from '../styles/SettingItem.styles';
 
 type PushNotiSettingItemProps = {
   value: boolean;
