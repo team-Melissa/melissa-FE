@@ -1,27 +1,33 @@
 import { COLOR } from '@/src/constants/theme';
 import { LoginButton } from '@/src/core/Button';
+import { CommonLoading } from '@/src/core/Loading';
 import responsiveToPx from '@/src/utils/responsiveToPx';
 import { Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 import CopyrightTxt from '../components/CopyrightTxt';
 import MainLogo from '../components/MainLogo';
+import { useLogin } from '../hooks/useLogin';
 
 const LoginContainer = () => {
+  const { isPending, kakaoLoginMutate, googleLoginMutate, appleLoginMutate } = useLogin();
+
+  if (isPending) return <CommonLoading />;
+
   return (
     <SafeView>
       <LogoWrapper>
         <MainLogo />
       </LogoWrapper>
       <Wrapper>
-        <LoginButton provider="KAKAO" onPress={() => {}}>
+        <LoginButton provider="KAKAO" onPress={() => kakaoLoginMutate()}>
           Kakao로 시작하기
         </LoginButton>
-        <LoginButton provider="GOOGLE" onPress={() => {}}>
+        <LoginButton provider="GOOGLE" onPress={() => googleLoginMutate()}>
           Google로 시작하기
         </LoginButton>
         {Platform.OS === 'ios' && (
-          <LoginButton provider="APPLE" onPress={() => {}}>
+          <LoginButton provider="APPLE" onPress={() => appleLoginMutate()}>
             Apple로 시작하기
           </LoginButton>
         )}
