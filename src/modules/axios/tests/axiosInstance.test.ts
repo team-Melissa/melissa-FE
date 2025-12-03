@@ -1,3 +1,4 @@
+import type { OAuthLoginResultDTO } from '@/src/apis/_generated/serverAPI.schemas';
 import { removeAccessToken, setAccessToken } from '@/src/libs/mmkv';
 import { removeRefreshToken, setRefreshToken } from '@/src/libs/secureStorage';
 import { router } from 'expo-router';
@@ -27,12 +28,11 @@ jest.mock('@/src/modules/axios/apis/getNewToken', () => ({
   getNewToken: jest.fn(async (refreshToken: string) => {
     if (refreshToken === 'valid-rt') {
       return {
-        result: {
-          tokenType: 'Bearer',
-          accessToken: 'valid-at',
-          refreshToken: 'new-rt',
-        },
-      };
+        userId: 1,
+        tokenType: 'Bearer',
+        accessToken: 'valid-at',
+        refreshToken: 'new-rt',
+      } satisfies OAuthLoginResultDTO;
     }
 
     throw new Error('Invalid refresh token');
