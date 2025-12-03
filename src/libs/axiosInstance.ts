@@ -35,7 +35,7 @@ const runPendingApiCalls = (accessToken: string) => {
 
 /**
  * 전역 api 엔드포인트 설정
- * @deprecated
+ * @deprecated 새로운 axios 인스턴스(src/modules/axios/instances/instance.ts의 axiosInstance)를 사용하세요.
  */
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -125,7 +125,7 @@ axiosInstance.interceptors.response.use(
 
     // 그 외의 에러는 그냥 reject
     return Promise.reject(error);
-  }
+  },
 );
 
 // axios 대신 axiosInstance를 사용하면 기본URL과 토큰 추가, refresh를 자동으로 수행
