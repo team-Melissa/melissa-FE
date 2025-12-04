@@ -74,25 +74,40 @@ export const useLogin = () => {
   const isPending = kakaoIsPending || googleIsPending || appleIsPending;
 
   const kakaoLogin = async () => {
-    const { accessToken } = await login();
-    kakaoLoginMutate({ data: { accessToken } });
+    try {
+      const { accessToken } = await login();
+      kakaoLoginMutate({ data: { accessToken } });
+    } catch (e) {
+      console.error('Kakao 로그인 에러:', e);
+      handleLoginError();
+    }
   };
 
   const googleLogin = async () => {
-    const { data } = await GoogleSignin.signIn();
-    if (!data || !data.idToken) throw new Error('Google 로그인 실패: idToken이 없습니다.');
-    googleLoginMutate({ data: { idToken: data.idToken } });
+    try {
+      const { data } = await GoogleSignin.signIn();
+      if (!data || !data.idToken) throw new Error('Google 로그인 실패: idToken이 없습니다.');
+      googleLoginMutate({ data: { idToken: data.idToken } });
+    } catch (e) {
+      console.error('Google 로그인 에러:', e);
+      handleLoginError();
+    }
   };
 
   const appleLogin = async () => {
-    const { identityToken } = await AppleAuthentication.signInAsync({
-      requestedScopes: [
-        AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
-        AppleAuthentication.AppleAuthenticationScope.EMAIL,
-      ],
-    });
-    if (!identityToken) throw new Error('Apple 로그인 실패: identityToken이 없습니다.');
-    appleLoginMutate({ data: { idToken: identityToken } });
+    try {
+      const { identityToken } = await AppleAuthentication.signInAsync({
+        requestedScopes: [
+          AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+          AppleAuthentication.AppleAuthenticationScope.EMAIL,
+        ],
+      });
+      if (!identityToken) throw new Error('Apple 로그인 실패: identityToken이 없습니다.');
+      appleLoginMutate({ data: { idToken: identityToken } });
+    } catch (e) {
+      console.error('Apple 로그인 에러:', e);
+      handleLoginError();
+    }
   };
 
   return { isPending, kakaoLogin, googleLogin, appleLogin };
