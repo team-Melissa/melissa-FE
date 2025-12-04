@@ -26,7 +26,7 @@ export const useRegisterMutation = () => {
     mutationFn: _postRegister,
     onSuccess: (data) => {
       console.log(data);
-      queryClient.invalidateQueries({ queryKey: [getCheckNewUserQueryKey()] });
+      queryClient.invalidateQueries({ queryKey: getCheckNewUserQueryKey() });
     },
     onError: (error) => {
       console.error(error.response?.data);
