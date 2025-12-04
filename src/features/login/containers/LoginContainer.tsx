@@ -10,7 +10,7 @@ import MainLogo from '../components/MainLogo';
 import { useLogin } from '../hooks/useLogin';
 
 const LoginContainer = () => {
-  const { isPending, kakaoLoginMutate, googleLoginMutate, appleLoginMutate } = useLogin();
+  const { isPending, kakaoLogin, googleLogin, appleLogin } = useLogin();
 
   if (isPending) return <CommonLoading />;
 
@@ -20,14 +20,14 @@ const LoginContainer = () => {
         <MainLogo />
       </LogoWrapper>
       <Wrapper>
-        <LoginButton provider="KAKAO" onPress={() => kakaoLoginMutate()}>
+        <LoginButton provider="KAKAO" onPress={() => kakaoLogin()}>
           Kakao로 시작하기
         </LoginButton>
-        <LoginButton provider="GOOGLE" onPress={() => googleLoginMutate()}>
+        <LoginButton provider="GOOGLE" onPress={() => googleLogin()}>
           Google로 시작하기
         </LoginButton>
         {Platform.OS === 'ios' && (
-          <LoginButton provider="APPLE" onPress={() => appleLoginMutate()}>
+          <LoginButton provider="APPLE" onPress={() => appleLogin()}>
             Apple로 시작하기
           </LoginButton>
         )}

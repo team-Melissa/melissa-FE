@@ -1,14 +1,21 @@
-import { useRegisterToken } from '@/src/apis/_generated/serverAPI';
+import { useAppleLogin, useGoogleLogin, useKakaoLogin, useRegisterToken } from '@/src/apis/_generated/serverAPI';
 import type { ApiResponseOAuthLoginResultDTO } from '@/src/apis/_generated/serverAPI.schemas';
 import toastMessage from '@/src/constants/toastMessage';
 import { getNotificationToken, setAccessToken, setOAuthProvider } from '@/src/libs/mmkv';
 import { setRefreshToken } from '@/src/libs/secureStorage';
 import { toast } from '@/src/modules/toast';
 import type { OAuthProvider } from '@/src/types/commonTypes';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { login } from '@react-native-seoul/kakao-login';
+import { useQueryClient } from '@tanstack/react-query';
+import * as AppleAuthentication from 'expo-apple-authentication';
 import { useRouter } from 'expo-router';
 import { Platform } from 'react-native';
-import { appleLoginMutateFn, googleLoginMutateFn, kakaoLoginMutateFn } from '../apis/login';
+
+GoogleSignin.configure({
+  webClientId: process.env.EXPO_PUBLIC_WEB_CLIENT_ID,
+  iosClientId: process.env.EXPO_PUBLIC_IOS_CLIENT_ID,
+});
 
 const getPlatform = () => {
   if (Platform.OS === 'ios') return 'IOS';
@@ -43,25 +50,50 @@ export const useLogin = () => {
 
   const { mutate: registerExpoPushTokenMutate } = useRegisterToken();
 
-  const { isPending: kakaoIsPending, mutate: kakaoLoginMutate } = useMutation({
-    mutationFn: kakaoLoginMutateFn,
-    onSuccess: handleLoginSuccess,
-    onError: handleLoginError,
+  const { isPending: kakaoIsPending, mutate: kakaoLoginMutate } = useKakaoLogin({
+    mutation: {
+      onSuccess: handleLoginSuccess,
+      onError: handleLoginError,
+    },
   });
 
-  const { isPending: googleIsPending, mutate: googleLoginMutate } = useMutation({
-    mutationFn: googleLoginMutateFn,
-    onSuccess: handleLoginSuccess,
-    onError: handleLoginError,
+  const { isPending: googleIsPending, mutate: googleLoginMutate } = useGoogleLogin({
+    mutation: {
+      onSuccess: handleLoginSuccess,
+      onError: handleLoginError,
+    },
   });
 
-  const { isPending: appleIsPending, mutate: appleLoginMutate } = useMutation({
-    mutationFn: appleLoginMutateFn,
-    onSuccess: handleLoginSuccess,
-    onError: handleLoginError,
+  const { isPending: appleIsPending, mutate: appleLoginMutate } = useAppleLogin({
+    mutation: {
+      onSuccess: handleLoginSuccess,
+      onError: handleLoginError,
+    },
   });
 
   const isPending = kakaoIsPending || googleIsPending || appleIsPending;
 
-  return { isPending, kakaoLoginMutate, googleLoginMutate, appleLoginMutate };
+  const kakaoLogin = async () => {
+    const { accessToken } = await login();
+    kakaoLoginMutate({ data: { accessToken } });
+  };
+
+  const googleLogin = async () => {
+    const { data } = await GoogleSignin.signIn();
+    if (!data || !data.idToken) throw new Error('Google 로그인 실패: idToken이 없습니다.');
+    googleLoginMutate({ data: { idToken: data.idToken } });
+  };
+
+  const appleLogin = async () => {
+    const { identityToken } = await AppleAuthentication.signInAsync({
+      requestedScopes: [
+        AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+        AppleAuthentication.AppleAuthenticationScope.EMAIL,
+      ],
+    });
+    if (!identityToken) throw new Error('Apple 로그인 실패: identityToken이 없습니다.');
+    appleLoginMutate({ data: { idToken: identityToken } });
+  };
+
+  return { isPending, kakaoLogin, googleLogin, appleLogin };
 };
