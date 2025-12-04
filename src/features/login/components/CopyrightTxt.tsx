@@ -1,8 +1,8 @@
 import { Description3 } from '@/src/core/Txt';
 import { useState } from 'react';
-import type { TextProps } from 'react-native-svg';
+import type { TextProps } from 'react-native';
 
-const CopyrightTxt = (props: Omit<TextProps, 'color'>) => {
+const CopyrightTxt = (props: TextProps) => {
   const [year] = useState<number>(new Date().getFullYear());
 
   return (
