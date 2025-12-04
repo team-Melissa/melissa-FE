@@ -1,14 +1,14 @@
-import Loading from '@/src/components/ui/Loading';
-import { useGetIsNewUser } from '@/src/hooks';
+import { useCheckNewUser } from '@/src/apis/_generated/serverAPI';
+import { CommonLoading } from '@/src/core/Loading';
 import { Redirect, Stack } from 'expo-router';
 
 /**
  * @description Stack navigator layout
  */
 export default function ContextLayout() {
-  const { isPending, isError } = useGetIsNewUser();
+  const { isPending, isError } = useCheckNewUser();
 
-  if (isPending) return <Loading />;
+  if (isPending) return <CommonLoading />;
 
   if (isError) return <Redirect href="/login" />;
 
