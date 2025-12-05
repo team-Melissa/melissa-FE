@@ -6,11 +6,11 @@ import { Redirect } from 'expo-router';
  * @description 유저의 초기화면을 결정하는 라우터
  */
 export default function IndexRouter() {
-  const { data: isNewUser } = useCheckNewUser();
+  const { data } = useCheckNewUser();
 
-  if (isNewUser === undefined) return <CommonLoading />;
+  if (data === undefined) return <CommonLoading />;
 
-  if (isNewUser) return <Redirect href="/(app)/intro" />;
+  if (data.result) return <Redirect href="/(app)/intro" />;
 
   return <Redirect href="/(app)/(tab)/calendar" />;
 }
