@@ -1,6 +1,6 @@
 import { Dropdown } from '@/src/core/Dropdown';
 import { LargeTitle, Title } from '@/src/core/Txt';
-import { IconArrowDown } from '@/src/icons/IconArrowDown';
+import { IconArrowDown } from '@/src/icons';
 import responsiveToPx from '@/src/utils/responsiveToPx';
 import styled from 'styled-components/native';
 

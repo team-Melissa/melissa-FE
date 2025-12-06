@@ -1,6 +1,5 @@
 import { NavButton } from '@/src/core/Button';
-import { IconChat } from '@/src/icons/IconChat';
-import { IconWave } from '@/src/icons/IconWave';
+import { IconChat, IconWave } from '@/src/icons';
 import { useRouter } from 'expo-router';
 import { Alert } from 'react-native';
 import styled from 'styled-components/native';
