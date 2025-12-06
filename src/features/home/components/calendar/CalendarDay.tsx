@@ -1,4 +1,4 @@
-import { useGetCalenderPreview } from '@/src/apis/_generated/serverAPI';
+import { useGetCalendarPreview } from '@/src/apis/_generated/serverAPI';
 import { COLOR } from '@/src/constants/theme';
 import { Description1 } from '@/src/core/Txt';
 import type { DateData } from 'react-native-calendars';
@@ -15,7 +15,7 @@ type Props = Omit<BasicDayProps, 'date'> & {
 const CalendarDay = ({ date, onPress }: Props) => {
   const today = getTodayDateData();
 
-  const { data: calendarMonthData } = useGetCalenderPreview({
+  const { data: calendarMonthData } = useGetCalendarPreview({
     year: date?.year ?? today.year,
     month: date?.month ?? today.month,
   });

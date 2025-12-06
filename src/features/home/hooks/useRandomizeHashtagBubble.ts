@@ -1,4 +1,4 @@
-import { getGetCalenderPreviewQueryKey, useGetCalenderPreview } from '@/src/apis/_generated/serverAPI';
+import { getGetCalendarPreviewQueryKey, useGetCalendarPreview } from '@/src/apis/_generated/serverAPI';
 import type { ApiResponseListDailyPreviewResponseDTO } from '@/src/apis/_generated/serverAPI.schemas';
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
@@ -21,12 +21,12 @@ export const useRandomizeHashtagBubble = ({ year, month, intervalMs }: Props) =>
   const isEvenTurnRef = useRef<boolean>(true);
   const queryClient = useQueryClient();
 
-  const { data } = useGetCalenderPreview({ year, month });
+  const { data } = useGetCalendarPreview({ year, month });
 
   useEffect(() => {
     if (!data?.result) return;
 
-    const queryKey = getGetCalenderPreviewQueryKey({ year, month });
+    const queryKey = getGetCalendarPreviewQueryKey({ year, month });
 
     const interval = setInterval(() => {
       queryClient.setQueryData<ApiResponseListDailyPreviewResponseDTO>(queryKey, (oldData) => {
