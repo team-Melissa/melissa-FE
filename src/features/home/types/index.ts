@@ -1,5 +1,5 @@
-import type { DailyPreviewResponseDTO } from '@/src/apis/_generated/serverAPI.schemas';
+import type { DailySummaryResponseDTO } from '@/src/apis/_generated/serverAPI.schemas';
 
-export type CalendarDayData = NonNullable<DailyPreviewResponseDTO> & {
+export type CalendarDayData = NonNullable<DailySummaryResponseDTO> & {
   showBubble: boolean;
 };

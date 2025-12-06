@@ -1,8 +1,8 @@
-import { getGetCalendarPreviewQueryKey, useGetCalendarPreview } from '@/src/apis/_generated/serverAPI';
-import type { ApiResponseListDailyPreviewResponseDTO } from '@/src/apis/_generated/serverAPI.schemas';
+import { getGetCalendarViewQueryKey, useGetCalendarView } from '@/src/apis/_generated/serverAPI';
+import type { ApiResponseListDailySummaryResponseDTO } from '@/src/apis/_generated/serverAPI.schemas';
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
-import { isNonNullableDailyPreviewResponse } from '../utils/typeGuard';
+import { isNonNullableDailySummaryResponse } from '../utils/typeGuard';
 
 type Props = {
   year: number;
@@ -21,19 +21,19 @@ export const useRandomizeHashtagBubble = ({ year, month, intervalMs }: Props) =>
   const isEvenTurnRef = useRef<boolean>(true);
   const queryClient = useQueryClient();
 
-  const { data } = useGetCalendarPreview({ year, month });
+  const { data } = useGetCalendarView({ year, month });
 
   useEffect(() => {
     if (!data?.result) return;
 
-    const queryKey = getGetCalendarPreviewQueryKey({ year, month });
+    const queryKey = getGetCalendarViewQueryKey({ year, month });
 
     const interval = setInterval(() => {
-      queryClient.setQueryData<ApiResponseListDailyPreviewResponseDTO>(queryKey, (oldData) => {
+      queryClient.setQueryData<ApiResponseListDailySummaryResponseDTO>(queryKey, (oldData) => {
         if (!oldData?.result) return oldData;
 
         const filteredDays = oldData.result
-          .filter(isNonNullableDailyPreviewResponse)
+          .filter(isNonNullableDailySummaryResponse)
           .map(({ day }) => day)
           .filter((day) => (isEvenTurnRef.current ? day % 2 === 0 : day % 2 === 1));
 

@@ -1,12 +1,12 @@
-import type { DailyPreviewResponseDTO } from '@/src/apis/_generated/serverAPI.schemas';
+import type { DailySummaryResponseDTO } from '@/src/apis/_generated/serverAPI.schemas';
 import type { CalendarDayData } from '../types';
 
-export const isNonNullableDailyPreviewResponse = (
-  value: DailyPreviewResponseDTO
-): value is NonNullable<DailyPreviewResponseDTO> => {
+export const isNonNullableDailySummaryResponse = (
+  value: DailySummaryResponseDTO
+): value is NonNullable<DailySummaryResponseDTO> => {
   return !!value?.year;
 };
 
-export const isCalendarDayData = (value: DailyPreviewResponseDTO): value is CalendarDayData => {
+export const isCalendarDayData = (value: DailySummaryResponseDTO): value is CalendarDayData => {
   return !!value && 'showBubble' in value;
 };
