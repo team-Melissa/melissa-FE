@@ -12,7 +12,7 @@ const FeedDiaryList = ({ dayData }: Props) => {
 
   return dayData.diaries
     .filter(isRequiredDiaryDetail)
-    .map((diary) => <FeedDiaryListItem date={{ year, month, day }} diaryData={diary} />);
+    .map((diary) => <FeedDiaryListItem key={diary.diaryId} date={{ year, month, day }} diaryData={diary} />);
 };
 
 export default FeedDiaryList;

@@ -33,8 +33,8 @@ export const IconShared = () => {
           y2="22.4614"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#A37F6C" />
-          <stop offset="1" stopColor="#937261" />
+          <Stop stopColor="#A37F6C" />
+          <Stop offset="1" stopColor="#937261" />
         </LinearGradient>
         <ClipPath id="clip0_1302_503">
           <Rect width="16.135" height="7.46515" fill="white" transform="translate(5.93262 14.9962)" />

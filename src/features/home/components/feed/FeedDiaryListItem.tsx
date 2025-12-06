@@ -1,10 +1,10 @@
 import type { DiaryDetailDTO } from '@/src/apis/_generated/serverAPI.schemas';
 import { COLOR } from '@/src/constants/theme';
 import { Body2, Description2, Description3, Title } from '@/src/core/Txt';
+import { IconShared } from '@/src/icons';
 import { parseIso8601DateString } from '@/src/utils/date';
 import responsiveToPx from '@/src/utils/responsiveToPx';
 import { Image } from 'expo-image';
-import { View } from 'react-native';
 import styled from 'styled-components/native';
 
 type Props = {
@@ -21,7 +21,10 @@ const FeedDiaryListItem = ({ date, diaryData }: Props) => {
   return (
     <Wrapper>
       <StyledImage source={{ uri: diaryData.imageUrl }} />
-      <View>
+      <RelativeWrapper>
+        <ShareButton hitSlop={5}>
+          <IconShared />
+        </ShareButton>
         <StyledDateTxt color="title">
           {date.year}년 {date.month}월 {date.day}일
         </StyledDateTxt>
@@ -34,7 +37,7 @@ const FeedDiaryListItem = ({ date, diaryData }: Props) => {
           <AiProfileImage source={{ uri: diaryData.imageUrl }} />
           <Description3 color="sub1">{getCreatedAtText(diaryData.createdAt)} 다람지와 함께 생성했어요.</Description3>
         </CreatedByWrapper>
-      </View>
+      </RelativeWrapper>
     </Wrapper>
   );
 };
@@ -54,6 +57,16 @@ const StyledImage = styled(Image)`
   width: 100%;
   aspect-ratio: 1;
   border-radius: 25px;
+`;
+
+const RelativeWrapper = styled.View`
+  position: relative;
+`;
+
+const ShareButton = styled.TouchableOpacity`
+  position: absolute;
+  top: 0;
+  right: 0;
 `;
 
 const StyledDateTxt = styled(Description2)`
