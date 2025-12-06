@@ -31,11 +31,8 @@ const MainTabBarItem = ({ state, navigation }: BottomTabBarProps) => {
 export default MainTabBarItem;
 
 const Wrapper = styled.View`
-  position: absolute;
   flex-direction: row;
   padding: 3px;
-  left: 30px;
-  bottom: 50px;
   background-color: ${COLOR.white};
   border-radius: 99px;
 `;

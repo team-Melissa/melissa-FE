@@ -1,7 +1,6 @@
 import { COLOR } from '@/src/constants/theme';
 import { useState } from 'react';
 import { CalendarList, DateData } from 'react-native-calendars';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 import CalendarDay from '../components/calendar/CalendarDay';
 import CalendarHeader from '../components/calendar/CalendarHeader';
@@ -20,7 +19,7 @@ const CalendarContainer = () => {
   };
 
   return (
-    <SafeView>
+    <Wrapper>
       <CalendarList
         onMonthChange={handleMonthChange}
         horizontal
@@ -33,13 +32,13 @@ const CalendarContainer = () => {
         customHeader={CalendarHeader}
         dayComponent={CalendarDay}
       />
-    </SafeView>
+    </Wrapper>
   );
 };
 
 export default CalendarContainer;
 
-const SafeView = styled(SafeAreaView)`
+const Wrapper = styled.View`
   flex: 1;
   background-color: ${COLOR.background};
 `;
