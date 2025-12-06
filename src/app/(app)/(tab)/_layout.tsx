@@ -1,4 +1,4 @@
-import TabBarContainer from '@/src/features/home/containers/TabBarContainer';
+import BottomTabNavigation from '@/src/core/BottomTabNavigation';
 import { Tabs } from 'expo-router';
 
 /**
@@ -6,7 +6,7 @@ import { Tabs } from 'expo-router';
  */
 export default function TabsLayout() {
   return (
-    <Tabs screenOptions={{ headerShown: false }} tabBar={TabBarContainer}>
+    <Tabs screenOptions={{ headerShown: false }} tabBar={BottomTabNavigation}>
       <Tabs.Screen name="calendar" />
       <Tabs.Screen name="feed" />
     </Tabs>
