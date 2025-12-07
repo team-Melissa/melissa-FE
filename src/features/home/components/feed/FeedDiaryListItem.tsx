@@ -5,21 +5,24 @@ import { IconShared } from '@/src/icons';
 import { parseIso8601DateString } from '@/src/utils/date';
 import responsiveToPx from '@/src/utils/responsiveToPx';
 import { Image } from 'expo-image';
+import type { LayoutChangeEvent } from 'react-native';
 import styled from 'styled-components/native';
 
 type Props = {
   date: { year: number; month: number; day: number };
   diaryData: Required<DiaryDetailDTO>;
+  onLayout?: (event: LayoutChangeEvent) => void;
 };
 
-const FeedDiaryListItem = ({ date, diaryData }: Props) => {
+const FeedDiaryListItem = ({ date, diaryData, onLayout }: Props) => {
   const getCreatedAtText = (createdAt: string) => {
     const { year, month, day } = parseIso8601DateString(createdAt);
     return `${year.toString().slice(-2)}. ${month.toString().padStart(2, '0')}. ${day.toString().padStart(2, '0')}`;
   };
 
+  //TODO: aiProfileId랑 AI 프로필 이미지 파일 매칭 후 이미지/AI이름 렌더링하도록 교체 필요. 여기서는 global 객체 상수 활용하는 방향 고려중
   return (
-    <Wrapper>
+    <Wrapper onLayout={onLayout}>
       <StyledImage source={{ uri: diaryData.imageUrl }} />
       <RelativeWrapper>
         <ShareButton hitSlop={5}>
@@ -45,7 +48,7 @@ const FeedDiaryListItem = ({ date, diaryData }: Props) => {
 export default FeedDiaryListItem;
 
 const Wrapper = styled.View`
-  flex: 1;
+  width: 100%;
   padding: 15px 15px 25px 15px;
   margin-bottom: 30px;
   gap: 20px;

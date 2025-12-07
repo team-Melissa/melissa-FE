@@ -1,4 +1,8 @@
 import type { DailySummaryResponseDTO } from '@/src/apis/_generated/serverAPI.schemas';
+import { useState } from 'react';
+import type { LayoutChangeEvent } from 'react-native';
+import PagerView from 'react-native-pager-view';
+import styled from 'styled-components/native';
 import { isRequiredDiaryDetail } from '../../utils/typeGuard';
 import FeedDiaryListItem from './FeedDiaryListItem';
 
@@ -6,13 +10,40 @@ type Props = {
   dayData: NonNullable<DailySummaryResponseDTO>;
 };
 
-// TODO: 한 날짜에 여러 일기가 나오는 경우는, 이 컴포넌트에서 가로 swiper 처리 예정
 const FeedDiaryList = ({ dayData }: Props) => {
   const { year, month, day } = dayData;
+  const [maxHeight, setMaxHeight] = useState(600);
 
-  return dayData.diaries
-    .filter(isRequiredDiaryDetail)
-    .map((diary) => <FeedDiaryListItem key={diary.diaryId} date={{ year, month, day }} diaryData={diary} />);
+  const getMaxHeight = (e: LayoutChangeEvent) => {
+    const layoutHeight = e.nativeEvent.layout.height;
+    setMaxHeight((maxHeight) => Math.max(layoutHeight, maxHeight));
+  };
+
+  const diaries = dayData.diaries.filter(isRequiredDiaryDetail);
+
+  return (
+    <Wrapper $height={maxHeight}>
+      <StyledPagerView initialPage={0} pageMargin={30}>
+        {diaries.map((diary) => (
+          <FeedDiaryListItem
+            key={diary.diaryId}
+            date={{ year, month, day }}
+            diaryData={diary}
+            onLayout={getMaxHeight}
+          />
+        ))}
+      </StyledPagerView>
+    </Wrapper>
+  );
 };
 
 export default FeedDiaryList;
+
+const Wrapper = styled.View<{ $height: number }>`
+  width: 100%;
+  height: ${({ $height }) => $height}px;
+`;
+
+const StyledPagerView = styled(PagerView)`
+  flex: 1;
+`;

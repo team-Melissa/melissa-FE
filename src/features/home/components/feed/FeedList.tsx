@@ -12,7 +12,7 @@ const FeedList = ({ monthData }: Props) => {
   };
 
   return (
-    <StyledScrollView>
+    <StyledScrollView contentContainerStyle={{ rowGap: 30 }}>
       {monthData.map((dayData) => (
         <FeedDiaryList key={getFeedItemKey(dayData)} dayData={dayData} />
       ))}
