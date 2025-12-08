@@ -19,10 +19,6 @@ const toastMessage = {
   registerSetting: {
     error: '앱 초기 로딩 중 에러가 발생했어요.',
   },
-  updateSetting: {
-    success: '설정 업데이트 완료.',
-    error: '설정 업데이트 도중 문제 발생.',
-  },
   sendMailError: '기본 메일 앱이 설치되어 있는지 확인해주세요.',
   removeAssistant: {
     success: '서포터가 삭제되었습니다.',

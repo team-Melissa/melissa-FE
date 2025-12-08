@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
+import type { TDatePickerType, UserSettingDTO } from '../types/settingTypes';
 import { useDeleteAccountMutation } from './mutations/useDeleteAccountMutation';
 import { useLogoutMutation } from './mutations/useLogoutMutation';
-import { useSettingMutation } from './mutations/useSettingMutation';
-import type { TDatePickerType, UserSettingDTO } from '../types/settingTypes';
 
 export const useSetting = (data: UserSettingDTO) => {
   const { sleepTime, notificationSummary, notificationTime } = data.result;
@@ -11,7 +10,7 @@ export const useSetting = (data: UserSettingDTO) => {
   const [optimisticToggle, setOptimisticToggle] = useState<boolean>(notificationSummary);
   const [isDatePickerVisible, setIsDatePickerVisible] = useState<boolean>(false);
 
-  const { mutate: settingMutate } = useSettingMutation(data);
+  // const { mutate: settingMutate } = useSettingMutation(data);
   const { isPending: logoutPending, mutate: logoutMutate } = useLogoutMutation();
   const { isPending: deleteAccountPending, mutate: deleteAccountMutate } = useDeleteAccountMutation();
 
@@ -33,10 +32,10 @@ export const useSetting = (data: UserSettingDTO) => {
     console.log(hours, minutes);
 
     if (datePickerType) {
-      settingMutate({
-        ...data.result,
-        [datePickerType]: `${hours}:${minutes}:00`,
-      });
+      // settingMutate({
+      //   ...data.result,
+      //   [datePickerType]: `${hours}:${minutes}:00`,
+      // });
     }
 
     hideDatePicker();
@@ -60,10 +59,10 @@ export const useSetting = (data: UserSettingDTO) => {
 
   const handleNotificationSummary = () => {
     setOptimisticToggle(!notificationSummary);
-    settingMutate({
-      ...data.result,
-      notificationSummary: !notificationSummary,
-    });
+    // settingMutate({
+    //   ...data.result,
+    //   notificationSummary: !notificationSummary,
+    // });
   };
 
   useEffect(() => {
