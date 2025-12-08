@@ -1,85 +1,61 @@
-import Loading from '@/src/components/ui/Loading';
-import responsiveToPx from '@/src/utils/responsiveToPx';
-import { useUpdates } from 'expo-updates';
-import { ScrollView } from 'react-native';
+import { getGetUserSettingQueryKey, useGetUserSetting, useUpdateUserSetting } from '@/src/apis/_generated/serverAPI';
+import type { ApiResponseUserSettingResponse } from '@/src/apis/_generated/serverAPI.schemas';
+import { COLOR } from '@/src/constants/theme';
+import { toast } from '@/src/modules/toast';
+import { useQueryClient } from '@tanstack/react-query';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
-import DeleteAccountItem from '../components/DeleteAccountItem';
-import LogoutItem from '../components/LogoutItem';
-import NotiTimeSettingItem from '../components/NotiTimeSettingItem';
-import PushNotiSettingItem from '../components/PushNotiSettingItem';
-import SendMailItem from '../components/SendMailItem';
-import SettingHeader from '../components/SettingHeader';
-import SleepTimeSettingItem from '../components/SleepTimeSettingItem';
-import { useSetting } from '../hooks/useSetting';
-import type { UserSettingDTO } from '../types/settingTypes';
+import SettingList from '../components/SettingList';
 
-type SettingContainerProps = {
-  data: UserSettingDTO;
-};
+export default function SettingContainer() {
+  const queryClient = useQueryClient();
+  const { data: userSetting } = useGetUserSetting();
 
-export default function SettingContainer({ data }: SettingContainerProps) {
-  const {
-    isPending,
-    sleepTime,
-    optimisticToggle,
-    notificationTime,
-    isDatePickerVisible,
-    showDatePicker,
-    hideDatePicker,
-    handleConfirm,
-    handleLogoutPress,
-    handleDeleteAccountPress,
-    handleNotificationSummary,
-  } = useSetting(data);
-  const { currentlyRunning } = useUpdates();
+  const updateUserSettingMutation = useUpdateUserSetting({
+    mutation: {
+      onMutate: (variables) => {
+        if (!userSetting) return;
+        queryClient.setQueryData<ApiResponseUserSettingResponse>(getGetUserSettingQueryKey(), {
+          ...userSetting,
+          result: variables.data,
+        });
+      },
+      onSettled: () => queryClient.invalidateQueries({ queryKey: getGetUserSettingQueryKey() }),
+      onSuccess: () => toast({ message: '설정 업데이트 완료.', options: { type: 'success' } }),
+      onError: () => toast({ message: '설정 업데이트 도중 문제 발생.', options: { type: 'error' } }),
+    },
+  });
 
-  if (isPending) {
-    return <Loading />;
-  }
+  const handleNotificationToggle = (notificationSummary: boolean) => {
+    if (!userSetting?.result || updateUserSettingMutation.isPending) return;
+    updateUserSettingMutation.mutate({ data: { ...userSetting.result, notificationSummary } });
+  };
+
+  const handleSummaryTimeChange = (sleepTime: string) => {
+    if (!userSetting?.result || updateUserSettingMutation.isPending) return;
+    updateUserSettingMutation.mutate({ data: { ...userSetting.result, sleepTime } });
+  };
+
+  const handleNotificationTimeChange = (notificationTime: string) => {
+    if (!userSetting?.result || updateUserSettingMutation.isPending) return;
+    updateUserSettingMutation.mutate({ data: { ...userSetting.result, notificationTime } });
+  };
+
+  if (!userSetting?.result) return null;
 
   return (
     <SafeView>
-      <SettingHeader />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <SettingBox>
-          <SleepTimeSettingItem sleepTime={sleepTime} showDatePicker={showDatePicker} />
-          <PushNotiSettingItem value={optimisticToggle} onChange={handleNotificationSummary} />
-          <NotiTimeSettingItem notificationTime={notificationTime} showDatePicker={showDatePicker} />
-          <SendMailItem />
-          <LogoutItem onPress={handleLogoutPress} />
-          <DeleteAccountItem onPress={handleDeleteAccountPress} />
-        </SettingBox>
-        {currentlyRunning.updateId && <OTAVersionTxt>OTA version: {currentlyRunning.updateId}</OTAVersionTxt>}
-      </ScrollView>
-      {/* <DateTimePickerModal
-        isVisible={isDatePickerVisible}
-        mode="time"
-        onConfirm={handleConfirm}
-        onCancel={hideDatePicker}
-      /> */}
+      <SettingList
+        settingData={userSetting.result}
+        onNotificationToggle={handleNotificationToggle}
+        onSummaryTimeChange={handleSummaryTimeChange}
+        onNotificationTimeChange={handleNotificationTimeChange}
+      />
     </SafeView>
   );
 }
 
 const SafeView = styled(SafeAreaView)`
   flex: 1;
-  padding: ${responsiveToPx('26px')};
-  background-color: ${({ theme }) => theme.colors.whiteBlue};
-`;
-
-const SettingBox = styled.View`
-  width: 100%;
-  padding: ${responsiveToPx('22px')} ${responsiveToPx('33px')};
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  background-color: ${({ theme }) => theme.colors.white};
-  justify-content: center;
-  align-items: center;
-  gap: ${({ theme }) => theme.gap.xxl};
-`;
-
-const OTAVersionTxt = styled.Text`
-  color: ${({ theme }) => theme.colors.settingSubText};
-  align-self: flex-end;
-  margin: 10px 10px 0 0;
+  background-color: ${COLOR.background};
 `;

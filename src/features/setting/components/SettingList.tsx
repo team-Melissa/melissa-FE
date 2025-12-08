@@ -60,11 +60,6 @@ const SettingList = ({ settingData, onNotificationToggle, onSummaryTimeChange, o
     Alert.alert('준비중인 기능입니다.');
   };
 
-  const renderTime = (time: string) => {
-    const [hours, minutes] = time.split(':');
-    return `${hours}:${minutes}`;
-  };
-
   return (
     <Wrapper>
       <SettingItem title="푸시 알림" description="푸시 알림을 허용/차단할 수 있어요.">
@@ -72,13 +67,13 @@ const SettingList = ({ settingData, onNotificationToggle, onSummaryTimeChange, o
       </SettingItem>
       <SettingItem title="일기 자동 작성 시간" description="정리 안된 일기를 이 시간에 작성해드려요.">
         <StyledButton onPress={handleSummaryTimePickerOpen} hitSlop={5}>
-          <MiddleTitle color="title">{renderTime(settingData.sleepTime)}</MiddleTitle>
+          <MiddleTitle color="title">{settingData.sleepTime}</MiddleTitle>
           <StyledIconArrowRight />
         </StyledButton>
       </SettingItem>
       <SettingItem title="알람 시간" description={'원하는 시간에 대화할 수 있도록\n앱 푸쉬 알림을 보내드려요.'}>
         <StyledButton onPress={handleNotificationTimePickerOpen} hitSlop={5}>
-          <MiddleTitle color="title">{renderTime(settingData.notificationTime)}</MiddleTitle>
+          <MiddleTitle color="title">{settingData.notificationTime}</MiddleTitle>
           <StyledIconArrowRight />
         </StyledButton>
       </SettingItem>
