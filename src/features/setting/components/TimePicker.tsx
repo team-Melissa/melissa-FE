@@ -12,7 +12,7 @@ const TimePicker = ({ isOpen, onSubmit, onCancel }: Props) => {
       modal
       mode="time"
       minuteInterval={10}
-      title="시간을 선택해주세요."
+      title={null}
       confirmText="확인"
       cancelText="취소"
       date={new Date()}
