@@ -1,30 +1,18 @@
-import { getGetUserSettingQueryKey, useGetUserSetting, useUpdateUserSetting } from '@/src/apis/_generated/serverAPI';
-import type { ApiResponseUserSettingResponse } from '@/src/apis/_generated/serverAPI.schemas';
+import { useGetUserSetting } from '@/src/apis/_generated/serverAPI';
 import { COLOR } from '@/src/constants/theme';
-import { toast } from '@/src/modules/toast';
-import { useQueryClient } from '@tanstack/react-query';
+import { Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
+import AccountActions from '../components/AccountActions';
 import SettingList from '../components/SettingList';
+import { useAccountMutation } from '../hooks/mutations/useAccountMutation';
+import { useUserSettingMutation } from '../hooks/mutations/useUserSettingMutation';
 
 export default function SettingContainer() {
-  const queryClient = useQueryClient();
   const { data: userSetting } = useGetUserSetting();
 
-  const updateUserSettingMutation = useUpdateUserSetting({
-    mutation: {
-      onMutate: (variables) => {
-        if (!userSetting) return;
-        queryClient.setQueryData<ApiResponseUserSettingResponse>(getGetUserSettingQueryKey(), {
-          ...userSetting,
-          result: variables.data,
-        });
-      },
-      onSettled: () => queryClient.invalidateQueries({ queryKey: getGetUserSettingQueryKey() }),
-      onSuccess: () => toast({ message: '설정 업데이트 완료.', options: { type: 'success' } }),
-      onError: () => toast({ message: '설정 업데이트 도중 문제 발생.', options: { type: 'error' } }),
-    },
-  });
+  const updateUserSettingMutation = useUserSettingMutation(userSetting);
+  const { logoutMutation, deleteUserMutation } = useAccountMutation();
 
   const handleNotificationToggle = (notificationSummary: boolean) => {
     if (!userSetting?.result || updateUserSettingMutation.isPending) return;
@@ -41,6 +29,24 @@ export default function SettingContainer() {
     updateUserSettingMutation.mutate({ data: { ...userSetting.result, notificationTime } });
   };
 
+  const handleLogout = () => {
+    if (logoutMutation.isPending) return;
+    logoutMutation.mutate();
+  };
+
+  const handleDeleteAccount = () => {
+    if (deleteUserMutation.isPending) return;
+    Alert.alert(
+      '회원탈퇴',
+      '정말 탈퇴하시겠습니까?',
+      [
+        { text: '취소', style: 'cancel' },
+        { text: '탈퇴', style: 'destructive', onPress: () => deleteUserMutation.mutate() },
+      ],
+      { cancelable: true }
+    );
+  };
+
   if (!userSetting?.result) return null;
 
   return (
@@ -51,6 +57,7 @@ export default function SettingContainer() {
         onSummaryTimeChange={handleSummaryTimeChange}
         onNotificationTimeChange={handleNotificationTimeChange}
       />
+      <AccountActions onLogout={handleLogout} onDeleteAccount={handleDeleteAccount} />
     </SafeView>
   );
 }
