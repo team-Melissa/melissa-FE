@@ -91,7 +91,6 @@ export default SettingList;
 
 const Wrapper = styled.View`
   width: 100%;
-  padding: 18px;
   gap: 10px;
 `;
 
