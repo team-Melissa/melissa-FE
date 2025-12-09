@@ -3,13 +3,14 @@ import type { ApiResponseUserSettingResponse } from '@/src/apis/_generated/serve
 import { toast } from '@/src/modules/toast';
 import { useQueryClient } from '@tanstack/react-query';
 
-export const useUserSettingMutation = (userSetting?: ApiResponseUserSettingResponse) => {
+export const useUserSettingMutation = () => {
   const queryClient = useQueryClient();
   const queryKey = getGetUserSettingQueryKey();
 
   return useUpdateUserSetting({
     mutation: {
       onMutate: (variables) => {
+        const userSetting = queryClient.getQueryData<ApiResponseUserSettingResponse>(queryKey);
         if (!userSetting) return;
         queryClient.setQueryData<ApiResponseUserSettingResponse>(queryKey, {
           ...userSetting,
