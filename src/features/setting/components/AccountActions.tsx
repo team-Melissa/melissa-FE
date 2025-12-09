@@ -25,6 +25,8 @@ export default AccountActions;
 const Wrapper = styled.View`
   width: 100%;
   align-items: center;
+  margin-top: auto;
+  padding-bottom: 20px;
   gap: 20px;
 `;
 

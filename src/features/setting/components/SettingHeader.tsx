@@ -14,7 +14,7 @@ const SettingHeader = ({ onBackClick }: Props) => {
       <TouchableOpacity onPress={onBackClick} hitSlop={5}>
         <StyledIconArrowLeft width={30} height={30} />
       </TouchableOpacity>
-      <LargeTitle>설정</LargeTitle>
+      <LargeTitle color="title">설정</LargeTitle>
       <EmptyView />
     </Wrapper>
   );
