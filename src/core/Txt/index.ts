@@ -1,5 +1,5 @@
-import styled from 'styled-components/native';
 import { COLOR, FONT_FAMILY } from '@/src/constants/theme';
+import styled from 'styled-components/native';
 
 type Props = {
   color?: keyof typeof COLOR;
@@ -8,6 +8,12 @@ type Props = {
 export const LargeTitle = styled.Text<Props>`
   font-family: ${FONT_FAMILY.pretendard600};
   font-size: 25px;
+  ${({ color }) => color && { color: COLOR[color] }};
+`;
+
+export const MiddleTitle = styled.Text<Props>`
+  font-family: ${FONT_FAMILY.pretendard600};
+  font-size: 20px;
   ${({ color }) => color && { color: COLOR[color] }};
 `;
 
