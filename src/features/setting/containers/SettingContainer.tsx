@@ -1,86 +1,77 @@
-import { ScrollView } from 'react-native';
-import { useUpdates } from 'expo-updates';
+import { useGetUserSetting } from '@/src/apis/_generated/serverAPI';
+import { COLOR } from '@/src/constants/theme';
+import { useRouter } from 'expo-router';
+import { Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import Loading from '@/src/components/ui/Loading';
-import responsiveToPx from '@/src/utils/responsiveToPx';
+import AccountActions from '../components/AccountActions';
 import SettingHeader from '../components/SettingHeader';
-import SleepTimeSettingItem from '../components/SleepTimeSettingItem';
-import PushNotiSettingItem from '../components/PushNotiSettingItem';
-import NotiTimeSettingItem from '../components/NotiTimeSettingItem';
-import SendMailItem from '../components/SendMailItem';
-import LogoutItem from '../components/LogoutItem';
-import DeleteAccountItem from '../components/DeleteAccountItem';
-import { useSetting } from '../hooks/useSetting';
-import type { UserSettingDTO } from '../types/settingTypes';
+import SettingList from '../components/SettingList';
+import { useAccountMutation } from '../hooks/mutations/useAccountMutation';
+import { useUserSettingMutation } from '../hooks/mutations/useUserSettingMutation';
 
-type SettingContainerProps = {
-  data: UserSettingDTO;
-};
+export default function SettingContainer() {
+  const router = useRouter();
+  const { data: userSetting } = useGetUserSetting();
 
-export default function SettingContainer({ data }: SettingContainerProps) {
-  const {
-    isPending,
-    sleepTime,
-    optimisticToggle,
-    notificationTime,
-    isDatePickerVisible,
-    showDatePicker,
-    hideDatePicker,
-    handleConfirm,
-    handleLogoutPress,
-    handleDeleteAccountPress,
-    handleNotificationSummary,
-  } = useSetting(data);
-  const { currentlyRunning } = useUpdates();
+  const updateUserSettingMutation = useUserSettingMutation();
+  const { logoutMutation, deleteUserMutation } = useAccountMutation();
 
-  if (isPending) {
-    return <Loading />;
-  }
+  const handleBackClick = () => {
+    router.back();
+  };
+
+  const handleNotificationToggle = (notificationEnabled: boolean) => {
+    if (!userSetting?.result || updateUserSettingMutation.isPending) return;
+    updateUserSettingMutation.mutate({ data: { ...userSetting.result, notificationEnabled } });
+  };
+
+  const handleSleepTimeChange = (sleepTime: string) => {
+    if (!userSetting?.result || updateUserSettingMutation.isPending) return;
+    updateUserSettingMutation.mutate({ data: { ...userSetting.result, sleepTime } });
+  };
+
+  const handleNotificationTimeChange = (notificationTime: string) => {
+    if (!userSetting?.result || updateUserSettingMutation.isPending) return;
+    updateUserSettingMutation.mutate({ data: { ...userSetting.result, notificationTime } });
+  };
+
+  const handleLogout = () => {
+    if (logoutMutation.isPending) return;
+    logoutMutation.mutate();
+  };
+
+  const handleDeleteAccount = () => {
+    if (deleteUserMutation.isPending) return;
+    Alert.alert(
+      '회원탈퇴',
+      '정말 탈퇴하시겠습니까?',
+      [
+        { text: '취소', style: 'cancel' },
+        { text: '탈퇴', style: 'destructive', onPress: () => deleteUserMutation.mutate() },
+      ],
+      { cancelable: true }
+    );
+  };
+
+  if (!userSetting?.result) return null;
 
   return (
     <SafeView>
-      <SettingHeader />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <SettingBox>
-          <SleepTimeSettingItem sleepTime={sleepTime} showDatePicker={showDatePicker} />
-          <PushNotiSettingItem value={optimisticToggle} onChange={handleNotificationSummary} />
-          <NotiTimeSettingItem notificationTime={notificationTime} showDatePicker={showDatePicker} />
-          <SendMailItem />
-          <LogoutItem onPress={handleLogoutPress} />
-          <DeleteAccountItem onPress={handleDeleteAccountPress} />
-        </SettingBox>
-        {currentlyRunning.updateId && <OTAVersionTxt>OTA version: {currentlyRunning.updateId}</OTAVersionTxt>}
-      </ScrollView>
-      <DateTimePickerModal
-        isVisible={isDatePickerVisible}
-        mode="time"
-        onConfirm={handleConfirm}
-        onCancel={hideDatePicker}
+      <SettingHeader onBackClick={handleBackClick} />
+      <SettingList
+        settingData={userSetting.result}
+        onNotificationToggle={handleNotificationToggle}
+        onSleepTimeChange={handleSleepTimeChange}
+        onNotificationTimeChange={handleNotificationTimeChange}
       />
+      <AccountActions onLogout={handleLogout} onDeleteAccount={handleDeleteAccount} />
     </SafeView>
   );
 }
 
 const SafeView = styled(SafeAreaView)`
   flex: 1;
-  padding: ${responsiveToPx('26px')};
-  background-color: ${({ theme }) => theme.colors.whiteBlue};
-`;
-
-const SettingBox = styled.View`
-  width: 100%;
-  padding: ${responsiveToPx('22px')} ${responsiveToPx('33px')};
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  background-color: ${({ theme }) => theme.colors.white};
-  justify-content: center;
-  align-items: center;
-  gap: ${({ theme }) => theme.gap.xxl};
-`;
-
-const OTAVersionTxt = styled.Text`
-  color: ${({ theme }) => theme.colors.settingSubText};
-  align-self: flex-end;
-  margin: 10px 10px 0 0;
+  background-color: ${COLOR.background};
+  padding: 0 18px;
 `;

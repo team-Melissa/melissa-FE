@@ -1,27 +1,42 @@
-import { useRouter } from 'expo-router';
-import { Fragment } from 'react';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { theme } from '@/src/constants/theme';
-import * as S from '../styles/SettingItem.styles';
+import { LargeTitle } from '@/src/core/Txt';
+import { IconArrowDown } from '@/src/icons/IconArrowDown';
+import responsiveToPx from '@/src/utils/responsiveToPx';
+import { TouchableOpacity } from 'react-native';
+import styled from 'styled-components/native';
 
-export default function SettingHeader() {
-  const router = useRouter();
+type Props = {
+  onBackClick: () => void;
+};
 
-  const handlePrevPress = () => {
-    router.back();
-  };
-
+const SettingHeader = ({ onBackClick }: Props) => {
   return (
-    <Fragment>
-      <S.HeaderBox>
-        <S.PrevButton hitSlop={15} onPress={handlePrevPress}>
-          <MaterialIcons name="arrow-back-ios" size={24} color="black" />
-        </S.PrevButton>
-      </S.HeaderBox>
-      <S.TitleBox>
-        <Ionicons name="settings-sharp" size={42} color={theme.colors.deepGreen} />
-        <S.TitleText>설정</S.TitleText>
-      </S.TitleBox>
-    </Fragment>
+    <Wrapper>
+      <TouchableOpacity onPress={onBackClick} hitSlop={5}>
+        <StyledIconArrowLeft width={30} height={30} />
+      </TouchableOpacity>
+      <LargeTitle color="title">설정</LargeTitle>
+      <EmptyView />
+    </Wrapper>
   );
-}
+};
+
+export default SettingHeader;
+
+const Wrapper = styled.View`
+  flex-direction: row;
+  width: 100%;
+  padding: 15px 0;
+  justify-content: space-between;
+  margin-bottom: 50px;
+`;
+
+const StyledIconArrowLeft = styled(IconArrowDown)`
+  width: ${responsiveToPx('30px')};
+  height: ${responsiveToPx('30px')};
+  transform: rotate(90deg);
+`;
+
+const EmptyView = styled.View`
+  width: ${responsiveToPx('30px')};
+  height: ${responsiveToPx('30px')};
+`;
