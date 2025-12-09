@@ -1,4 +1,5 @@
 import { COLOR } from '@/src/constants/theme';
+import { useEffect } from 'react';
 import { Pressable } from 'react-native';
 import Animated, {
   Easing,
@@ -25,17 +26,12 @@ const ACTIVE_BG_COLOR = COLOR.main;
 export const Switch = ({ checked, onCheckedChange }: Props) => {
   const progress = useSharedValue(checked ? 1 : 0);
 
-  if (checked && progress.value === 0) {
-    progress.value = withTiming(1, {
+  useEffect(() => {
+    progress.value = withTiming(checked ? 1 : 0, {
       duration: 200,
       easing: Easing.inOut(Easing.ease),
     });
-  } else if (!checked && progress.value === 1) {
-    progress.value = withTiming(0, {
-      duration: 200,
-      easing: Easing.inOut(Easing.ease),
-    });
-  }
+  }, [checked, progress]);
 
   const animatedTrackStyle = useAnimatedStyle(() => ({
     backgroundColor: interpolateColor(progress.value, [0, 1], [INACTIVE_BG_COLOR, ACTIVE_BG_COLOR]),
