@@ -6,6 +6,7 @@ import { Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 import CopyrightTxt from '../components/CopyrightTxt';
+import LastLoginBadge from '../components/LastLoginBadge';
 import MainLogo from '../components/MainLogo';
 import { useLogin } from '../hooks/useLogin';
 
@@ -19,6 +20,7 @@ const LoginContainer = () => {
       <LogoWrapper>
         <MainLogo />
       </LogoWrapper>
+      <LastLoginBadge />
       <Wrapper>
         <LoginButton provider="KAKAO" onPress={() => kakaoLogin()}>
           Kakao로 시작하기
