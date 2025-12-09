@@ -10,24 +10,24 @@ import SettingItem from './SettingItem';
 import TimePicker from './TimePicker';
 
 type SettingData = NonNullable<UserSettingResponse>;
-type TimePickerMode = Exclude<keyof NonNullable<UserSettingResponse>, 'notificationSummary'> | null;
+type TimePickerMode = Exclude<keyof NonNullable<UserSettingResponse>, 'notificationEnabled'> | null;
 
 type Props = {
   settingData: SettingData;
-  onNotificationToggle: (notificationSummary: boolean) => void;
-  onSummaryTimeChange: (sleepTime: string) => void;
+  onNotificationToggle: (notificationEnabled: boolean) => void;
+  onSleepTimeChange: (sleepTime: string) => void;
   onNotificationTimeChange: (notificationTime: string) => void;
 };
 
-const SettingList = ({ settingData, onNotificationToggle, onSummaryTimeChange, onNotificationTimeChange }: Props) => {
+const SettingList = ({ settingData, onNotificationToggle, onSleepTimeChange, onNotificationTimeChange }: Props) => {
   const [timePickerMode, setTimePickerMode] = useState<TimePickerMode>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const handleNotificationToggle = (newNotificationSummary: boolean) => {
-    onNotificationToggle(newNotificationSummary);
+  const handleNotificationToggle = (notificationEnabled: boolean) => {
+    onNotificationToggle(notificationEnabled);
   };
 
-  const handleSummaryTimePickerOpen = () => {
+  const handleSleepTimePickerOpen = () => {
     setTimePickerMode('sleepTime');
     onOpen();
   };
@@ -50,7 +50,7 @@ const SettingList = ({ settingData, onNotificationToggle, onSummaryTimeChange, o
     if (timePickerMode === 'notificationTime') {
       onNotificationTimeChange(time);
     } else if (timePickerMode === 'sleepTime') {
-      onSummaryTimeChange(time);
+      onSleepTimeChange(time);
     }
 
     handleTimePickerClose();
@@ -63,10 +63,10 @@ const SettingList = ({ settingData, onNotificationToggle, onSummaryTimeChange, o
   return (
     <Wrapper>
       <SettingItem title="푸시 알림" description="푸시 알림을 허용/차단할 수 있어요.">
-        <Switch checked={settingData.notificationSummary} onCheckedChange={handleNotificationToggle} />
+        <Switch checked={settingData.notificationEnabled} onCheckedChange={handleNotificationToggle} />
       </SettingItem>
       <SettingItem title="일기 자동 작성 시간" description="정리 안된 일기를 이 시간에 작성해드려요.">
-        <StyledButton onPress={handleSummaryTimePickerOpen} hitSlop={5}>
+        <StyledButton onPress={handleSleepTimePickerOpen} hitSlop={5}>
           <MiddleTitle color="title">{settingData.sleepTime}</MiddleTitle>
           <StyledIconArrowRight />
         </StyledButton>

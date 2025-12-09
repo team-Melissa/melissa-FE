@@ -14,12 +14,12 @@ export default function SettingContainer() {
   const updateUserSettingMutation = useUserSettingMutation(userSetting);
   const { logoutMutation, deleteUserMutation } = useAccountMutation();
 
-  const handleNotificationToggle = (notificationSummary: boolean) => {
+  const handleNotificationToggle = (notificationEnabled: boolean) => {
     if (!userSetting?.result || updateUserSettingMutation.isPending) return;
-    updateUserSettingMutation.mutate({ data: { ...userSetting.result, notificationSummary } });
+    updateUserSettingMutation.mutate({ data: { ...userSetting.result, notificationEnabled } });
   };
 
-  const handleSummaryTimeChange = (sleepTime: string) => {
+  const handleSleepTimeChange = (sleepTime: string) => {
     if (!userSetting?.result || updateUserSettingMutation.isPending) return;
     updateUserSettingMutation.mutate({ data: { ...userSetting.result, sleepTime } });
   };
@@ -54,7 +54,7 @@ export default function SettingContainer() {
       <SettingList
         settingData={userSetting.result}
         onNotificationToggle={handleNotificationToggle}
-        onSummaryTimeChange={handleSummaryTimeChange}
+        onSleepTimeChange={handleSleepTimeChange}
         onNotificationTimeChange={handleNotificationTimeChange}
       />
       <AccountActions onLogout={handleLogout} onDeleteAccount={handleDeleteAccount} />
