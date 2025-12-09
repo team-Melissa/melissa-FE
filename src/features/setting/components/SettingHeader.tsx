@@ -1,5 +1,5 @@
 import { LargeTitle } from '@/src/core/Txt';
-import { IconArrowDown } from '@/src/icons/IconArrowDown';
+import { IconArrowDown } from '@/src/icons';
 import responsiveToPx from '@/src/utils/responsiveToPx';
 import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
