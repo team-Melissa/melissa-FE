@@ -1,16 +1,14 @@
 import type { UserSettingResponse } from '@/src/apis/_generated/serverAPI.schemas';
 import { Switch } from '@/src/core/Switch';
 import { MiddleTitle } from '@/src/core/Txt';
-import { useDisclosure } from '@/src/hooks/useDisclosure';
 import { IconArrowDown } from '@/src/icons/IconArrowDown';
-import { useState } from 'react';
+import { useModal } from '@/src/modules/modal';
 import { Alert } from 'react-native';
 import styled from 'styled-components/native';
 import SettingItem from './SettingItem';
-import TimePicker from './TimePicker';
+import TimePickerModal from './TimePickerModal';
 
 type SettingData = NonNullable<UserSettingResponse>;
-type TimePickerMode = Exclude<keyof NonNullable<UserSettingResponse>, 'notificationEnabled'> | null;
 
 type Props = {
   settingData: SettingData;
@@ -20,36 +18,28 @@ type Props = {
 };
 
 const SettingList = ({ settingData, onNotificationToggle, onSleepTimeChange, onNotificationTimeChange }: Props) => {
-  const [timePickerMode, setTimePickerMode] = useState<TimePickerMode>(null);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const timePickerModal = useModal();
 
   const handleSleepTimePickerOpen = () => {
-    setTimePickerMode('sleepTime');
-    onOpen();
+    timePickerModal.open(({ isOpen, exit }) => (
+      <TimePickerModal
+        isOpen={isOpen}
+        onClose={exit}
+        initialTime={settingData.sleepTime}
+        onSubmit={onSleepTimeChange}
+      />
+    ));
   };
 
   const handleNotificationTimePickerOpen = () => {
-    setTimePickerMode('notificationTime');
-    onOpen();
-  };
-
-  const handleTimePickerClose = () => {
-    setTimePickerMode(null);
-    onClose();
-  };
-
-  const handleTimePickerSubmit = (date: Date) => {
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    const time = `${hours}:${minutes}`;
-
-    if (timePickerMode === 'notificationTime') {
-      onNotificationTimeChange(time);
-    } else if (timePickerMode === 'sleepTime') {
-      onSleepTimeChange(time);
-    }
-
-    handleTimePickerClose();
+    timePickerModal.open(({ isOpen, exit }) => (
+      <TimePickerModal
+        isOpen={isOpen}
+        onClose={exit}
+        initialTime={settingData.notificationTime}
+        onSubmit={onNotificationTimeChange}
+      />
+    ));
   };
 
   const handleFeedbackClick = () => {
@@ -78,7 +68,6 @@ const SettingList = ({ settingData, onNotificationToggle, onSleepTimeChange, onN
           <StyledIconArrowRight />
         </StyledButton>
       </SettingItem>
-      <TimePicker isOpen={isOpen} onSubmit={handleTimePickerSubmit} onCancel={handleTimePickerClose} />
     </Wrapper>
   );
 };
