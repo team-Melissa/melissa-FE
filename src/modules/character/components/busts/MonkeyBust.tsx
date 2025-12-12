@@ -1,8 +1,8 @@
-import Svg, { G, Mask, Path, Rect } from 'react-native-svg';
+import Svg, { G, Mask, Path, Rect, type SvgProps } from 'react-native-svg';
 
-export const MonkeyBust = () => {
+export const MonkeyBust = (props: SvgProps) => {
   return (
-    <Svg width="62" height="47" viewBox="0 0 62 47" fill="none">
+    <Svg width="62" height="47" viewBox="0 0 62 47" fill="none" {...props}>
       <Rect x="4" y="5" width="55" height="42" rx="21" fill="#E9D7C8" />
       <Mask id="mask0_1363_1652" maskUnits="userSpaceOnUse" x="4" y="5" width="55" height="42">
         <Rect x="4" y="5" width="55" height="42" rx="21" fill="#AD5600" />

@@ -1,8 +1,8 @@
-import Svg, { Path } from 'react-native-svg';
+import Svg, { Path, type SvgProps } from 'react-native-svg';
 
-export const RabbitFace = () => {
+export const RabbitFace = (props: SvgProps) => {
   return (
-    <Svg width="48" height="56" viewBox="0 0 48 56" fill="none">
+    <Svg width="48" height="56" viewBox="0 0 48 56" fill="none" {...props}>
       <Path
         d="M32.4504 14.8056C34.1292 15.5426 46.9992 22.1227 47.1726 34.9993C47.4511 55.6935 23.7 55.1746 23.7 55.1746C23.7 55.1746 0.210371 57.1766 0.184098 35.8676C0.173589 27.6244 5.29557 20.905 10.4662 17.362C15.7156 13.7639 22.213 12.4056 28.4634 13.6036C29.8099 13.8611 31.1735 14.2447 32.449 14.8056H32.4504Z"
         fill="#FFC5C5"

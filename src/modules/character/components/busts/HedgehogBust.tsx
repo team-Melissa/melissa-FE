@@ -1,8 +1,8 @@
-import Svg, { G, Mask, Path, Rect } from 'react-native-svg';
+import Svg, { G, Mask, Path, Rect, type SvgProps } from 'react-native-svg';
 
-export const HedgehogBust = () => {
+export const HedgehogBust = (props: SvgProps) => {
   return (
-    <Svg width="57" height="45" viewBox="0 0 57 45" fill="none">
+    <Svg width="57" height="45" viewBox="0 0 57 45" fill="none" {...props}>
       <Rect y="3" width="55" height="42" rx="21" fill="#DB8B3C" />
       <Mask id="mask0_0_1" maskUnits="userSpaceOnUse" x="0" y="3" width="55" height="42">
         <Rect y="3" width="55" height="42" rx="21" fill="#AD5600" />
