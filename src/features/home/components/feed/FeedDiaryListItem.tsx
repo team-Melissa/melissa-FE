@@ -1,12 +1,11 @@
 import type { DiaryDetailDTO } from '@/src/apis/_generated/serverAPI.schemas';
 import { COLOR } from '@/src/constants/theme';
-import { Body2, Description2, Description3, Title } from '@/src/core/Txt';
+import { Body2, Description2, Title } from '@/src/core/Txt';
 import { IconShared } from '@/src/icons';
-import { parseIso8601DateString } from '@/src/utils/date';
-import responsiveToPx from '@/src/utils/responsiveToPx';
 import { Image } from 'expo-image';
 import type { LayoutChangeEvent } from 'react-native';
 import styled from 'styled-components/native';
+import FeedCreatedBy from './FeedCreatedBy';
 
 type Props = {
   date: { year: number; month: number; day: number };
@@ -15,12 +14,6 @@ type Props = {
 };
 
 const FeedDiaryListItem = ({ date, diaryData, onLayout }: Props) => {
-  const getCreatedAtText = (createdAt: string) => {
-    const { year, month, day } = parseIso8601DateString(createdAt);
-    return `${year.toString().slice(-2)}. ${month.toString().padStart(2, '0')}. ${day.toString().padStart(2, '0')}`;
-  };
-
-  //TODO: aiProfileId랑 AI 프로필 이미지 파일 매칭 후 이미지/AI이름 렌더링하도록 교체 필요. 여기서는 global 객체 상수 활용하는 방향 고려중
   return (
     <Wrapper onLayout={onLayout}>
       <StyledImage source={{ uri: diaryData.imageUrl }} />
@@ -36,10 +29,7 @@ const FeedDiaryListItem = ({ date, diaryData, onLayout }: Props) => {
         <StyledHashtagTxt color="main">
           #{diaryData.hashtag1} #{diaryData.hashtag2}
         </StyledHashtagTxt>
-        <CreatedByWrapper>
-          <AiProfileImage source={{ uri: diaryData.imageUrl }} />
-          <Description3 color="sub1">{getCreatedAtText(diaryData.createdAt)} 다람지와 함께 생성했어요.</Description3>
-        </CreatedByWrapper>
+        <FeedCreatedBy aiProfileId={diaryData.aiProfileId} createdAt={diaryData.createdAt} />
       </RelativeWrapper>
     </Wrapper>
   );
@@ -89,16 +79,4 @@ const StyledContentTxt = styled(Body2)`
 const StyledHashtagTxt = styled(Body2)`
   margin-bottom: 32px;
   line-height: 20px;
-`;
-
-const CreatedByWrapper = styled.View`
-  flex-direction: row;
-  align-items: center;
-  gap: 5px;
-`;
-
-const AiProfileImage = styled(Image)`
-  width: ${responsiveToPx('28px')};
-  aspect-ratio: 1;
-  border-radius: 12px;
 `;
