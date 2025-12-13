@@ -15,6 +15,8 @@ const getCreatedAtText = (createdAt: string) => {
 
 const FeedCreatedBy = ({ createdAt, aiProfileId }: Props) => {
   const character = characters[aiProfileId as keyof typeof characters];
+  if (!character) return null;
+
   const { face: Face, name: characterName, color: characterBackgroundColor } = character;
 
   return (
