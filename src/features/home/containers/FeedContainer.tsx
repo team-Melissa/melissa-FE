@@ -8,8 +8,9 @@ import { getTodayDateData } from '../utils/getTodayDateData';
 import { isNonNullableDailySummaryResponse } from '../utils/typeGuard';
 
 const FeedContainer = () => {
-  const [year] = useState<number>(getTodayDateData().year);
-  const [month, setMonth] = useState<number>(getTodayDateData().month);
+  const todayDate = getTodayDateData();
+  const year = todayDate.year;
+  const [month, setMonth] = useState<number>(todayDate.month);
 
   const { data } = useGetCalendarView({ year, month });
   const calendarMonthData = data?.result?.filter(isNonNullableDailySummaryResponse);

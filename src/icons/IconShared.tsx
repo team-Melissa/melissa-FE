@@ -1,8 +1,8 @@
-import Svg, { ClipPath, Defs, G, LinearGradient, Path, Rect, Stop } from 'react-native-svg';
+import Svg, { ClipPath, Defs, G, LinearGradient, Path, Rect, Stop, type SvgProps } from 'react-native-svg';
 
-export const IconShared = () => {
+export const IconShared = (props: SvgProps) => {
   return (
-    <Svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+    <Svg width="28" height="28" viewBox="0 0 28 28" fill="none" {...props}>
       <Path
         d="M9.98553 11.8914C10.5164 11.9106 11.0683 11.9229 11.5852 11.9281L11.5852 15.5656C11.5852 16.2682 12.0268 17.2108 13.078 17.2108L14.9195 17.2108C15.9708 17.2108 16.4123 16.2682 16.4123 15.5656L16.4123 11.9264C16.931 11.9211 17.4811 11.9106 18.012 11.8896C18.7234 11.8633 19.1527 11.0906 18.7952 10.4739C18.1049 9.28594 16.8731 7.49176 15.0176 5.91309C14.4307 5.41374 13.5686 5.41374 12.9799 5.91309C11.1244 7.49176 9.89267 9.28419 9.20233 10.4739C8.84489 11.0889 9.27417 11.8616 9.98553 11.8896L9.98553 11.8914Z"
         fill="url(#paint0_linear_1302_503)"
