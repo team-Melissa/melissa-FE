@@ -1,10 +1,12 @@
 import { NavButton } from '@/src/core/Button';
 import { IconChat, IconWave } from '@/src/icons';
+import { getTodayDate } from '@/src/utils/date';
 import { useRouter } from 'expo-router';
 import { Alert } from 'react-native';
 import styled from 'styled-components/native';
 
 const SubTabBarItem = () => {
+  const { year, month, day } = getTodayDate();
   const router = useRouter();
 
   const goToTalkingPage = () => {
@@ -12,7 +14,8 @@ const SubTabBarItem = () => {
   };
 
   const goToChattingPage = () => {
-    router.push('/chatting');
+    // 채팅 버튼 클릭 시, 항상 오늘로 세팅
+    router.push(`/(app)/characters?year=${year}&month=${month}&day=${day}`);
   };
 
   return (
