@@ -19,7 +19,7 @@ const CalendarDayContent = ({ dayData }: Props) => {
   return (
     <ImageBorderWrapper>
       <StyledImage source={{ uri: imageUrl }} />
-      <HashtagBubble isVisible={dayData.showBubble} hashtag={hashtag} />
+      <HashtagBubble isVisible={!!dayData?.showBubble} hashtag={hashtag} />
     </ImageBorderWrapper>
   );
 };

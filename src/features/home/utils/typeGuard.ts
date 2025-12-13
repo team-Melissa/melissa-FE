@@ -8,7 +8,7 @@ export const isNonNullableDailySummaryResponse = (
 };
 
 export const isCalendarDayData = (value: DailySummaryResponseDTO): value is CalendarDayData => {
-  return !!value && 'showBubble' in value;
+  return !!value;
 };
 
 export const isRequiredDiaryDetail = (value: DiaryDetailDTO): value is Required<DiaryDetailDTO> => {
