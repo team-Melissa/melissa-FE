@@ -13,7 +13,7 @@ type Props = {
   date: TDateData;
 };
 
-const SNAP_POINTS = ['85%'];
+const SNAP_POINTS = ['90%'];
 
 const DiaryBottomSheet = forwardRef<BottomSheet, Props>(({ date }, ref) => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
