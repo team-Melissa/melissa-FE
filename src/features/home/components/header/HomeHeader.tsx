@@ -22,7 +22,7 @@ export default HomeHeader;
 
 const Wrapper = styled.View`
   width: 100%;
-  padding: 10px 18px 0 18px;
+  padding-top: 10px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
