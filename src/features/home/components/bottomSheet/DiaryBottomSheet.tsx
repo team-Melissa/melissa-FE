@@ -13,7 +13,7 @@ type Props = {
   date: TDateData;
 };
 
-const SNAP_POINTS = ['60%', '90%'];
+const SNAP_POINTS = ['85%'];
 
 const DiaryBottomSheet = forwardRef<BottomSheet, Props>(({ date }, ref) => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
@@ -44,6 +44,7 @@ const DiaryBottomSheet = forwardRef<BottomSheet, Props>(({ date }, ref) => {
         index={-1}
         snapPoints={SNAP_POINTS}
         enableDynamicSizing={false}
+        enableContentPanningGesture={false}
         enablePanDownToClose
         style={{ overflow: 'hidden' }}
         backgroundStyle={{ borderRadius: 40 }}
