@@ -20,6 +20,7 @@ const FeedDiaryList = ({ dayData }: Props) => {
   };
 
   const diaries = dayData.diaries.filter(isRequiredDiaryDetail);
+  if (diaries.length === 0) return null;
 
   return (
     <Wrapper $height={maxHeight}>
