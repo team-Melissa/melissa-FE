@@ -21,6 +21,7 @@ const CalendarDay = ({ date, onPress }: Props) => {
   });
 
   const handleDayPress = () => {
+    if (!calendarDayData) return;
     onPress?.(date);
   };
 

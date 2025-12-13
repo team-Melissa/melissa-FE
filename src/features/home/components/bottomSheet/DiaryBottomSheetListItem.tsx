@@ -1,21 +1,18 @@
 import type { DiaryDetailDTO } from '@/src/apis/_generated/serverAPI.schemas';
-import { COLOR } from '@/src/constants/theme';
 import { Body2, Description2, Title } from '@/src/core/Txt';
 import { IconShared } from '@/src/icons';
 import { Image } from 'expo-image';
-import type { LayoutChangeEvent } from 'react-native';
 import styled from 'styled-components/native';
 import DiaryCreatedByInfo from '../DiaryCreatedByInfo';
 
 type Props = {
   date: { year: number; month: number; day: number };
   diaryData: Required<DiaryDetailDTO>;
-  onLayout?: (event: LayoutChangeEvent) => void;
 };
 
-const FeedDiaryListItem = ({ date, diaryData, onLayout }: Props) => {
+const DiaryBottomSheetListItem = ({ date, diaryData }: Props) => {
   return (
-    <Wrapper onLayout={onLayout}>
+    <Wrapper>
       <StyledImage source={{ uri: diaryData.imageUrl }} />
       <RelativeWrapper>
         <ShareButton hitSlop={5}>
@@ -35,15 +32,12 @@ const FeedDiaryListItem = ({ date, diaryData, onLayout }: Props) => {
   );
 };
 
-export default FeedDiaryListItem;
+export default DiaryBottomSheetListItem;
 
 const Wrapper = styled.View`
-  width: 100%;
-  padding: 15px 15px 25px 15px;
-  margin-bottom: 30px;
+  padding: 0 15px 25px 15px;
   gap: 20px;
   border-radius: 40px;
-  background-color: ${COLOR.white};
 `;
 
 const StyledImage = styled(Image)`

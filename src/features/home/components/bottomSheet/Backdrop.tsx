@@ -1,5 +1,7 @@
 import { BottomSheetBackdrop, type BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
 
-export default function DiaryBottomSheetBackdrop(props: BottomSheetBackdropProps) {
+const Backdrop = (props: BottomSheetBackdropProps) => {
   return <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={1} />;
-}
+};
+
+export default Backdrop;

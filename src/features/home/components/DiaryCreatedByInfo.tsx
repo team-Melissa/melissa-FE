@@ -13,7 +13,7 @@ const getCreatedAtText = (createdAt: string) => {
   return `${year.toString().slice(-2)}. ${month.toString().padStart(2, '0')}. ${day.toString().padStart(2, '0')}`;
 };
 
-const FeedCreatedBy = ({ createdAt, aiProfileId }: Props) => {
+const DiaryCreatedByInfo = ({ createdAt, aiProfileId }: Props) => {
   const character = characters[aiProfileId as keyof typeof characters];
   if (!character) return null;
 
@@ -31,7 +31,7 @@ const FeedCreatedBy = ({ createdAt, aiProfileId }: Props) => {
   );
 };
 
-export default FeedCreatedBy;
+export default DiaryCreatedByInfo;
 
 const Wrapper = styled.View`
   flex-direction: row;

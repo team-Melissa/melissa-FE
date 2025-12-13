@@ -1,26 +1,25 @@
-import { useEffect, useRef, useState } from 'react';
-import { Platform, ScrollView } from 'react-native';
-import styled from 'styled-components/native';
-import { type Edge, SafeAreaView } from 'react-native-safe-area-context';
-import ChatHeader from '../components/ChatHeader';
-import AiChatBox from '../components/AiChatBox';
-import UserChatBox from '../components/UserChatBox';
-import ChatInput from '../components/ChatInput';
-import type { FluxEventDTO, MessagesDTO, TThreadDate } from '../types/chattingTypes';
+import endpoint from '@/src/constants/endpoint';
+import toastMessage from '@/src/constants/toastMessage';
+import { getAccessToken } from '@/src/libs/mmkv';
+import { toast } from '@/src/modules/toast';
+import { debounce } from '@/src/utils/debounce';
+import type BottomSheet from '@gorhom/bottom-sheet';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
-import { MESSAGES_QUERY_KEY, useMessagesQuery } from '../hooks/queries/useMessagesQuery';
-import { checkThreadExpire } from '../utils/time';
-import { toast } from '@/src/modules/toast';
-import toastMessage from '@/src/constants/toastMessage';
+import { useEffect, useRef, useState } from 'react';
+import { Platform, ScrollView } from 'react-native';
+import { type Edge, SafeAreaView } from 'react-native-safe-area-context';
 import EventSource from 'react-native-sse';
-import endpoint from '@/src/constants/endpoint';
-import { getAccessToken } from '@/src/libs/mmkv';
-import { useDiaryMutation } from '../hooks/mutations/useDiaryMutation';
+import styled from 'styled-components/native';
+import AiChatBox from '../components/AiChatBox';
+import ChatHeader from '../components/ChatHeader';
+import ChatInput from '../components/ChatInput';
 import ChattingMenu from '../components/ChattingMenu';
-import type BottomSheet from '@gorhom/bottom-sheet';
-import { debounce } from '@/src/utils/debounce';
-import { AI_PROFILE_LIST_QUERY_KEY } from '../../main/hooks/queries/useAiProfileListQuery';
+import UserChatBox from '../components/UserChatBox';
+import { useDiaryMutation } from '../hooks/mutations/useDiaryMutation';
+import { MESSAGES_QUERY_KEY, useMessagesQuery } from '../hooks/queries/useMessagesQuery';
+import type { FluxEventDTO, MessagesDTO, TThreadDate } from '../types/chattingTypes';
+import { checkThreadExpire } from '../utils/time';
 
 type Props = {
   threadDate: TThreadDate;
@@ -166,7 +165,7 @@ const ChattingContainer = ({ threadDate, threadExpiredDate, readonly }: Props) =
 
   useEffect(() => {
     return () => {
-      queryClient.invalidateQueries({ queryKey: [AI_PROFILE_LIST_QUERY_KEY] });
+      queryClient.invalidateQueries({ queryKey: [] });
     };
   }, [queryClient]);
 

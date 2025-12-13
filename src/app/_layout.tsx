@@ -5,6 +5,7 @@ import { NotificationProvider } from '@/src/modules/notification';
 import { SentryProvider } from '@/src/modules/sentry';
 import { ToastsRoot } from '@/src/modules/toast';
 import { useReactQueryDevTools } from '@dev-plugins/react-query';
+import { PortalProvider } from '@gorhom/portal';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { Slot } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -49,11 +50,13 @@ export default function RootLayout() {
         <ThemeProvider theme={theme}>
           <QueryClientProvider client={queryClient}>
             <GestureHandlerRootView>
-              <ModalsProvider>
-                <StatusBar style="dark" />
-                <Slot />
-                <ToastsRoot />
-              </ModalsProvider>
+              <PortalProvider>
+                <ModalsProvider>
+                  <StatusBar style="dark" />
+                  <Slot />
+                  <ToastsRoot />
+                </ModalsProvider>
+              </PortalProvider>
             </GestureHandlerRootView>
           </QueryClientProvider>
         </ThemeProvider>

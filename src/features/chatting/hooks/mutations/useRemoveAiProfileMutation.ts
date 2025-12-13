@@ -1,6 +1,5 @@
 import endpoint from '@/src/constants/endpoint';
 import toastMessage from '@/src/constants/toastMessage';
-import { AI_PROFILE_LIST_QUERY_KEY } from '@/src/features/main/hooks/queries/useAiProfileListQuery';
 import axiosInstance from '@/src/libs/axiosInstance';
 import { toast } from '@/src/modules/toast';
 import type { SuccessDTO } from '@/src/types/commonTypes';
@@ -22,7 +21,7 @@ export const useRemoveAiProfileMutation = () => {
       router.replace('/(app)/(tab)/calendar');
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [AI_PROFILE_LIST_QUERY_KEY] });
+      queryClient.invalidateQueries({ queryKey: [] });
       toast({ message: toastMessage.removeAssistant.success, options: { type: 'success' } });
     },
     onError: (error) => {
