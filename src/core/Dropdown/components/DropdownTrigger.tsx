@@ -1,4 +1,4 @@
-import { IconEllipsis } from '@/src/icons/IconEllipsis';
+import { IconEllipsis } from '@/src/icons';
 import { useRef } from 'react';
 import { TouchableOpacity, View, type GestureResponderEvent, type TouchableOpacityProps } from 'react-native';
 import { useDropdownContext } from '../context/DropdownContext';

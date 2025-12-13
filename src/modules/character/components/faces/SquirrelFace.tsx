@@ -1,8 +1,8 @@
-import Svg, { G, Mask, Path } from 'react-native-svg';
+import Svg, { G, Mask, Path, type SvgProps } from 'react-native-svg';
 
-export const SquirrelFace = () => {
+export const SquirrelFace = (props: SvgProps) => {
   return (
-    <Svg width="45" height="46" viewBox="0 0 45 46" fill="none">
+    <Svg width="45" height="46" viewBox="0 0 45 46" fill="none" {...props}>
       <Path
         d="M30.3523 6.75829C31.8933 7.43372 44.4863 12.597 44.6063 27.4389C44.7589 46.421 22.3272 45.6931 22.3272 45.6931C22.3272 45.6931 0.485773 47.7744 0.00796862 28.2345C-0.242191 17.9629 5.44643 12.3518 10.1894 9.10228C15.005 5.80268 20.9638 4.55689 26.6975 5.65509C27.9307 5.89274 29.184 6.24296 30.3523 6.75829Z"
         fill="#FFDBC2"

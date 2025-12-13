@@ -1,7 +1,7 @@
 import type { UserSettingResponse } from '@/src/apis/_generated/serverAPI.schemas';
 import { Switch } from '@/src/core/Switch';
 import { MiddleTitle } from '@/src/core/Txt';
-import { IconArrowDown } from '@/src/icons/IconArrowDown';
+import { IconArrowDown } from '@/src/icons';
 import { useModal } from '@/src/modules/modal';
 import { Alert } from 'react-native';
 import styled from 'styled-components/native';

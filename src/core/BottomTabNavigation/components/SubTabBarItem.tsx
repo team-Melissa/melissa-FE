@@ -1,6 +1,5 @@
 import { NavButton } from '@/src/core/Button';
-import { IconChat } from '@/src/icons/IconChat';
-import { IconWave } from '@/src/icons/IconWave';
+import { IconChat, IconWave } from '@/src/icons';
 import { useRouter } from 'expo-router';
 import { Alert } from 'react-native';
 import styled from 'styled-components/native';
@@ -31,11 +30,8 @@ const SubTabBarItem = () => {
 export default SubTabBarItem;
 
 const Wrapper = styled.View`
-  position: absolute;
   flex-direction: row;
   padding: 3px;
-  right: 30px;
-  bottom: 50px;
   gap: 10px;
   border-radius: 99px;
 `;

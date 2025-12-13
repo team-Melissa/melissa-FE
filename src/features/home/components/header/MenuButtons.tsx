@@ -1,5 +1,4 @@
-import { IconSearch } from '@/src/icons/IconSearch';
-import { IconSetting } from '@/src/icons/IconSetting';
+import { IconSearch, IconSetting } from '@/src/icons';
 import { useRouter } from 'expo-router';
 import { Alert, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';

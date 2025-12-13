@@ -1,29 +1,33 @@
+import { useGetCalendarView } from '@/src/apis/_generated/serverAPI';
 import { COLOR } from '@/src/constants/theme';
 import { useState } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
+import FeedList from '../components/feed/FeedList';
 import HomeHeader from '../components/header/HomeHeader';
 import { getTodayDateData } from '../utils/getTodayDateData';
+import { isNonNullableDailySummaryResponse } from '../utils/typeGuard';
 
 const FeedContainer = () => {
-  const [month, setMonth] = useState<number>(() => getTodayDateData().month);
+  const todayDate = getTodayDateData();
+  const year = todayDate.year;
+  const [month, setMonth] = useState<number>(todayDate.month);
+
+  const { data } = useGetCalendarView({ year, month });
+  const calendarMonthData = data?.result?.filter(isNonNullableDailySummaryResponse);
 
   return (
-    <SafeView>
-      <Wrapper>
-        <HomeHeader month={month} onChange={setMonth} />
-      </Wrapper>
-    </SafeView>
+    <Wrapper>
+      <HomeHeader month={month} onChange={setMonth} />
+      <FeedList monthData={calendarMonthData ?? []} />
+    </Wrapper>
   );
 };
 
 export default FeedContainer;
 
-const SafeView = styled(SafeAreaView)`
-  flex: 1;
-  background-color: ${COLOR.background};
-`;
-
 const Wrapper = styled.View`
+  flex: 1;
   padding: 0 15px;
+  gap: 25px;
+  background-color: ${COLOR.background};
 `;

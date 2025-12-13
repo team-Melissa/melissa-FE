@@ -1,8 +1,8 @@
-import Svg, { G, Mask, Path, Rect } from 'react-native-svg';
+import Svg, { G, Mask, Path, Rect, type SvgProps } from 'react-native-svg';
 
-export const MoleBust = () => {
+export const MoleBust = (props: SvgProps) => {
   return (
-    <Svg width="55" height="55" viewBox="0 0 55 55" fill="none">
+    <Svg width="55" height="55" viewBox="0 0 55 55" fill="none" {...props}>
       <Rect y="13" width="55" height="42" rx="21" fill="#AC7C76" />
       <Mask id="mask0_1363_1554" maskUnits="userSpaceOnUse" x="0" y="13" width="55" height="42">
         <Rect y="13" width="55" height="42" rx="21" fill="#FFEAEA" />

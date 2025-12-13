@@ -1,6 +1,6 @@
 import { COLOR } from '@/src/constants/theme';
 import { Label } from '@/src/core/Txt';
-import { IconCharacter } from '@/src/icons/IconCharacter';
+import { IconCharacter } from '@/src/icons';
 import styled from 'styled-components/native';
 
 const StreakBadge = () => {
