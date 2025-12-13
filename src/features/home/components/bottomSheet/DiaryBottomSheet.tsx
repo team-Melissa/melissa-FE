@@ -3,6 +3,7 @@ import { mergeRefs } from '@/src/utils/mergeRefs';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { Portal } from '@gorhom/portal';
 import { forwardRef, useRef, useState } from 'react';
+import type { LayoutChangeEvent } from 'react-native';
 import styled from 'styled-components/native';
 import { useBottomSheetBackHandler } from '../../hooks/useBottomSheetBackHandler';
 import type { TDateData } from '../../types';
@@ -13,10 +14,11 @@ type Props = {
   date: TDateData;
 };
 
-const SNAP_POINTS = ['90%'];
+const SNAP_POINTS = ['60%', '90%'];
 
 const DiaryBottomSheet = forwardRef<BottomSheet, Props>(({ date }, ref) => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
+  const [width, setWidth] = useState<number | null>(null);
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   const { data: calendarMonthData } = useGetCalendarView({
@@ -27,6 +29,10 @@ const DiaryBottomSheet = forwardRef<BottomSheet, Props>(({ date }, ref) => {
   const dayData = calendarMonthData?.result?.find(
     (data) => data?.year === date.year && data.month === date.month && data.day === date.day
   );
+
+  const getBottomSheetWidth = (e: LayoutChangeEvent) => {
+    setWidth(e.nativeEvent.layout.width);
+  };
 
   const handleBottomSheetChange = (idx: number) => {
     setIsBottomSheetOpen(idx > -1);
@@ -44,7 +50,7 @@ const DiaryBottomSheet = forwardRef<BottomSheet, Props>(({ date }, ref) => {
         index={-1}
         snapPoints={SNAP_POINTS}
         enableDynamicSizing={false}
-        enableContentPanningGesture={false}
+        enableContentPanningGesture={true}
         enablePanDownToClose
         style={{ overflow: 'hidden' }}
         backgroundStyle={{ borderRadius: 40 }}
@@ -52,7 +58,11 @@ const DiaryBottomSheet = forwardRef<BottomSheet, Props>(({ date }, ref) => {
         backdropComponent={Backdrop}
         onChange={handleBottomSheetChange}
       >
-        {dayData && <DiaryBottomSheetList dayData={dayData} />}
+        {dayData && (
+          <Wrapper onLayout={getBottomSheetWidth}>
+            <DiaryBottomSheetList width={width} dayData={dayData} />
+          </Wrapper>
+        )}
       </StyledBottomSheet>
     </Portal>
   );
@@ -64,4 +74,8 @@ export default DiaryBottomSheet;
 
 const StyledBottomSheet = styled(BottomSheet)`
   border-radius: 40px;
+`;
+
+const Wrapper = styled.View`
+  flex: 1;
 `;
