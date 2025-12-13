@@ -3,15 +3,16 @@ import BottomSheet from '@gorhom/bottom-sheet';
 import { useRef, useState } from 'react';
 import { CalendarList, DateData } from 'react-native-calendars';
 import styled from 'styled-components/native';
-import CalendarBottomSheet from '../components/calendar/CalendarBottomSheet';
+import DiaryBottomSheet from '../components/bottomSheet/DiaryBottomSheet';
 import CalendarDay from '../components/calendar/CalendarDay';
 import CalendarHeader from '../components/calendar/CalendarHeader';
 import { HASHTAG_BUBBLE_INTERVAL } from '../constants';
 import { useRandomizeHashtagBubble } from '../hooks/useRandomizeHashtagBubble';
+import type { TDateData } from '../types';
 import { getTodayDateData } from '../utils/getTodayDateData';
 
 const CalendarContainer = () => {
-  const [date, setDate] = useState(getTodayDateData());
+  const [date, setDate] = useState<TDateData>(getTodayDateData());
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   const handleMonthChange = (date: DateData) => {
@@ -48,7 +49,7 @@ const CalendarContainer = () => {
         onDayPress={handleDayPress}
         onMonthChange={handleMonthChange}
       />
-      <CalendarBottomSheet ref={bottomSheetRef} />
+      <DiaryBottomSheet ref={bottomSheetRef} date={date} />
     </Wrapper>
   );
 };
