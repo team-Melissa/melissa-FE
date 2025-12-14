@@ -10,6 +10,7 @@ export * from './IconFeed';
 export * from './IconGoogle';
 export * from './IconKakao';
 export * from './IconSearch';
+export * from './IconSend';
 export * from './IconSetting';
 export * from './IconShared';
 export * from './IconWave';
