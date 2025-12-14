@@ -1,8 +1,10 @@
 import { COLOR } from '@/src/constants/theme';
 import { useRouter } from 'expo-router';
+import { ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 import ChattingHeader from '../components/ChattingHeader';
+import ChattingStartBadge from '../components/ChattingStartBadge';
 import { useChattingQueryParams } from '../hooks/useChattingQueryParams';
 
 const ChattingContainer = () => {
@@ -16,6 +18,9 @@ const ChattingContainer = () => {
   return (
     <SafeView>
       <ChattingHeader characterId={aiProfileId} onBackClick={handleBackClick} />
+      <ScrollView>
+        <ChattingStartBadge characterId={aiProfileId} year={year % 100} month={month} day={day} />
+      </ScrollView>
     </SafeView>
   );
 };
