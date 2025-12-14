@@ -26,6 +26,7 @@ const ButtonWrapper = styled.View`
   align-items: center;
   margin-top: auto;
   gap: 15px;
+  padding-bottom: 15px;
 `;
 
 const ManualDiaryButton = styled.TouchableOpacity`
