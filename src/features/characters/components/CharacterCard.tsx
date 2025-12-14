@@ -1,5 +1,5 @@
 import { COLOR } from '@/src/constants/theme';
-import { LargeTitle } from '@/src/core/Txt';
+import { Body1, LargeTitle } from '@/src/core/Txt';
 import characters from '@/src/modules/character';
 import responsiveToPx from '@/src/utils/responsiveToPx';
 import LottieView from 'lottie-react-native';
@@ -11,7 +11,7 @@ type Props = {
 };
 
 const CharacterCard = ({ characterId }: Props) => {
-  const { name, lottie } = characters[characterId];
+  const { name, description, lottie } = characters[characterId];
 
   return (
     <Wrapper>
@@ -20,6 +20,7 @@ const CharacterCard = ({ characterId }: Props) => {
       </LottieWrapper>
       <TextWrapper>
         <LargeTitle color="title">{name}</LargeTitle>
+        <StyledBody1 color="sub1">{description}</StyledBody1>
       </TextWrapper>
     </Wrapper>
   );
@@ -47,8 +48,13 @@ const StyledLottieView = styled(LottieView)`
 
 const TextWrapper = styled.View`
   width: ${responsiveToPx('255px')};
-  height: ${responsiveToPx('90px')};
+
   background-color: ${COLOR.white};
   padding: 20px;
+  gap: 5px;
   align-items: center;
+`;
+
+const StyledBody1 = styled(Body1)`
+  text-align: center;
 `;

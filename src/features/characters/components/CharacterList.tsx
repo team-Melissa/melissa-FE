@@ -67,5 +67,5 @@ const Container = styled.View`
   position: relative;
   width: 100%;
   justify-content: center;
-  height: ${responsiveToPx('345px')};
+  height: ${responsiveToPx('366px')};
 `;
