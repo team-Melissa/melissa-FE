@@ -1,3 +1,4 @@
+import { isValidCharacterId } from '@/src/modules/character';
 import { useLocalSearchParams } from 'expo-router';
 
 type Params = {
@@ -18,7 +19,7 @@ export const useChattingQueryParams = () => {
   const month = Number(params.month);
   const day = Number(params.day);
 
-  if (isNaN(aiProfileId) || isNaN(year) || isNaN(month) || isNaN(day)) {
+  if (!isValidCharacterId(aiProfileId) || isNaN(year) || isNaN(month) || isNaN(day)) {
     throw new Error('쿼리 파라미터 aiProfileId, year, month, day가 숫자인지 확인해주세요.');
   }
 
