@@ -1,3 +1,4 @@
+import { COLOR } from '@/src/constants/theme';
 import { Description2 } from '@/src/core/Txt';
 import type { CharacterId } from '@/src/modules/character';
 import characters from '@/src/modules/character';
@@ -11,11 +12,11 @@ type Props = {
 };
 
 const ChatStartBadge = ({ characterId, year, month, day }: Props) => {
-  const { name, color } = characters[characterId];
+  const { name } = characters[characterId];
 
   return (
     <Wrapper>
-      <BadgeWrapper style={{ backgroundColor: color }}>
+      <BadgeWrapper style={{ backgroundColor: COLOR.sub1 }}>
         <Description2 color="sub2">
           {year}년 {month}월 {day}일
         </Description2>
