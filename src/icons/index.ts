@@ -1,5 +1,6 @@
 export * from './IconApple';
 export * from './IconArrowDown';
+export * from './IconArrowRIght';
 export * from './IconCalendar';
 export * from './IconCharacter';
 export * from './IconChat';

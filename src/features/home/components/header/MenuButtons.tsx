@@ -1,4 +1,5 @@
 import { IconSearch, IconSetting } from '@/src/icons';
+import { debounce } from '@/src/utils/debounce';
 import { useRouter } from 'expo-router';
 import { Alert, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
@@ -6,13 +7,13 @@ import styled from 'styled-components/native';
 const MenuButtons = () => {
   const router = useRouter();
 
-  const goToSearchPage = () => {
+  const goToSearchPage = debounce(() => {
     Alert.alert('준비중인 기능입니다.');
-  };
+  });
 
-  const goToSettingPage = () => {
+  const goToSettingPage = debounce(() => {
     router.push('/(app)/setting');
-  };
+  });
 
   return (
     <Wrapper>

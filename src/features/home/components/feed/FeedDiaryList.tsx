@@ -1,50 +1,39 @@
 import type { DailySummaryResponseDTO } from '@/src/apis/_generated/serverAPI.schemas';
 import { useState } from 'react';
-import type { LayoutChangeEvent } from 'react-native';
-import PagerView from 'react-native-pager-view';
-import styled from 'styled-components/native';
+import { type LayoutChangeEvent } from 'react-native';
+import Carousel from 'react-native-reanimated-carousel';
 import { isRequiredDiaryDetail } from '../../utils/typeGuard';
 import FeedDiaryListItem from './FeedDiaryListItem';
 
 type Props = {
+  width: number | null;
   dayData: NonNullable<DailySummaryResponseDTO>;
 };
 
-const FeedDiaryList = ({ dayData }: Props) => {
+const FeedDiaryList = ({ width, dayData }: Props) => {
   const { year, month, day } = dayData;
-  const [maxHeight, setMaxHeight] = useState(600);
+  const [height, setHeight] = useState(500);
 
   const getMaxHeight = (e: LayoutChangeEvent) => {
     const layoutHeight = e.nativeEvent.layout.height;
-    setMaxHeight((maxHeight) => Math.max(layoutHeight, maxHeight));
+    setHeight((height) => Math.max(layoutHeight, height));
   };
 
   const diaries = dayData.diaries.filter(isRequiredDiaryDetail);
-  if (diaries.length === 0) return null;
+  if (!width || diaries.length === 0) return null;
 
   return (
-    <Wrapper $height={maxHeight}>
-      <StyledPagerView initialPage={0} pageMargin={30}>
-        {diaries.map((diary) => (
-          <FeedDiaryListItem
-            key={diary.diaryId}
-            date={{ year, month, day }}
-            diaryData={diary}
-            onLayout={getMaxHeight}
-          />
-        ))}
-      </StyledPagerView>
-    </Wrapper>
+    <Carousel
+      width={width}
+      height={height}
+      data={diaries}
+      loop={false}
+      renderItem={({ item }) => (
+        <FeedDiaryListItem date={{ year, month, day }} diaryData={item} onLayout={getMaxHeight} />
+      )}
+      onConfigurePanGesture={(gestureChain) => gestureChain.activeOffsetX([-10, 10])}
+    />
   );
 };
 
 export default FeedDiaryList;
-
-const Wrapper = styled.View<{ $height: number }>`
-  width: 100%;
-  height: ${({ $height }) => $height}px;
-`;
-
-const StyledPagerView = styled(PagerView)`
-  flex: 1;
-`;
