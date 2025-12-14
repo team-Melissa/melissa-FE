@@ -44,10 +44,10 @@ export default ChatInput;
 const Wrapper = styled.View`
   flex-direction: row;
   width: 100%;
-  height: ${responsiveToPx('52px')};
+  height: ${responsiveToPx('72px')};
   align-items: center;
   gap: 8px;
-  margin-bottom: 10px;
+  padding: 10px 0;
 `;
 
 const InputWrapper = styled.View`
@@ -68,5 +68,5 @@ const StyledInput = styled.TextInput`
 
 const SendButton = styled(CircleButton)`
   position: absolute;
-  right: 6px;
+  right: 3px;
 `;
