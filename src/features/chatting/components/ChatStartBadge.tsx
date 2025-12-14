@@ -10,7 +10,7 @@ type Props = {
   day: number;
 };
 
-const ChattingStartBadge = ({ characterId, year, month, day }: Props) => {
+const ChatStartBadge = ({ characterId, year, month, day }: Props) => {
   const { name, color } = characters[characterId];
 
   return (
@@ -25,7 +25,7 @@ const ChattingStartBadge = ({ characterId, year, month, day }: Props) => {
   );
 };
 
-export default ChattingStartBadge;
+export default ChatStartBadge;
 
 const Wrapper = styled.View`
   align-items: center;

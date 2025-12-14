@@ -9,7 +9,7 @@ type Props = {
   onBackClick: () => void;
 };
 
-const ChattingHeader = ({ characterId, onBackClick }: Props) => {
+const ChatHeader = ({ characterId, onBackClick }: Props) => {
   const { bust: Bust } = characters[characterId];
 
   return (
@@ -23,7 +23,7 @@ const ChattingHeader = ({ characterId, onBackClick }: Props) => {
   );
 };
 
-export default ChattingHeader;
+export default ChatHeader;
 
 const Wrapper = styled.View`
   flex-direction: row;
