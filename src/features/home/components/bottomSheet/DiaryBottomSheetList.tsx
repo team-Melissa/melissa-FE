@@ -1,5 +1,4 @@
 import type { DailySummaryResponseDTO } from '@/src/apis/_generated/serverAPI.schemas';
-
 import Carousel from 'react-native-reanimated-carousel';
 import { isRequiredDiaryDetail } from '../../utils/typeGuard';
 import DiaryBottomSheetListItem from './DiaryBottomSheetListItem';
