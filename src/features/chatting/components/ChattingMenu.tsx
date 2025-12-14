@@ -1,14 +1,14 @@
 import { theme } from '@/src/constants/theme';
+import { mergeRefs } from '@/src/utils/mergeRefs';
 import responsiveToPx from '@/src/utils/responsiveToPx';
 import BottomSheet, { BottomSheetBackdrop, type BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
+import { useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'expo-router';
 import { forwardRef, useEffect, useRef } from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 import styled from 'styled-components/native';
-import { RECENT_AI_PROFILE_ID_QUERY_KEY, useRecentAiProfileIdQuery } from '../hooks/queries/useRecentAiProfileIdQuery';
-import { mergeRefs } from '@/src/utils/mergeRefs';
 import { useRemoveAiProfileMutation } from '../hooks/mutations/useRemoveAiProfileMutation';
-import { useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'expo-router';
+import { RECENT_AI_PROFILE_ID_QUERY_KEY, useRecentAiProfileIdQuery } from '../hooks/queries/useRecentAiProfileIdQuery';
 
 const ChattingMenu = forwardRef<BottomSheet, object>((_, ref) => {
   const queryClient = useQueryClient();
@@ -25,7 +25,7 @@ const ChattingMenu = forwardRef<BottomSheet, object>((_, ref) => {
 
   const handleDuplicateAiClick = () => {
     if (!recentAiProfileId) return;
-    return router.push(`/(app)/make-assistant?aiProfileId=${recentAiProfileId}`);
+    // return router.push(`/(app)/make-assistant?aiProfileId=${recentAiProfileId}`);
   };
 
   // ! 현재 대화하는 AI가 아니라, 이전에 대화한 AI가 삭제되는 캐싱 이슈 대응용

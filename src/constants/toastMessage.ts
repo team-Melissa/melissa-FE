@@ -8,9 +8,6 @@ const toastMessage = {
   },
   tokenExpired: '세션이 만료되었습니다. 다시 로그인 해주세요.',
   accountNotFound: '존재하지 않는 계정입니다.',
-  registerSetting: {
-    error: '앱 초기 로딩 중 에러가 발생했어요.',
-  },
   removeAssistant: {
     success: '서포터가 삭제되었습니다.',
     error: '서포터 삭제에 실패했습니다.',

@@ -20,12 +20,6 @@ const endpoint = {
     changeAi: '/api/v1/chats/ai-profile',
     summary: '/api/v2/summary',
   },
-  calendar: {
-    month: '/api/v1/calender/month',
-    day: '/api/v1/calender/day',
-    diaries: '/api/v1/calender/month/summary',
-    createDiary: '/api/v2/chats/manual',
-  },
 } as const;
 
 export default endpoint;
