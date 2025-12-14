@@ -1,12 +1,23 @@
 import { COLOR } from '@/src/constants/theme';
+import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
+import ChattingHeader from '../components/ChattingHeader';
 import { useChattingQueryParams } from '../hooks/useChattingQueryParams';
 
 const ChattingContainer = () => {
   const { aiProfileId, year, month, day } = useChattingQueryParams();
+  const router = useRouter();
 
-  return <SafeView></SafeView>;
+  const handleBackClick = () => {
+    router.back();
+  };
+
+  return (
+    <SafeView>
+      <ChattingHeader characterId={aiProfileId} onBackClick={handleBackClick} />
+    </SafeView>
+  );
 };
 
 export default ChattingContainer;
