@@ -1,0 +1,70 @@
+import { COLOR, FONT_FAMILY } from '@/src/constants/theme';
+import { CircleButton } from '@/src/core/Button';
+import { IconSend, IconWave } from '@/src/icons';
+import responsiveToPx from '@/src/utils/responsiveToPx';
+import { useState } from 'react';
+import styled from 'styled-components/native';
+
+type Props = {
+  onInputSubmit: (input: string) => void;
+  onVoiceModeClick: () => void;
+};
+
+const ChatInput = ({ onInputSubmit, onVoiceModeClick }: Props) => {
+  const [input, setInput] = useState<string>('');
+
+  const handleInputSubmit = () => {
+    onInputSubmit(input);
+    setInput('');
+  };
+
+  return (
+    <Wrapper>
+      <InputWrapper>
+        <StyledInput
+          value={input}
+          onChangeText={setInput}
+          placeholder="오늘 하루에 대해 말해주세요."
+          placeholderTextColor="#93726180"
+        />
+        <SendButton size="small" variant="primary" onPress={handleInputSubmit}>
+          <IconSend />
+        </SendButton>
+      </InputWrapper>
+      <CircleButton size="small" variant="secondary" onPress={onVoiceModeClick}>
+        <IconWave />
+      </CircleButton>
+    </Wrapper>
+  );
+};
+
+export default ChatInput;
+
+const Wrapper = styled.View`
+  flex-direction: row;
+  width: 100%;
+  height: ${responsiveToPx('60px')};
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+`;
+
+const InputWrapper = styled.View`
+  flex: 1;
+  position: relative;
+  justify-content: center;
+`;
+
+const StyledInput = styled.TextInput`
+  flex: 1;
+  border-radius: 99px;
+  padding: 10px 20px;
+  background-color: ${COLOR.white};
+  font-family: ${FONT_FAMILY.pretendard500};
+  font-size: 15px;
+`;
+
+const SendButton = styled(CircleButton)`
+  position: absolute;
+  right: 6px;
+`;
