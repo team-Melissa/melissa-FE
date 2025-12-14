@@ -1,5 +1,5 @@
 import { getGetMessagesQueryKey, useGetMessages, useMessageToAiTest } from '@/src/apis/_generated/serverAPI';
-import { ApiResponseChatListResponse, type ChatResponse } from '@/src/apis/_generated/serverAPI.schemas';
+import { ApiResponseChatListResponse } from '@/src/apis/_generated/serverAPI.schemas';
 import { COLOR } from '@/src/constants/theme';
 import { toast } from '@/src/modules/toast';
 import { useQueryClient } from '@tanstack/react-query';
@@ -15,18 +15,7 @@ import ChatStartBadge from '../components/ChatStartBadge';
 import UserChatBubble from '../components/UserChatBubble';
 import { useChattingQueryParams } from '../hooks/useChattingQueryParams';
 import { chatListFilter } from '../utils';
-
-const setMessages = (oldData: ApiResponseChatListResponse | undefined, newData: ChatResponse) => {
-  if (!oldData?.result) return oldData;
-
-  return {
-    ...oldData,
-    result: {
-      ...oldData.result,
-      chats: [...oldData.result.chats, newData],
-    },
-  };
-};
+import { setOptimisticUserMessage } from '../utils/optimisticUpdate';
 
 const ChatContainer = () => {
   const { aiProfileId, year, month, day } = useChattingQueryParams();
@@ -47,20 +36,12 @@ const ChatContainer = () => {
     mutation: {
       onMutate: ({ data }) => {
         queryClient.setQueryData<ApiResponseChatListResponse>(chatListQueryKey, (oldData) =>
-          setMessages(oldData, {
-            chatId: -1,
-            role: 'USER',
-            content: data.content,
-            createAt: '',
-            aiProfileName: '',
-            aiProfileImageS3: '',
-          })
+          setOptimisticUserMessage(oldData, data.content)
         );
       },
       onSettled: () => queryClient.invalidateQueries({ queryKey: chatListQueryKey }),
       onError: () => {
         toast({ message: '채팅 전송에 실패했습니다.', options: { type: 'error' } });
-        queryClient.invalidateQueries({ queryKey: chatListQueryKey });
       },
     },
   });
