@@ -21,7 +21,7 @@ const CharactersContainer = () => {
   const createThreadMutation = useCreateThread({
     mutation: {
       onSuccess: () => {
-        router.push(`/(app)/chatting?year=${year}&month=${month}&day=${day}&aiProfileId=${aiProfileId}`);
+        router.navigate(`/(app)/chatting?year=${year}&month=${month}&day=${day}&aiProfileId=${aiProfileId}`);
       },
       onError: () => {
         toast({ message: '문제가 발생했습니다.', options: { type: 'error' } });

@@ -11,9 +11,9 @@ const MenuButtons = () => {
     Alert.alert('준비중인 기능입니다.');
   });
 
-  const goToSettingPage = debounce(() => {
-    router.push('/(app)/setting');
-  });
+  const goToSettingPage = () => {
+    router.navigate('/(app)/setting');
+  };
 
   return (
     <Wrapper>
