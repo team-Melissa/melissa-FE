@@ -24,6 +24,7 @@ const ChatInput = ({ onInputSubmit, onVoiceModeClick }: Props) => {
         <StyledInput
           value={input}
           onChangeText={setInput}
+          multiline
           placeholder="오늘 하루에 대해 말해주세요."
           placeholderTextColor="#93726180"
         />
@@ -43,7 +44,7 @@ export default ChatInput;
 const Wrapper = styled.View`
   flex-direction: row;
   width: 100%;
-  height: ${responsiveToPx('60px')};
+  height: ${responsiveToPx('52px')};
   align-items: center;
   gap: 8px;
   margin-bottom: 10px;
@@ -58,10 +59,11 @@ const InputWrapper = styled.View`
 const StyledInput = styled.TextInput`
   flex: 1;
   border-radius: 99px;
-  padding: 10px 20px;
+  padding: 10px 60px 10px 20px;
   background-color: ${COLOR.white};
   font-family: ${FONT_FAMILY.pretendard500};
   font-size: 15px;
+  color: ${COLOR.title};
 `;
 
 const SendButton = styled(CircleButton)`
