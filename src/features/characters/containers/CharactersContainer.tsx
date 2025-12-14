@@ -24,7 +24,7 @@ const CharactersContainer = () => {
   return (
     <SafeView>
       <CharacterPageHeader onBackClick={handleBackClick} />
-      <CharacterList onSelectChange={handleAiProfileIdChange} />
+      <CharacterList selectedId={aiProfileId} onSelectChange={handleAiProfileIdChange} />
     </SafeView>
   );
 };
