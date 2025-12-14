@@ -6,7 +6,7 @@ type Params = {
   day?: string;
 };
 
-export const useDateSearchParams = () => {
+export const useCharactersQueryParams = () => {
   const params = useLocalSearchParams<Params>();
   if (!params || !params.year || !params.month || !params.day) {
     throw new Error('쿼리 파라미터 year, month, day를 전달했는지 확인해주세요.');
