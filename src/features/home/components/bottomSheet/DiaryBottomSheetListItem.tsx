@@ -1,4 +1,5 @@
 import type { DiaryDetailDTO } from '@/src/apis/_generated/serverAPI.schemas';
+import PlaceholderImage from '@/src/core/PlaceholderImage';
 import { Body2, Description2, Title } from '@/src/core/Txt';
 import { IconShared } from '@/src/icons';
 import { Image } from 'expo-image';
@@ -13,7 +14,9 @@ type Props = {
 const DiaryBottomSheetListItem = ({ date, diaryData }: Props) => {
   return (
     <Wrapper>
-      <StyledImage source={{ uri: diaryData.imageUrl }} />
+      <ImageWrapper>
+        {diaryData.imageUrl ? <StyledImage source={{ uri: diaryData.imageUrl }} /> : <PlaceholderImage />}
+      </ImageWrapper>
       <RelativeWrapper>
         <ShareButton hitSlop={5}>
           <IconShared />
@@ -40,10 +43,15 @@ const Wrapper = styled.View`
   border-radius: 40px;
 `;
 
-const StyledImage = styled(Image)`
+const ImageWrapper = styled.View`
   width: 100%;
   aspect-ratio: 1;
   border-radius: 25px;
+  overflow: hidden;
+`;
+
+const StyledImage = styled(Image)`
+  flex: 1;
 `;
 
 const RelativeWrapper = styled.View`

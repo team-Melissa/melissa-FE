@@ -1,4 +1,3 @@
-import { useGetCalendarView } from '@/src/apis/_generated/serverAPI';
 import { mergeRefs } from '@/src/utils/mergeRefs';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { Portal } from '@gorhom/portal';
@@ -6,6 +5,7 @@ import { forwardRef, useRef, useState } from 'react';
 import type { LayoutChangeEvent } from 'react-native';
 import styled from 'styled-components/native';
 import { useBottomSheetBackHandler } from '../../hooks/useBottomSheetBackHandler';
+import { useGetDiary } from '../../hooks/useGetDiary';
 import type { TDateData } from '../../types';
 import Backdrop from './Backdrop';
 import DiaryBottomSheetList from './DiaryBottomSheetList';
@@ -21,7 +21,7 @@ const DiaryBottomSheet = forwardRef<BottomSheet, Props>(({ date }, ref) => {
   const [width, setWidth] = useState<number | null>(null);
   const bottomSheetRef = useRef<BottomSheet>(null);
 
-  const { data: calendarMonthData } = useGetCalendarView({
+  const { data: calendarMonthData } = useGetDiary({
     year: date.year,
     month: date.month,
   });

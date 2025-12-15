@@ -1,8 +1,9 @@
-import { getGetCalendarViewQueryKey, useGetCalendarView } from '@/src/apis/_generated/serverAPI';
+import { getGetCalendarViewQueryKey } from '@/src/apis/_generated/serverAPI';
 import type { ApiResponseListDailySummaryResponseDTO } from '@/src/apis/_generated/serverAPI.schemas';
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 import { isNonNullableDailySummaryResponse } from '../utils/typeGuard';
+import { useGetDiary } from './useGetDiary';
 
 type Props = {
   year: number;
@@ -21,7 +22,7 @@ export const useRandomizeHashtagBubble = ({ year, month, intervalMs }: Props) =>
   const isEvenTurnRef = useRef<boolean>(true);
   const queryClient = useQueryClient();
 
-  const { data } = useGetCalendarView({ year, month });
+  const { data } = useGetDiary({ year, month });
 
   useEffect(() => {
     if (!data?.result) return;

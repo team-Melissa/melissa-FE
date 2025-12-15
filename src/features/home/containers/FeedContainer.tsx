@@ -1,10 +1,10 @@
-import { useGetCalendarView } from '@/src/apis/_generated/serverAPI';
 import { COLOR } from '@/src/constants/theme';
 import { getTodayDate } from '@/src/utils/date';
 import { useState } from 'react';
 import styled from 'styled-components/native';
 import FeedList from '../components/feed/FeedList';
 import HomeHeader from '../components/header/HomeHeader';
+import { useGetDiary } from '../hooks/useGetDiary';
 import { isNonNullableDailySummaryResponse } from '../utils/typeGuard';
 
 const FeedContainer = () => {
@@ -12,7 +12,7 @@ const FeedContainer = () => {
   const year = todayDate.year;
   const [month, setMonth] = useState<number>(todayDate.month);
 
-  const { data } = useGetCalendarView({ year, month });
+  const { data } = useGetDiary({ year, month });
   const calendarMonthData = data?.result?.filter(isNonNullableDailySummaryResponse);
 
   return (
