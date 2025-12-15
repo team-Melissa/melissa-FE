@@ -1,4 +1,5 @@
 import { COLOR } from '@/src/constants/theme';
+import PlaceholderImage from '@/src/core/PlaceholderImage';
 import { Image } from 'expo-image';
 import styled from 'styled-components/native';
 import type { CalendarDayData } from '../../types';
@@ -12,13 +13,13 @@ const CalendarDayContent = ({ dayData }: Props) => {
   const imageUrl = dayData?.diaries.at(0)?.imageUrl;
   const hashtag = dayData?.diaries.at(0)?.hashtag1;
 
-  if (!imageUrl || !hashtag) {
+  if (!hashtag) {
     return <EmptyBox />;
   }
 
   return (
     <ImageBorderWrapper>
-      <StyledImage source={{ uri: imageUrl }} />
+      <ImageWrapper>{imageUrl ? <StyledImage source={{ uri: imageUrl }} /> : <PlaceholderImage />}</ImageWrapper>
       <HashtagBubble isVisible={!!dayData?.showBubble} hashtag={hashtag} />
     </ImageBorderWrapper>
   );
@@ -40,8 +41,13 @@ const ImageBorderWrapper = styled.View`
   border-radius: 19px;
 `;
 
-const StyledImage = styled(Image)`
+const ImageWrapper = styled.View`
   width: 100%;
   aspect-ratio: 1;
   border-radius: 15px;
+  overflow: hidden;
+`;
+
+const StyledImage = styled(Image)`
+  flex: 1;
 `;
