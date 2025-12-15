@@ -1,22 +1,17 @@
 import { Body1 } from '@/src/core/Txt';
-import { IconCheck, IconX } from '@/src/icons';
 import { responsiveToPxByHeight } from '@/src/utils/responsiveToPx';
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import styled from 'styled-components/native';
-import { DEFAULT_DURATION } from '../constants/toastConstants';
-import type { ToastType, TToast } from '../types/toastTypes';
-
-const Icon = {
-  success: <IconCheck />,
-  error: <IconX />,
-} satisfies Record<ToastType, ReactNode>;
+import { DEFAULT_DURATION, TOAST_ICON } from '../constants/toastConstants';
+import type { TToast } from '../types/toastTypes';
 
 export const Toast = ({ message, options }: Omit<TToast, 'id'>) => {
   const [isRender, setIsRender] = useState<boolean>(true);
   const duration = options?.duration ?? DEFAULT_DURATION;
   const type = options?.type ?? 'success';
+  const Icon = TOAST_ICON[type];
 
   const handleToastTouch = () => setIsRender(false);
 
@@ -38,7 +33,7 @@ export const Toast = ({ message, options }: Omit<TToast, 'id'>) => {
       accessibilityRole="alert"
       accessibilityLiveRegion="assertive"
     >
-      {Icon[type]}
+      <Icon />
       <View>
         <Body1 color="white">{message}</Body1>
       </View>
