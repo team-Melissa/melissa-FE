@@ -1,9 +1,9 @@
+import type { CharacterId } from '@/src/modules/character';
 import responsiveToPx from '@/src/utils/responsiveToPx';
 import { useRef, useState } from 'react';
 import type { LayoutChangeEvent } from 'react-native';
 import Carousel, { type ICarouselInstance } from 'react-native-reanimated-carousel';
 import styled from 'styled-components/native';
-import type { CharacterId } from '../types';
 import CarouselButton from './CarouselButton';
 import CharacterCard from './CharacterCard';
 

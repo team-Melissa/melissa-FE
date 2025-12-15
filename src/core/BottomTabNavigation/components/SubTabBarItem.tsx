@@ -14,10 +14,10 @@ const SubTabBarItem = () => {
     Alert.alert('준비중인 기능입니다.');
   });
 
-  const goToChattingPage = debounce(() => {
+  const goToChattingPage = () => {
     // 채팅 버튼 클릭 시, 항상 오늘로 세팅
-    router.push(`/(app)/characters?year=${year}&month=${month}&day=${day}`);
-  });
+    router.navigate(`/(app)/characters?year=${year}&month=${month}&day=${day}`);
+  };
 
   return (
     <Wrapper>

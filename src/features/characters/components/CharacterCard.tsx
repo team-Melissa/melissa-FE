@@ -1,10 +1,9 @@
 import { COLOR } from '@/src/constants/theme';
 import { Body1, LargeTitle } from '@/src/core/Txt';
-import characters from '@/src/modules/character';
+import characters, { type CharacterId } from '@/src/modules/character';
 import responsiveToPx from '@/src/utils/responsiveToPx';
 import LottieView from 'lottie-react-native';
 import styled from 'styled-components/native';
-import type { CharacterId } from '../types';
 
 type Props = {
   characterId: CharacterId;

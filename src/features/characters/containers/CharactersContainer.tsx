@@ -1,7 +1,7 @@
 import { useCreateThread } from '@/src/apis/_generated/serverAPI';
 import { COLOR } from '@/src/constants/theme';
 import { LargeTitle } from '@/src/core/Txt';
-
+import type { CharacterId } from '@/src/modules/character';
 import { toast } from '@/src/modules/toast';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
@@ -12,7 +12,6 @@ import ActionButtons from '../components/ActionButtons';
 import CharacterList from '../components/CharacterList';
 import CharacterPageHeader from '../components/CharacterPageHeader';
 import { useCharactersQueryParams } from '../hooks/useCharactersQueryParams';
-import type { CharacterId } from '../types';
 
 const CharactersContainer = () => {
   const { year, month, day } = useCharactersQueryParams();
@@ -22,7 +21,7 @@ const CharactersContainer = () => {
   const createThreadMutation = useCreateThread({
     mutation: {
       onSuccess: () => {
-        router.push(`/(app)/chatting?year=${year}&month=${month}&day=${day}&aiProfileId=${aiProfileId}`);
+        router.navigate(`/(app)/chatting?year=${year}&month=${month}&day=${day}&aiProfileId=${aiProfileId}`);
       },
       onError: () => {
         toast({ message: '문제가 발생했습니다.', options: { type: 'error' } });
