@@ -5,14 +5,15 @@ import styled from 'styled-components/native';
 
 type Props = {
   isVisible: boolean;
+  disabled: boolean;
   onClick: () => void;
 };
 
-const GenerateDiaryButton = ({ isVisible, onClick }: Props) => {
+const GenerateDiaryButton = ({ isVisible, disabled, onClick }: Props) => {
   if (!isVisible) return null;
 
   return (
-    <StyledPrimaryButton size="small" icon={<IconCheck />} onPress={onClick}>
+    <StyledPrimaryButton size="small" icon={<IconCheck />} disabled={disabled} onPress={onClick}>
       일기 쓰기
     </StyledPrimaryButton>
   );

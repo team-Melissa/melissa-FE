@@ -106,7 +106,11 @@ const ChatContainer = () => {
           })}
         </StyledScrollView>
         <View>
-          <GenerateDiaryButton isVisible={canGenerateDiary} onClick={handleDiarySummaryClick} />
+          <GenerateDiaryButton
+            isVisible={canGenerateDiary}
+            disabled={generateDiaryMutation.isPending}
+            onClick={handleDiarySummaryClick}
+          />
           <ChatInput
             inputDisabled={sendChatMutation.isPending}
             onInputSubmit={handleInputSubmit}
