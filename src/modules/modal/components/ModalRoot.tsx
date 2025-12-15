@@ -1,3 +1,5 @@
+import { useIsKeyboardOpen } from '@/src/hooks/useIsKeyboardOpen';
+import type { ReactNode } from 'react';
 import {
   type GestureResponderEvent,
   Keyboard,
@@ -6,17 +8,16 @@ import {
   Platform,
   TouchableWithoutFeedback,
 } from 'react-native';
-import type { ReactNode } from 'react';
 import styled from 'styled-components/native';
-import { useIsKeyboardOpen } from '@/src/hooks/useIsKeyboardOpen';
 
 type ModalRootProps = {
   isOpen: boolean;
   onClose: () => void;
   children: ReactNode;
+  backdropOpacity?: number;
 };
 
-export const ModalRoot = ({ isOpen, onClose, children }: ModalRootProps) => {
+export const ModalRoot = ({ isOpen, onClose, children, backdropOpacity = 0.5 }: ModalRootProps) => {
   const isKeyboardOpen = useIsKeyboardOpen();
 
   const handleBackdropPress = () => {
@@ -35,7 +36,7 @@ export const ModalRoot = ({ isOpen, onClose, children }: ModalRootProps) => {
       <Modal visible={isOpen} animationType="fade" onRequestClose={onClose} transparent>
         <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
           <TouchableWithoutFeedback onPress={handleBackdropPress}>
-            <Backdrop>
+            <Backdrop $opacity={backdropOpacity}>
               <TouchableWithoutFeedback onPress={handleInnerClick}>{children}</TouchableWithoutFeedback>
             </Backdrop>
           </TouchableWithoutFeedback>
@@ -47,7 +48,7 @@ export const ModalRoot = ({ isOpen, onClose, children }: ModalRootProps) => {
   return (
     <Modal visible={isOpen} animationType="fade" onRequestClose={onClose} transparent statusBarTranslucent>
       <TouchableWithoutFeedback onPress={handleBackdropPress}>
-        <Backdrop>
+        <Backdrop $opacity={backdropOpacity}>
           <TouchableWithoutFeedback onPress={handleInnerClick}>{children}</TouchableWithoutFeedback>
         </Backdrop>
       </TouchableWithoutFeedback>
@@ -55,9 +56,9 @@ export const ModalRoot = ({ isOpen, onClose, children }: ModalRootProps) => {
   );
 };
 
-const Backdrop = styled.View`
+const Backdrop = styled.View<{ $opacity: number }>`
   flex: 1;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, ${({ $opacity }) => $opacity});
   justify-content: center;
   align-items: center;
 `;
