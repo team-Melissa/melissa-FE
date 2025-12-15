@@ -5,6 +5,7 @@ export * from './IconCalendar';
 export * from './IconCharacter';
 export * from './IconChat';
 export * from './IconCheck';
+export * from './IconDownload';
 export * from './IconEllipsis';
 export * from './IconFeed';
 export * from './IconGoogle';
