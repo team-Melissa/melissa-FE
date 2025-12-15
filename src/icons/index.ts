@@ -9,6 +9,7 @@ export * from './IconEllipsis';
 export * from './IconFeed';
 export * from './IconGoogle';
 export * from './IconKakao';
+export * from './IconMelissa';
 export * from './IconSearch';
 export * from './IconSend';
 export * from './IconSetting';
