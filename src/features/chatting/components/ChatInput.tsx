@@ -6,15 +6,19 @@ import { useState } from 'react';
 import styled from 'styled-components/native';
 
 type Props = {
+  inputDisabled: boolean;
   onInputSubmit: (input: string) => void;
   onVoiceModeClick: () => void;
 };
 
-const ChatInput = ({ onInputSubmit, onVoiceModeClick }: Props) => {
+const ChatInput = ({ inputDisabled, onInputSubmit, onVoiceModeClick }: Props) => {
   const [input, setInput] = useState<string>('');
 
   const handleInputSubmit = () => {
-    onInputSubmit(input);
+    if (inputDisabled) return;
+    const trimmedInput = input.trim();
+    if (!trimmedInput) return;
+    onInputSubmit(trimmedInput);
     setInput('');
   };
 
@@ -28,7 +32,7 @@ const ChatInput = ({ onInputSubmit, onVoiceModeClick }: Props) => {
           placeholder="오늘 하루에 대해 말해주세요."
           placeholderTextColor="#93726180"
         />
-        <SendButton size="small" variant="primary" onPress={handleInputSubmit}>
+        <SendButton size="small" variant="primary" disabled={inputDisabled} onPress={handleInputSubmit}>
           <IconSend />
         </SendButton>
       </InputWrapper>
