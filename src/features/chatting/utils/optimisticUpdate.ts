@@ -7,9 +7,9 @@ export const setOptimisticUserMessage = (oldData: ApiResponseChatListResponse | 
     chatId: -1,
     role: 'USER',
     content: input,
-    createAt: '',
-    aiProfileName: '',
-    aiProfileImageS3: '',
+    createAt: '_',
+    aiProfileName: '_',
+    aiProfileImageS3: '_',
   } as const;
 
   return {
