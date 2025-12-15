@@ -5,7 +5,7 @@ import styled from 'styled-components/native';
 
 const PLACEHOLDER_IMG_SRC = 'https://melissa-s3.s3.ap-northeast-2.amazonaws.com/default.png';
 
-export const PlaceholderImage = (props: Omit<ImageProps, 'src'>) => {
+const PlaceholderImage = (props: Omit<ImageProps, 'src'>) => {
   const [width, setWidth] = useState<number>(0);
 
   const translateX = useRef(new Animated.Value(0)).current;
@@ -46,6 +46,8 @@ export const PlaceholderImage = (props: Omit<ImageProps, 'src'>) => {
     </Wrapper>
   );
 };
+
+export default PlaceholderImage;
 
 const Wrapper = styled.View`
   width: 100%;
