@@ -42,6 +42,7 @@ const SettingList = ({ settingData, onNotificationToggle, onSleepTimeChange, onN
     ));
   };
 
+  // TODO: 피드백 라우터를 따로 두고, 해당 페이지로 navigate. @emailjs/react-native로 구현 예정
   const handleFeedbackClick = () => {
     Alert.alert('준비중인 기능입니다.');
   };
