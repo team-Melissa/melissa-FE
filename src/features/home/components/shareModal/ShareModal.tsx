@@ -5,6 +5,7 @@ import * as MediaLibrary from 'expo-media-library';
 import * as Sharing from 'expo-sharing';
 import { useRef } from 'react';
 import { Alert, View } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { captureRef } from 'react-native-view-shot';
 import styled from 'styled-components/native';
 import type { TDate } from '../../types';
@@ -46,20 +47,20 @@ const ShareModal = ({ isOpen, date, diaryData, onClose }: Props) => {
 
   return (
     <ModalRoot isOpen={isOpen} onClose={onClose} backdropOpacity={0.9}>
-      <StyledView>
+      <StyledGestureHandlerRootView>
         <StyledBackButton hitSlop={5} onPress={onClose}>
           <IconX width={30} height={30} />
         </StyledBackButton>
         <ShareDiaryList ref={diaryViewRef} date={date} diaryData={diaryData} />
         <ShareActionButtons onDownloadClick={handleDownloadClick} onShareClick={handleShareClick} />
-      </StyledView>
+      </StyledGestureHandlerRootView>
     </ModalRoot>
   );
 };
 
 export default ShareModal;
 
-const StyledView = styled.View`
+const StyledGestureHandlerRootView = styled(GestureHandlerRootView)`
   width: 100%;
   height: 85%;
   justify-content: center;
