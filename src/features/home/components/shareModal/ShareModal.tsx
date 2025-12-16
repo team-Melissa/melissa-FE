@@ -2,6 +2,7 @@ import type { DiaryDetailDTO } from '@/src/apis/_generated/serverAPI.schemas';
 import { IconX } from '@/src/icons';
 import { ModalRoot } from '@/src/modules/modal';
 import * as MediaLibrary from 'expo-media-library';
+import * as Sharing from 'expo-sharing';
 import { useRef } from 'react';
 import { Alert, View } from 'react-native';
 import { captureRef } from 'react-native-view-shot';
@@ -33,6 +34,16 @@ const ShareModal = ({ isOpen, date, diaryData, onClose }: Props) => {
     }
   };
 
+  const handleShareClick = async () => {
+    try {
+      const imageUri = await captureRef(diaryViewRef);
+      await Sharing.shareAsync(imageUri);
+    } catch (e) {
+      console.error(e);
+      Alert.alert('공유에 실패했습니다');
+    }
+  };
+
   return (
     <ModalRoot isOpen={isOpen} onClose={onClose} backdropOpacity={0.9}>
       <StyledView>
@@ -40,7 +51,7 @@ const ShareModal = ({ isOpen, date, diaryData, onClose }: Props) => {
           <IconX width={30} height={30} />
         </StyledBackButton>
         <ShareDiaryList ref={diaryViewRef} date={date} diaryData={diaryData} />
-        <ShareActionButtons onDownloadClick={handleDownloadClick} onShareClick={() => {}} />
+        <ShareActionButtons onDownloadClick={handleDownloadClick} onShareClick={handleShareClick} />
       </StyledView>
     </ModalRoot>
   );
