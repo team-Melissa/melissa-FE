@@ -65,6 +65,7 @@ const ChatContainer = () => {
       },
       onSuccess: () => {
         toast({ message: '일기가 생성되었습니다.', options: { type: 'success' } });
+        router.navigate('/(app)/(tab)/calendar');
       },
       onError: () => {
         toast({ message: '일기 생성에 실패했습니다.', options: { type: 'error' } });
