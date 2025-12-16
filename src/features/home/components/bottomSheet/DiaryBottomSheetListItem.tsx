@@ -2,23 +2,34 @@ import type { DiaryDetailDTO } from '@/src/apis/_generated/serverAPI.schemas';
 import PlaceholderImage from '@/src/core/PlaceholderImage';
 import { Body2, Description2, Title } from '@/src/core/Txt';
 import { IconShared } from '@/src/icons';
+import { useModal } from '@/src/modules/modal';
 import { Image } from 'expo-image';
 import styled from 'styled-components/native';
+import type { TDate } from '../../types';
 import DiaryCreatedByInfo from '../DiaryCreatedByInfo';
+import ShareModal from '../shareModal/ShareModal';
 
 type Props = {
-  date: { year: number; month: number; day: number };
+  date: TDate;
   diaryData: Required<DiaryDetailDTO>;
 };
 
 const DiaryBottomSheetListItem = ({ date, diaryData }: Props) => {
+  const shareModal = useModal();
+
+  const handleShareModalOpen = () => {
+    shareModal.open(({ isOpen, exit }) => (
+      <ShareModal isOpen={isOpen} date={date} diaryData={diaryData} onClose={exit} />
+    ));
+  };
+
   return (
     <Wrapper>
       <ImageWrapper>
         {diaryData.imageUrl ? <StyledImage source={{ uri: diaryData.imageUrl }} /> : <PlaceholderImage />}
       </ImageWrapper>
       <RelativeWrapper>
-        <ShareButton hitSlop={5}>
+        <ShareButton hitSlop={5} onPress={handleShareModalOpen}>
           <IconShared />
         </ShareButton>
         <StyledDateTxt color="title">
@@ -62,6 +73,7 @@ const ShareButton = styled.TouchableOpacity`
   position: absolute;
   top: 0;
   right: 0;
+  z-index: 10;
 `;
 
 const StyledDateTxt = styled(Description2)`
