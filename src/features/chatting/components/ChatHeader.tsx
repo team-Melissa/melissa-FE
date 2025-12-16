@@ -1,110 +1,46 @@
-import styled from "styled-components/native";
-import { useRouter } from "expo-router";
-import { MaterialIcons } from "@expo/vector-icons";
-import { Image } from "expo-image";
-import responsiveToPx, { responsiveToPxByHeight } from "@/src/utils/responsiveToPx";
-import { theme } from "@/src/constants/theme";
-import { PlaceholderImage } from "@/src/components/ui/PlaceholderImage";
-import { Keyboard } from "react-native";
-import { useIsKeyboardOpen } from "@/src/hooks/useIsKeyboardOpen";
-import { IconMenu, IconSave } from "./icons";
+import { IconArrowDown } from '@/src/icons';
+import characters, { type CharacterId } from '@/src/modules/character';
+import responsiveToPx from '@/src/utils/responsiveToPx';
+import { TouchableOpacity } from 'react-native';
+import styled from 'styled-components/native';
 
 type Props = {
-  imageSrc: string | null;
-  assistantName: string;
-  onSavePress?: () => void;
-  onMenuPress?: () => void;
+  characterId: CharacterId;
+  onBackClick: () => void;
 };
 
-const ChatHeader = ({ imageSrc, assistantName, onSavePress, onMenuPress }: Props) => {
-  const router = useRouter();
-  const isKeyboardOpen = useIsKeyboardOpen();
-
-  const goToBack = () => router.back();
-
-  const handleSavePress = () => {
-    if (isKeyboardOpen) Keyboard.dismiss();
-    onSavePress?.();
-  };
-
-  const handleMenuPress = () => {
-    if (isKeyboardOpen) Keyboard.dismiss();
-    onMenuPress?.();
-  };
+const ChatHeader = ({ characterId, onBackClick }: Props) => {
+  const { bust: Bust } = characters[characterId];
 
   return (
-    <HeaderBox>
-      <StyledButton onPress={goToBack} hitSlop={12}>
-        <MaterialIcons name="arrow-back-ios" size={24} color={theme.colors.black} />
-      </StyledButton>
-      <ProfileBox>
-        <ImageBox>{imageSrc ? <SImage source={{ uri: imageSrc }} /> : <PlaceholderImage />}</ImageBox>
-        <AiNameText>{assistantName}</AiNameText>
-      </ProfileBox>
-      <ButtonBox>
-        {onSavePress && (
-          <StyledButton onPress={handleSavePress} hitSlop={12}>
-            <IconSave />
-          </StyledButton>
-        )}
-        {onMenuPress && (
-          <StyledButton onPress={handleMenuPress} hitSlop={12}>
-            <IconMenu />
-          </StyledButton>
-        )}
-      </ButtonBox>
-    </HeaderBox>
+    <Wrapper>
+      <TouchableOpacity onPress={onBackClick} hitSlop={5}>
+        <StyledIconArrowLeft width={30} height={30} />
+      </TouchableOpacity>
+      <Bust />
+      <EmptyView />
+    </Wrapper>
   );
 };
 
 export default ChatHeader;
 
-const HeaderBox = styled.View`
-  width: 100%;
-  height: ${responsiveToPxByHeight("110px")};
-  background-color: ${({ theme }) => theme.colors.white};
+const Wrapper = styled.View`
   flex-direction: row;
-  padding: 0px ${responsiveToPx("24px")};
   justify-content: space-between;
   align-items: center;
-  gap: ${({ theme }) => theme.gap.lg};
-`;
-
-const StyledButton = styled.TouchableOpacity`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ProfileBox = styled.View`
-  flex-direction: row;
-  gap: ${({ theme }) => theme.gap.lg};
-  align-items: center;
-`;
-
-const ImageBox = styled.View`
-  width: ${responsiveToPx("48px")};
-  height: ${responsiveToPx("48px")};
-  border-radius: 9999px;
-  overflow: hidden;
-`;
-
-const SImage = styled(Image)`
   width: 100%;
-  height: 100%;
+  padding: 15px 0;
+  margin-bottom: 20px;
 `;
 
-const AiNameText = styled.Text`
-  color: ${({ theme }) => theme.colors.black};
-  font-family: ${({ theme }) => theme.fontFamily.nsBold};
-  font-size: ${({ theme }) => theme.fontSize.lg};
+const StyledIconArrowLeft = styled(IconArrowDown)`
+  width: ${responsiveToPx('30px')};
+  height: ${responsiveToPx('30px')};
+  transform: rotate(90deg);
 `;
 
-const ButtonBox = styled.View`
-  width: ${responsiveToPx("60px")};
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 25px;
+const EmptyView = styled.View`
+  width: ${responsiveToPx('30px')};
+  height: ${responsiveToPx('30px')};
 `;

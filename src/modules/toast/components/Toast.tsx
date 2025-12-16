@@ -1,18 +1,17 @@
-import { useEffect, useState } from "react";
-import { View } from "react-native";
-import { Image } from "expo-image";
-import styled from "styled-components/native";
-import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
-import responsiveToPx from "@/src/utils/responsiveToPx";
-import { shadowProps } from "@/src/constants/shadowProps";
-import { DEFAULT_DURATION } from "../constants/toastConstants";
-import { getToastIcon } from "../utils/getToastIcon";
-import type { TToast } from "../types/toastTypes";
+import { Body1 } from '@/src/core/Txt';
+import { responsiveToPxByHeight } from '@/src/utils/responsiveToPx';
+import { useEffect, useState } from 'react';
+import { View } from 'react-native';
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
+import styled from 'styled-components/native';
+import { DEFAULT_DURATION, TOAST_ICON } from '../constants/toastConstants';
+import type { TToast } from '../types/toastTypes';
 
-export const Toast = ({ message, subMessage, options }: Omit<TToast, "id">) => {
+export const Toast = ({ message, options }: Omit<TToast, 'id'>) => {
   const [isRender, setIsRender] = useState<boolean>(true);
   const duration = options?.duration ?? DEFAULT_DURATION;
-  const type = options?.type ?? "success";
+  const type = options?.type ?? 'success';
+  const Icon = TOAST_ICON[type];
 
   const handleToastTouch = () => setIsRender(false);
 
@@ -31,40 +30,26 @@ export const Toast = ({ message, subMessage, options }: Omit<TToast, "id">) => {
       onTouchStart={handleToastTouch}
       entering={FadeIn.duration(200)}
       exiting={FadeOut.duration(200)}
-      style={shadowProps}
       accessibilityRole="alert"
       accessibilityLiveRegion="assertive"
     >
-      <ToastIcon source={getToastIcon(type)} />
+      <Icon />
       <View>
-        <ToastText>{message}</ToastText>
-        {subMessage && <ToastText>{subMessage}</ToastText>}
+        <Body1 color="white">{message}</Body1>
       </View>
     </ToastBox>
   );
 };
 
 const ToastBox = styled(Animated.View)`
-  width: ${responsiveToPx("380px")};
   position: absolute;
   display: flex;
   flex-direction: row;
-  gap: ${({ theme }) => theme.gap.md};
+  gap: 4px;
   align-items: center;
   align-self: center;
-  bottom: 50px;
-  padding: 14px 16px;
-  background-color: ${({ theme }) => theme.colors.white};
-  border-radius: ${({ theme }) => theme.borderRadius.xs};
-`;
-
-const ToastIcon = styled(Image)`
-  width: ${responsiveToPx("24px")};
-  height: ${responsiveToPx("24px")};
-`;
-
-const ToastText = styled.Text`
-  font-family: ${({ theme }) => theme.fontFamily.nsRegular};
-  color: ${({ theme }) => theme.colors.textGray};
-  font-size: ${({ theme }) => theme.fontSize.base};
+  bottom: ${responsiveToPxByHeight('100px')};
+  padding: 8px 12px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 99px;
 `;

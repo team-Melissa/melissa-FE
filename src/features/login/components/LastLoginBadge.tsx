@@ -1,7 +1,14 @@
-import { shadowProps } from "@/src/constants/shadowProps";
-import { getOAuthProvider } from "@/src/libs/mmkv";
-import styled from "styled-components/native";
-import { loginProviderLabels } from "../constants";
+import { COLOR, SHADOW } from '@/src/constants/theme';
+import { Description1, Description2 } from '@/src/core/Txt';
+import { getOAuthProvider } from '@/src/libs/mmkv';
+import type { OAuthProvider } from '@/src/types/commonTypes';
+import styled from 'styled-components/native';
+
+const label = {
+  KAKAO: 'Kakao',
+  GOOGLE: 'Google',
+  APPLE: 'Apple',
+} satisfies Record<OAuthProvider, string>;
 
 export default function LastLoginBadge() {
   const lastLoginProvider = getOAuthProvider();
@@ -9,33 +16,17 @@ export default function LastLoginBadge() {
   if (!lastLoginProvider) return null;
 
   return (
-    <Wrapper>
-      <BadgeWrapper style={shadowProps}>
-        <BadgeText>
-          마지막에 <BoldTxt>{loginProviderLabels[lastLoginProvider]}</BoldTxt>로 로그인했어요.
-        </BadgeText>
-      </BadgeWrapper>
+    <Wrapper style={SHADOW}>
+      <Description2>
+        마지막에 <Description1>{label[lastLoginProvider]}</Description1>로 로그인했어요.
+      </Description2>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.View`
-  padding: 24px 0;
-`;
-
-const BadgeWrapper = styled.View`
-  padding: 10px 25px;
+  padding: 10px 20px;
   margin: 0 auto;
-  border-radius: ${({ theme }) => theme.borderRadius.base};
-  background-color: ${({ theme }) => theme.colors.whiteBlue};
-`;
-
-const BadgeText = styled.Text`
-  font-family: ${({ theme }) => theme.fontFamily.nsBold};
-  color: ${({ theme }) => theme.colors.textGray};
-  font-size: ${({ theme }) => theme.fontSize.base};
-`;
-
-const BoldTxt = styled(BadgeText)`
-  font-family: ${({ theme }) => theme.fontFamily.nsExtraBold};
+  border-radius: 20px;
+  background-color: ${COLOR.white};
 `;

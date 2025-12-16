@@ -1,0 +1,94 @@
+import { Title } from '@/src/core/Txt';
+import { IconApple, IconGoogle, IconKakao } from '@/src/icons';
+import type { OAuthProvider } from '@/src/types/commonTypes';
+import responsiveToPx from '@/src/utils/responsiveToPx';
+import type { ReactNode } from 'react';
+import { Animated, type TouchableHighlightProps } from 'react-native';
+import styled from 'styled-components/native';
+import { useButtonAnimation } from '../hooks/useButtonAnimation';
+
+type ButtonColor = {
+  front: string;
+  back: string;
+  text: string;
+};
+
+type Props = TouchableHighlightProps & {
+  provider: OAuthProvider;
+};
+
+const WIDTH = responsiveToPx('245px');
+
+const HEIGHT = responsiveToPx('58px');
+
+const COLOR = {
+  KAKAO: {
+    front: '#FAE100',
+    back: '#CCB700',
+    text: '#6C5244',
+  },
+  GOOGLE: {
+    front: '#FFFFFF',
+    back: '#D2D8DB',
+    text: '#6C5244',
+  },
+  APPLE: {
+    front: '#4C4C4C',
+    back: '#313131',
+    text: '#FFFFFF',
+  },
+} satisfies Record<OAuthProvider, ButtonColor>;
+
+const ICON = {
+  KAKAO: <IconKakao />,
+  GOOGLE: <IconGoogle />,
+  APPLE: <IconApple />,
+} satisfies Record<OAuthProvider, ReactNode>;
+
+export const LoginButton = ({ children, provider, ...props }: Props) => {
+  const { translateY, handlePressIn, handlePressOut } = useButtonAnimation();
+
+  return (
+    <StyledButton
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
+      $color={COLOR[provider].back}
+      underlayColor={COLOR[provider].back}
+      hitSlop={5}
+      {...props}
+    >
+      <AnimatedView style={{ transform: [{ translateY }] }} $color={COLOR[provider].front}>
+        <IconWrapper>{ICON[provider]}</IconWrapper>
+        <StyledTitle $color={COLOR[provider].text}>{children}</StyledTitle>
+      </AnimatedView>
+    </StyledButton>
+  );
+};
+
+const StyledButton = styled.TouchableHighlight<{ $color: string }>`
+  width: ${WIDTH};
+  height: ${HEIGHT};
+  background-color: ${({ $color }) => $color};
+  border-radius: 99px;
+  margin: 1px;
+`;
+
+const AnimatedView = styled(Animated.View)<{ $color: string }>`
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: ${({ $color }) => $color};
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 99px;
+  gap: 6px;
+`;
+
+const StyledTitle = styled(Title)<{ $color: string }>`
+  color: ${({ $color }) => $color};
+`;
+
+const IconWrapper = styled.View`
+  position: absolute;
+  left: ${responsiveToPx('25px')};
+`;

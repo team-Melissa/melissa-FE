@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { ToastSubject } from "../class/ToastSubject";
-import { DEFAULT_DURATION } from "../constants/toastConstants";
-import type { TToast } from "../types/toastTypes";
+import { useEffect, useState } from 'react';
+import { ToastSubject } from '../class/ToastSubject';
+import { DEFAULT_DURATION } from '../constants/toastConstants';
+import type { TToast } from '../types/toastTypes';
 
 /**
  * @description ToastSubject 클래스에 옵저버 함수를 등록/해제하는 side effect 훅입니다
