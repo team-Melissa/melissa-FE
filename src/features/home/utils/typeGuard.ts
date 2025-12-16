@@ -12,5 +12,5 @@ export const isCalendarDayData = (value: DailySummaryResponseDTO): value is Cale
 };
 
 export const isRequiredDiaryDetail = (value: DiaryDetailDTO): value is Required<DiaryDetailDTO> => {
-  return !!value.title && !!value.content && !!value.imageUrl && !!value.hashtag1 && !!value.hashtag2 && !!value.mood;
+  return !!value.title && !!value.content && !!value.hashtag1 && !!value.hashtag2 && !!value.mood;
 };
