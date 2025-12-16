@@ -5,7 +5,7 @@ export const useCanGenerateDiary = (chatList: ChatData[]) => {
   const [canGenerateDiary, setCanGenerateDiary] = useState<boolean>(false);
 
   useEffect(() => {
-    const userChatList = chatList.filter(({ role }) => role === 'USER');
+    const userChatList = chatList.filter(({ role }) => role === 'AI');
     setCanGenerateDiary(userChatList.length >= 3);
   }, [chatList]);
 
