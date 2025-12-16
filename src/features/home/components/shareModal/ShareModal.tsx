@@ -1,6 +1,10 @@
 import type { DiaryDetailDTO } from '@/src/apis/_generated/serverAPI.schemas';
 import { IconX } from '@/src/icons';
 import { ModalRoot } from '@/src/modules/modal';
+import * as MediaLibrary from 'expo-media-library';
+import { useRef } from 'react';
+import { Alert, View } from 'react-native';
+import { captureRef } from 'react-native-view-shot';
 import styled from 'styled-components/native';
 import type { TDate } from '../../types';
 import ShareActionButtons from './ShareActionButtons';
@@ -14,18 +18,29 @@ type Props = {
 };
 
 const ShareModal = ({ isOpen, date, diaryData, onClose }: Props) => {
+  const diaryViewRef = useRef<View>(null);
+
+  const handleDownloadClick = async () => {
+    try {
+      const imageUri = await captureRef(diaryViewRef);
+      if (imageUri) {
+        await MediaLibrary.saveToLibraryAsync(imageUri);
+        Alert.alert('갤러리에 저장되었습니다.');
+      }
+    } catch (e) {
+      console.error(e);
+      Alert.alert('저장에 실패했습니다.');
+    }
+  };
+
   return (
     <ModalRoot isOpen={isOpen} onClose={onClose} backdropOpacity={0.9}>
       <StyledView>
         <StyledBackButton hitSlop={5} onPress={onClose}>
           <IconX width={30} height={30} />
         </StyledBackButton>
-        <ShareDiaryList date={date} diaryData={diaryData} />
-        <ShareActionButtons
-          // TODO: react-native-view-shot으로 일기 영역 캡쳐 및 다운로드/공유 기능 구현
-          onDownloadClick={() => {}}
-          onShareClick={() => {}}
-        />
+        <ShareDiaryList ref={diaryViewRef} date={date} diaryData={diaryData} />
+        <ShareActionButtons onDownloadClick={handleDownloadClick} onShareClick={() => {}} />
       </StyledView>
     </ModalRoot>
   );
