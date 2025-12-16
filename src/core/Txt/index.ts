@@ -74,12 +74,14 @@ export const ShareTitle = styled.Text<Props>`
 export const ShareBody = styled.Text<Props>`
   font-family: ${FONT_FAMILY.pretendard400};
   font-size: 18px;
+  line-height: 24px;
   ${({ color }) => color && { color: COLOR[color] }};
 `;
 
 export const ShareTag = styled.Text<Props>`
   font-family: ${FONT_FAMILY.pretendard600};
   font-size: 18px;
+  line-height: 22px;
   ${({ color }) => color && { color: COLOR[color] }};
 `;
 

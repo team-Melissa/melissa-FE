@@ -39,13 +39,13 @@ export default function RootLayout() {
       <NotificationProvider>
         <QueryClientProvider client={queryClient}>
           <GestureHandlerRootView>
-            <PortalProvider>
-              <ModalsProvider>
+            <ModalsProvider>
+              <PortalProvider>
                 <StatusBar style="dark" />
                 <Slot />
                 <ToastsRoot />
-              </ModalsProvider>
-            </PortalProvider>
+              </PortalProvider>
+            </ModalsProvider>
           </GestureHandlerRootView>
         </QueryClientProvider>
       </NotificationProvider>
