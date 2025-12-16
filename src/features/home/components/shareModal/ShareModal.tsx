@@ -20,15 +20,21 @@ type Props = {
 };
 
 const ShareModal = ({ isOpen, date, diaryData, onClose }: Props) => {
+  const [mediaLibraryPermission, requestMediaLibraryPermission] = MediaLibrary.usePermissions();
   const diaryViewRef = useRef<View>(null);
 
   const handleDownloadClick = async () => {
     try {
-      const imageUri = await captureRef(diaryViewRef);
-      if (imageUri) {
-        await MediaLibrary.saveToLibraryAsync(imageUri);
-        Alert.alert('갤러리에 저장되었습니다.');
+      if (!mediaLibraryPermission?.granted) {
+        const permissionResponse = await requestMediaLibraryPermission();
+        if (!permissionResponse.granted) {
+          Alert.alert('갤러리 저장을 위해 권한이 필요합니다.');
+          return;
+        }
       }
+      const imageUri = await captureRef(diaryViewRef);
+      await MediaLibrary.saveToLibraryAsync(imageUri);
+      Alert.alert('갤러리에 저장되었습니다.');
     } catch (e) {
       console.error(e);
       Alert.alert('저장에 실패했습니다.');

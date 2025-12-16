@@ -13,7 +13,6 @@ import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useEasUpdate } from '../hooks/useEasUpdate';
 import { useInitializeFonts } from '../hooks/useInitializeFonts';
-import { useInitializeMediaLibrary } from '../hooks/useInitializeMediaLibrary';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -24,7 +23,6 @@ export default function RootLayout() {
   const isFontReady = useInitializeFonts();
   const isEasUpdateReady = useEasUpdate();
   useReactQueryDevTools(queryClient);
-  useInitializeMediaLibrary();
 
   const isReady = isFontReady && isEasUpdateReady;
 
