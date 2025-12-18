@@ -5,7 +5,7 @@ import styled from 'styled-components/native';
 
 const StreakBadge = () => {
   //TODO: 스트릭 수 API 요청해서 응답 받아오기
-  const data = 1700;
+  const data = 0;
 
   return (
     <Wrapper>
