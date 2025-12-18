@@ -25,6 +25,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       foregroundImage: './assets/images/adaptive-icon.png',
       backgroundColor: '#FFFFFF',
     },
+    blockedPermissions: ['android.permission.READ_MEDIA_IMAGES', 'android.permission.READ_MEDIA_VIDEO'],
     softwareKeyboardLayoutMode: 'pan',
     googleServicesFile: process.env.GOOGLE_SERVICES_JSON,
     package: 'com.melissa.melissaFE',
