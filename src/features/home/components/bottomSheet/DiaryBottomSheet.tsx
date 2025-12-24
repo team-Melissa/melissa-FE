@@ -34,8 +34,8 @@ const DiaryBottomSheet = forwardRef<BottomSheet, Props>(({ date }, ref) => {
     setWidth(e.nativeEvent.layout.width);
   };
 
-  const handleBottomSheetChange = (idx: number) => {
-    setIsBottomSheetOpen(idx > -1);
+  const handleBottomSheetChange = (_: number, toIdx: number) => {
+    setIsBottomSheetOpen(toIdx > -1);
   };
 
   useBottomSheetBackHandler({
@@ -56,11 +56,11 @@ const DiaryBottomSheet = forwardRef<BottomSheet, Props>(({ date }, ref) => {
         backgroundStyle={{ borderRadius: 40 }}
         handleIndicatorStyle={{ backgroundColor: '#EDEDED' }}
         backdropComponent={Backdrop}
-        onChange={handleBottomSheetChange}
+        onAnimate={handleBottomSheetChange}
       >
         {dayData && (
           <Wrapper onLayout={getBottomSheetWidth}>
-            <DiaryBottomSheetList width={width} dayData={dayData} />
+            <DiaryBottomSheetList key={`${date.year}-${date.month}-${date.day}`} width={width} dayData={dayData} />
           </Wrapper>
         )}
       </StyledBottomSheet>

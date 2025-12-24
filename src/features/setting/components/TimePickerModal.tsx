@@ -34,7 +34,7 @@ const TimePickerModal = ({ isOpen, initialTime, onClose, onSubmit }: Props) => {
   return (
     <ModalRoot isOpen={isOpen} onClose={handleModalClose}>
       <Wrapper>
-        <DatePicker date={date} onDateChange={setDate} mode="time" minuteInterval={10} />
+        <DatePicker theme="light" date={date} onDateChange={setDate} mode="time" minuteInterval={10} />
       </Wrapper>
     </ModalRoot>
   );

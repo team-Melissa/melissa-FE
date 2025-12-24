@@ -13,12 +13,12 @@ const FeedContainer = () => {
   const [month, setMonth] = useState<number>(todayDate.month);
 
   const { data } = useGetDiary({ year, month });
-  const calendarMonthData = data?.result?.filter(isNonNullableDailySummaryResponse);
+  const calendarMonthData = data?.result?.filter(isNonNullableDailySummaryResponse).toReversed() ?? [];
 
   return (
     <Wrapper>
       <HomeHeader month={month} onChange={setMonth} />
-      <FeedList monthData={calendarMonthData ?? []} />
+      <FeedList monthData={calendarMonthData} />
     </Wrapper>
   );
 };

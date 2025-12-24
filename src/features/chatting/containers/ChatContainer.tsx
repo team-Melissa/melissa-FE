@@ -52,7 +52,10 @@ const ChatContainer = () => {
       onSettled: () => {
         queryClient.invalidateQueries({ queryKey: getGetMessagesQueryKey({ aiProfileId, year, month, day }) });
       },
-      onError: () => {
+      onError: (e) => {
+        if (e.response?.status === 429) {
+          return toast({ message: '사용 한도를 초과했습니다.', options: { type: 'error' } });
+        }
         toast({ message: '채팅 전송에 실패했습니다.', options: { type: 'error' } });
       },
     },
@@ -67,7 +70,10 @@ const ChatContainer = () => {
         toast({ message: '일기가 생성되었습니다.', options: { type: 'success' } });
         router.navigate('/(app)/(tab)/calendar');
       },
-      onError: () => {
+      onError: (e) => {
+        if (e.response?.status === 429) {
+          return toast({ message: '사용 한도를 초과했습니다.', options: { type: 'error' } });
+        }
         toast({ message: '일기 생성에 실패했습니다.', options: { type: 'error' } });
       },
     },
