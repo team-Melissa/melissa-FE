@@ -9,23 +9,33 @@ import styled from 'styled-components/native';
 import EmailInput from '../components/EmailInput';
 import FeedbackHeader from '../components/FeedbackHeader';
 import FeedbackTextarea from '../components/FeedbackTextarea';
+import { useSendEmailMutation } from '../hooks/useSendEmailMutation';
 import { isValidEmail } from '../utils/validation';
 
 const FeedbackContainer = () => {
   const router = useRouter();
-  const [feedbackText, setFeedbackText] = useState<string>('');
+  const [message, setMessage] = useState<string>('');
   const [email, setEmail] = useState<string>('');
 
-  const isFormValid = feedbackText.trim() && email.trim() && isValidEmail(email);
+  const sendEmailMutation = useSendEmailMutation();
+
+  const isFormValid = message.trim() && email.trim() && isValidEmail(email);
 
   const handleBackClick = () => {
     router.back();
   };
 
-  const handleSubmit = () => {
-    // TODO: API 연동
-    console.log('의견:', feedbackText);
-    console.log('이메일:', email);
+  const handleSubmit = async () => {
+    if (sendEmailMutation.isPending) return;
+    sendEmailMutation.mutate(
+      { message, email },
+      {
+        onSuccess: () => {
+          setMessage('');
+          setEmail('');
+        },
+      }
+    );
   };
 
   return (
@@ -35,7 +45,7 @@ const FeedbackContainer = () => {
         <ContentWrapper>
           <FormSection>
             <Body2 color="title">남겨주시고 싶은 의견을 작성해주세요</Body2>
-            <FeedbackTextarea value={feedbackText} onValueChange={setFeedbackText} />
+            <FeedbackTextarea value={message} onValueChange={setMessage} />
           </FormSection>
           <FormSection>
             <Body2 color="title">진행 상황을 공유받을 수 있는 이메일</Body2>
@@ -43,7 +53,7 @@ const FeedbackContainer = () => {
           </FormSection>
         </ContentWrapper>
       </TouchableWithoutFeedback>
-      <StyledSubmitButton size="large" disabled={!isFormValid} onPress={handleSubmit}>
+      <StyledSubmitButton size="large" disabled={sendEmailMutation.isPending || !isFormValid} onPress={handleSubmit}>
         제출하기
       </StyledSubmitButton>
     </SafeView>
