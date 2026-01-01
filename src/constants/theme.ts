@@ -13,6 +13,8 @@ export const COLOR = {
   title: '#6C5244',
   sub1: '#937261',
   sub2: '#F4EBD4',
+  placeholder: '#93726180',
+  error: '#D94A4A',
 } as const;
 
 export const FONT_FAMILY = {

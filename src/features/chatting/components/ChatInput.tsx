@@ -30,7 +30,7 @@ const ChatInput = ({ inputDisabled, onInputSubmit, onVoiceModeClick }: Props) =>
           onChangeText={setInput}
           multiline
           placeholder="오늘 하루에 대해 말해주세요."
-          placeholderTextColor="#93726180"
+          placeholderTextColor={COLOR.placeholder}
         />
         <SendButton size="small" variant="primary" disabled={inputDisabled} onPress={handleInputSubmit}>
           <IconSend />
