@@ -36,6 +36,10 @@ export default function SettingContainer() {
     updateUserSettingMutation.mutate({ data: { ...userSetting.result, notificationTime } });
   };
 
+  const handleFeedbackClick = () => {
+    router.navigate('/(app)/feedback');
+  };
+
   const handleLogout = () => {
     if (logoutMutation.isPending) return;
     logoutMutation.mutate();
@@ -64,6 +68,7 @@ export default function SettingContainer() {
         onNotificationToggle={handleNotificationToggle}
         onSleepTimeChange={handleSleepTimeChange}
         onNotificationTimeChange={handleNotificationTimeChange}
+        onFeedbackClick={handleFeedbackClick}
       />
       <AccountActions onLogout={handleLogout} onDeleteAccount={handleDeleteAccount} />
     </SafeView>
