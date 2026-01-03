@@ -59,6 +59,7 @@ export const responseErrorInterceptor = async (error: AxiosError) => {
     removeAccessToken();
     await removeRefreshToken();
     rejectPendingApiQueue();
+    if (router.canDismiss()) router.dismissAll();
     router.replace('/login');
     return Promise.reject(error);
   } finally {
