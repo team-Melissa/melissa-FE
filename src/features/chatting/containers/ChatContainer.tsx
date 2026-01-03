@@ -115,6 +115,7 @@ const ChatContainer = () => {
         <View>
           <GenerateDiaryButton
             isVisible={canGenerateDiary}
+            isLoading={generateDiaryMutation.isPending}
             disabled={generateDiaryMutation.isPending}
             onClick={handleDiarySummaryClick}
           />
