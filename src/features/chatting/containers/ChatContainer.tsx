@@ -68,7 +68,7 @@ const ChatContainer = () => {
       },
       onSuccess: () => {
         toast({ message: '일기가 생성되었습니다.', options: { type: 'success' } });
-        router.navigate('/(app)/(tab)/calendar');
+        router.dismissAll();
       },
       onError: (e) => {
         if (e.response?.status === 429) {
