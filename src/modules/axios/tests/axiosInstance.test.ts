@@ -11,6 +11,8 @@ let mockRefreshToken = 'valid-rt';
 
 jest.mock('expo-router', () => ({
   router: {
+    canDismiss: jest.fn(() => true),
+    dismissAll: jest.fn(),
     replace: jest.fn(),
   },
 }));
@@ -109,6 +111,7 @@ describe('access token 자동 재발급 테스트', () => {
       },
     });
 
+    expect(router.dismissAll).toHaveBeenCalled();
     expect(router.replace).toHaveBeenCalledWith('/login');
     expect(removeAccessToken).toHaveBeenCalled();
     expect(removeRefreshToken).toHaveBeenCalled();
