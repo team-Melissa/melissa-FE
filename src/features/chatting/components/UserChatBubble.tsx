@@ -1,16 +1,18 @@
 import { COLOR } from '@/src/constants/theme';
 import { Body1 } from '@/src/core/Txt';
 import responsiveToPx from '@/src/utils/responsiveToPx';
+import type { StyleProp, ViewStyle } from 'react-native';
 import styled from 'styled-components/native';
 import type { ChatData } from '../types';
 
 type Props = {
   chat: ChatData;
+  style?: StyleProp<ViewStyle>;
 };
 
-const UserChatBubble = ({ chat }: Props) => {
+const UserChatBubble = ({ chat, style }: Props) => {
   return (
-    <Wrapper>
+    <Wrapper style={style}>
       <Body1 color="white">{chat.content}</Body1>
     </Wrapper>
   );
