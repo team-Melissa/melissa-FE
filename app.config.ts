@@ -104,7 +104,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         url: 'https://sentry.io/',
       },
     ],
-    ['./plugins/android-keyboard-fix.ts'], // Todo: RN에서 MainActivity.kt에 setPadding을 넣어줄 때까지 유지
   ],
   experiments: {
     typedRoutes: true,
