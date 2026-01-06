@@ -106,11 +106,10 @@ const ChatContainer = () => {
           <GenerateDiaryButton
             isVisible={canGenerateDiary}
             isLoading={generateDiaryMutation.isPending}
-            disabled={generateDiaryMutation.isPending}
             onClick={handleDiarySummaryClick}
           />
           <ChatInput
-            inputDisabled={sendChatMutation.isPending}
+            isLoading={sendChatMutation.isPending}
             onInputSubmit={handleInputSubmit}
             onVoiceModeClick={handleVoiceModeClick}
           />
