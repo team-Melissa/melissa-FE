@@ -10,16 +10,14 @@ import { COLOR } from '@/src/constants/theme';
 import { toast } from '@/src/modules/toast';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
-import { Alert, ScrollView, View } from 'react-native';
+import { Alert, View } from 'react-native';
+import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
-import CharacterChatBubble from '../components/CharacterChatBubble';
 import ChatHeader from '../components/ChatHeader';
 import ChatInput from '../components/ChatInput';
-import ChatKeyboardAvoidingView from '../components/ChatKeyboardAvoidingView';
-import ChatStartBadge from '../components/ChatStartBadge';
+import ChatScrollView from '../components/ChatScrollView';
 import GenerateDiaryButton from '../components/GenerateDiaryButton';
-import UserChatBubble from '../components/UserChatBubble';
 import { useCanGenerateDiary } from '../hooks/useCanGenerateDiary';
 import { useChattingQueryParams } from '../hooks/useChattingQueryParams';
 import { chatListFilter } from '../utils';
@@ -102,16 +100,8 @@ const ChatContainer = () => {
   return (
     <SafeView>
       <ChatHeader characterId={aiProfileId} onBackClick={handleBackClick} />
-      <ChatKeyboardAvoidingView>
-        <StyledScrollView contentContainerStyle={{ rowGap: 15 }}>
-          <ChatStartBadge characterId={aiProfileId} year={year % 100} month={month} day={day} />
-          {chatList.map((chat) => {
-            if (chat.role === 'AI') {
-              return <CharacterChatBubble key={chat.chatId} characterId={aiProfileId} chat={chat} />;
-            }
-            return <UserChatBubble key={chat.chatId} chat={chat} />;
-          })}
-        </StyledScrollView>
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+        <ChatScrollView chatData={chatList} characterId={aiProfileId} year={year} month={month} day={day} />
         <View>
           <GenerateDiaryButton
             isVisible={canGenerateDiary}
@@ -125,7 +115,7 @@ const ChatContainer = () => {
             onVoiceModeClick={handleVoiceModeClick}
           />
         </View>
-      </ChatKeyboardAvoidingView>
+      </KeyboardAvoidingView>
     </SafeView>
   );
 };
@@ -136,8 +126,4 @@ const SafeView = styled(SafeAreaView)`
   flex: 1;
   background-color: ${COLOR.background};
   padding: 0 18px;
-`;
-
-const StyledScrollView = styled(ScrollView)`
-  flex: 1;
 `;
