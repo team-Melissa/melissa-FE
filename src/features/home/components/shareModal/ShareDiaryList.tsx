@@ -1,8 +1,9 @@
 import type { DiaryDetailDTO } from '@/src/apis/_generated/serverAPI.schemas';
 import { COLOR } from '@/src/constants/theme';
-import { forwardRef, useState } from 'react';
+import { useCarousel } from '@/src/hooks/useCarousel';
+import { forwardRef } from 'react';
 import { useWindowDimensions, View } from 'react-native';
-import Carousel from 'react-native-reanimated-carousel';
+import Carousel, { Pagination } from 'react-native-reanimated-carousel';
 import styled from 'styled-components/native';
 import type { TDate } from '../../types';
 import ShareDiaryDetail from './ShareDiaryDetail';
@@ -13,11 +14,11 @@ type Props = {
   diaryData: Required<DiaryDetailDTO>;
 };
 
+const pages = [ShareDiaryThumbnail, ShareDiaryDetail];
+
 const ShareDiaryList = forwardRef<View, Props>(({ date, diaryData }, ref) => {
   const { width } = useWindowDimensions();
-  const [index, setIndex] = useState<number>(0);
-
-  const pages = [ShareDiaryThumbnail, ShareDiaryDetail];
+  const { progress, handleProgressChange } = useCarousel();
 
   return (
     <Wrapper>
@@ -27,16 +28,18 @@ const ShareDiaryList = forwardRef<View, Props>(({ date, diaryData }, ref) => {
           height={width}
           data={pages}
           loop={false}
-          onSnapToItem={setIndex}
+          onProgressChange={handleProgressChange}
           renderItem={({ item: Page }) => <Page date={date} diaryData={diaryData} />}
           onConfigurePanGesture={(gestureChain) => gestureChain.activeOffsetX([-10, 10])}
         />
       </View>
-      <Indicator>
-        {pages.map((_, idx) => (
-          <Dot key={idx} $active={idx === index} />
-        ))}
-      </Indicator>
+      <Pagination.Basic
+        progress={progress}
+        data={pages}
+        dotStyle={{ width: 8, height: 8, borderRadius: 4, backgroundColor: '#DDD' }}
+        activeDotStyle={{ backgroundColor: COLOR.main }}
+        containerStyle={{ gap: 6 }}
+      />
     </Wrapper>
   );
 });
@@ -47,18 +50,4 @@ export default ShareDiaryList;
 
 const Wrapper = styled.View`
   gap: 20px;
-`;
-
-const Indicator = styled.View`
-  flex-direction: row;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 10px;
-`;
-
-const Dot = styled.View<{ $active: boolean }>`
-  width: 8px;
-  height: 8px;
-  border-radius: 4px;
-  background-color: ${({ $active }) => ($active ? COLOR.main : '#DDD')};
 `;
