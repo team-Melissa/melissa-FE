@@ -1,16 +1,18 @@
+import { useGetCurrentStreak } from '@/src/apis/_generated/serverAPI';
 import { COLOR } from '@/src/constants/theme';
 import { Label } from '@/src/core/Txt';
 import { IconCharacter } from '@/src/icons';
+import { ActivityIndicator } from 'react-native';
 import styled from 'styled-components/native';
 
 const StreakBadge = () => {
-  //TODO: 스트릭 수 API 요청해서 응답 받아오기
-  const data = 0;
+  const { isPending, data: streakData } = useGetCurrentStreak();
+  const streak = streakData?.result?.streakDays ?? 0;
 
   return (
     <Wrapper>
       <StyledIconCharacter />
-      <Label color="title">{data.toLocaleString()}</Label>
+      {isPending ? <ActivityIndicator /> : <Label color="title">{streak.toLocaleString()}</Label>}
     </Wrapper>
   );
 };

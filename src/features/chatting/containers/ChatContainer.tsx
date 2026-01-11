@@ -1,5 +1,6 @@
 import {
   getGetCalendarViewQueryKey,
+  getGetCurrentStreakQueryKey,
   getGetMessagesQueryKey,
   useCreateChatDiary,
   useGetMessages,
@@ -63,6 +64,7 @@ const ChatContainer = () => {
     mutation: {
       onSettled: () => {
         queryClient.invalidateQueries({ queryKey: getGetCalendarViewQueryKey({ year, month }) });
+        queryClient.invalidateQueries({ queryKey: getGetCurrentStreakQueryKey() });
       },
       onSuccess: () => {
         toast({ message: '일기가 생성되었습니다.', options: { type: 'success' } });
