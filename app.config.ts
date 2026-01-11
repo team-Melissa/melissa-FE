@@ -6,7 +6,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   name: 'Melissa',
   slug: 'melissa',
   owner: 'teammelissa7',
-  version: '1.3.1',
+  version: '1.3.2',
   orientation: 'portrait',
   icon: './assets/images/icon.png',
   scheme: 'myapp',

@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "@dev-plugins/react-query": "^0.2.0",
-    "@emailjs/react-native": "^5.1.0",
     "@gorhom/bottom-sheet": "^5",
     "@gorhom/portal": "^1.0.14",
     "@react-native-google-signin/google-signin": "^13.1.0",

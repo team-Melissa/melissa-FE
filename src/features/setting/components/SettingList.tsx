@@ -3,7 +3,6 @@ import { Switch } from '@/src/core/Switch';
 import { MiddleTitle } from '@/src/core/Txt';
 import { IconArrowDown } from '@/src/icons';
 import { useModal } from '@/src/modules/modal';
-import { Alert } from 'react-native';
 import styled from 'styled-components/native';
 import SettingItem from './SettingItem';
 import TimePickerModal from './TimePickerModal';
@@ -15,9 +14,16 @@ type Props = {
   onNotificationToggle: (notificationEnabled: boolean) => void;
   onSleepTimeChange: (sleepTime: string) => void;
   onNotificationTimeChange: (notificationTime: string) => void;
+  onFeedbackClick: () => void;
 };
 
-const SettingList = ({ settingData, onNotificationToggle, onSleepTimeChange, onNotificationTimeChange }: Props) => {
+const SettingList = ({
+  settingData,
+  onNotificationToggle,
+  onSleepTimeChange,
+  onNotificationTimeChange,
+  onFeedbackClick,
+}: Props) => {
   const timePickerModal = useModal();
 
   const handleSleepTimePickerOpen = () => {
@@ -42,11 +48,6 @@ const SettingList = ({ settingData, onNotificationToggle, onSleepTimeChange, onN
     ));
   };
 
-  // TODO: 피드백 라우터를 따로 두고, 해당 페이지로 navigate. @emailjs/react-native로 구현 예정
-  const handleFeedbackClick = () => {
-    Alert.alert('준비중인 기능입니다.');
-  };
-
   return (
     <Wrapper>
       <SettingItem title="푸시 알림" description="푸시 알림을 허용/차단할 수 있어요.">
@@ -65,7 +66,7 @@ const SettingList = ({ settingData, onNotificationToggle, onSleepTimeChange, onN
         </StyledButton>
       </SettingItem>
       <SettingItem title="의견 보내기" description="운영진에게 앱에 대한 의견을 전달해주세요.">
-        <StyledButton onPress={handleFeedbackClick} hitSlop={5}>
+        <StyledButton onPress={onFeedbackClick} hitSlop={5}>
           <StyledIconArrowRight />
         </StyledButton>
       </SettingItem>
