@@ -10,12 +10,13 @@ import EmailInput from '../components/EmailInput';
 import FeedbackHeader from '../components/FeedbackHeader';
 import FeedbackTextarea from '../components/FeedbackTextarea';
 import { useSendEmailMutation } from '../hooks/useSendEmailMutation';
+import { useUserEmailState } from '../hooks/useUserEmailState';
 import { isValidEmail } from '../utils/validation';
 
 const FeedbackContainer = () => {
   const router = useRouter();
   const [message, setMessage] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
+  const [email, setEmail] = useUserEmailState('');
 
   const sendEmailMutation = useSendEmailMutation();
 
