@@ -1,21 +1,22 @@
 import { COLOR, FONT_FAMILY } from '@/src/constants/theme';
 import { CircleButton } from '@/src/core/Button';
+import Spinner from '@/src/core/Loading/Spinner';
 import { IconSend, IconWave } from '@/src/icons';
 import responsiveToPx from '@/src/utils/responsiveToPx';
 import { useState } from 'react';
 import styled from 'styled-components/native';
 
 type Props = {
-  inputDisabled: boolean;
+  isLoading: boolean;
   onInputSubmit: (input: string) => void;
   onVoiceModeClick: () => void;
 };
 
-const ChatInput = ({ inputDisabled, onInputSubmit, onVoiceModeClick }: Props) => {
+const ChatInput = ({ isLoading, onInputSubmit, onVoiceModeClick }: Props) => {
   const [input, setInput] = useState<string>('');
 
   const handleInputSubmit = () => {
-    if (inputDisabled) return;
+    if (isLoading) return;
     const trimmedInput = input.trim();
     if (!trimmedInput) return;
     onInputSubmit(trimmedInput);
@@ -32,8 +33,8 @@ const ChatInput = ({ inputDisabled, onInputSubmit, onVoiceModeClick }: Props) =>
           placeholder="오늘 하루에 대해 말해주세요."
           placeholderTextColor={COLOR.placeholder}
         />
-        <SendButton size="small" variant="primary" disabled={inputDisabled} onPress={handleInputSubmit}>
-          <IconSend />
+        <SendButton size="small" variant="primary" disabled={isLoading} onPress={handleInputSubmit}>
+          {isLoading ? <Spinner size={17} /> : <IconSend />}
         </SendButton>
       </InputWrapper>
       <CircleButton size="small" variant="secondary" onPress={onVoiceModeClick}>

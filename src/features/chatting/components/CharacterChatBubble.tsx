@@ -3,19 +3,21 @@ import { Body1, Description1 } from '@/src/core/Txt';
 import type { CharacterId } from '@/src/modules/character';
 import characters from '@/src/modules/character';
 import responsiveToPx from '@/src/utils/responsiveToPx';
+import type { StyleProp, ViewStyle } from 'react-native';
 import styled from 'styled-components/native';
 import type { ChatData } from '../types';
 
 type Props = {
   characterId: CharacterId;
   chat: ChatData;
+  style?: StyleProp<ViewStyle>;
 };
 
-const CharacterChatBubble = ({ characterId, chat }: Props) => {
+const CharacterChatBubble = ({ characterId, chat, style }: Props) => {
   const { name, face: Face, color } = characters[characterId];
 
   return (
-    <Wrapper>
+    <Wrapper style={style}>
       <CharacterWrapper>
         <FaceWrapper $color={color}>
           <Face width={24} />

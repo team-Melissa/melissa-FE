@@ -2,6 +2,7 @@ import { COLOR } from '@/src/constants/theme';
 import { Description2 } from '@/src/core/Txt';
 import type { CharacterId } from '@/src/modules/character';
 import characters from '@/src/modules/character';
+import type { StyleProp, ViewStyle } from 'react-native';
 import styled from 'styled-components/native';
 
 type Props = {
@@ -9,13 +10,14 @@ type Props = {
   year: number;
   month: number;
   day: number;
+  style?: StyleProp<ViewStyle>;
 };
 
-const ChatStartBadge = ({ characterId, year, month, day }: Props) => {
+const ChatStartBadge = ({ characterId, year, month, day, style }: Props) => {
   const { name } = characters[characterId];
 
   return (
-    <Wrapper>
+    <Wrapper style={style}>
       <BadgeWrapper style={{ backgroundColor: COLOR.sub1 }}>
         <Description2 color="sub2">
           {year}년 {month}월 {day}일
