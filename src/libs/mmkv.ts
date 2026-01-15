@@ -49,3 +49,11 @@ export const setNotificationToken = (notificationToken: string) => {
 export const removeNotificationToken = () => {
   removeStorageValue('notificationToken');
 };
+
+export const getIsTutorialFinished = () => {
+  return storage.getBoolean('isTutorialFinished') ?? false;
+};
+
+export const setIsTutorialFinished = (value: boolean) => {
+  storage.set('isTutorialFinished', value);
+};
