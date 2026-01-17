@@ -1,20 +1,22 @@
 import { COLOR } from '@/src/constants/theme';
 import PlaceholderImage from '@/src/core/PlaceholderImage';
+import { IconPlus } from '@/src/icons';
 import { Image } from 'expo-image';
 import styled from 'styled-components/native';
 import type { CalendarDayData } from '../../types';
 import HashtagBubble from './HashtagBubble';
 
 type Props = {
+  isToday: boolean;
   dayData?: CalendarDayData;
 };
 
-const CalendarDayContent = ({ dayData }: Props) => {
+const CalendarDayContent = ({ isToday, dayData }: Props) => {
   const imageUrl = dayData?.diaries.at(0)?.imageUrl;
   const hashtag = dayData?.diaries.at(0)?.hashtag1;
 
   if (!hashtag) {
-    return <EmptyBox />;
+    return <EmptyBox>{isToday && <IconPlus />}</EmptyBox>;
   }
 
   return (
@@ -29,6 +31,8 @@ export default CalendarDayContent;
 
 const EmptyBox = styled.View`
   width: 100%;
+  justify-content: center;
+  align-items: center;
   aspect-ratio: 1;
   background-color: #c3e8e0;
   border-radius: 15px;

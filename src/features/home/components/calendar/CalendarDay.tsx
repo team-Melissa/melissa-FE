@@ -14,6 +14,7 @@ type Props = Omit<BasicDayProps, 'date'> & {
 
 const CalendarDay = ({ date, onPress }: Props) => {
   const today = getTodayDateData();
+  const isToday = today.dateString === date?.dateString;
 
   const { data: calendarMonthData } = useGetDiary({
     year: date?.year ?? today.year,
@@ -32,9 +33,9 @@ const CalendarDay = ({ date, onPress }: Props) => {
     .find(({ year, month, day }) => year === date.year && month === date.month && day === date.day);
 
   return (
-    <Wrapper onPress={handleDayPress} style={{ zIndex: 100 - date.day }}>
-      <StyledDescription1 $isToday={today.dateString === date.dateString}>{date.day}</StyledDescription1>
-      <CalendarDayContent dayData={calendarDayData} />
+    <Wrapper disabled={!isToday && !calendarDayData} onPress={handleDayPress} style={{ zIndex: 100 - date.day }}>
+      <StyledDescription1 $isToday={isToday}>{date.day}</StyledDescription1>
+      <CalendarDayContent isToday={isToday} dayData={calendarDayData} />
     </Wrapper>
   );
 };
