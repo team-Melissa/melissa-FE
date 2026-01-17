@@ -1,5 +1,6 @@
 import { COLOR } from '@/src/constants/theme';
 import { Description1 } from '@/src/core/Txt';
+import { useRouter } from 'expo-router';
 import type { DateData } from 'react-native-calendars';
 import type { BasicDayProps } from 'react-native-calendars/src/calendar/day/basic';
 import styled from 'styled-components/native';
@@ -13,6 +14,7 @@ type Props = Omit<BasicDayProps, 'date'> & {
 };
 
 const CalendarDay = ({ date, onPress }: Props) => {
+  const router = useRouter();
   const today = getTodayDateData();
   const isToday = today.dateString === date?.dateString;
 
@@ -22,7 +24,9 @@ const CalendarDay = ({ date, onPress }: Props) => {
   });
 
   const handleDayPress = () => {
-    if (!calendarDayData) return;
+    if (isToday) {
+      return router.navigate(`/(app)/characters?year=${today.year}&month=${today.month}&day=${today.day}`);
+    }
     onPress?.(date);
   };
 
