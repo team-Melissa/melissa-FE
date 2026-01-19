@@ -17,17 +17,7 @@ const CharactersContainer = () => {
   const { year, month, day } = useCharactersQueryParams();
   const [aiProfileId, setAiProfileId] = useState<CharacterId>(1);
   const router = useRouter();
-
-  const createThreadMutation = useCreateThread({
-    mutation: {
-      onSuccess: () => {
-        router.navigate(`/(app)/chatting?year=${year}&month=${month}&day=${day}&aiProfileId=${aiProfileId}`);
-      },
-      onError: () => {
-        toast({ message: '문제가 발생했습니다.', options: { type: 'error' } });
-      },
-    },
-  });
+  const createThreadMutation = useCreateThread();
 
   const handleBackClick = () => {
     router.back();
@@ -37,11 +27,19 @@ const CharactersContainer = () => {
     setAiProfileId(aiProfileId);
   };
 
-  const handleChattingClick = () => {
+  const handleCreateThreadAndNavigate = () => {
     if (createThreadMutation.isPending) return;
-    createThreadMutation.mutate({
-      params: { aiProfileId, year, month, day },
-    });
+    createThreadMutation.mutate(
+      { params: { aiProfileId, year, month, day } },
+      {
+        onSuccess: () => {
+          router.navigate(`/(app)/chatting?year=${year}&month=${month}&day=${day}&aiProfileId=${aiProfileId}`);
+        },
+        onError: () => {
+          toast({ message: '문제가 발생했습니다.', options: { type: 'error' } });
+        },
+      }
+    );
   };
 
   const handleManualDiaryClick = () => {
@@ -52,8 +50,12 @@ const CharactersContainer = () => {
     <SafeView>
       <CharacterPageHeader onBackClick={handleBackClick} />
       <StyledLargeTitle color="title">누구와 대화해 볼까요?</StyledLargeTitle>
-      <CharacterList selectedId={aiProfileId} onSelectChange={handleAiProfileIdChange} />
-      <ActionButtons onChattingClick={handleChattingClick} onManualDiaryClick={handleManualDiaryClick} />
+      <CharacterList
+        selectedId={aiProfileId}
+        onSelectChange={handleAiProfileIdChange}
+        onCharacterClick={handleCreateThreadAndNavigate}
+      />
+      <ActionButtons onChattingClick={handleCreateThreadAndNavigate} onManualDiaryClick={handleManualDiaryClick} />
     </SafeView>
   );
 };

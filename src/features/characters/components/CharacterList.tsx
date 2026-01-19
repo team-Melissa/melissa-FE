@@ -12,11 +12,12 @@ import CharacterCard from './CharacterCard';
 type Props = {
   selectedId: CharacterId;
   onSelectChange: (aiProfileId: CharacterId) => void;
+  onCharacterClick: () => void;
 };
 
 const CHARACTER_ID_LIST = [1, 2, 3, 4, 5] satisfies CharacterId[];
 
-const CharacterList = ({ selectedId, onSelectChange }: Props) => {
+const CharacterList = ({ selectedId, onSelectChange, onCharacterClick }: Props) => {
   const [width, setWidth] = useState<number | null>(null);
   const carouselRef = useRef<ICarouselInstance>(null);
 
@@ -52,7 +53,9 @@ const CharacterList = ({ selectedId, onSelectChange }: Props) => {
             parallaxScrollingOffset: 70,
           }}
           onProgressChange={handleProgressChange}
-          renderItem={({ item }) => <CharacterCard characterId={item} />}
+          renderItem={({ item }) => (
+            <CharacterCard characterId={item} onClick={item === selectedId ? onCharacterClick : undefined} />
+          )}
         />
       )}
       <Pagination.Basic
