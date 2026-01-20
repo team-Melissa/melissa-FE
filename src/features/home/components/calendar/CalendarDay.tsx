@@ -23,18 +23,18 @@ const CalendarDay = ({ date, onPress }: Props) => {
     month: date?.month ?? today.month,
   });
 
+  const calendarDayData = calendarMonthData?.result
+    ?.filter(isCalendarDayData)
+    .find(({ year, month, day }) => date && year === date.year && month === date.month && day === date.day);
+
   const handleDayPress = () => {
-    if (isToday) {
+    if (isToday && !calendarDayData) {
       return router.navigate(`/(app)/characters?year=${today.year}&month=${today.month}&day=${today.day}`);
     }
     onPress?.(date);
   };
 
   if (!date) return null;
-
-  const calendarDayData = calendarMonthData?.result
-    ?.filter(isCalendarDayData)
-    .find(({ year, month, day }) => year === date.year && month === date.month && day === date.day);
 
   return (
     <Wrapper disabled={!isToday && !calendarDayData} onPress={handleDayPress} style={{ zIndex: 100 - date.day }}>
