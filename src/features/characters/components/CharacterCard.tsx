@@ -7,13 +7,14 @@ import styled from 'styled-components/native';
 
 type Props = {
   characterId: CharacterId;
+  onClick?: () => void;
 };
 
-const CharacterCard = ({ characterId }: Props) => {
+const CharacterCard = ({ characterId, onClick }: Props) => {
   const { name, description, lottie } = characters[characterId];
 
   return (
-    <Wrapper>
+    <Wrapper onPress={onClick}>
       <LottieWrapper>
         <StyledLottieView source={lottie} autoPlay loop renderMode="SOFTWARE" />
       </LottieWrapper>
@@ -27,7 +28,7 @@ const CharacterCard = ({ characterId }: Props) => {
 
 export default CharacterCard;
 
-const Wrapper = styled.View`
+const Wrapper = styled.TouchableOpacity`
   width: ${responsiveToPx('255px')};
   margin: 0 auto;
   background-color: rgba(255, 255, 255, 0.8);

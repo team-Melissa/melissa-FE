@@ -1,6 +1,7 @@
 import { COLOR } from '@/src/constants/theme';
 import { useCarousel } from '@/src/hooks/useCarousel';
 import { type CharacterId } from '@/src/modules/character';
+import { CHARACTER_ID_LIST } from '@/src/modules/character/constants/characters';
 import responsiveToPx from '@/src/utils/responsiveToPx';
 import { useRef, useState } from 'react';
 import type { LayoutChangeEvent } from 'react-native';
@@ -12,11 +13,10 @@ import CharacterCard from './CharacterCard';
 type Props = {
   selectedId: CharacterId;
   onSelectChange: (aiProfileId: CharacterId) => void;
+  onCharacterClick: () => void;
 };
 
-const CHARACTER_ID_LIST = [1, 2, 3, 4, 5] satisfies CharacterId[];
-
-const CharacterList = ({ selectedId, onSelectChange }: Props) => {
+const CharacterList = ({ selectedId, onSelectChange, onCharacterClick }: Props) => {
   const [width, setWidth] = useState<number | null>(null);
   const carouselRef = useRef<ICarouselInstance>(null);
 
@@ -52,7 +52,9 @@ const CharacterList = ({ selectedId, onSelectChange }: Props) => {
             parallaxScrollingOffset: 70,
           }}
           onProgressChange={handleProgressChange}
-          renderItem={({ item }) => <CharacterCard characterId={item} />}
+          renderItem={({ item }) => (
+            <CharacterCard characterId={item} onClick={item === selectedId ? onCharacterClick : undefined} />
+          )}
         />
       )}
       <Pagination.Basic

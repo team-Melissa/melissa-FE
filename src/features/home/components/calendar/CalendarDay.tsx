@@ -1,5 +1,6 @@
 import { COLOR } from '@/src/constants/theme';
 import { Description1 } from '@/src/core/Txt';
+import { useRouter } from 'expo-router';
 import type { DateData } from 'react-native-calendars';
 import type { BasicDayProps } from 'react-native-calendars/src/calendar/day/basic';
 import styled from 'styled-components/native';
@@ -13,28 +14,32 @@ type Props = Omit<BasicDayProps, 'date'> & {
 };
 
 const CalendarDay = ({ date, onPress }: Props) => {
+  const router = useRouter();
   const today = getTodayDateData();
+  const isToday = today.dateString === date?.dateString;
 
   const { data: calendarMonthData } = useGetDiary({
     year: date?.year ?? today.year,
     month: date?.month ?? today.month,
   });
 
+  const calendarDayData = calendarMonthData?.result
+    ?.filter(isCalendarDayData)
+    .find(({ year, month, day }) => date && year === date.year && month === date.month && day === date.day);
+
   const handleDayPress = () => {
-    if (!calendarDayData) return;
+    if (isToday && !calendarDayData) {
+      return router.navigate(`/(app)/characters?year=${today.year}&month=${today.month}&day=${today.day}`);
+    }
     onPress?.(date);
   };
 
   if (!date) return null;
 
-  const calendarDayData = calendarMonthData?.result
-    ?.filter(isCalendarDayData)
-    .find(({ year, month, day }) => year === date.year && month === date.month && day === date.day);
-
   return (
-    <Wrapper onPress={handleDayPress} style={{ zIndex: 100 - date.day }}>
-      <StyledDescription1 $isToday={today.dateString === date.dateString}>{date.day}</StyledDescription1>
-      <CalendarDayContent dayData={calendarDayData} />
+    <Wrapper disabled={!isToday && !calendarDayData} onPress={handleDayPress} style={{ zIndex: 100 - date.day }}>
+      <StyledDescription1 $isToday={isToday}>{date.day}</StyledDescription1>
+      <CalendarDayContent isToday={isToday} dayData={calendarDayData} />
     </Wrapper>
   );
 };

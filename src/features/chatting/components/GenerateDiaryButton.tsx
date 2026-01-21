@@ -5,14 +5,11 @@ import responsiveToPx from '@/src/utils/responsiveToPx';
 import styled from 'styled-components/native';
 
 type Props = {
-  isVisible: boolean;
   isLoading: boolean;
   onClick: () => void;
 };
 
-const GenerateDiaryButton = ({ isVisible, isLoading, onClick }: Props) => {
-  if (!isVisible) return null;
-
+const GenerateDiaryButton = ({ isLoading, onClick }: Props) => {
   return (
     <StyledPrimaryButton
       size="small"

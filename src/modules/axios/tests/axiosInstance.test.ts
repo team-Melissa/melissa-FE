@@ -16,6 +16,9 @@ jest.mock('expo-router', () => ({
     replace: jest.fn(),
   },
 }));
+jest.mock('@/src/modules/axios/constants', () => ({
+  SERVER_URL: 'http://localhost',
+}));
 jest.mock('@/src/libs/secureStorage', () => ({
   getRefreshToken: jest.fn(() => mockRefreshToken),
   setRefreshToken: jest.fn((token: string) => (mockRefreshToken = token)),

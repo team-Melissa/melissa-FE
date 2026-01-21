@@ -3,7 +3,7 @@ const { defineConfig } = require('orval');
 module.exports = defineConfig({
   melissa: {
     input: {
-      target: 'https://dev.melissa7.shop/v3/api-docs',
+      target: 'https://api.melissahttps.cloud/v3/api-docs',
     },
     output: {
       mode: 'split',

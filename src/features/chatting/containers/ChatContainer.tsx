@@ -93,6 +93,9 @@ const ChatContainer = () => {
   };
 
   const handleDiarySummaryClick = () => {
+    if (!canGenerateDiary) {
+      return toast({ message: '대화를 조금 더 나눈 뒤, 다시 시도해주세요', options: { type: 'error' } });
+    }
     if (generateDiaryMutation.isPending) return;
     generateDiaryMutation.mutate({ data: { aiProfileId, year, month, day } });
   };
@@ -105,11 +108,7 @@ const ChatContainer = () => {
       <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
         <ChatScrollView chatData={chatList} characterId={aiProfileId} year={year} month={month} day={day} />
         <View>
-          <GenerateDiaryButton
-            isVisible={canGenerateDiary}
-            isLoading={generateDiaryMutation.isPending}
-            onClick={handleDiarySummaryClick}
-          />
+          <GenerateDiaryButton isLoading={generateDiaryMutation.isPending} onClick={handleDiarySummaryClick} />
           <ChatInput
             isLoading={sendChatMutation.isPending}
             onInputSubmit={handleInputSubmit}

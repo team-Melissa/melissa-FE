@@ -1,5 +1,6 @@
 import { HedgehogBust, MoleBust, MonkeyBust, RabbitBust, SquirrelBust } from '../components/busts';
 import { HedgehogFace, MoleFace, MonkeyFace, RabbitFace, SquirrelFace } from '../components/faces';
+import { isValidCharacterId } from '../utils';
 
 export const characters = {
   1: {
@@ -43,3 +44,5 @@ export const characters = {
     lottie: require('@/assets/lotties/hedgehog.json'),
   },
 };
+
+export const CHARACTER_ID_LIST = Object.keys(characters).map(Number).filter(isValidCharacterId);
