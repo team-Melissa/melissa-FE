@@ -1,18 +1,18 @@
+import { LargeTitle } from '@/src/core/Txt';
+import type { ReactNode } from 'react';
 import styled from 'styled-components/native';
 import MenuButtons from './MenuButtons';
-import MonthDropdown from './MonthDropdown';
 import StreakBadge from './StreakBadge';
 
 type Props = {
-  month: number;
-  onChange?: (newMonth: number) => void;
+  children?: ReactNode;
 };
 
-const HomeHeader = ({ month, onChange }: Props) => {
+const HomeHeader = ({ children }: Props) => {
   return (
     <Wrapper>
       <StreakBadge />
-      <MonthDropdown value={month} onValueChange={onChange} />
+      <LargeTitle color="title">{children}</LargeTitle>
       <MenuButtons />
     </Wrapper>
   );

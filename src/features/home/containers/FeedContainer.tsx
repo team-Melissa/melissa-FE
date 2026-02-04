@@ -10,14 +10,14 @@ import { isNonNullableDailySummaryResponse } from '../utils/typeGuard';
 const FeedContainer = () => {
   const todayDate = getTodayDate();
   const year = todayDate.year;
-  const [month, setMonth] = useState<number>(todayDate.month);
+  const [month] = useState<number>(todayDate.month);
 
   const { data } = useGetDiary({ year, month });
   const calendarMonthData = data?.result?.filter(isNonNullableDailySummaryResponse).toReversed() ?? [];
 
   return (
     <Wrapper>
-      <HomeHeader month={month} onChange={setMonth} />
+      <HomeHeader />
       <FeedList monthData={calendarMonthData} />
     </Wrapper>
   );
