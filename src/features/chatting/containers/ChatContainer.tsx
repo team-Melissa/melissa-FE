@@ -11,7 +11,6 @@ import { COLOR } from '@/src/constants/theme';
 import { toast } from '@/src/modules/toast';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
-import { Alert, View } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
@@ -88,10 +87,6 @@ const ChatContainer = () => {
     sendChatMutation.mutate({ data: { aiProfileId, year, month, day, content } });
   };
 
-  const handleVoiceModeClick = () => {
-    Alert.alert('준비중인 기능입니다.');
-  };
-
   const handleDiarySummaryClick = () => {
     if (!canGenerateDiary) {
       return toast({ message: '대화를 조금 더 나눈 뒤, 다시 시도해주세요', options: { type: 'error' } });
@@ -107,14 +102,8 @@ const ChatContainer = () => {
       <ChatHeader characterId={aiProfileId} onBackClick={handleBackClick} />
       <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
         <ChatScrollView chatData={chatList} characterId={aiProfileId} year={year} month={month} day={day} />
-        <View>
-          <GenerateDiaryButton isLoading={generateDiaryMutation.isPending} onClick={handleDiarySummaryClick} />
-          <ChatInput
-            isLoading={sendChatMutation.isPending}
-            onInputSubmit={handleInputSubmit}
-            onVoiceModeClick={handleVoiceModeClick}
-          />
-        </View>
+        <GenerateDiaryButton isLoading={generateDiaryMutation.isPending} onClick={handleDiarySummaryClick} />
+        <ChatInput isLoading={sendChatMutation.isPending} onInputSubmit={handleInputSubmit} />
       </KeyboardAvoidingView>
     </SafeView>
   );
