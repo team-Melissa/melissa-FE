@@ -21,6 +21,14 @@ module.exports = defineConfig({
           usePrefetch: true,
           signal: false,
         },
+        operations: {
+          getFeed: {
+            query: {
+              useInfinite: true,
+              useInfiniteQueryParam: 'cursorDiaryId',
+            },
+          },
+        },
       },
       fileExtension: '.ts',
     },
