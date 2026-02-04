@@ -1,4 +1,4 @@
-import { IconSearch, IconSetting } from '@/src/icons';
+import { IconSetting } from '@/src/icons';
 import { debounce } from '@/src/utils/debounce';
 import { useRouter } from 'expo-router';
 import { Alert, TouchableOpacity } from 'react-native';
@@ -7,7 +7,7 @@ import styled from 'styled-components/native';
 const MenuButtons = () => {
   const router = useRouter();
 
-  const goToSearchPage = debounce(() => {
+  const goToTutorialPage = debounce(() => {
     Alert.alert('준비중인 기능입니다.');
   });
 
@@ -17,8 +17,8 @@ const MenuButtons = () => {
 
   return (
     <Wrapper>
-      <TouchableOpacity hitSlop={5} onPress={goToSearchPage}>
-        <IconSearch />
+      <TouchableOpacity hitSlop={5} onPress={goToTutorialPage}>
+        {/* TODO: 튜토리얼 아이콘 추가 */}
       </TouchableOpacity>
       <TouchableOpacity hitSlop={5} onPress={goToSettingPage}>
         <IconSetting />
