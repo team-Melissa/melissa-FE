@@ -8,7 +8,17 @@ import { isNonNullableDailySummaryResponse } from '../utils/typeGuard';
 const FeedContainer = () => {
   const { data, isPending, hasNextPage, fetchNextPage } = useGetFeedInfinite(
     { limit: 5 },
-    { query: { getNextPageParam: (lastPage) => lastPage.result?.pageInfo.nextCursor?.cursorDiaryId ?? null } }
+    {
+      query: {
+        getNextPageParam: (lastPage) => lastPage.result?.pageInfo.nextCursor?.cursorDiaryId ?? null,
+        refetchInterval: (query) => {
+          const days = query.state.data?.pages.flatMap((data) => data.result?.days);
+          const diaries = days?.flatMap((day) => day?.diaries);
+          const isRefetch = diaries?.some((diary) => !!diary?.hashtag1 && !diary.imageUrl);
+          return isRefetch ? 2000 : false;
+        },
+      },
+    }
   );
 
   const calendarMonthData = data?.pages
