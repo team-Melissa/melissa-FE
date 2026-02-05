@@ -1,24 +1,29 @@
+import { useGetFeedInfinite } from '@/src/apis/_generated/serverAPI';
 import { COLOR } from '@/src/constants/theme';
-import { getTodayDate } from '@/src/utils/date';
-import { useState } from 'react';
 import styled from 'styled-components/native';
 import FeedList from '../components/feed/FeedList';
 import HomeHeader from '../components/header/HomeHeader';
-import { useGetDiary } from '../hooks/useGetDiary';
 import { isNonNullableDailySummaryResponse } from '../utils/typeGuard';
 
 const FeedContainer = () => {
-  const todayDate = getTodayDate();
-  const year = todayDate.year;
-  const [month, setMonth] = useState<number>(todayDate.month);
+  const { data, isPending, hasNextPage, fetchNextPage } = useGetFeedInfinite(
+    { limit: 5 },
+    { query: { getNextPageParam: (lastPage) => lastPage.result?.pageInfo.nextCursor?.cursorDiaryId ?? null } }
+  );
 
-  const { data } = useGetDiary({ year, month });
-  const calendarMonthData = data?.result?.filter(isNonNullableDailySummaryResponse).toReversed() ?? [];
+  const calendarMonthData = data?.pages
+    .flatMap((value) => value.result?.days)
+    ?.filter(isNonNullableDailySummaryResponse);
 
   return (
     <Wrapper>
-      <HomeHeader month={month} onChange={setMonth} />
-      <FeedList monthData={calendarMonthData} />
+      <HomeHeader />
+      <FeedList
+        monthData={calendarMonthData ?? []}
+        isPending={isPending}
+        hasNextPage={hasNextPage}
+        onFetchNextPage={() => fetchNextPage({ cancelRefetch: false })}
+      />
     </Wrapper>
   );
 };

@@ -1,4 +1,5 @@
-import { IconSearch, IconSetting } from '@/src/icons';
+import { IconSetting } from '@/src/icons';
+import { IconQuestion } from '@/src/icons/IconQuestion';
 import { debounce } from '@/src/utils/debounce';
 import { useRouter } from 'expo-router';
 import { Alert, TouchableOpacity } from 'react-native';
@@ -7,7 +8,7 @@ import styled from 'styled-components/native';
 const MenuButtons = () => {
   const router = useRouter();
 
-  const goToSearchPage = debounce(() => {
+  const goToTutorialPage = debounce(() => {
     Alert.alert('준비중인 기능입니다.');
   });
 
@@ -17,8 +18,8 @@ const MenuButtons = () => {
 
   return (
     <Wrapper>
-      <TouchableOpacity hitSlop={5} onPress={goToSearchPage}>
-        <IconSearch />
+      <TouchableOpacity hitSlop={5} onPress={goToTutorialPage}>
+        <IconQuestion color="#6C5244" />
       </TouchableOpacity>
       <TouchableOpacity hitSlop={5} onPress={goToSettingPage}>
         <IconSetting />
@@ -31,5 +32,6 @@ export default MenuButtons;
 
 const Wrapper = styled.View`
   flex-direction: row;
+  align-items: center;
   gap: 10px;
 `;

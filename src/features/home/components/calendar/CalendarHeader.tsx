@@ -14,7 +14,7 @@ const CalendarHeader = (props: CalendarHeaderProps) => {
 
   return (
     <Wrapper>
-      <HomeHeader month={monthNum} />
+      <HomeHeader>{monthNum}월</HomeHeader>
       <DayNamesWrapper>
         {DAY_NAMES.map((dayName) => (
           <StyledDescription1 key={dayName} color="weeks">

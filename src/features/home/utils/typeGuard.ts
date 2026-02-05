@@ -2,7 +2,7 @@ import type { DailySummaryResponseDTO, DiaryDetailDTO } from '@/src/apis/_genera
 import type { CalendarDayData } from '../types';
 
 export const isNonNullableDailySummaryResponse = (
-  value: DailySummaryResponseDTO
+  value: DailySummaryResponseDTO | undefined
 ): value is NonNullable<DailySummaryResponseDTO> => {
   return !!value?.year;
 };
