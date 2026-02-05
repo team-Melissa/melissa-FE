@@ -1,31 +1,24 @@
 import { PrimaryButton } from '@/src/core/Button';
 import Spinner from '@/src/core/Loading/Spinner';
 import { IconCheck } from '@/src/icons';
-import responsiveToPx from '@/src/utils/responsiveToPx';
-import styled from 'styled-components/native';
 
 type Props = {
   isLoading: boolean;
+  isExpanded: boolean;
   onClick: () => void;
 };
 
-const GenerateDiaryButton = ({ isLoading, onClick }: Props) => {
+const GenerateDiaryButton = ({ isLoading, isExpanded, onClick }: Props) => {
   return (
-    <StyledPrimaryButton
-      size="small"
+    <PrimaryButton
+      size={isExpanded ? 'small' : 'circle'}
       icon={isLoading ? <Spinner size={20} /> : <IconCheck />}
       disabled={isLoading}
       onPress={onClick}
     >
-      일기 쓰기
-    </StyledPrimaryButton>
+      {isExpanded && '일기 쓰기'}
+    </PrimaryButton>
   );
 };
 
 export default GenerateDiaryButton;
-
-const StyledPrimaryButton = styled(PrimaryButton)`
-  position: absolute;
-  right: 0;
-  bottom: ${responsiveToPx('72px')};
-`;

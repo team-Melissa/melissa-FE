@@ -54,9 +54,11 @@ const FeedbackContainer = () => {
           </FormSection>
         </ContentWrapper>
       </TouchableWithoutFeedback>
-      <StyledSubmitButton size="large" disabled={sendEmailMutation.isPending || !isFormValid} onPress={handleSubmit}>
-        제출하기
-      </StyledSubmitButton>
+      <ButtonWrapper>
+        <PrimaryButton size="large" disabled={sendEmailMutation.isPending || !isFormValid} onPress={handleSubmit}>
+          제출하기
+        </PrimaryButton>
+      </ButtonWrapper>
     </SafeView>
   );
 };
@@ -78,6 +80,6 @@ const FormSection = styled.View`
   gap: 12px;
 `;
 
-const StyledSubmitButton = styled(PrimaryButton)`
+const ButtonWrapper = styled.View`
   margin: 0 auto;
 `;
