@@ -43,7 +43,9 @@ const FeedDiaryListItem = ({ date, diaryData, onLayout }: Props) => {
         <StyledHashtagTxt color="main">
           #{diaryData.hashtag1} #{diaryData.hashtag2}
         </StyledHashtagTxt>
-        <DiaryCreatedByInfo aiProfileId={diaryData.aiProfileId} createdAt={diaryData.createdAt} />
+        {diaryData.type === 'CHAT_BASED' && (
+          <DiaryCreatedByInfo aiProfileId={diaryData.aiProfileId} createdAt={diaryData.createdAt} />
+        )}
       </RelativeWrapper>
     </Wrapper>
   );
