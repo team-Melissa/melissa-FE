@@ -5,7 +5,6 @@ import type { CharacterId } from '@/src/modules/character';
 import { toast } from '@/src/modules/toast';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 import ActionButtons from '../components/ActionButtons';
@@ -43,7 +42,7 @@ const CharactersContainer = () => {
   };
 
   const handleManualDiaryClick = () => {
-    Alert.alert('준비중인 기능입니다.');
+    router.navigate(`/(app)/write-diary?year=${year}&month=${month}&day=${day}`);
   };
 
   return (
