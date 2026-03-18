@@ -1,5 +1,13 @@
+import {
+  getGetCalendarViewQueryKey,
+  getGetCurrentStreakQueryKey,
+  getGetFeedQueryKey,
+  useCreateManualDiary,
+} from '@/src/apis/_generated/serverAPI';
 import { COLOR } from '@/src/constants/theme';
 import { PrimaryButton } from '@/src/core/Button';
+import { toast } from '@/src/modules/toast';
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Keyboard, TouchableWithoutFeedback } from 'react-native';
@@ -12,20 +20,35 @@ import { useWriteDiaryQueryParams } from '../hooks/useWriteDiaryQueryParams';
 
 const WriteDiaryContainer = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const { year, month, day } = useWriteDiaryQueryParams();
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
 
   const isFormValid = title.trim() && content.trim();
 
+  const createManualDiaryMutation = useCreateManualDiary({
+    mutation: {
+      onError: () => {
+        toast({ message: '저장에 실패했습니다. 잠시 후 다시 시도해주세요.', options: { type: 'error' } });
+      },
+      onSuccess: () => {
+        toast({ message: '저장되었습니다.', options: { type: 'success' } });
+        queryClient.invalidateQueries({ queryKey: getGetCalendarViewQueryKey({ year, month }) });
+        queryClient.invalidateQueries({ queryKey: getGetFeedQueryKey() });
+        queryClient.invalidateQueries({ queryKey: getGetCurrentStreakQueryKey() });
+      },
+    },
+  });
+
   const handleBackClick = () => {
     router.back();
   };
 
   const handleSubmit = () => {
-    if (!isFormValid) return;
-    // TODO: API 연결
-    console.log({ title, content, year, month, day });
+    if (!isFormValid || createManualDiaryMutation.isPending) return;
+    // TODO: aiProfileId 어떻게 할지 논의 필요
+    createManualDiaryMutation.mutate({ data: { aiProfileId: 0, year, month, day, title, content } });
   };
 
   return (
