@@ -37,6 +37,7 @@ const WriteDiaryContainer = () => {
         queryClient.invalidateQueries({ queryKey: getGetCalendarViewQueryKey({ year, month }) });
         queryClient.invalidateQueries({ queryKey: getGetFeedQueryKey() });
         queryClient.invalidateQueries({ queryKey: getGetCurrentStreakQueryKey() });
+        router.dismissAll();
       },
     },
   });
