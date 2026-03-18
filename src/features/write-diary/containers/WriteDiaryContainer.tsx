@@ -47,8 +47,7 @@ const WriteDiaryContainer = () => {
 
   const handleSubmit = () => {
     if (!isFormValid || createManualDiaryMutation.isPending) return;
-    // TODO: aiProfileId 어떻게 할지 논의 필요
-    createManualDiaryMutation.mutate({ data: { aiProfileId: 0, year, month, day, title, content } });
+    createManualDiaryMutation.mutate({ data: { aiProfileId: 1, year, month, day, title, content } });
   };
 
   return (
