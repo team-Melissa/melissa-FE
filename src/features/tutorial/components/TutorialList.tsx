@@ -13,7 +13,11 @@ type Props = {
 
 const TutorialList = forwardRef<ICarouselInstance, Props>(({ onIndexChange }, ref) => {
   const [width, setWidth] = useState<number | null>(null);
-  const { progress, handleProgressChange } = useCarousel(onIndexChange);
+  const [currentIdx, setCurrentIdx] = useState<number>(0);
+  const { progress, handleProgressChange } = useCarousel((index) => {
+    setCurrentIdx(index);
+    onIndexChange(index);
+  });
 
   const getLayout = (e: LayoutChangeEvent) => {
     setWidth(e.nativeEvent.layout.width);
@@ -28,7 +32,7 @@ const TutorialList = forwardRef<ICarouselInstance, Props>(({ onIndexChange }, re
             width={width}
             data={TUTORIAL_LIST_DATA}
             loop={false}
-            renderItem={TutorialListItem}
+            renderItem={(props) => <TutorialListItem {...props} isActive={props.index === currentIdx} />}
             onProgressChange={handleProgressChange}
           />
         )}
