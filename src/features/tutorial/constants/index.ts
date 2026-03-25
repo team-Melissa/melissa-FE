@@ -1,27 +1,37 @@
 export const TUTORIAL_LIST_DATA = [
   {
-    title: '대화하기 버튼으로 일기 작성 시작!',
-    description: '오늘 하루는 어땠나요?\n + 버튼을 누르거나, 글쓰기 아이콘을 통해 대화를 시작해보세요!',
-    image: require('@/assets/images/tutorials/calendar.png'),
+    title: '일기를 쓰고 싶으신가요?',
+    description: '오늘 날짜의 + 버튼을 누르거나\n우하단 대화하러 가기 아이콘을 터치하세요',
+    video: require('@/assets/videos/tutorials/start-diary-chat-icon.mp4'),
   },
   {
-    title: '당신의 이야기들을 확인해보세요.',
-    description: '날짜를 눌러, 당신의 이야기가 담긴 순간으로 돌아가 보세요.',
-    image: require('@/assets/images/tutorials/bottom-sheet.png'),
+    title: '일기를 쓰고 싶으신가요?',
+    description: '오늘 날짜의 + 버튼을 누르거나\n우하단 대화하러 가기 아이콘을 터치하세요',
+    video: require('@/assets/videos/tutorials/start-diary-plus-button.mp4'),
   },
   {
-    title: '마음에 드는 일기를 저장하거나 공유하세요.',
-    description: '우측 공유 버튼을 클릭해 소중한 기록을 남기거나, 나눌 수 있어요.',
-    image: require('@/assets/images/tutorials/share.png'),
+    title: '다양한 서포터와 대화해보세요',
+    description: '다양한 성격의 멜리사의 친구들이 기다리고 있어요',
+    video: require('@/assets/videos/tutorials/select-supporter.mp4'),
   },
   {
-    title: '다양한 파트너와 대화해보세요.',
-    description: '취향 저격 파트너를 찾아보세요.\n각기 다른 매력을 가진 친구들과 대화를 나눌 수 있어요!',
-    image: require('@/assets/images/tutorials/character.png'),
+    title: '대화가 끝나셨나요?',
+    description: '일기 쓰기 버튼을 눌러보세요\n자동으로 일기가 뚝딱! 생성된딥니다',
+    video: require('@/assets/videos/tutorials/generate-diary.mp4'),
   },
   {
-    title: '오늘 하루에 대한 기록을 남겨요.',
-    description: '파트너와 대화하다 보면, 일기 쓰기 버튼이 활성화돼요!\n버튼만 누르면 멋진 일기가 뚝딱 완성돼요.',
-    image: require('@/assets/images/tutorials/chatting.png'),
+    title: '작성된 일기를 보고 싶으신가요?',
+    description: '작성된 일기는 달력이나 피드 화면에서 볼 수 있어요',
+    video: require('@/assets/videos/tutorials/view-diary.mp4'),
+  },
+  {
+    title: '작성된 일기를 기기에 저장하고 싶으신가요?',
+    description: '소중한 기록을 갤러리에 저장하거나 외부로 공유할 수 있어요',
+    video: require('@/assets/videos/tutorials/save-share-diary.mp4'),
+  },
+  {
+    title: '궁금한 점이 있나요?',
+    description: '쓰시다가 궁금한 점이나 개선되었으면 하는 점\n주저 마시고 저희 팀에게 알려주세요!',
+    video: require('@/assets/videos/tutorials/contact-team.mp4'),
   },
 ];
