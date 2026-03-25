@@ -11,21 +11,21 @@ describe('DiaryHashtagInput', () => {
   });
 
   it('value 렌더링 확인', () => {
-    const value = '#태그';
+    const value = '태그';
     render(<DiaryHashtagInput value={value} onValueChange={jest.fn()} />);
 
     expect(screen.getByDisplayValue(value)).toBeTruthy();
   });
 
   it('placeholder 렌더링 확인', () => {
-    const placeholder = '#태그';
+    const placeholder = '태그1';
     render(<DiaryHashtagInput value="" onValueChange={jest.fn()} placeholder={placeholder} />);
 
     expect(screen.getByPlaceholderText(placeholder)).toBeTruthy();
   });
 
   it('5자 이하 입력 시 onValueChange 호출 확인', () => {
-    const changedValue = '#테스트';
+    const changedValue = '테스트';
     const onValueChange = jest.fn();
     render(<DiaryHashtagInput value="" onValueChange={onValueChange} />);
     fireEvent.changeText(screen.getByTestId(TEST_ID), changedValue);
@@ -33,10 +33,10 @@ describe('DiaryHashtagInput', () => {
     expect(onValueChange).toHaveBeenCalledWith(changedValue);
   });
 
-  it('# 포함 5자 초과 시 onValueChange가 호출되지 않아야 함', () => {
+  it('5자 초과 시 onValueChange가 호출되지 않아야 함', () => {
     const onValueChange = jest.fn();
     render(<DiaryHashtagInput value="" onValueChange={onValueChange} />);
-    fireEvent.changeText(screen.getByTestId(TEST_ID), '#여섯글자야');
+    fireEvent.changeText(screen.getByTestId(TEST_ID), '여섯여섯여섯');
 
     expect(onValueChange).not.toHaveBeenCalled();
   });

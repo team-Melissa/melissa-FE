@@ -88,8 +88,8 @@ const EditDiaryContainer = () => {
           <DiaryTitleInput value={title} onValueChange={setTitle} />
           <DiaryContentInput value={content} onValueChange={setContent} />
           <HashtagWrapper>
-            <DiaryHashtagInput value={hashtag1} onValueChange={setHashtag1} placeholder="#태그1" />
-            <DiaryHashtagInput value={hashtag2} onValueChange={setHashtag2} placeholder="#태그2" />
+            <DiaryHashtagInput value={hashtag1} onValueChange={setHashtag1} placeholder="태그1" />
+            <DiaryHashtagInput value={hashtag2} onValueChange={setHashtag2} placeholder="태그2" />
           </HashtagWrapper>
         </ContentWrapper>
         <ButtonWrapper>
