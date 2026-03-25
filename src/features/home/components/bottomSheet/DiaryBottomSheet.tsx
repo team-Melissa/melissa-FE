@@ -60,7 +60,12 @@ const DiaryBottomSheet = forwardRef<BottomSheet, Props>(({ date }, ref) => {
       >
         {dayData && (
           <Wrapper onLayout={getBottomSheetWidth}>
-            <DiaryBottomSheetList key={`${date.year}-${date.month}-${date.day}`} width={width} dayData={dayData} />
+            <DiaryBottomSheetList
+              key={`${date.year}-${date.month}-${date.day}`}
+              width={width}
+              dayData={dayData}
+              onClose={() => bottomSheetRef.current?.close()}
+            />
           </Wrapper>
         )}
       </StyledBottomSheet>

@@ -25,47 +25,54 @@ const WriteDiaryContainer = () => {
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
 
-  const isFormValid = title.trim() && content.trim();
+  const createManualDiaryMutation = useCreateManualDiary();
 
-  const createManualDiaryMutation = useCreateManualDiary({
-    mutation: {
-      onError: () => {
-        toast({ message: '저장에 실패했습니다. 잠시 후 다시 시도해주세요.', options: { type: 'error' } });
-      },
-      onSuccess: () => {
-        toast({ message: '저장되었습니다.', options: { type: 'success' } });
-        queryClient.invalidateQueries({ queryKey: getGetCalendarViewQueryKey({ year, month }) });
-        queryClient.invalidateQueries({ queryKey: getGetFeedQueryKey() });
-        queryClient.invalidateQueries({ queryKey: getGetCurrentStreakQueryKey() });
-        router.dismissAll();
-      },
-    },
-  });
+  const isFormValid = title.trim() && content.trim();
 
   const handleBackClick = () => {
     router.back();
   };
 
-  const handleSubmit = () => {
+  const handleSubmitClick = () => {
     if (!isFormValid || createManualDiaryMutation.isPending) return;
-    createManualDiaryMutation.mutate({ data: { aiProfileId: 1, year, month, day, title, content } });
+    createManualDiaryMutation.mutate(
+      {
+        data: { aiProfileId: 1, year, month, day, title, content },
+      },
+      {
+        onSuccess: () => {
+          toast({ message: '저장되었습니다.', options: { type: 'success' } });
+          queryClient.invalidateQueries({ queryKey: getGetCalendarViewQueryKey({ year, month }) });
+          queryClient.invalidateQueries({ queryKey: getGetFeedQueryKey() });
+          queryClient.invalidateQueries({ queryKey: getGetCurrentStreakQueryKey() });
+          router.dismissAll();
+        },
+        onError: () => {
+          toast({ message: '저장에 실패했습니다. 잠시 후 다시 시도해주세요.', options: { type: 'error' } });
+        },
+      }
+    );
   };
 
   return (
-    <SafeView>
-      <WriteDiaryHeader onBackClick={handleBackClick}>{`${year}년 ${month}월 ${day}일`}</WriteDiaryHeader>
-      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <SafeView>
+        <WriteDiaryHeader onBackClick={handleBackClick}>{`${year}년 ${month}월 ${day}일`}</WriteDiaryHeader>
         <ContentWrapper>
           <DiaryTitleInput value={title} onValueChange={setTitle} />
           <DiaryContentInput value={content} onValueChange={setContent} />
         </ContentWrapper>
-      </TouchableWithoutFeedback>
-      <ButtonWrapper>
-        <PrimaryButton size="large" disabled={!isFormValid} onPress={handleSubmit}>
-          일기 저장하기
-        </PrimaryButton>
-      </ButtonWrapper>
-    </SafeView>
+        <ButtonWrapper>
+          <PrimaryButton
+            size="large"
+            disabled={!isFormValid || createManualDiaryMutation.isPending}
+            onPress={handleSubmitClick}
+          >
+            {createManualDiaryMutation.isPending ? '일기 저장중...' : '일기 저장하기'}
+          </PrimaryButton>
+        </ButtonWrapper>
+      </SafeView>
+    </TouchableWithoutFeedback>
   );
 };
 
