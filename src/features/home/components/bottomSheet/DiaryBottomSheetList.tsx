@@ -6,9 +6,10 @@ import DiaryBottomSheetListItem from './DiaryBottomSheetListItem';
 type Props = {
   width: number | null;
   dayData: NonNullable<DailySummaryResponseDTO>;
+  onClose: () => void;
 };
 
-const DiaryBottomSheetList = ({ width, dayData }: Props) => {
+const DiaryBottomSheetList = ({ width, dayData, onClose }: Props) => {
   const { year, month, day } = dayData;
 
   const diaries = dayData.diaries.filter(isRequiredDiaryDetail);
@@ -19,7 +20,9 @@ const DiaryBottomSheetList = ({ width, dayData }: Props) => {
       width={width}
       data={diaries}
       loop={false}
-      renderItem={({ item }) => <DiaryBottomSheetListItem date={{ year, month, day }} diaryData={item} />}
+      renderItem={({ item }) => (
+        <DiaryBottomSheetListItem date={{ year, month, day }} diaryData={item} onClose={onClose} />
+      )}
       onConfigurePanGesture={(gestureChain) => gestureChain.activeOffsetX([-10, 10])}
     />
   );

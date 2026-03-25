@@ -23,16 +23,43 @@ import { useEditDiaryQueryParams } from '../hooks/useEditDiaryQueryParams';
 const EditDiaryContainer = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { diaryId, year, month, day } = useEditDiaryQueryParams();
-
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [hashtag1, setHashtag1] = useState<string>('');
   const [hashtag2, setHashtag2] = useState<string>('');
+  const { diaryId, year, month, day } = useEditDiaryQueryParams();
 
   const { data, isLoading } = useGetDailySummary({ year, month, day });
+  const updateDiaryMutation = useUpdateDiary();
 
+  const isFormValid = title.trim() && content.trim() && hashtag1.trim() && hashtag2.trim();
   const diary = data?.result?.diaries?.find((d) => d.diaryId === diaryId);
+
+  const handleBackClick = () => {
+    router.back();
+  };
+
+  const handleSubmitClick = () => {
+    if (!isFormValid || updateDiaryMutation.isPending) return;
+    updateDiaryMutation.mutate(
+      {
+        diaryId,
+        data: { title, content, hashtag1, hashtag2 },
+      },
+      {
+        onSuccess: () => {
+          toast({ message: '수정되었습니다.', options: { type: 'success' } });
+          queryClient.invalidateQueries({ queryKey: getGetCalendarViewQueryKey({ year, month }) });
+          queryClient.invalidateQueries({ queryKey: getGetFeedQueryKey() });
+          queryClient.invalidateQueries({ queryKey: getGetCurrentStreakQueryKey() });
+          router.dismissAll();
+        },
+        onError: () => {
+          toast({ message: '수정에 실패했습니다. 잠시 후 다시 시도해주세요.', options: { type: 'error' } });
+        },
+      }
+    );
+  };
 
   useEffect(() => {
     if (diary) {
@@ -42,40 +69,6 @@ const EditDiaryContainer = () => {
       setHashtag2(diary.hashtag2 ?? '');
     }
   }, [diary]);
-
-  const isFormValid = title.trim() && content.trim() && hashtag1.trim() && hashtag2.trim();
-
-  const updateDiaryMutation = useUpdateDiary({
-    mutation: {
-      onError: () => {
-        toast({ message: '수정에 실패했습니다. 잠시 후 다시 시도해주세요.', options: { type: 'error' } });
-      },
-      onSuccess: () => {
-        toast({ message: '수정되었습니다.', options: { type: 'success' } });
-        queryClient.invalidateQueries({ queryKey: getGetCalendarViewQueryKey({ year, month }) });
-        queryClient.invalidateQueries({ queryKey: getGetFeedQueryKey() });
-        queryClient.invalidateQueries({ queryKey: getGetCurrentStreakQueryKey() });
-        router.dismissAll();
-      },
-    },
-  });
-
-  const handleBackClick = () => {
-    router.back();
-  };
-
-  const handleSubmit = () => {
-    if (!isFormValid || updateDiaryMutation.isPending) return;
-    updateDiaryMutation.mutate({
-      diaryId,
-      data: {
-        title,
-        content,
-        hashtag1: hashtag1 || null,
-        hashtag2: hashtag2 || null,
-      },
-    });
-  };
 
   if (isLoading) {
     return (
@@ -88,9 +81,9 @@ const EditDiaryContainer = () => {
   }
 
   return (
-    <SafeView>
-      <WriteDiaryHeader onBackClick={handleBackClick}>{`${year}년 ${month}월 ${day}일`}</WriteDiaryHeader>
-      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <SafeView>
+        <WriteDiaryHeader onBackClick={handleBackClick}>{`${year}년 ${month}월 ${day}일`}</WriteDiaryHeader>
         <ContentWrapper>
           <DiaryTitleInput value={title} onValueChange={setTitle} />
           <DiaryContentInput value={content} onValueChange={setContent} />
@@ -99,13 +92,13 @@ const EditDiaryContainer = () => {
             <DiaryHashtagInput value={hashtag2} onValueChange={setHashtag2} placeholder="#태그2" />
           </HashtagWrapper>
         </ContentWrapper>
-      </TouchableWithoutFeedback>
-      <ButtonWrapper>
-        <PrimaryButton size="large" disabled={!isFormValid} onPress={handleSubmit}>
-          수정 완료
-        </PrimaryButton>
-      </ButtonWrapper>
-    </SafeView>
+        <ButtonWrapper>
+          <PrimaryButton size="large" disabled={!isFormValid} onPress={handleSubmitClick}>
+            수정 완료
+          </PrimaryButton>
+        </ButtonWrapper>
+      </SafeView>
+    </TouchableWithoutFeedback>
   );
 };
 

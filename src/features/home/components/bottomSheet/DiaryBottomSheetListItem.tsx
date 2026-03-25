@@ -13,9 +13,10 @@ import ShareModal from '../shareModal/ShareModal';
 type Props = {
   date: TDate;
   diaryData: Required<DiaryDetailDTO>;
+  onClose: () => void;
 };
 
-const DiaryBottomSheetListItem = ({ date, diaryData }: Props) => {
+const DiaryBottomSheetListItem = ({ date, diaryData, onClose }: Props) => {
   const shareModal = useModal();
 
   const handleShareModalOpen = () => {
@@ -34,7 +35,13 @@ const DiaryBottomSheetListItem = ({ date, diaryData }: Props) => {
           <ShareButton hitSlop={5} onPress={handleShareModalOpen}>
             <IconShared />
           </ShareButton>
-          <DiaryOptionsDropdown diaryId={diaryData.diaryId} year={date.year} month={date.month} day={date.day} />
+          <DiaryOptionsDropdown
+            diaryId={diaryData.diaryId}
+            year={date.year}
+            month={date.month}
+            day={date.day}
+            onDismiss={onClose}
+          />
         </ActionButtonWrapper>
         <StyledDateTxt color="title">
           {date.year}년 {date.month}월 {date.day}일

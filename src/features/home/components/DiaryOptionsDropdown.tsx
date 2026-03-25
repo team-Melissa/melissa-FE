@@ -19,15 +19,16 @@ type Props = {
   year: number;
   month: number;
   day: number;
+  onDismiss?: () => void;
 };
 
-const DiaryOptionsDropdown = ({ diaryId, year, month, day }: Props) => {
+const DiaryOptionsDropdown = ({ diaryId, year, month, day, onDismiss }: Props) => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const deleteModal = useModal();
   const deleteDiaryMutation = useDeleteDiary();
 
-  const handleDeleteConfirmClick = () => {
+  const handleDeleteConfirmClick = (exit: () => void) => {
     if (deleteDiaryMutation.isPending) return;
     deleteDiaryMutation.mutate(
       { diaryId },
@@ -38,7 +39,8 @@ const DiaryOptionsDropdown = ({ diaryId, year, month, day }: Props) => {
           queryClient.invalidateQueries({ queryKey: getGetDailySummaryQueryKey({ year, month, day }) });
           queryClient.invalidateQueries({ queryKey: getGetFeedQueryKey() });
           queryClient.invalidateQueries({ queryKey: getGetCurrentStreakQueryKey() });
-          router.dismissAll();
+          exit();
+          onDismiss?.();
         },
         onError: () => {
           toast({ message: '삭제에 실패했습니다. 잠시 후 다시 시도해주세요.', options: { type: 'error' } });
@@ -48,6 +50,7 @@ const DiaryOptionsDropdown = ({ diaryId, year, month, day }: Props) => {
   };
 
   const handleEditClick = () => {
+    onDismiss?.();
     router.navigate(`/edit-diary?diaryId=${diaryId}&year=${year}&month=${month}&day=${day}`);
   };
 
@@ -56,7 +59,7 @@ const DiaryOptionsDropdown = ({ diaryId, year, month, day }: Props) => {
       <DeleteDiaryConfirmModal
         isOpen={isOpen}
         isPending={deleteDiaryMutation.isPending}
-        onConfirm={handleDeleteConfirmClick}
+        onConfirm={() => handleDeleteConfirmClick(exit)}
         onClose={exit}
       />
     ));
