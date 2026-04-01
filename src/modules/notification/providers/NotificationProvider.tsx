@@ -1,11 +1,12 @@
+import { setNotificationToken } from '@/src/libs/mmkv';
 import * as Notifications from 'expo-notifications';
 import { useEffect, type PropsWithChildren } from 'react';
-import { setNotificationToken } from '@/src/libs/mmkv';
 import { initializePushNotification } from '../utils/setup';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
-    shouldShowAlert: true,
+    shouldShowBanner: true,
+    shouldShowList: true,
     shouldPlaySound: true,
     shouldSetBadge: true,
   }),
@@ -30,8 +31,8 @@ export const NotificationProvider = ({ children }: PropsWithChildren) => {
     });
 
     return () => {
-      Notifications.removeNotificationSubscription(notificationListener);
-      Notifications.removeNotificationSubscription(responseListener);
+      notificationListener.remove();
+      responseListener.remove();
     };
   }, []);
 
