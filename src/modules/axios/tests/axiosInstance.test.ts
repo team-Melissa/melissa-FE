@@ -4,7 +4,15 @@ import { removeRefreshToken, setRefreshToken } from '@/src/libs/secureStorage';
 import { router } from 'expo-router';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import { axiosInstance } from '../instances/instance';
+
+// Expo의 ReadableStream 폴리필은 cancel() 시 에러를 던져 axios fetch adapter 초기화에 실패함
+// Node.js 내장 ReadableStream으로 복원 후 axiosInstance를 동적 require로 로드
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const { ReadableStream: NodeReadableStream } = require('stream/web');
+globalThis.ReadableStream = NodeReadableStream;
+
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const { axiosInstance } = require('../instances/instance');
 
 let mockAccessToken = 'expired-at';
 let mockRefreshToken = 'valid-rt';
@@ -63,7 +71,9 @@ beforeEach(() => {
   mockRefreshToken = 'valid-rt';
   jest.clearAllMocks();
 });
-afterEach(() => mockServer.resetHandlers());
+afterEach(() => {
+  mockServer.resetHandlers();
+});
 
 describe('access token 자동 재발급 테스트', () => {
   it('단일 401 처리', async () => {

@@ -3,8 +3,7 @@ import { ModalsProvider } from '@/src/modules/modal';
 import { NotificationProvider } from '@/src/modules/notification';
 import { SentryProvider } from '@/src/modules/sentry';
 import { ToastsRoot } from '@/src/modules/toast';
-import { useReactQueryDevTools } from '@dev-plugins/react-query';
-import { PortalProvider } from '@gorhom/portal';
+import { PortalHost } from '@rn-primitives/portal';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { Slot } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -23,7 +22,6 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const isFontReady = useInitializeFonts();
   const isEasUpdateReady = useEasUpdate();
-  useReactQueryDevTools(queryClient);
 
   const isReady = isFontReady && isEasUpdateReady;
 
@@ -42,11 +40,10 @@ export default function RootLayout() {
           <KeyboardProvider>
             <GestureHandlerRootView>
               <ModalsProvider>
-                <PortalProvider>
-                  <StatusBar style="dark" />
-                  <Slot />
-                  <ToastsRoot />
-                </PortalProvider>
+                <StatusBar style="dark" />
+                <Slot />
+                <ToastsRoot />
+                <PortalHost />
               </ModalsProvider>
             </GestureHandlerRootView>
           </KeyboardProvider>
