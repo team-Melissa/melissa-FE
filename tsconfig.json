@@ -3,16 +3,10 @@
   "compilerOptions": {
     "strict": true,
     "moduleResolution": "bundler",
+    "types": ["jest"],
     "paths": {
       "@/*": ["./*"]
     }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts",
-    "metro.config.js",
-    "plugins/ios/withFmtFix.js"
-  ]
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts", "metro.config.js"]
 }
