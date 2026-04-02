@@ -11,7 +11,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   icon: './assets/images/icon.png',
   scheme: 'myapp',
   userInterfaceStyle: 'automatic',
-  newArchEnabled: true,
   ios: {
     usesAppleSignIn: true,
     supportsTablet: true,
@@ -48,6 +47,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     'expo-apple-authentication',
     '@sentry/react-native',
     'expo-web-browser',
+    'expo-image',
+    'expo-video',
+    'expo-sharing',
     [
       'expo-splash-screen',
       {

@@ -1,7 +1,7 @@
 import { COLOR } from '@/src/constants/theme';
 import { Body2, MiddleTitle } from '@/src/core/Txt';
-import { ResizeMode, Video } from 'expo-av';
-import { useEffect, useRef } from 'react';
+import { VideoView, useVideoPlayer } from 'expo-video';
+import { useEffect } from 'react';
 import type { CarouselRenderItemInfo } from 'react-native-reanimated-carousel/lib/typescript/types';
 import styled from 'styled-components/native';
 import type { TUTORIAL_LIST_DATA } from '../constants';
@@ -12,17 +12,23 @@ type Props = CarouselRenderItemInfo<(typeof TUTORIAL_LIST_DATA)[number]> & {
 
 const TutorialListItem = ({ item, isActive }: Props) => {
   const { title, description, video } = item;
-  const videoRef = useRef<Video>(null);
+
+  const videoPlayer = useVideoPlayer(video, (player) => {
+    player.loop = true;
+  });
 
   useEffect(() => {
-    if (!isActive) {
-      videoRef.current?.setPositionAsync(0);
+    if (isActive) {
+      videoPlayer.play();
+    } else {
+      videoPlayer.pause();
+      videoPlayer.currentTime = 0;
     }
-  }, [isActive]);
+  }, [videoPlayer, isActive]);
 
   return (
     <Slide>
-      <SlideVideo ref={videoRef} source={video} resizeMode={ResizeMode.CONTAIN} isLooping shouldPlay={isActive} />
+      <SlideVideo player={videoPlayer} contentFit="contain" nativeControls={false} />
       <TextContainer>
         <StyledMiddleTitle color="title">{title}</StyledMiddleTitle>
         <StyledBody2 color="sub1">{description}</StyledBody2>
@@ -37,9 +43,10 @@ const Slide = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
+  background-color: ${COLOR.background};
 `;
 
-const SlideVideo = styled(Video)`
+const SlideVideo = styled(VideoView)`
   flex: 1;
   width: 100%;
   height: 90%;
