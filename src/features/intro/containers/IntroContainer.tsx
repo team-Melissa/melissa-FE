@@ -10,19 +10,19 @@ const IntroContainer = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
 
-  const createDefaultUserSettingMutation = useCreateDefaultUserSetting({
-    mutation: {
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: getCheckNewUserQueryKey() });
-        router.replace('/(app)/(tab)/calendar');
-      },
-      onError: () => router.replace('/login'),
-    },
-  });
+  const createDefaultUserSettingMutation = useCreateDefaultUserSetting();
 
   const handleIntroFinish = () => {
     if (createDefaultUserSettingMutation.isPending) return;
-    createDefaultUserSettingMutation.mutate();
+    createDefaultUserSettingMutation.mutate(undefined, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: getCheckNewUserQueryKey() });
+        router.replace('/(app)');
+      },
+      onError: () => {
+        router.replace('/login');
+      },
+    });
   };
 
   return (

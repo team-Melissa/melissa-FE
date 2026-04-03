@@ -63,7 +63,9 @@ beforeEach(() => {
   mockRefreshToken = 'valid-rt';
   jest.clearAllMocks();
 });
-afterEach(() => mockServer.resetHandlers());
+afterEach(() => {
+  mockServer.resetHandlers();
+});
 
 describe('access token 자동 재발급 테스트', () => {
   it('단일 401 처리', async () => {

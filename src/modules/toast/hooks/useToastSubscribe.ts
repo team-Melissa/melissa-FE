@@ -10,7 +10,7 @@ export const useToastSubscribe = () => {
   const [toasts, setToasts] = useState<TToast[]>([]);
 
   useEffect(() => {
-    const timerList: NodeJS.Timeout[] = [];
+    const timerList: ReturnType<typeof setTimeout>[] = [];
     const toastInstance = ToastSubject.getInstance();
 
     const toastObserver = (toast: TToast) => {

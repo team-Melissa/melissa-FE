@@ -7,14 +7,16 @@ import { Image } from 'expo-image';
 import styled from 'styled-components/native';
 import type { TDate } from '../../types';
 import DiaryCreatedByInfo from '../DiaryCreatedByInfo';
+import DiaryOptionsDropdown from '../DiaryOptionsDropdown';
 import ShareModal from '../shareModal/ShareModal';
 
 type Props = {
   date: TDate;
   diaryData: Required<DiaryDetailDTO>;
+  onClose: () => void;
 };
 
-const DiaryBottomSheetListItem = ({ date, diaryData }: Props) => {
+const DiaryBottomSheetListItem = ({ date, diaryData, onClose }: Props) => {
   const shareModal = useModal();
 
   const handleShareModalOpen = () => {
@@ -29,9 +31,18 @@ const DiaryBottomSheetListItem = ({ date, diaryData }: Props) => {
         {diaryData.imageUrl ? <StyledImage source={{ uri: diaryData.imageUrl }} /> : <PlaceholderImage />}
       </ImageWrapper>
       <RelativeWrapper>
-        <ShareButton hitSlop={5} onPress={handleShareModalOpen}>
-          <IconShared />
-        </ShareButton>
+        <ActionButtonWrapper>
+          <ShareButton hitSlop={5} onPress={handleShareModalOpen}>
+            <IconShared />
+          </ShareButton>
+          <DiaryOptionsDropdown
+            diaryId={diaryData.diaryId}
+            year={date.year}
+            month={date.month}
+            day={date.day}
+            onDismiss={onClose}
+          />
+        </ActionButtonWrapper>
         <StyledDateTxt color="title">
           {date.year}년 {date.month}월 {date.day}일
         </StyledDateTxt>
@@ -71,12 +82,17 @@ const RelativeWrapper = styled.View`
   position: relative;
 `;
 
-const ShareButton = styled.TouchableOpacity`
+const ActionButtonWrapper = styled.View`
   position: absolute;
   top: 0;
   right: 0;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
   z-index: 10;
 `;
+
+const ShareButton = styled.TouchableOpacity``;
 
 const StyledDateTxt = styled(Description2)`
   line-height: 18px;
