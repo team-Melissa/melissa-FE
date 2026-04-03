@@ -15,6 +15,7 @@ const TutorialListItem = ({ item, isActive }: Props) => {
 
   const videoPlayer = useVideoPlayer(video, (player) => {
     player.loop = true;
+    player.muted = true;
   });
 
   useEffect(() => {
