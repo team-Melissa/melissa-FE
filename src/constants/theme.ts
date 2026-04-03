@@ -1,7 +1,15 @@
 import type { TFontName } from '../types/fonts';
 
 export const SHADOW = {
-  boxShadow: '0 0 10 0 rgba(23, 23, 23, 0.2)',
+  boxShadow: [
+    {
+      offsetX: 0,
+      offsetY: 0,
+      blurRadius: 10,
+      spreadDistance: 0,
+      color: 'rgba(23, 23, 23, 0.2)',
+    },
+  ],
 };
 
 export const COLOR = {

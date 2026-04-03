@@ -1,6 +1,6 @@
 import { mergeRefs } from '@/src/utils/mergeRefs';
 import BottomSheet from '@gorhom/bottom-sheet';
-import { Portal } from '@gorhom/portal';
+import { Portal } from '@rn-primitives/portal';
 import { forwardRef, useRef, useState } from 'react';
 import type { LayoutChangeEvent } from 'react-native';
 import styled from 'styled-components/native';
@@ -44,7 +44,7 @@ const DiaryBottomSheet = forwardRef<BottomSheet, Props>(({ date }, ref) => {
   });
 
   return (
-    <Portal>
+    <Portal name="bottom-sheet-portal">
       <StyledBottomSheet
         ref={mergeRefs(ref, bottomSheetRef)}
         index={-1}
@@ -55,7 +55,7 @@ const DiaryBottomSheet = forwardRef<BottomSheet, Props>(({ date }, ref) => {
         style={{ overflow: 'hidden' }}
         backgroundStyle={{ borderRadius: 40 }}
         handleIndicatorStyle={{ backgroundColor: '#EDEDED' }}
-        backdropComponent={Backdrop}
+        backdropComponent={isBottomSheetOpen ? Backdrop : undefined}
         onAnimate={handleBottomSheetChange}
       >
         {dayData && (

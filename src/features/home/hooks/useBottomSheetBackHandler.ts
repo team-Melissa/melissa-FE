@@ -5,7 +5,7 @@ import { BackHandler } from 'react-native';
 
 type Props = {
   isOpen: boolean;
-  ref: RefObject<BottomSheet>;
+  ref: RefObject<BottomSheet | null>;
 };
 
 export const useBottomSheetBackHandler = ({ isOpen, ref }: Props) => {

@@ -7,7 +7,7 @@ type ReturnFn<F extends Fn> = (...args: Parameters<F>) => ReturnType<F> | void;
  * 첫 실행 이후 delay 동안 실행을 막는 역할입니다.
  */
 export const debounce = <F extends Fn>(callbackFn: F, delay: number = 500): ReturnFn<F> => {
-  let timer: NodeJS.Timeout | null = null;
+  let timer: ReturnType<typeof setTimeout> | null = null;
   let called: boolean = false;
 
   return (...args: Parameters<F>) => {

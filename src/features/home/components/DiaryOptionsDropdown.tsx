@@ -5,6 +5,7 @@ import {
   getGetFeedQueryKey,
   useDeleteDiary,
 } from '@/src/apis/_generated/serverAPI';
+import { COLOR } from '@/src/constants/theme';
 import { Dropdown } from '@/src/core/Dropdown';
 import { Body2 } from '@/src/core/Txt';
 import DeleteDiaryConfirmModal from '@/src/features/home/components/DeleteDiaryConfirmModal';
@@ -83,5 +84,5 @@ const DiaryOptionsDropdown = ({ diaryId, year, month, day, onDismiss }: Props) =
 export default DiaryOptionsDropdown;
 
 const DropdownItemText = styled(Body2)`
-  color: ${({ theme }) => theme.title};
+  color: ${COLOR.title};
 `;
