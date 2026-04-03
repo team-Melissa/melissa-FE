@@ -2,14 +2,14 @@ import { IconSetting } from '@/src/icons';
 import { IconQuestion } from '@/src/icons/IconQuestion';
 import { debounce } from '@/src/utils/debounce';
 import { useRouter } from 'expo-router';
-import { Alert, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 
 const MenuButtons = () => {
   const router = useRouter();
 
   const goToTutorialPage = debounce(() => {
-    Alert.alert('준비중인 기능입니다.');
+    router.navigate('/(app)/tutorial');
   });
 
   const goToSettingPage = () => {
