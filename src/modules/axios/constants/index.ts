@@ -1,1 +1,1 @@
-export const SERVER_URL = 'https://lightsail.melissahttps.cloud';
+export const SERVER_URL = 'https://api.melissahttps.cloud';
