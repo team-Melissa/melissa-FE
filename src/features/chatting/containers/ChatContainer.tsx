@@ -3,6 +3,7 @@ import {
   getGetCurrentStreakQueryKey,
   getGetFeedQueryKey,
   getGetMessagesQueryKey,
+  messageToAiTest,
   useCreateChatDiary,
   useGetMessages,
   useMessageToAiTest,
@@ -34,7 +35,7 @@ export const ChatContainer = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
 
-  const { isPending, data: chatList } = useGetMessages(
+  const { data: chatList } = useGetMessages(
     { aiProfileId, year, month, day },
     {
       query: {
@@ -47,6 +48,14 @@ export const ChatContainer = () => {
 
   const sendChatMutation = useMessageToAiTest({
     mutation: {
+      mutationFn: async ({ data }) => {
+        const minDelayMs = 1500 + Math.random() * 1500;
+        const [result] = await Promise.all([
+          messageToAiTest(data),
+          new Promise((resolve) => setTimeout(resolve, minDelayMs)),
+        ]);
+        return result;
+      },
       onMutate: ({ data }) => {
         queryClient.setQueryData<ApiResponseChatListResponse>(
           getGetMessagesQueryKey({ aiProfileId, year, month, day }),
@@ -54,7 +63,9 @@ export const ChatContainer = () => {
         );
       },
       onSettled: () => {
-        queryClient.invalidateQueries({ queryKey: getGetMessagesQueryKey({ aiProfileId, year, month, day }) });
+        return queryClient.invalidateQueries({
+          queryKey: getGetMessagesQueryKey({ aiProfileId, year, month, day }),
+        });
       },
       onError: (e) => {
         if (e.response?.status === 429) {
@@ -115,7 +126,7 @@ export const ChatContainer = () => {
       <ChatHeader characterId={aiProfileId} onBackClick={handleBackClick} />
       <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
         <ChatScrollView
-          isAwaitingResponse={sendChatMutation.isPending || isPending}
+          isAwaitingResponse={sendChatMutation.isPending}
           chatData={chatList}
           characterId={aiProfileId}
           year={year}
