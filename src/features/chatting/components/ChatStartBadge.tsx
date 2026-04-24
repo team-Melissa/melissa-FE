@@ -13,7 +13,7 @@ type Props = {
   style?: StyleProp<ViewStyle>;
 };
 
-const ChatStartBadge = ({ characterId, year, month, day, style }: Props) => {
+export const ChatStartBadge = ({ characterId, year, month, day, style }: Props) => {
   const { name } = characters[characterId];
 
   return (
@@ -27,8 +27,6 @@ const ChatStartBadge = ({ characterId, year, month, day, style }: Props) => {
     </Wrapper>
   );
 };
-
-export default ChatStartBadge;
 
 const Wrapper = styled.View`
   align-items: center;

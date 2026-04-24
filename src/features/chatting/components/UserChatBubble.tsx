@@ -10,15 +10,13 @@ type Props = {
   style?: StyleProp<ViewStyle>;
 };
 
-const UserChatBubble = ({ chat, style }: Props) => {
+export const UserChatBubble = ({ chat, style }: Props) => {
   return (
     <Wrapper style={style}>
       <Body1 color="white">{chat.content}</Body1>
     </Wrapper>
   );
 };
-
-export default UserChatBubble;
 
 const Wrapper = styled.View`
   max-width: ${responsiveToPx('250px')};

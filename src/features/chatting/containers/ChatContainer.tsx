@@ -18,23 +18,23 @@ import { useState } from 'react';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
-import ChatHeader from '../components/ChatHeader';
-import ChatScrollView from '../components/ChatScrollView';
-import ChatSendButton from '../components/ChatSendButton';
-import GenerateDiaryButton from '../components/GenerateDiaryButton';
+import { ChatHeader } from '../components/ChatHeader';
+import { ChatScrollView } from '../components/ChatScrollView';
+import { ChatSendButton } from '../components/ChatSendButton';
+import { GenerateDiaryButton } from '../components/GenerateDiaryButton';
 import { useCanGenerateDiary } from '../hooks/useCanGenerateDiary';
 import { useChattingQueryParams } from '../hooks/useChattingQueryParams';
 import { chatListFilter } from '../utils';
 import { setOptimisticUserMessage } from '../utils/optimisticUpdate';
 
-const ChatContainer = () => {
+export const ChatContainer = () => {
   const [input, setInput] = useState<string>('');
   const { aiProfileId, year, month, day } = useChattingQueryParams();
   const isKeyboardOpen = useIsKeyboardOpen();
   const queryClient = useQueryClient();
   const router = useRouter();
 
-  const { data: chatList } = useGetMessages(
+  const { isPending, data: chatList } = useGetMessages(
     { aiProfileId, year, month, day },
     {
       query: {
@@ -114,7 +114,14 @@ const ChatContainer = () => {
     <SafeView>
       <ChatHeader characterId={aiProfileId} onBackClick={handleBackClick} />
       <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
-        <ChatScrollView chatData={chatList} characterId={aiProfileId} year={year} month={month} day={day} />
+        <ChatScrollView
+          isAwaitingResponse={sendChatMutation.isPending || isPending}
+          chatData={chatList}
+          characterId={aiProfileId}
+          year={year}
+          month={month}
+          day={day}
+        />
         <InputBarWrapper>
           <StyledInput
             value={input}
@@ -137,8 +144,6 @@ const ChatContainer = () => {
     </SafeView>
   );
 };
-
-export default ChatContainer;
 
 const SafeView = styled(SafeAreaView)`
   flex: 1;

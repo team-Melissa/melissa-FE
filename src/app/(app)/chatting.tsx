@@ -1,4 +1,4 @@
-import ChatContainer from '@/src/features/chatting/containers/ChatContainer';
+import { ChatContainer } from '@/src/features/chatting/containers/ChatContainer';
 
 /**
  * @description 채팅 페이지 라우터
