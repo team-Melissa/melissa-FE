@@ -8,7 +8,7 @@ type Props = {
   onClick: () => void;
 };
 
-const GenerateDiaryButton = ({ isLoading, isExpanded, onClick }: Props) => {
+export const GenerateDiaryButton = ({ isLoading, isExpanded, onClick }: Props) => {
   return (
     <PrimaryButton
       size={isExpanded ? 'small' : 'circle'}
@@ -20,5 +20,3 @@ const GenerateDiaryButton = ({ isLoading, isExpanded, onClick }: Props) => {
     </PrimaryButton>
   );
 };
-
-export default GenerateDiaryButton;

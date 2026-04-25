@@ -1,19 +1,18 @@
 import { COLOR } from '@/src/constants/theme';
-import { Body1, Description1 } from '@/src/core/Txt';
+import { Description1 } from '@/src/core/Txt';
 import type { CharacterId } from '@/src/modules/character';
 import characters from '@/src/modules/character';
 import responsiveToPx from '@/src/utils/responsiveToPx';
+import LottieView from 'lottie-react-native';
 import type { StyleProp, ViewStyle } from 'react-native';
 import styled from 'styled-components/native';
-import type { ChatData } from '../types';
 
 type Props = {
   characterId: CharacterId;
-  chat: ChatData;
   style?: StyleProp<ViewStyle>;
 };
 
-export const CharacterChatBubble = ({ characterId, chat, style }: Props) => {
+export const CharacterLoadingBubble = ({ characterId, style }: Props) => {
   const { name, face: Face, color } = characters[characterId];
 
   return (
@@ -25,7 +24,7 @@ export const CharacterChatBubble = ({ characterId, chat, style }: Props) => {
         <Description1 color="title">{name}</Description1>
       </CharacterWrapper>
       <BubbleWrapper>
-        <Body1 color="sub1">{chat.content}</Body1>
+        <LoadingLottie source={require('@/assets/lotties/loading.json')} autoPlay loop />
       </BubbleWrapper>
     </Wrapper>
   );
@@ -52,10 +51,14 @@ const FaceWrapper = styled.View<{ $color: string }>`
 `;
 
 const BubbleWrapper = styled.View`
-  max-width: ${responsiveToPx('250px')};
   align-self: flex-start;
   padding: 10px 12px;
   margin-left: ${responsiveToPx('28px')};
   border-radius: 13px;
   background-color: ${COLOR.white};
+`;
+
+const LoadingLottie = styled(LottieView)`
+  width: ${responsiveToPx('40px')};
+  aspect-ratio: 2;
 `;
