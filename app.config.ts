@@ -105,6 +105,13 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         url: 'https://sentry.io/',
       },
     ],
+    [
+      'react-native-google-mobile-ads',
+      {
+        androidAppId: process.env.AD_MOB_ANDROID_APP_ID,
+        iosAppId: process.env.AD_MOB_IOS_APP_ID,
+      },
+    ],
   ],
   experiments: {
     typedRoutes: true,
