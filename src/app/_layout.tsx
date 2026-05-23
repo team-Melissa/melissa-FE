@@ -1,4 +1,5 @@
 import queryClient from '@/src/libs/queryClient';
+import { AdsProvider } from '@/src/modules/ads';
 import { ModalsProvider } from '@/src/modules/modal';
 import { NotificationProvider } from '@/src/modules/notification';
 import { SentryProvider } from '@/src/modules/sentry';
@@ -36,18 +37,20 @@ export default function RootLayout() {
   return (
     <SentryProvider>
       <NotificationProvider>
-        <QueryClientProvider client={queryClient}>
-          <KeyboardProvider>
-            <GestureHandlerRootView>
-              <ModalsProvider>
-                <StatusBar style="dark" />
-                <Slot />
-                <ToastsRoot />
-                <PortalHost />
-              </ModalsProvider>
-            </GestureHandlerRootView>
-          </KeyboardProvider>
-        </QueryClientProvider>
+        <AdsProvider>
+          <QueryClientProvider client={queryClient}>
+            <KeyboardProvider>
+              <GestureHandlerRootView>
+                <ModalsProvider>
+                  <StatusBar style="dark" />
+                  <Slot />
+                  <ToastsRoot />
+                  <PortalHost />
+                </ModalsProvider>
+              </GestureHandlerRootView>
+            </KeyboardProvider>
+          </QueryClientProvider>
+        </AdsProvider>
       </NotificationProvider>
     </SentryProvider>
   );
