@@ -112,6 +112,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         iosAppId: process.env.AD_MOB_IOS_APP_ID,
       },
     ],
+    [
+      'expo-tracking-transparency',
+      {
+        userTrackingPermission: '맞춤형 광고 제공을 위해 추적 권한을 요청합니다.',
+      },
+    ],
   ],
   experiments: {
     typedRoutes: true,
