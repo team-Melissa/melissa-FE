@@ -6,7 +6,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   name: 'Melissa',
   slug: 'melissa',
   owner: 'teammelissa7',
-  version: '1.3.3',
+  version: '1.3.4',
   orientation: 'portrait',
   icon: './assets/images/icon.png',
   scheme: 'myapp',
@@ -103,6 +103,19 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         organization: process.env.SENTRY_ORG,
         project: process.env.SENTRY_PROJECT,
         url: 'https://sentry.io/',
+      },
+    ],
+    [
+      'react-native-google-mobile-ads',
+      {
+        androidAppId: process.env.AD_MOB_ANDROID_APP_ID,
+        iosAppId: process.env.AD_MOB_IOS_APP_ID,
+      },
+    ],
+    [
+      'expo-tracking-transparency',
+      {
+        userTrackingPermission: '맞춤형 광고 제공을 위해 추적 권한을 요청합니다.',
       },
     ],
   ],

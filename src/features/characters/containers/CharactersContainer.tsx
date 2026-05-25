@@ -1,6 +1,7 @@
 import { useCreateThread } from '@/src/apis/_generated/serverAPI';
 import { COLOR } from '@/src/constants/theme';
 import { LargeTitle } from '@/src/core/Txt';
+import { AdsBanner } from '@/src/modules/ads';
 import type { CharacterId } from '@/src/modules/character';
 import { toast } from '@/src/modules/toast';
 import { useRouter } from 'expo-router';
@@ -54,7 +55,10 @@ const CharactersContainer = () => {
         onSelectChange={handleAiProfileIdChange}
         onCharacterClick={handleCreateThreadAndNavigate}
       />
-      <ActionButtons onChattingClick={handleCreateThreadAndNavigate} onManualDiaryClick={handleManualDiaryClick} />
+      <BottomSection>
+        <AdsBanner style={{ alignItems: 'center' }} />
+        <ActionButtons onChattingClick={handleCreateThreadAndNavigate} onManualDiaryClick={handleManualDiaryClick} />
+      </BottomSection>
     </SafeView>
   );
 };
@@ -65,9 +69,14 @@ const SafeView = styled(SafeAreaView)`
   flex: 1;
   background-color: ${COLOR.background};
   padding: 0 18px;
+  gap: 20px;
+`;
+
+const BottomSection = styled.View`
+  gap: 20px;
+  margin-top: auto;
 `;
 
 const StyledLargeTitle = styled(LargeTitle)`
   text-align: center;
-  margin-bottom: 40px;
 `;

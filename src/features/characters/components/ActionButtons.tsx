@@ -24,7 +24,6 @@ export default ActionButtons;
 const ButtonWrapper = styled.View`
   width: 100%;
   align-items: center;
-  margin-top: auto;
   gap: 15px;
   padding-bottom: 15px;
 `;
