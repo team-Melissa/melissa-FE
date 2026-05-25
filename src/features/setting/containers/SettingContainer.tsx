@@ -1,5 +1,6 @@
 import { useGetUserSetting } from '@/src/apis/_generated/serverAPI';
 import { COLOR } from '@/src/constants/theme';
+import { AdsBanner } from '@/src/modules/ads';
 import { useRouter } from 'expo-router';
 import { Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -71,6 +72,7 @@ export default function SettingContainer() {
         onFeedbackClick={handleFeedbackClick}
       />
       <AccountActions onLogout={handleLogout} onDeleteAccount={handleDeleteAccount} />
+      <AdsBanner unitId="" style={{ alignItems: 'center' }} />
     </SafeView>
   );
 }
