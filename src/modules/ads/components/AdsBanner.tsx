@@ -12,7 +12,7 @@ export const AdsBanner = ({ size, ...props }: Props) => {
   const adBannerRef = useRef<BannerAd>(null);
   const { initialized } = useAdsContext();
 
-  const adUnitId = __DEV__ ? TestIds.ADAPTIVE_BANNER : BANNER_UNIT_ID;
+  const adUnitId = __DEV__ ? TestIds.BANNER : BANNER_UNIT_ID;
   const adSize = size ?? BannerAdSize.BANNER;
 
   // IOS에 한해 background -> foreground 복귀 시 광고 reload
