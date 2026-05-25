@@ -55,8 +55,10 @@ const CharactersContainer = () => {
         onSelectChange={handleAiProfileIdChange}
         onCharacterClick={handleCreateThreadAndNavigate}
       />
-      <AdsBanner style={{ alignItems: 'center' }} />
-      <ActionButtons onChattingClick={handleCreateThreadAndNavigate} onManualDiaryClick={handleManualDiaryClick} />
+      <BottomSection>
+        <AdsBanner style={{ alignItems: 'center' }} />
+        <ActionButtons onChattingClick={handleCreateThreadAndNavigate} onManualDiaryClick={handleManualDiaryClick} />
+      </BottomSection>
     </SafeView>
   );
 };
@@ -67,9 +69,14 @@ const SafeView = styled(SafeAreaView)`
   flex: 1;
   background-color: ${COLOR.background};
   padding: 0 18px;
+  gap: 20px;
+`;
+
+const BottomSection = styled.View`
+  gap: 20px;
+  margin-top: auto;
 `;
 
 const StyledLargeTitle = styled(LargeTitle)`
   text-align: center;
-  margin-bottom: 40px;
 `;
