@@ -1,5 +1,6 @@
 import { useGetFeedInfinite } from '@/src/apis/_generated/serverAPI';
 import { COLOR } from '@/src/constants/theme';
+import { AdsBanner } from '@/src/modules/ads';
 import styled from 'styled-components/native';
 import FeedList from '../components/feed/FeedList';
 import HomeHeader from '../components/header/HomeHeader';
@@ -28,6 +29,7 @@ const FeedContainer = () => {
   return (
     <Wrapper>
       <HomeHeader />
+      <AdsBanner unitId="" style={{ alignItems: 'center' }} />
       <FeedList
         monthData={calendarMonthData ?? []}
         isPending={isPending}
@@ -43,6 +45,6 @@ export default FeedContainer;
 const Wrapper = styled.View`
   flex: 1;
   padding: 0 15px;
-  gap: 25px;
+  gap: 15px;
   background-color: ${COLOR.background};
 `;
