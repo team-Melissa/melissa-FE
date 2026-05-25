@@ -6,6 +6,7 @@ import {
 } from '@/src/apis/_generated/serverAPI';
 import { COLOR } from '@/src/constants/theme';
 import { PrimaryButton } from '@/src/core/Button';
+import { AdsBanner } from '@/src/modules/ads';
 import { toast } from '@/src/modules/toast';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
@@ -62,6 +63,7 @@ const WriteDiaryContainer = () => {
           <DiaryTitleInput value={title} onValueChange={setTitle} />
           <DiaryContentInput value={content} onValueChange={setContent} />
         </ContentWrapper>
+        <AdsBanner unitId="" style={{ alignItems: 'center' }} />
         <ButtonWrapper>
           <PrimaryButton
             size="large"
@@ -82,6 +84,7 @@ const SafeView = styled(SafeAreaView)`
   flex: 1;
   background-color: ${COLOR.background};
   padding: 0 18px;
+  gap: 24px;
 `;
 
 const ContentWrapper = styled.View`

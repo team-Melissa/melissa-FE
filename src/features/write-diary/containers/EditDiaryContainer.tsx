@@ -7,6 +7,7 @@ import {
 } from '@/src/apis/_generated/serverAPI';
 import { COLOR } from '@/src/constants/theme';
 import { PrimaryButton } from '@/src/core/Button';
+import { AdsBanner } from '@/src/modules/ads';
 import { toast } from '@/src/modules/toast';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
@@ -92,6 +93,7 @@ const EditDiaryContainer = () => {
             <DiaryHashtagInput value={hashtag2} onValueChange={setHashtag2} placeholder="태그2" />
           </HashtagWrapper>
         </ContentWrapper>
+        <AdsBanner unitId="" style={{ alignItems: 'center' }} />
         <ButtonWrapper>
           <PrimaryButton size="large" disabled={!isFormValid} onPress={handleSubmitClick}>
             수정 완료
@@ -108,6 +110,7 @@ const SafeView = styled(SafeAreaView)`
   flex: 1;
   background-color: ${COLOR.background};
   padding: 0 18px;
+  gap: 24px;
 `;
 
 const LoadingWrapper = styled(View)`
