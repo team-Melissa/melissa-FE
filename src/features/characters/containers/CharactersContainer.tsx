@@ -1,6 +1,7 @@
 import { useCreateThread } from '@/src/apis/_generated/serverAPI';
 import { COLOR } from '@/src/constants/theme';
 import { LargeTitle } from '@/src/core/Txt';
+import { AdsBanner } from '@/src/modules/ads';
 import type { CharacterId } from '@/src/modules/character';
 import { toast } from '@/src/modules/toast';
 import { useRouter } from 'expo-router';
@@ -54,6 +55,7 @@ const CharactersContainer = () => {
         onSelectChange={handleAiProfileIdChange}
         onCharacterClick={handleCreateThreadAndNavigate}
       />
+      <AdsBanner unitId="" style={{ alignItems: 'center' }} />
       <ActionButtons onChattingClick={handleCreateThreadAndNavigate} onManualDiaryClick={handleManualDiaryClick} />
     </SafeView>
   );
