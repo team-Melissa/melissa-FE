@@ -93,7 +93,7 @@ const EditDiaryContainer = () => {
             <DiaryHashtagInput value={hashtag2} onValueChange={setHashtag2} placeholder="태그2" />
           </HashtagWrapper>
         </ContentWrapper>
-        <AdsBanner unitId="" style={{ alignItems: 'center' }} />
+        <AdsBanner style={{ alignItems: 'center' }} />
         <ButtonWrapper>
           <PrimaryButton size="large" disabled={!isFormValid} onPress={handleSubmitClick}>
             수정 완료

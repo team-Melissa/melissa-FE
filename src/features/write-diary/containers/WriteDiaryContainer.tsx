@@ -63,7 +63,7 @@ const WriteDiaryContainer = () => {
           <DiaryTitleInput value={title} onValueChange={setTitle} />
           <DiaryContentInput value={content} onValueChange={setContent} />
         </ContentWrapper>
-        <AdsBanner unitId="" style={{ alignItems: 'center' }} />
+        <AdsBanner style={{ alignItems: 'center' }} />
         <ButtonWrapper>
           <PrimaryButton
             size="large"

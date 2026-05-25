@@ -72,7 +72,7 @@ export default function SettingContainer() {
         onFeedbackClick={handleFeedbackClick}
       />
       <AccountActions onLogout={handleLogout} onDeleteAccount={handleDeleteAccount} />
-      <AdsBanner unitId="" style={{ alignItems: 'center' }} />
+      <AdsBanner style={{ alignItems: 'center' }} />
     </SafeView>
   );
 }

@@ -1,18 +1,18 @@
 import { useRef } from 'react';
 import { Platform, View, type ViewProps } from 'react-native';
 import { BannerAd, BannerAdSize, TestIds, useForeground } from 'react-native-google-mobile-ads';
+import { BANNER_UNIT_ID } from '../constants/adsUnitId';
 import { useAdsContext } from '../hooks/useAdsContext';
 
 type Props = ViewProps & {
-  unitId: string;
   size?: BannerAdSize;
 };
 
-export const AdsBanner = ({ unitId, size, ...props }: Props) => {
+export const AdsBanner = ({ size, ...props }: Props) => {
   const adBannerRef = useRef<BannerAd>(null);
   const { initialized } = useAdsContext();
 
-  const adUnitId = __DEV__ ? TestIds.ADAPTIVE_BANNER : unitId;
+  const adUnitId = __DEV__ ? TestIds.ADAPTIVE_BANNER : BANNER_UNIT_ID;
   const adSize = size ?? BannerAdSize.BANNER;
 
   // IOS에 한해 background -> foreground 복귀 시 광고 reload

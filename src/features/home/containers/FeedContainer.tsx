@@ -29,7 +29,7 @@ const FeedContainer = () => {
   return (
     <Wrapper>
       <HomeHeader />
-      <AdsBanner unitId="" style={{ alignItems: 'center' }} />
+      <AdsBanner style={{ alignItems: 'center' }} />
       <FeedList
         monthData={calendarMonthData ?? []}
         isPending={isPending}

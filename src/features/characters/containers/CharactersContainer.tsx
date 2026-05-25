@@ -55,7 +55,7 @@ const CharactersContainer = () => {
         onSelectChange={handleAiProfileIdChange}
         onCharacterClick={handleCreateThreadAndNavigate}
       />
-      <AdsBanner unitId="" style={{ alignItems: 'center' }} />
+      <AdsBanner style={{ alignItems: 'center' }} />
       <ActionButtons onChattingClick={handleCreateThreadAndNavigate} onManualDiaryClick={handleManualDiaryClick} />
     </SafeView>
   );
