@@ -1,5 +1,6 @@
 import queryClient from '@/src/libs/queryClient';
 import { AdsProvider } from '@/src/modules/ads';
+import { IapHandler } from '@/src/modules/iap';
 import { ModalsProvider } from '@/src/modules/modal';
 import { NotificationProvider } from '@/src/modules/notification';
 import { SentryProvider } from '@/src/modules/sentry';
@@ -44,6 +45,7 @@ export default function RootLayout() {
                 <ModalsProvider>
                   <StatusBar style="dark" />
                   <Slot />
+                  <IapHandler />
                   <ToastsRoot />
                   <PortalHost />
                 </ModalsProvider>
