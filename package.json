@@ -39,6 +39,7 @@
     "expo-file-system": "~55.0.12",
     "expo-font": "~55.0.4",
     "expo-haptics": "~55.0.9",
+    "expo-iap": "^4.3.1",
     "expo-image": "~55.0.6",
     "expo-linking": "~55.0.9",
     "expo-media-library": "~55.0.10",
