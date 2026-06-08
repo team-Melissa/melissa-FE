@@ -1,7 +1,8 @@
 import { ErrorCode, useIAP, type Purchase } from 'expo-iap';
 import { useCallback, useEffect, useRef } from 'react';
+import { Alert } from 'react-native';
 import { verifyPurchase } from '../services/verifyPurchase';
-import { captureIapException } from '../utils/captureException';
+import { captureIapException, captureIapPurchaseLog } from '../utils/captureException';
 import { isConsumableFor } from '../utils/isConsumableFor';
 
 export const IapHandler = () => {
@@ -24,6 +25,10 @@ export const IapHandler = () => {
 
   const fulfillPurchase = useCallback(
     async (purchase: Purchase) => {
+      // TODO: 디버깅 후 삭제 필수
+      Alert.alert('purchase', JSON.stringify(purchase, null, 2));
+      captureIapPurchaseLog(purchase);
+
       if (claimedIdsRef.current.includes(purchase.id)) return;
       claimedIdsRef.current.push(purchase.id);
 
