@@ -8,9 +8,6 @@ type Product = {
   productType: ProductType;
 };
 
-/**
- * TODO: App Store Connect / Google Play에 등록한 실제 productId로 교체
- */
 const IOS_PRODUCTS: Product[] = [
   {
     name: 'premium',
@@ -22,7 +19,7 @@ const IOS_PRODUCTS: Product[] = [
 const ANDROID_PRODUCTS: Product[] = [
   {
     name: 'premium',
-    productId: 'com.melissa.premium',
+    productId: 'premium',
     productType: 'non-consumable',
   },
 ];
