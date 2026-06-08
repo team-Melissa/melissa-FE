@@ -3,6 +3,7 @@ import { Platform } from 'react-native';
 type ProductType = 'consumable' | 'non-consumable' | 'subscription';
 
 type Product = {
+  name: 'premium';
   productId: string;
   productType: ProductType;
 };
@@ -12,6 +13,7 @@ type Product = {
  */
 const IOS_PRODUCTS: Product[] = [
   {
+    name: 'premium',
     productId: 'com.melissa.melissaFE.premium',
     productType: 'non-consumable',
   },
@@ -19,6 +21,7 @@ const IOS_PRODUCTS: Product[] = [
 
 const ANDROID_PRODUCTS: Product[] = [
   {
+    name: 'premium',
     productId: 'com.melissa.premium',
     productType: 'non-consumable',
   },
