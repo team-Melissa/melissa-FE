@@ -1,8 +1,10 @@
 import { useGetUserSetting } from '@/src/apis/_generated/serverAPI';
 import { COLOR } from '@/src/constants/theme';
 import { AdsBanner } from '@/src/modules/ads';
+import { getInAppProducts, purchaseInAppProduct } from '@/src/modules/iap';
+import { IAP_PRODUCTS } from '@/src/modules/iap/constants/products';
 import { useRouter } from 'expo-router';
-import { Alert } from 'react-native';
+import { Alert, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 import AccountActions from '../components/AccountActions';
@@ -41,6 +43,14 @@ export default function SettingContainer() {
     router.navigate('/(app)/feedback');
   };
 
+  const handlePurchasePremiumClick = async () => {
+    const premiumProductId = IAP_PRODUCTS.find(({ name }) => name === 'premium')?.productId;
+    const inAppProducts = await getInAppProducts();
+
+    if (!premiumProductId || !inAppProducts.find(({ id }) => id === premiumProductId)) return;
+    await purchaseInAppProduct(premiumProductId);
+  };
+
   const handleLogout = () => {
     if (logoutMutation.isPending) return;
     logoutMutation.mutate();
@@ -64,14 +74,17 @@ export default function SettingContainer() {
   return (
     <SafeView>
       <SettingHeader onBackClick={handleBackClick} />
-      <SettingList
-        settingData={userSetting.result}
-        onNotificationToggle={handleNotificationToggle}
-        onSleepTimeChange={handleSleepTimeChange}
-        onNotificationTimeChange={handleNotificationTimeChange}
-        onFeedbackClick={handleFeedbackClick}
-      />
-      <AccountActions onLogout={handleLogout} onDeleteAccount={handleDeleteAccount} />
+      <ScrollView>
+        <SettingList
+          settingData={userSetting.result}
+          onNotificationToggle={handleNotificationToggle}
+          onSleepTimeChange={handleSleepTimeChange}
+          onNotificationTimeChange={handleNotificationTimeChange}
+          onFeedbackClick={handleFeedbackClick}
+          onPurchasePremiumClick={handlePurchasePremiumClick}
+        />
+        <AccountActions onLogout={handleLogout} onDeleteAccount={handleDeleteAccount} />
+      </ScrollView>
       <AdsBanner style={{ alignItems: 'center' }} />
     </SafeView>
   );
