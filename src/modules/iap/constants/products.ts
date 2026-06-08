@@ -12,7 +12,7 @@ type Product = {
  */
 const IOS_PRODUCTS: Product[] = [
   {
-    productId: 'com.melissa.premium',
+    productId: 'com.melissa.melissaFE.premium',
     productType: 'non-consumable',
   },
 ];
