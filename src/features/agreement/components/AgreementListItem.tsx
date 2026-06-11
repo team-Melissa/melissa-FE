@@ -29,7 +29,7 @@ const AgreementListItem = ({ term, isChecked, onCheckedChange }: Props) => {
       <LabelView>
         <Checkbox checked={isChecked} onCheckedChange={onCheckedChange} />
         <Body1 color="title">{title}</Body1>
-        {required && <Body1 color="error">*</Body1>}
+        <Body1 color={required ? 'error' : 'placeholder'}>({required ? '필수' : '선택'})</Body1>
       </LabelView>
       <TouchableOpacity onPress={handleViewDetail} hitSlop={5}>
         <StyledDescription1 color="sub1">보기</StyledDescription1>
