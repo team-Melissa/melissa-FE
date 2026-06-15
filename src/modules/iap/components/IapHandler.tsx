@@ -1,12 +1,16 @@
+import { getGetMyEntitlementsQueryKey } from '@/src/apis/_generated/serverAPI';
+import * as Sentry from '@sentry/react-native';
+import { useQueryClient } from '@tanstack/react-query';
 import { ErrorCode, useIAP, type Purchase } from 'expo-iap';
 import { useCallback, useEffect, useRef } from 'react';
-import { Alert } from 'react-native';
-import { verifyPurchase } from '../services/verifyPurchase';
-import { captureIapException, captureIapPurchaseLog } from '../utils/captureException';
+import { useVerifyPurchase } from '../services/useVerifyPurchase';
 import { isConsumableFor } from '../utils/isConsumableFor';
 
 export const IapHandler = () => {
   const claimedIdsRef = useRef<string[]>([]);
+  const queryClient = useQueryClient();
+
+  const verifyPurchase = useVerifyPurchase();
 
   const { connected, availablePurchases, finishTransaction, getAvailablePurchases } = useIAP({
     // 신규 결제 + iOS 미완료 트랜잭션 재생
@@ -15,40 +19,49 @@ export const IapHandler = () => {
     },
     onPurchaseError: (error) => {
       if (error.code !== ErrorCode.UserCancelled) {
-        captureIapException(error, 'purchase');
+        Sentry.captureException(error, {
+          tags: { module: 'iap' },
+          extra: { phase: 'hook/onPurchaseError' },
+        });
       }
     },
     onError: (error) => {
-      captureIapException(error, 'hook');
+      Sentry.captureException(error, {
+        tags: { module: 'iap' },
+        extra: { phase: 'hook/onError' },
+      });
     },
   });
 
   const fulfillPurchase = useCallback(
     async (purchase: Purchase) => {
-      // TODO: 디버깅 후 삭제 필수
-      Alert.alert('purchase', JSON.stringify(purchase, null, 2));
-      captureIapPurchaseLog(purchase);
-
       if (claimedIdsRef.current.includes(purchase.id)) return;
       claimedIdsRef.current.push(purchase.id);
 
-      try {
-        const { isValid } = await verifyPurchase(purchase);
-        if (!isValid) return;
-        // TODO: verifyPurchase 성공 후, 광고 제거 유무 query invalidate
-        await finishTransaction({ purchase, isConsumable: isConsumableFor(purchase.productId) });
-      } catch (error) {
-        claimedIdsRef.current = claimedIdsRef.current.filter((id) => id !== purchase.id);
-        captureIapException(error, 'verify/finish');
-      }
+      const isVerify = await verifyPurchase(purchase);
+      if (!isVerify) return;
+
+      await finishTransaction({
+        purchase,
+        isConsumable: isConsumableFor(purchase.productId),
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: getGetMyEntitlementsQueryKey(),
+      });
     },
-    [finishTransaction]
+    [finishTransaction, verifyPurchase, queryClient]
   );
 
   // 앱 시작 시 미완료 구매 조회
   useEffect(() => {
     if (!connected) return;
-    getAvailablePurchases().catch((error) => captureIapException(error, 'getAvailablePurchases'));
+    getAvailablePurchases().catch((error) => {
+      Sentry.captureException(error, {
+        tags: { module: 'iap' },
+        extra: { phase: 'getAvailablePurchases' },
+      });
+    });
   }, [connected, getAvailablePurchases]);
 
   useEffect(() => {
