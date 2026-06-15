@@ -24,6 +24,8 @@ const ANDROID_PRODUCTS: Product[] = [
   },
 ];
 
+export const BUNDLE_IDENTIFIER = 'com.melissa.melissaFE';
+
 export const IAP_PRODUCTS: Product[] = Platform.select({ ios: IOS_PRODUCTS, android: ANDROID_PRODUCTS, default: [] });
 
 export const IN_APP_PRODUCT_IDS = IAP_PRODUCTS.filter((product) => product.productType !== 'subscription').map(
