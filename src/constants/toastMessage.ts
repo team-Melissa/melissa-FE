@@ -26,6 +26,10 @@ const toastMessage = {
     success: '일기가 작성되었습니다.',
     error: '일기 작성에 실패했습니다.',
   },
+  agreement: {
+    success: '약관 동의가 완료되었습니다.',
+    error: '약관 동의에 실패했습니다.',
+  },
 };
 
 export default toastMessage;
