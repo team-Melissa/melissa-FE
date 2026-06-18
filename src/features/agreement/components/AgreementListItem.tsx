@@ -3,12 +3,11 @@ import { Body1, Description1 } from '@/src/core/Txt';
 import { useModal } from '@/src/modules/modal';
 import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
-import type { Term } from '../mocks/mockData';
+import type { AgreementDetailTerm } from '../utils/typeGuard';
 import AgreementDetailModal from './AgreementDetailModal';
 
-// TODO: term 타입 orval codegen으로 교체
 type Props = {
-  term: Term;
+  term: AgreementDetailTerm;
   isChecked: boolean;
   onCheckedChange: () => void;
 };
