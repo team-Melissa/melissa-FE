@@ -1,3 +1,4 @@
+import { useGetMyEntitlements } from '@/src/apis/_generated/serverAPI';
 import { useRef } from 'react';
 import { Platform, View, type ViewProps } from 'react-native';
 import { BannerAd, BannerAdSize, TestIds, useForeground } from 'react-native-google-mobile-ads';
@@ -12,6 +13,12 @@ export const AdsBanner = ({ size, ...props }: Props) => {
   const adBannerRef = useRef<BannerAd>(null);
   const { initialized } = useAdsContext();
 
+  const { data: adRemoved } = useGetMyEntitlements({
+    query: {
+      select: (data) => data.result?.features?.adRemoved,
+    },
+  });
+
   const adUnitId = __DEV__ ? TestIds.BANNER : BANNER_UNIT_ID;
   const adSize = size ?? BannerAdSize.BANNER;
 
@@ -23,6 +30,7 @@ export const AdsBanner = ({ size, ...props }: Props) => {
   });
 
   if (!initialized) return null;
+  if (adRemoved !== false) return null;
 
   return (
     <View {...props}>

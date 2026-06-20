@@ -27,7 +27,7 @@ const Wrapper = styled.View`
   width: 100%;
   padding: 15px 0;
   justify-content: space-between;
-  margin-bottom: 50px;
+  margin-bottom: 1px;
 `;
 
 const StyledIconArrowLeft = styled(IconArrowDown)`
