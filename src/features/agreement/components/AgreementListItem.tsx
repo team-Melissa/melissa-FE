@@ -1,13 +1,13 @@
+import type { TermItemResponse } from '@/src/apis/_generated/serverAPI.schemas';
 import { Checkbox } from '@/src/core/Checkbox';
 import { Body1, Description1 } from '@/src/core/Txt';
 import { useModal } from '@/src/modules/modal';
 import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
-import type { AgreementDetailTerm } from '../utils/typeGuard';
 import AgreementDetailModal from './AgreementDetailModal';
 
 type Props = {
-  term: AgreementDetailTerm;
+  term: TermItemResponse;
   isChecked: boolean;
   onCheckedChange: () => void;
 };
@@ -18,6 +18,8 @@ const AgreementListItem = ({ term, isChecked, onCheckedChange }: Props) => {
   const detailModal = useModal();
 
   const handleViewDetail = () => {
+    if (!content) return;
+
     detailModal.open(({ isOpen, exit }) => (
       <AgreementDetailModal isOpen={isOpen} title={title} content={content} onClose={exit} />
     ));
@@ -30,9 +32,11 @@ const AgreementListItem = ({ term, isChecked, onCheckedChange }: Props) => {
         <Body1 color="title">{title}</Body1>
         <Body1 color={required ? 'error' : 'placeholder'}>({required ? '필수' : '선택'})</Body1>
       </LabelView>
-      <TouchableOpacity onPress={handleViewDetail} hitSlop={5}>
-        <StyledDescription1 color="sub1">보기</StyledDescription1>
-      </TouchableOpacity>
+      {!!content && (
+        <TouchableOpacity onPress={handleViewDetail} hitSlop={5}>
+          <StyledDescription1 color="sub1">보기</StyledDescription1>
+        </TouchableOpacity>
+      )}
     </Wrapper>
   );
 };

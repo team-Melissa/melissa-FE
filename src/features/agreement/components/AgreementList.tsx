@@ -1,21 +1,20 @@
-import type { AgreementDecisionRequest } from '@/src/apis/_generated/serverAPI.schemas';
+import type { AgreementDecisionRequest, TermItemResponse } from '@/src/apis/_generated/serverAPI.schemas';
 import { COLOR } from '@/src/constants/theme';
 import { PrimaryButton } from '@/src/core/Button';
 import { LargeTitle } from '@/src/core/Txt';
 import { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
-import type { AgreementDetailTerm } from '../utils/typeGuard';
 import AgreementAllCheck from './AgreementAllCheck';
 import AgreementListItem from './AgreementListItem';
 
 type Props = {
-  terms: AgreementDetailTerm[];
+  terms: TermItemResponse[];
   onSubmit: (agreements: AgreementDecisionRequest[]) => void;
 };
 
 const AgreementList = ({ terms: initialTerms, onSubmit }: Props) => {
-  const [terms, setTerms] = useState<AgreementDetailTerm[]>(initialTerms);
+  const [terms, setTerms] = useState<TermItemResponse[]>(initialTerms);
 
   const isAllAgreed = terms.every((term) => term.agreed);
   const isRequiredAllAgreed = terms.every((term) => !term.required || term.agreed);

@@ -13,7 +13,7 @@ export default function IndexRouter() {
 
   if (isNewUser === undefined || agreementStatus === undefined) return <CommonLoading />;
 
-  if (agreementStatus.agreementRequired) return <Redirect href="/(app)/agreement" />;
+  if (agreementStatus?.agreementRequired) return <Redirect href="/(app)/agreement" />;
 
   if (isNewUser.result) return <Redirect href="/(app)/intro" />;
 
