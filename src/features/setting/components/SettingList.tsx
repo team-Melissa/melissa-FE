@@ -15,6 +15,7 @@ type Props = {
   onSleepTimeChange: (sleepTime: string) => void;
   onNotificationTimeChange: (notificationTime: string) => void;
   onFeedbackClick: () => void;
+  onPurchasePremiumClick: () => Promise<void>;
 };
 
 const SettingList = ({
@@ -23,6 +24,7 @@ const SettingList = ({
   onSleepTimeChange,
   onNotificationTimeChange,
   onFeedbackClick,
+  onPurchasePremiumClick,
 }: Props) => {
   const timePickerModal = useModal();
 
@@ -67,6 +69,11 @@ const SettingList = ({
       </SettingItem>
       <SettingItem title="의견 보내기" description="운영진에게 앱에 대한 의견을 전달해주세요.">
         <StyledButton onPress={onFeedbackClick} hitSlop={5}>
+          <StyledIconArrowRight />
+        </StyledButton>
+      </SettingItem>
+      <SettingItem title="광고 제거" description="1회 결제로 광고를 제거해보세요.">
+        <StyledButton onPress={onPurchasePremiumClick} hitSlop={5}>
           <StyledIconArrowRight />
         </StyledButton>
       </SettingItem>
