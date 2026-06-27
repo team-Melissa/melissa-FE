@@ -18,7 +18,7 @@ export const useVerifyPurchase = () => {
 
       return await verifyGoogleMutation.mutateAsync({
         data: {
-          productId: purchase.productId,
+          productId: purchase.productId as 'premium',
           orderId: purchase.id,
           purchaseToken: purchase.purchaseToken,
           packageName: BUNDLE_IDENTIFIER,
@@ -34,7 +34,7 @@ export const useVerifyPurchase = () => {
 
       return await verifyAppleMutation.mutateAsync({
         data: {
-          productId: purchase.productId,
+          productId: purchase.productId as 'com.melissa.melissaFE.premium',
           transactionId: purchase.id,
           environment: __DEV__ ? 'SANDBOX' : 'PRODUCTION',
           bundleId: BUNDLE_IDENTIFIER,

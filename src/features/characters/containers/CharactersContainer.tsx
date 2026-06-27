@@ -65,7 +65,7 @@ const CharactersContainer = () => {
 
 export default CharactersContainer;
 
-const SafeView = styled(SafeAreaView)`
+const SafeView = styled(SafeAreaView).attrs({ edges: ['top', 'bottom', 'left', 'right'] as const })`
   flex: 1;
   background-color: ${COLOR.background};
   padding: 0 18px;
