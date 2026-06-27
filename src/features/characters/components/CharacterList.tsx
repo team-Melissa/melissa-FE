@@ -2,7 +2,6 @@ import { COLOR } from '@/src/constants/theme';
 import { useCarousel } from '@/src/hooks/useCarousel';
 import { type CharacterId } from '@/src/modules/character';
 import { CHARACTER_ID_LIST } from '@/src/modules/character/constants/characters';
-import responsiveToPx from '@/src/utils/responsiveToPx';
 import { useRef, useState } from 'react';
 import type { LayoutChangeEvent } from 'react-native';
 import Carousel, { Pagination, type ICarouselInstance } from 'react-native-reanimated-carousel';
@@ -17,15 +16,16 @@ type Props = {
 };
 
 const CharacterList = ({ selectedId, onSelectChange, onCharacterClick }: Props) => {
-  const [width, setWidth] = useState<number | null>(null);
+  const [size, setSize] = useState<{ width: number; height: number } | null>(null);
   const carouselRef = useRef<ICarouselInstance>(null);
 
   const { progress, handleProgressChange } = useCarousel((index) => onSelectChange(CHARACTER_ID_LIST[index]));
   const disabledPrevButton = selectedId === 1;
   const disabledNextButton = selectedId === CHARACTER_ID_LIST.length;
 
-  const getListWidth = (e: LayoutChangeEvent) => {
-    setWidth(e.nativeEvent.layout.width);
+  const getListSize = (e: LayoutChangeEvent) => {
+    const { width, height } = e.nativeEvent.layout;
+    setSize({ width, height });
   };
 
   const handlePrevClick = () => {
@@ -39,11 +39,12 @@ const CharacterList = ({ selectedId, onSelectChange, onCharacterClick }: Props) 
   };
 
   return (
-    <Container onLayout={getListWidth}>
-      {width && (
+    <Container onLayout={getListSize}>
+      {size && (
         <Carousel
           ref={carouselRef}
-          width={width}
+          width={size.width}
+          height={size.height}
           data={CHARACTER_ID_LIST}
           loop={false}
           mode="parallax"
@@ -77,5 +78,5 @@ const Container = styled.View`
   width: 100%;
   justify-content: center;
   gap: 8px;
-  height: ${responsiveToPx('366px')};
+  flex: 1;
 `;
